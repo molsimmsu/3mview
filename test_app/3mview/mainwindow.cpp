@@ -14,10 +14,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QGLFormat GLF(QGL::StereoBuffers);
     GLF.stereo();
     glWidget= new GLWidget(GLF,ui->centralWidget);
-glWidget->setFormat(GLF);
+	glWidget->setFormat(GLF);
 
-   this->setCentralWidget(glWidget);
-
+    this->setCentralWidget(glWidget);
 
     connect(ui->actionFullscreen, SIGNAL(toggled(bool)), this, SLOT(toggleFullscreenMode(bool)));
     connect(ui->actionAbout_3mview, SIGNAL(triggered()), this, SLOT(openAboutDialog()));

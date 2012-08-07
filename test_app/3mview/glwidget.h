@@ -1,11 +1,11 @@
 #ifndef GLWIDGET_H
 #define GLWIDGET_H
 
-#include <QGLWidget>
+#include <QtOpenGL/QGLWidget>
+#include <QtGui/QMouseEvent>
 
 class GLWidget : public QGLWidget
 {
-
     Q_OBJECT
 
 public:

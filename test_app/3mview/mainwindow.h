@@ -2,16 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
-namespace Ui {
-class MainWindow;
-}
-class AboutDialog;
-class GLWidget;
-class QHBoxLayout;
-class QLabel;
-
-
+#include <QDialog>
+#include <QGLWidget>
+#include "aboutdialog.h"
+#include "glwidget.h"
+#include "ui_mainwindow.h"
 
 class MainWindow : public QMainWindow
 {
@@ -20,8 +15,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
-
     
 public slots:
    void toggleFullscreenMode(bool tog);
