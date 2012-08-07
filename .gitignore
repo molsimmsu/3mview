@@ -1,2 +1,5 @@
-*.user
-3mview-build-*
+3mview
+Makefile
+*.[oa]
+moc_*.cpp
+ui_*.h
