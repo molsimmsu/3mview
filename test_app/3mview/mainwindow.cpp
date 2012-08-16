@@ -12,7 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     QGLFormat GLF(QGL::StereoBuffers);
-    GLF.stereo();
+   // GLF.stereo();
+    GLF.setStereo(true);
     glWidget= new GLWidget(GLF,ui->centralWidget);
 	glWidget->setFormat(GLF);
 

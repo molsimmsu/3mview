@@ -52,7 +52,7 @@ void GLWidget::initializeGL()
     glEnable(GL_NORMALIZE);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-
+//glViewport(0,0, 100, 100);
 
 
 }
@@ -93,7 +93,7 @@ void GLWidget::resizeGL(int width, int height)
 {
     int side = qMin(width, height);
     glViewport((width - side) / 2, (height - side) / 2, side, side);
-
+ // glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glFrustum(-1.0, +1.0, -1.0, 1.0, 5.0, 60.0);
