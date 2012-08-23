@@ -77,15 +77,12 @@ void GLWidget::paintGL()
     glPopMatrix();
 
     glDrawBuffer(GL_BACK_LEFT);
-    drawGear(gear1, 3.0, -2.0, 0.0, gear1Rot / 16.0);
+/*    drawGear(gear1, 3.0, -2.0, 0.0, gear1Rot / 16.0);
     drawGear(gear2, -3.1, -2.0, 0.0, -2.0 * (gear1Rot / 16.0) - 9.0);
 
 
     drawGear(gear3, 3.1, -1.8, -2.2, +2.0 * (gear1Rot / 16.0) - 2.0);
-
-    //glPopMatrix();
-
-
+*/
 
 }
 
