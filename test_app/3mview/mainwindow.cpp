@@ -1,6 +1,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QGLFormat>
+#include <QMessageBox>
 #include "mainwindow.h"
 #include "aboutdialog.h"
 #include "glwidget.h"
@@ -11,11 +12,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QGLFormat GLF(QGL::StereoBuffers);
-   // GLF.stereo();
-    GLF.setStereo(true);
-    glWidget= new GLWidget(GLF,ui->centralWidget);
-	glWidget->setFormat(GLF);
+    QGLFormat GLF;
+    glWidget = new GLWidget(GLF, ui->centralWidget);
+    GLboolean b;
+    glGetBooleanv(GL_STEREO, &b);
+    if (!b) {
+        QMessageBox mb;
+        mb.setText("Stereo not supported");
+        // mb.exec();
+    } else {
+        QGLFormat GLF2(QGL::StereoBuffers);
+        glWidget->setFormat(GLF2);
+    }
 
     this->setCentralWidget(glWidget);
 
