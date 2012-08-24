@@ -1,6 +1,13 @@
+#include <fstream>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QGLFormat>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QDesktopServices>
+
+#include <openbabel/obconversion.h>
+
 #include "mainwindow.h"
 #include "aboutdialog.h"
 #include "glwidget.h"
@@ -11,11 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ofs = NULL;
     QGLFormat GLF(QGL::StereoBuffers);
-   // GLF.stereo();
+    // GLF.stereo();
     GLF.setStereo(true);
     glWidget= new GLWidget(GLF,ui->centralWidget);
-	glWidget->setFormat(GLF);
+    glWidget->setFormat(GLF);
 
     this->setCentralWidget(glWidget);
 
@@ -26,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    if (ofs) delete ofs;
     delete ui;
     delete glWidget;
 }
@@ -43,4 +52,33 @@ void MainWindow::toggleFullscreenMode(bool tog)
     else {this->showNormal();}
 
 
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+    this->fileName = QFileDialog::getOpenFileName(this,
+        tr("Open File"), QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
+        tr("Molecule model files (*.pdb)"));
+    std::ifstream ifs(this->fileName.toUtf8().constData(), std::ifstream::binary);
+    QMessageBox msg;
+    if (!ifs) {
+        msg.setText(this->fileName.toUtf8().constData());
+        msg.exec();
+        msg.setText(tr("Error opening file"));
+        msg.exec();
+        return;
+    }
+    if (ofs) {
+        ofs->close();
+        delete ofs;
+    }
+    ofs = new std::ofstream(this->fileName.toUtf8().constData(), std::ofstream::binary);
+    OpenBabel::OBConversion conv(&ifs, ofs);
+    std::string format = "PDB";
+    if(!conv.SetInAndOutFormats(format.c_str(), format.c_str())) {
+        msg.setText(tr("Error with formats "));
+        msg.exec();
+        return;
+    }
+    ifs.close();
 }

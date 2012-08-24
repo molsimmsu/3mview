@@ -19,6 +19,9 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     aboutdialog.h \
     glwidget.h
-
+INCLUDEPATH += \
+    /usr/include/openbabel-2.0
+LIBS += \
+        -lopenbabel
 FORMS    += mainwindow.ui \
     aboutdialog.ui
