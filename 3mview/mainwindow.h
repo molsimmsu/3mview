@@ -7,6 +7,7 @@
 #include "aboutdialog.h"
 #include "glwidget.h"
 #include "ui_mainwindow.h"
+#include <openbabel/mol.h>
 #include <fstream>
 
 class MainWindow : public QMainWindow
@@ -30,6 +31,7 @@ private:
     GLWidget *glWidget;
     QString fileName;
     std::ofstream* ofs;
+	OpenBabel::OBMol mol;
 };
 
 #endif // MAINWINDOW_H

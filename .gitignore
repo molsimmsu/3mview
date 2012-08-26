@@ -1,5 +1,6 @@
 Makefile
 moc_*.cpp
+tags
 ui_*.h
 *.user
 3mview-build-*
