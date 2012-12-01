@@ -13,7 +13,14 @@ SOURCES += main.cpp \
     DensityMap.cpp \
     DensityMapListWidget.cpp \
     DensityMapWidget.cpp \
-    StrideReader.cpp
+    StrideReader.cpp \
+    Stereo.cpp \
+    SegmentDensityMapWidget.cpp \
+    ModulesWidget.cpp \
+    DensityMap/DensityMapWidget.cpp \
+    DensityMap/DensityMapListWidget.cpp \
+    DensityMap/DensityMapList.cpp \
+    DensityMap/DensityMap.cpp
 HEADERS += OpenStructure.h \
     DataLoaderWidget.h \
     MoleculeListWidget.h \
@@ -24,7 +31,14 @@ HEADERS += OpenStructure.h \
     DensityMap.h \
     DensityMapListWidget.h \
     DensityMapWidget.h \
-    StrideReader.h
+    StrideReader.h \
+    Stereo.h \
+    SegmentDensityMapWidget.h \
+    ModulesWidget.h \
+    DensityMap/DensityMapWidget.h \
+    DensityMap/DensityMapListWidget.h \
+    DensityMap/DensityMapList.h \
+    DensityMap/DensityMap.h
 INCLUDEPATH += /usr/local/include/openbabel-2.0
 LIBS += -lopenbabel \
     -lboost_system \

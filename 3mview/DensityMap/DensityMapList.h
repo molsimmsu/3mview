@@ -9,12 +9,8 @@
 #include <QDesktopServices>
 #include <QVector>
 #include "DensityMap.h"
-
-using namespace ost::gfx;
-using namespace ost::mol;
-using namespace ost::gui;
-using namespace ost::img;
-using namespace geom;
+#include "ost/img/alg/randomize.hh"
+#include "ost/img/alg/gaussian.hh"
 
 class DensityMapList : public QObject
 {
@@ -22,6 +18,7 @@ Q_OBJECT
 public:
 	explicit DensityMapList(QObject *parent = 0);
 	bool loadFromFile(const char* path);
+    bool createNew(const char* name, int xSize, int ySize, int zSize);
 
 signals:
 	void addDensityMap(DensityMap* map);

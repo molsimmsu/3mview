@@ -6,8 +6,10 @@
 #include "DataLoaderWidget.h"
 #include "MoleculeListWidget.h"
 #include "DensityMapListWidget.h"
+#include "ModulesWidget.h"
 #include "OpenStructure.h"
 #include "DensityMapList.h"
+#include "Stereo.h"
 
 using namespace std;
 
@@ -30,6 +32,9 @@ int main(int argc, char *argv[])
 	DataLoaderWidget dataLoader(ml, dl);
 	dataLoader.show();
 
+    ModulesWidget modulesWidget;
+    modulesWidget.show();
+
 	ost::gui::GLWin* gl_win;
 	QWidget* parent = &mainWidow;
 	QGLFormat f;
@@ -41,6 +46,12 @@ int main(int argc, char *argv[])
 	ost::gfx::Scene& scene = ost::gfx::Scene::Instance();
 	scene.SetBackground(ost::gfx::Color(0.1, 0.1, 0.5));
 	scene.SetShowCenter(true);
+
+    Stereo stereo;
+    stereo.activate();
+
+    //ml->loadFromFile("/home/dimax/4INS.pdb");
+    //dl->createNew("Map1", 200, 200, 200);
 
    return a.exec();
 }

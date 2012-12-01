@@ -3,7 +3,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-	resize(700, 700);
+    setGeometry(0, 0, 700, 700);
 }
 
 void MainWindow::closeEvent(QCloseEvent * e)

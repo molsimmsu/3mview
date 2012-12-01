@@ -6,7 +6,7 @@ DataLoaderWidget::DataLoaderWidget(MoleculeList *ml, DensityMapList *dl, QWidget
    QWidget(parent)
 {
 	this->setWindowTitle("Load");
-	resize(195, 35);
+    setGeometry(750, 0, 195, 40);
 
 	QPushButton* loadMolecule = new QPushButton("Molecule", this);
 	loadMolecule->setGeometry(5, 5, 90, 30);

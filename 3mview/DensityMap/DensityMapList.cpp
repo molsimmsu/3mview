@@ -32,8 +32,18 @@ void DensityMapList::remove(DensityMap* m)
 bool DensityMapList::loadFromFile(const char* path)
 {
 	std::string str(path);
-	ImageHandle im = ost::io::LoadImage(str.c_str());
+    ImageHandle im = LoadImage(str.c_str());
 	addNewDensityMap(im, path, Color(1, 0.5, 0.5));
 
 	return true;
+}
+
+bool DensityMapList::createNew(const char* name, int xSize, int ySize, int zSize)
+{
+    ImageHandle im = CreateImage(Size(xSize, ySize, zSize), Point(0, 0, 0));
+    im.ApplyIP(Randomize());
+   // im.ApplyIP(GaussianFilter(10.0));
+    addNewDensityMap(im, name, Color(1, 0.5, 0.5));
+
+    return true;
 }

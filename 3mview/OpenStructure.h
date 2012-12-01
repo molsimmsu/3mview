@@ -27,6 +27,7 @@ using namespace ost::gfx;
 using namespace ost::mol;
 using namespace ost::gui;
 using namespace ost::img;
+using namespace ost::img::alg;
 using namespace ost::io;
 using namespace geom;
 

@@ -8,7 +8,7 @@ MoleculeList::MoleculeList(QObject *parent) :
 bool MoleculeList::loadFromFile(const char* path)
 {
 	std::string str(path);
-	//return loadOpenStructure(str.c_str());
+    return loadOpenStructure(str.c_str());
 	return loadOpenBabel(str.c_str());
 }
 
@@ -162,10 +162,11 @@ bool MoleculeList::loadOpenBabel(const char* path)
 		ChainHandle chain = eh1.GetChainList().at(chainNum);
 		ResidueHandle residue = chain.GetResidueByIndex(residueNum);
 		char code = stride.secondaryStructure(chainNum, residueNum);
+
 		ost::mol::SecStructure ss;
 
 		switch(code)
-		{
+        {
 		case 'H': ss = SecStructure(SecStructure::ALPHA_HELIX);
 			break;
 		case 'B': ss = SecStructure(SecStructure::BETA_BRIDGE);
@@ -180,7 +181,7 @@ bool MoleculeList::loadOpenBabel(const char* path)
 			break;
 		}
 
-		residue.SetSecStructure(ss);
+        residue.SetSecStructure(ss);
 	}
 
 	addNewMolecule(eh1, path, Color(0.2, 1, 0.2));

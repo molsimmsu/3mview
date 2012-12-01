@@ -5,7 +5,7 @@ DensityMapListWidget::DensityMapListWidget(DensityMapList *dl, QListWidget *pare
 	QListWidget(parent)
 {
 	this->setWindowTitle("Density Maps");
-	resize(400, 200);
+    setGeometry(750, 135, 400, 200);
 
 	connect(dl, SIGNAL(addDensityMap(DensityMap*)), SLOT(addDensityMap(DensityMap*)));
 	connect(this, SIGNAL(itemActivated(QListWidgetItem*)), SLOT(itemSelected(QListWidgetItem*)));

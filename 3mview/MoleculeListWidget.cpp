@@ -5,7 +5,7 @@ MoleculeListWidget::MoleculeListWidget(MoleculeList *ml, QListWidget *parent) :
 	QListWidget(parent)
 {
 	this->setWindowTitle("Molecules");
-	resize(400, 200);
+    setGeometry(750, 335, 400, 200);
 
 	connect(ml, SIGNAL(addMolecule(Molecule*)), SLOT(addMolecule(Molecule*)));
 	connect(this, SIGNAL(itemActivated(QListWidgetItem*)), SLOT(itemSelected(QListWidgetItem*)));
