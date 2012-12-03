@@ -14,18 +14,32 @@ DensityMapListWidget::DensityMapListWidget(DensityMapList *dl, QListWidget *pare
 
 void DensityMapListWidget::addDensityMap(DensityMap* m)
 {
-	QListWidgetItem* i = new QListWidgetItem(m->name(), this);
+    QListWidgetItem* i = new QListWidgetItem(m->name().c_str(), this);
 	i->setCheckState(Qt::Checked);
 	items.push_back(i);
 	mols.push_back(m);
 }
 
+// Выполнение действия над одной выбранной картой
 void DensityMapListWidget::keyPressEvent(QKeyEvent* e)
 {
-	if (e->key() == Qt::Key_Delete) {
-		QListWidgetItem* i = this->selectedItems()[0];
-		dl->remove(getDensityMap(i));
+    QListWidgetItem* i = this->selectedItems()[0];
+    qDebug() << "Selected item text is" << i->text();
+    DensityMap* map = getDensityMap(i);
+    qDebug() << "Selected map" << map->name().c_str();
+
+    // Удаление карты
+    if (e->key() == Qt::Key_Delete)
+    {
+        dl->remove(map);
 	}
+    // Сегментация карты
+    else if (e->key() == Qt::Key_S)
+    {
+        SegmentAlgorithm* sa = new ThresholdDivision(2);
+        vector <DensityMap*> maps = sa->apply(map);
+
+    }
 }
 
 void DensityMapListWidget::itemSelected(QListWidgetItem* i)

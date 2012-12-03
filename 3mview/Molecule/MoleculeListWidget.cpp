@@ -14,8 +14,8 @@ MoleculeListWidget::MoleculeListWidget(MoleculeList *ml, QListWidget *parent) :
 
 void MoleculeListWidget::addMolecule(Molecule* m)
 {
-	QListWidgetItem* i = new QListWidgetItem(m->name(), this);
-	i->setCheckState(Qt::Checked);
+    QListWidgetItem* i = new QListWidgetItem(m->name().c_str(), this);
+    i->setCheckState(Qt::Checked);
 	items.push_back(i);
 	mols.push_back(m);
 }

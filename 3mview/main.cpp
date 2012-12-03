@@ -4,12 +4,13 @@
 
 #include "MainWindow.h"
 #include "DataLoaderWidget.h"
-#include "MoleculeListWidget.h"
-#include "DensityMapListWidget.h"
+#include "Molecule/MoleculeListWidget.h"
+#include "DensityMap/DensityMapList.h"
+#include "DensityMap/DensityMapListWidget.h"
 #include "ModulesWidget.h"
 #include "OpenStructure.h"
-#include "DensityMapList.h"
 #include "Stereo.h"
+#include "ObjectDispatcher.h"
 
 using namespace std;
 
@@ -20,7 +21,8 @@ int main(int argc, char *argv[])
 	MainWindow mainWidow;
 	mainWidow.show();
 
-	MoleculeList* ml = new MoleculeList();
+// ---- Создание управляющих модулей и окон ---- //
+    MoleculeList* ml = new MoleculeList();
 	DensityMapList* dl = new DensityMapList();
 
 	MoleculeListWidget moleculeList(ml);
@@ -34,6 +36,15 @@ int main(int argc, char *argv[])
 
     ModulesWidget modulesWidget;
     modulesWidget.show();
+
+    ObjectDispatcher d;
+// --------------------------------------------- //
+
+    DensityMap* dm1 = new DensityMap("/home/dimax/1h76.ccp4");
+    d.setName(dm1);
+    d.setColor(dm1);
+    dl->add(dm1);
+    dm1->addToScene();
 
 	ost::gui::GLWin* gl_win;
 	QWidget* parent = &mainWidow;

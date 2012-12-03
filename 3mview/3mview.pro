@@ -5,32 +5,28 @@ TEMPLATE = app
 CONFIG += -static
 SOURCES += main.cpp \
     DataLoaderWidget.cpp \
-    MoleculeListWidget.cpp \
     MainWindow.cpp \
-    MoleculeList.cpp \
-    Molecule.cpp \
-    DensityMapList.cpp \
-    DensityMap.cpp \
-    DensityMapListWidget.cpp \
-    DensityMapWidget.cpp \
     StrideReader.cpp \
     Stereo.cpp \
-    SegmentDensityMapWidget.cpp \
     ModulesWidget.cpp \
-    DensityMap/DensityMapWidget.cpp \
-    DensityMap/DensityMapListWidget.cpp \
+    DensityMap/DensityMap.cpp \
     DensityMap/DensityMapList.cpp \
-    DensityMap/DensityMap.cpp
+    DensityMap/DensityMapListWidget.cpp \
+    DensityMap/DensityMapSegmentWidget.cpp \
+    DensityMap/DensityMapWidget.cpp \
+    Molecule/Molecule.cpp \
+    Molecule/MoleculeList.cpp \
+    Molecule/MoleculeListWidget.cpp \
+    DensityMap/DensityMapSegment.cpp \
+    DensityMap/Segment/ThresholdDivision.cpp \
+    DataObject.cpp \
+    ObjectDispatcher.cpp \
+    RGBColor.cpp \
+    ObjectScene.cpp
+
 HEADERS += OpenStructure.h \
     DataLoaderWidget.h \
-    MoleculeListWidget.h \
     MainWindow.h \
-    MoleculeList.h \
-    Molecule.h \
-    DensityMapList.h \
-    DensityMap.h \
-    DensityMapListWidget.h \
-    DensityMapWidget.h \
     StrideReader.h \
     Stereo.h \
     SegmentDensityMapWidget.h \
@@ -38,7 +34,18 @@ HEADERS += OpenStructure.h \
     DensityMap/DensityMapWidget.h \
     DensityMap/DensityMapListWidget.h \
     DensityMap/DensityMapList.h \
-    DensityMap/DensityMap.h
+    DensityMap/DensityMap.h \
+    Molecule/MoleculeListWidget.h \
+    Molecule/MoleculeList.h \
+    Molecule/Molecule.h \
+    DensityMap/DensityMapSegmentWidget.h \
+    DensityMap/DensityMapSegment.h \
+    DensityMap/Segment/ThresholdDivision.h \
+    DensityMap/Segment/SegmentAlgorithm.h \
+    DataObject.h \
+    ObjectDispatcher.h \
+    RGBColor.h \
+    ObjectScene.h
 INCLUDEPATH += /usr/local/include/openbabel-2.0
 LIBS += -lopenbabel \
     -lboost_system \

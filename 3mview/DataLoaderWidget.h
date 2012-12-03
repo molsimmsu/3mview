@@ -2,8 +2,8 @@
 #define DATALOADERWIDGET_H
 
 #include <QtGui>
-#include "MoleculeList.h"
-#include "DensityMapList.h"
+#include "Molecule/MoleculeList.h"
+#include "DensityMap/DensityMapList.h"
 
 class DataLoaderWidget : public QWidget
 {

@@ -17,8 +17,10 @@ class DensityMapList : public QObject
 Q_OBJECT
 public:
 	explicit DensityMapList(QObject *parent = 0);
-	bool loadFromFile(const char* path);
-    bool createNew(const char* name, int xSize, int ySize, int zSize);
+    bool loadFromFile(string path);
+    bool createNew(string name, int xSize, int ySize, int zSize);
+    void add(DensityMap* map);
+    void add(vector<DensityMap*> maps);
 
 signals:
 	void addDensityMap(DensityMap* map);
@@ -29,7 +31,7 @@ public slots:
 private:
 	QVector<DensityMap*> maps;
 
-	bool addNewDensityMap(ImageHandle h, const char* name, Color c);
+    bool addNewDensityMap(ImageHandle h, string name, Color c);
 };
 
 #endif // MOLECULELIST_H

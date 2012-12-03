@@ -2,7 +2,8 @@
 #define MODULESWIDGET_H
 
 #include <QtGui>
-#include "SegmentDensityMapWidget.h"
+#include "DensityMap/DensityMapSegmentWidget.h"
+#include "DensityMap/DensityMapSegment.h"
 
 class ModulesWidget : public QWidget
 {

@@ -2,20 +2,23 @@
 #define SEGMENTDENSITYMAPWIDGET_H
 
 #include <QtGui>
+#include "DensityMapSegment.h"
 
-class SegmentDensityMapWidget : public QWidget
+class DensityMapSegmentWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SegmentDensityMapWidget(QWidget *parent = 0);
+    explicit DensityMapSegmentWidget(DensityMapSegment* dms, QWidget *parent = 0);
     
 signals:
     
 public slots:
+    void update();
 
 private:
-    QListWidget* listWidget;
-    
+    QListWidget* mapList;
+    QComboBox* algList;
+    DensityMapSegment* dms;
 };
 
 #endif // SEGMENTDENSITYMAPWIDGET_H

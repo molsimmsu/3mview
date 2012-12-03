@@ -1,9 +1,7 @@
 #include "Molecule.h"
 
-Molecule::Molecule(const char* name, ost::gfx::Entity* e, QObject *parent) :
-	_name(name),
-	entity(e),
-	QObject(parent)
+Molecule::Molecule(ost::gfx::Entity* e, QObject *parent) :
+    entity(e)
 {
 }
 
@@ -21,9 +19,4 @@ void Molecule::setSelection(bool state)
 	else v = h.Select("rnum < 0");
 
 	entity->SetSelection(v);
-}
-
-const char* Molecule::name()
-{
-	return _name;
 }

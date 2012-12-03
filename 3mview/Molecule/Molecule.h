@@ -1,23 +1,20 @@
 #ifndef MOLECULE_H
 #define MOLECULE_H
 
-#include <QObject>
+#include "DataObject.h"
 #include "OpenStructure.h"
 
-class Molecule : public QObject
+class Molecule : public DataObject
 {
-Q_OBJECT
 public:
-	explicit Molecule(const char* name, ost::gfx::Entity* e, QObject *parent = 0);
-	const char* name();
+    Molecule(ost::gfx::Entity* e, QObject *parent = 0);
+
+    virtual string typeName() { return string("Molecule"); }
+
 	void setVisible(bool);
 	void setSelection(bool state);
-signals:
-
-public slots:
 
 private:
-	const char* _name;
 	ost::gfx::Entity* entity;
 };
 

@@ -7,6 +7,8 @@
 #include "DensityMap.h"
 #include "DensityMapWidget.h"
 
+#include "Segment/ThresholdDivision.h"
+
 class DensityMapListWidget : public QListWidget
 {
 Q_OBJECT

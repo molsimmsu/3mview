@@ -22,7 +22,7 @@ bool MoleculeList::addNewMolecule(EntityHandle h, const char* name, Color c)
 	GfxNodeP p(e);
 	Scene::Instance().Add(p);
 
-	Molecule* m = new Molecule(name, e);
+    Molecule* m = new Molecule(e);
 
 	emit(addMolecule(m));
 

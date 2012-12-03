@@ -15,7 +15,8 @@ void ModulesWidget::openModule()
 {
     if (sender() == segmentBtn)
     {
-        SegmentDensityMapWidget* w = new SegmentDensityMapWidget();
-        w->show();
+        DensityMapSegment* d = new DensityMapSegment();
+        DensityMapSegmentWidget* dw = new DensityMapSegmentWidget(d);
+        dw->show();
     }
 }
