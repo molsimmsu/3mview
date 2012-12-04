@@ -1,6 +1,7 @@
 #include <QtGui>
 #include <QDebug>
 #include <QDesktopServices>
+#include <QGLFormat>
 
 #include "MainWindow.h"
 #include "DataLoaderWidget.h"
@@ -22,6 +23,8 @@ int main(int argc, char *argv[])
 
 	MainWindow mainWidow;
 	mainWidow.show();
+
+
 
     // TODO: РАЗОБРАТЬСЯ!
     ost::SetPrefixPath("/");
@@ -47,7 +50,9 @@ int main(int argc, char *argv[])
 
 	ost::gui::GLWin* gl_win;
 	QWidget* parent = &mainWidow;
-	QGLFormat f;
+    QGLFormat f;
+    f.setOverlay(true);
+    f.setStereo(true);
 
 	ost::gui::GLCanvas ostGL(gl_win, parent, f);
 	ostGL.resize(mainWidow.width(), mainWidow.height());
