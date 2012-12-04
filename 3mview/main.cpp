@@ -12,6 +12,8 @@
 #include "Stereo.h"
 #include "ObjectDispatcher.h"
 
+#include "ost/base/platform.hh"
+
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -21,30 +23,27 @@ int main(int argc, char *argv[])
 	MainWindow mainWidow;
 	mainWidow.show();
 
+    // TODO: РАЗОБРАТЬСЯ!
+    ost::SetPrefixPath("/");
+
 // ---- Создание управляющих модулей и окон ---- //
     MoleculeList* ml = new MoleculeList();
-	DensityMapList* dl = new DensityMapList();
+    DensityMapList* dl = new DensityMapList();
 
-	MoleculeListWidget moleculeList(ml);
-	moleculeList.show();
+    MoleculeListWidget moleculeList(ml);
+    moleculeList.show();
 
-	DensityMapListWidget densityMapList(dl);
-	densityMapList.show();
+    DensityMapListWidget densityMapList(dl);
+    densityMapList.show();
 
-	DataLoaderWidget dataLoader(ml, dl);
-	dataLoader.show();
+    DataLoaderWidget dataLoader(ml, dl);
+    dataLoader.show();
 
     ModulesWidget modulesWidget;
     modulesWidget.show();
 
     ObjectDispatcher d;
 // --------------------------------------------- //
-
-    DensityMap* dm1 = new DensityMap("/home/dimax/1h76.ccp4");
-    d.setName(dm1);
-    d.setColor(dm1);
-    dl->add(dm1);
-    dm1->addToScene();
 
 	ost::gui::GLWin* gl_win;
 	QWidget* parent = &mainWidow;

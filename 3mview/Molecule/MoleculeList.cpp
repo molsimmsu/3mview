@@ -5,11 +5,10 @@ MoleculeList::MoleculeList(QObject *parent) :
 {
 }
 
-bool MoleculeList::loadFromFile(const char* path)
+bool MoleculeList::loadFromFile(string path)
 {
-	std::string str(path);
-    return loadOpenStructure(str.c_str());
-	return loadOpenBabel(str.c_str());
+    return loadOpenStructure(path.c_str());
+    return loadOpenBabel(path.c_str());
 }
 
 bool MoleculeList::addNewMolecule(EntityHandle h, const char* name, Color c)
@@ -23,6 +22,7 @@ bool MoleculeList::addNewMolecule(EntityHandle h, const char* name, Color c)
 	Scene::Instance().Add(p);
 
     Molecule* m = new Molecule(e);
+    ObjectDispatcher::setName(m);
 
 	emit(addMolecule(m));
 

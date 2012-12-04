@@ -4,6 +4,7 @@
 #include <QtGui>
 #include "Molecule/MoleculeList.h"
 #include "DensityMap/DensityMapList.h"
+#include "ObjectDispatcher.h"
 
 class DataLoaderWidget : public QWidget
 {
@@ -18,7 +19,7 @@ public slots:
 	void loadDensityMap();
 
 private:
-	const char* browse(const char* filter);
+    string browse(const char* filter);
 	MoleculeList* ml;
 	DensityMapList* dl;
 };

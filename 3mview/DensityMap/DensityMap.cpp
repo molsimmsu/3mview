@@ -7,11 +7,16 @@ DensityMap::DensityMap(string fileName, DensityMap* parent) :
     _map = ost::io::LoadImage(fileName.c_str());
 }
 
-DensityMap::DensityMap(int xSize, int ySize, int zSize, DensityMap* parent):
+DensityMap::DensityMap(unsigned int xSize, unsigned int ySize, unsigned int zSize, DensityMap* parent):
     DataObject(),
     _mapIso(NULL)
 {
     _map = ost::img::CreateImage(ost::img::Size(xSize, ySize, zSize), ost::img::Point(0, 0, 0));
+}
+
+DensityMap::DensityMap(DensityMapSize size, DensityMap *parent)
+{
+    _map = ost::img::CreateImage(ost::img::Size(size.x, size.y, size.z), ost::img::Point(0, 0, 0));
 }
 
 void DensityMap::addToScene()
@@ -29,6 +34,28 @@ void DensityMap::addToScene()
 void DensityMap::randomize()
 {
     //im.ApplyIP(Randomize());
+}
+
+DensityMapSize DensityMap::size()
+{
+    DensityMapSize size;
+    ost::img::Size s = _map.GetSize();
+
+    size.x = s.GetWidth();
+    size.y = s.GetHeight();
+    size.z = s.GetDepth();
+
+    return size;
+}
+
+double DensityMap::getValue(unsigned int x, unsigned int y, unsigned int z)
+{
+    return _map.GetReal(ost::img::Point(x, y, z));
+}
+
+double DensityMap::setValue(unsigned int x, unsigned int y, unsigned int z, double value)
+{
+    _map.SetReal(ost::img::Point(x, y, z), value);
 }
 
 void DensityMap::setVisible(bool state)

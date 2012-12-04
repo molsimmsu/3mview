@@ -36,9 +36,17 @@ void DensityMapListWidget::keyPressEvent(QKeyEvent* e)
     // Сегментация карты
     else if (e->key() == Qt::Key_S)
     {
+        qDebug() << "Segment map";
         SegmentAlgorithm* sa = new ThresholdDivision(2);
         vector <DensityMap*> maps = sa->apply(map);
-
+        for (unsigned int i = 0; i < maps.size(); i++)
+        {
+            DensityMap* m = maps[i];
+            ObjectDispatcher::setName(m);
+            ObjectDispatcher::setColor(m);
+            dl->add(m);
+            m->addToScene();
+        }
     }
 }
 

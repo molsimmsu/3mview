@@ -1,5 +1,8 @@
 #include "ObjectDispatcher.h"
 
+vector<string> ObjectDispatcher::prefixes;
+vector<int> ObjectDispatcher::counters;
+
 ObjectDispatcher::ObjectDispatcher()
 {
 }
@@ -16,7 +19,7 @@ string ObjectDispatcher::setName(DataObject *obj)
 
 RGBColor ObjectDispatcher::setColor(DataObject *obj)
 {
-    RGBColor color = RGBColor();
+    RGBColor color = RGBColor(rand() % 256, rand() % 256, rand() % 256);
     obj->setColor(color);
     return color;
 }

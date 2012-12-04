@@ -23,7 +23,7 @@ class MoleculeList : public QObject
 Q_OBJECT
 public:
     explicit MoleculeList(QObject *parent = 0);
-	bool loadFromFile(const char* path);
+    bool loadFromFile(string path);
 
 signals:
 	void addMolecule(Molecule* mol);

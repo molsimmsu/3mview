@@ -14,13 +14,13 @@ class ObjectDispatcher
 {
 public:
     ObjectDispatcher();
-    string setName(DataObject* obj);
-    RGBColor setColor(DataObject* obj);
-    int prefixCounter(string prefix);
+    static string setName(DataObject* obj);
+    static RGBColor setColor(DataObject* obj);
+    static int prefixCounter(string prefix);
 
 private:
-    vector<string> prefixes;
-    vector<int> counters;
+    static vector<string> prefixes;
+    static vector<int> counters;
 };
 
 #endif // NAMEDISPATCHER_H

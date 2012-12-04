@@ -6,6 +6,7 @@
 #include "DensityMapList.h"
 #include "DensityMap.h"
 #include "DensityMapWidget.h"
+#include "ObjectDispatcher.h"
 
 #include "Segment/ThresholdDivision.h"
 

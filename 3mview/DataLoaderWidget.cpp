@@ -18,20 +18,26 @@ DataLoaderWidget::DataLoaderWidget(MoleculeList *ml, DensityMapList *dl, QWidget
 	connect(loadDensityMap, SIGNAL(clicked()), SLOT(loadDensityMap()));
 }
 
-const char* DataLoaderWidget::browse(const char* filter)
+string DataLoaderWidget::browse(const char* filter)
 {
 	std::string _fileName = QFileDialog::getOpenFileName(0,
 		QObject::tr("Load"), QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
 		QObject::tr(filter)).toStdString();
-	return _fileName.c_str();
+    return _fileName;
 }
 
 void DataLoaderWidget::loadMolecule()
 {
-	ml->loadFromFile(browse("PDB (*.pdb)"));
+    ml->loadFromFile(browse("PDB (*.pdb)"));
 }
 
 void DataLoaderWidget::loadDensityMap()
 {
-	dl->loadFromFile(browse("Density map (*.ccp4)"));
+    string path = browse("Density map (*.ccp4)");
+    DensityMap* dm = new DensityMap(path);
+    dm->setName(path);
+    ObjectDispatcher::setName(dm);
+    ObjectDispatcher::setColor(dm);
+    dm->addToScene();
+    dl->add(dm);
 }

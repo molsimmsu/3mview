@@ -3,6 +3,7 @@
 
 #include "DataObject.h"
 #include "OpenStructure.h"
+#include "ObjectDispatcher.h"
 
 class Molecule : public DataObject
 {

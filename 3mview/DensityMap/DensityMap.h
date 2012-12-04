@@ -9,6 +9,12 @@ using namespace std;
 #include "ost/io/img/load_map.hh"
 #include "ost/gfx/scene.hh"
 
+typedef struct DensityMapSize
+{
+    unsigned int x, y, z;
+}
+DensityMapSize;
+
 class DensityMap : public DataObject
 {
 public:
@@ -16,7 +22,8 @@ public:
     DensityMap(string fileName, DensityMap* parent = 0);
 
     // Создание пустой карты
-    DensityMap(int xSize, int ySize, int zSize, DensityMap* parent = 0);
+    DensityMap(unsigned int xSize, unsigned int ySize, unsigned int zSize, DensityMap* parent = 0);
+    DensityMap(DensityMapSize size, DensityMap* parent = 0);
 
     virtual string typeName() { return string("DensityMap"); }
 
@@ -25,6 +32,13 @@ public:
 
     // Заполнение карты случайными данными
     void randomize();
+
+    // Размер карты по 3-м измерениям
+    DensityMapSize size();
+
+    // Получение и задание значений элементов карты
+    double getValue(unsigned int x, unsigned int y, unsigned int z);
+    double setValue(unsigned int x, unsigned int y, unsigned int z, double value);
 
 	void setVisible(bool);
 	void setSelection(bool state);
