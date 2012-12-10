@@ -48,7 +48,10 @@ HEADERS += OpenStructure.h \
     ObjectScene.h
 INCLUDEPATH += OpenBabel/include \
     OpenStructure/stage/include
-LIBS += -lopenbabel \
+LIBS += -LOpenBabel/lib \
+    -LOpenStructure/stage/lib \
+    -LOpenStructure/stage/lib64 \
+    -lopenbabel \
     -lboost_system \
     -lboost_filesystem \
     -lost_gui \
