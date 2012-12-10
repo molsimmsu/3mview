@@ -46,8 +46,8 @@ HEADERS += OpenStructure.h \
     ObjectDispatcher.h \
     RGBColor.h \
     ObjectScene.h
-INCLUDEPATH += ../OpenBabel/include \
-    ../OpenStructure/stage/include
+INCLUDEPATH += OpenBabel/include \
+    OpenStructure/stage/include
 LIBS += -lopenbabel \
     -lboost_system \
     -lboost_filesystem \
