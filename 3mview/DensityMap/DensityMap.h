@@ -29,6 +29,7 @@ public:
 
     // Добавление в список отображения
     void addToScene();
+    void removeFromScene();
 
     // Заполнение карты случайными данными
     void randomize();

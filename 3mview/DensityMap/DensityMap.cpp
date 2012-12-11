@@ -14,14 +14,16 @@ DensityMap::DensityMap(unsigned int xSize, unsigned int ySize, unsigned int zSiz
     _map = ost::img::CreateImage(ost::img::Size(xSize, ySize, zSize), ost::img::Point(0, 0, 0));
 }
 
-DensityMap::DensityMap(DensityMapSize size, DensityMap *parent)
+DensityMap::DensityMap(DensityMapSize size, DensityMap *parent):
+    DataObject(),
+    _mapIso(NULL)
 {
     _map = ost::img::CreateImage(ost::img::Size(size.x, size.y, size.z), ost::img::Point(0, 0, 0));
 }
 
 void DensityMap::addToScene()
 {
-    if (_mapIso != NULL) return; // Карта уже добавлена в сцену
+    if (_mapIso != NULL) return;
 
     _mapIso = new ost::gfx::MapIso(name().c_str(), _map, 0.5);
     _mapIso->SetRenderMode(ost::gfx::RenderMode::FILL);
@@ -31,9 +33,22 @@ void DensityMap::addToScene()
     ost::gfx::Scene::Instance().Add(_node);
 }
 
+void DensityMap::removeFromScene()
+{
+    if (_mapIso == NULL) return;
+
+    ost::gfx::Scene::Instance().Remove(_node);
+}
+
 void DensityMap::randomize()
 {
-    //im.ApplyIP(Randomize());
+    //_map.ApplyIP(Randomize());
+    for (unsigned int i = 0; i < size().x; i++)
+        for (unsigned int j = 0; j < size().y; j++)
+            for (unsigned int k = 0; k < size().z; k++)
+            {
+                setValue(i, j, k, rand() / (float)RAND_MAX);
+            }
 }
 
 DensityMapSize DensityMap::size()

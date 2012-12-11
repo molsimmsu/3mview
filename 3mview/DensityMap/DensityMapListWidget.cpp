@@ -23,18 +23,25 @@ void DensityMapListWidget::addDensityMap(DensityMap* m)
 // Выполнение действия над одной выбранной картой
 void DensityMapListWidget::keyPressEvent(QKeyEvent* e)
 {
-    QListWidgetItem* i = this->selectedItems()[0];
-    qDebug() << "Selected item text is" << i->text();
-    DensityMap* map = getDensityMap(i);
-    qDebug() << "Selected map" << map->name().c_str();
+    QListWidgetItem* selectedItem;
+    DensityMap* map;
+
+    if (this->selectedItems().size() > 0)
+    {
+        selectedItem = this->selectedItems()[0];
+        qDebug() << "Selected item text is" << selectedItem->text();
+        map = getDensityMap(selectedItem);
+        qDebug() << "Selected map" << map->name().c_str();
+    }
 
     // Удаление карты
-    if (e->key() == Qt::Key_Delete)
+    if (e->key() == Qt::Key_Delete && map)
     {
         dl->remove(map);
+        delete selectedItem;
 	}
     // Сегментация карты
-    else if (e->key() == Qt::Key_S)
+    else if (e->key() == Qt::Key_S && map)
     {
         qDebug() << "Segment map";
         SegmentAlgorithm* sa = new ThresholdDivision(2);
@@ -47,6 +54,17 @@ void DensityMapListWidget::keyPressEvent(QKeyEvent* e)
             dl->add(m);
             m->addToScene();
         }
+        map->setVisible(false);
+    }
+    // Создание случайной тестовой карты
+    else if (e->key() == Qt::Key_R)
+    {
+        DensityMap* m = new DensityMap(5, 50, 50);
+        ObjectDispatcher::setColor(m);
+        ObjectDispatcher::setName(m);
+        m->randomize();
+        m->addToScene();
+        dl->add(m);
     }
 }
 
@@ -81,6 +99,8 @@ void DensityMapListWidget::itemChanged(QListWidgetItem* i)
 
 DensityMap* DensityMapListWidget::getDensityMap(QListWidgetItem* i)
 {
+    if (i == NULL) return NULL;
+
 	unsigned int index = std::find(items.begin(), items.end(), i) - items.begin();
 
 	if (index >= mols.size()) return NULL;

@@ -27,6 +27,7 @@ void DensityMapList::remove(DensityMap* m)
 {
 	Scene::Instance().Remove(m->name());
 	std::remove(maps.begin(), maps.end(), m);
+    m->removeFromScene();
 }
 
 bool DensityMapList::loadFromFile(string path)
