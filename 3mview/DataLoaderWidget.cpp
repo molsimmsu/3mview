@@ -34,6 +34,8 @@ void DataLoaderWidget::loadMolecule()
 void DataLoaderWidget::loadDensityMap()
 {
     string path = browse("Density map (*.ccp4)");
+    if (path == "") return;
+
     DensityMap* dm = new DensityMap(path);
     dm->setName(path);
     ObjectDispatcher::setName(dm);

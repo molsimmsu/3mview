@@ -85,5 +85,6 @@ double DensityMap::maxLevel()
 
 double DensityMap::setColor(double r, double g, double b)
 {
+    _color = RGBColor(r, g, b);
     _mapIso->SetColor(ost::gfx::Color(color().r(), color().g(), color().b()));
 }

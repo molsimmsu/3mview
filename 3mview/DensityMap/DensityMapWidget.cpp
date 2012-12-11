@@ -27,5 +27,6 @@ void DensityMapWidget::setLevel(int l)
 
 void DensityMapWidget::changeColor(QColor c)
 {
+    qDebug() << "color" << c.redF() << c.greenF() << c.blueF();
 	map->setColor(c.redF(), c.greenF(), c.blueF());
 }

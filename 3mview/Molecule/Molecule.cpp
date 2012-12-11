@@ -1,6 +1,6 @@
 #include "Molecule.h"
 
-Molecule::Molecule(ost::gfx::Entity* e, QObject *parent) :
+Molecule::Molecule(ost::gfx::Entity* e) :
     entity(e)
 {
 }

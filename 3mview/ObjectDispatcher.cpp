@@ -19,7 +19,7 @@ string ObjectDispatcher::setName(DataObject *obj)
 
 RGBColor ObjectDispatcher::setColor(DataObject *obj)
 {
-    RGBColor color = RGBColor(rand() % 256, rand() % 256, rand() % 256);
+    RGBColor color = RGBColor(rand() / (float)RAND_MAX, rand() / (float)RAND_MAX, rand() / (float)RAND_MAX);
     obj->setColor(color);
     return color;
 }

@@ -13,7 +13,7 @@
 #include "Stereo.h"
 #include "ObjectDispatcher.h"
 
-#include "ost/base/platform.hh"
+#include "ost/platform.hh"
 
 using namespace std;
 

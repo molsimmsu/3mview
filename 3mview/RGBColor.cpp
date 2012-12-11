@@ -4,21 +4,21 @@ RGBColor::RGBColor():
 _r(100), _g(100), _b(100)
 {}
 
-RGBColor::RGBColor(int r, int g, int b):
+RGBColor::RGBColor(double r, double g, double b):
 _r(r), _g(g), _b(b)
 {}
 
-int RGBColor::r()
+double RGBColor::r()
 {
     return _r;
 }
 
-int RGBColor::g()
+double RGBColor::g()
 {
     return _g;
 }
 
-int RGBColor::b()
+double RGBColor::b()
 {
     return _b;
 }

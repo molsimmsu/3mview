@@ -5,13 +5,13 @@ class RGBColor
 {
 public:
     RGBColor();
-    RGBColor(int r, int g, int b);
-    int r();
-    int g();
-    int b();
+    RGBColor(double r, double g, double b);
+    double r();
+    double g();
+    double b();
 
 private:
-    int _r, _g, _b;
+    double _r, _g, _b;
 };
 
 #endif // COLOR_H

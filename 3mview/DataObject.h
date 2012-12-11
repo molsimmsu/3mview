@@ -19,7 +19,7 @@ public:
     void setColor(RGBColor color) { _color = color; }
     RGBColor color() { return _color; }
 
-private:
+protected:
     string _name;
     RGBColor _color;
 };
