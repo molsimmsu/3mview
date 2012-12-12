@@ -83,6 +83,11 @@ void DensityMap::setLevel(double level)
     _mapIso->SetLevel(level);
 }
 
+double DensityMap::getLevel()
+{
+    return _mapIso->GetLevel();
+}
+
 void DensityMap::setSelection(bool state)
 {
 

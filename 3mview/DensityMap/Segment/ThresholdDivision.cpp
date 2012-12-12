@@ -13,7 +13,6 @@ vector<DensityMap*> ThresholdDivision::apply(DensityMap *map)
 
     double min = map->minLevel();
     double max = map->maxLevel();
-    qDebug() << "min" << min << "max" << max;
     double len = (max - min) / _numMaps;
 
     for (unsigned int i = 0; i < _numMaps; i++)
@@ -29,7 +28,6 @@ vector<DensityMap*> ThresholdDivision::apply(DensityMap *map)
 
 DensityMap *ThresholdDivision::createMap(DensityMap *map, double low, double high)
 {
-    qDebug() << "low" << low << "high" << high;
     DensityMap* m = new DensityMap(map->size());
 
     for (unsigned int i = 0; i < map->size().x; i++)

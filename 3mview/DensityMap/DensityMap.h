@@ -44,6 +44,7 @@ public:
 	void setVisible(bool);
 	void setSelection(bool state);
 	void setLevel(double level);
+    double getLevel();
 	double minLevel();
 	double maxLevel();
 	double setColor(double r, double g, double b);

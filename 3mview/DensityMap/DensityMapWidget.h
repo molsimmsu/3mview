@@ -18,6 +18,10 @@ public slots:
 
 private:
 	DensityMap* map;
+    QSlider* levelSlider;
+    QLabel *levelMin, *levelMax, *levelCur;
+    QColorDialog* colorDialog;
+    QPushButton* colorButton;
 };
 
 #endif // DENSITYMAPWIDGET_H
