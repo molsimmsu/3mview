@@ -3,4 +3,4 @@
 	url = git@github.com:vissi/ost.git
 [submodule "3mview/openbabel"]
 	path = 3mview/openbabel
-	url = git@github.com:openbabel/openbabel.git
+	url = git@github.com:vissi/openbabel.git
