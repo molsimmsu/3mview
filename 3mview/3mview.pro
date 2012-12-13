@@ -29,7 +29,6 @@ HEADERS += OpenStructure.h \
     MainWindow.h \
     StrideReader.h \
     Stereo.h \
-    SegmentDensityMapWidget.h \
     ModulesWidget.h \
     DensityMap/DensityMapWidget.h \
     DensityMap/DensityMapListWidget.h \
@@ -46,11 +45,11 @@ HEADERS += OpenStructure.h \
     ObjectDispatcher.h \
     RGBColor.h \
     ObjectScene.h
-INCLUDEPATH += OpenBabel/include \
-    OpenStructure/stage/include
-LIBS += -LOpenBabel/lib \
-    -LOpenStructure/stage/lib \
-    -LOpenStructure/stage/lib64 \
+INCLUDEPATH += openbabel/include \
+    ost/stage/include
+LIBS += -Lopenbabel/lib \
+    -Lost/stage/lib \
+    -Lost/stage/lib64 \
     -lopenbabel \
     -lboost_system \
     -lboost_filesystem \
@@ -61,3 +60,7 @@ LIBS += -LOpenBabel/lib \
     -lost_io \
     -lost_img \
     -lost_img_alg
+
+QMAKE_CFLAGS_X86_64 += -mmacosx-version-min=10.7
+QMAKE_CXXFLAGS_X86_64 = $$QMAKE_CFLAGS_X86_64
+

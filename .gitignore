@@ -43,3 +43,7 @@ ui_*.h
 Icon?
 ehthumbs.db
 Thumbs.db
+*.xcodeproj
+Info.plist
+3mview.app
+build
