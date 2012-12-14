@@ -1,6 +1,6 @@
 [submodule "3mview/ost"]
 	path = 3mview/ost
-	url = git@github.com:vissi/ost.git
+	url = https://github.com/vissi/ost.git
 [submodule "3mview/openbabel"]
 	path = 3mview/openbabel
-	url = git@github.com:vissi/openbabel.git
+	url = https://github.com/vissi/openbabel.git
