@@ -23,9 +23,9 @@
 3) Собираем OpenBabel
 
     cmake .
-    make
+    make -j N
 
 4) Собираем проект 3mview.pro
 
     qmake 3mview.pro
-    make
+    make -j N
