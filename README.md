@@ -1,3 +1,7 @@
+# СОЗДАНИЕ РАБОЧЕЙ КОПИИ
+    git clone
+    git submodule init && git submodule update
+
 # КОМПИЛЯЦИЯ
 1) Устанавливаем пакеты
 
