@@ -51,8 +51,6 @@ LIBS += -Lopenbabel/lib \
     -Lost/stage/lib \
     -Lost/stage/lib64 \
     -lopenbabel \
-    -lboost_system \
-    -lboost_filesystem \
     -lost_gui \
     -lost_gfx \
     -lost_mol \
@@ -60,6 +58,16 @@ LIBS += -Lopenbabel/lib \
     -lost_io \
     -lost_img \
     -lost_img_alg
+macx {
+LIBS += \
+    -lboost_system-mt \
+    -lboost_filesystem-mt
+}
+win32|linux {
+LIBS += \
+    -lboost_system \
+    -lboost_filesystem
+}
 
 QMAKE_CFLAGS_X86_64 += -mmacosx-version-min=10.7
 QMAKE_CXXFLAGS_X86_64 = $$QMAKE_CFLAGS_X86_64
