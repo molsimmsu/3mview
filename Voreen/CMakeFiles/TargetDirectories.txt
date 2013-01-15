@@ -1,0 +1,8 @@
+/home/class3d/softw/Work/Voreen/ext/tgt/CMakeFiles/tgt.dir
+/home/class3d/softw/Work/Voreen/src/core/CMakeFiles/voreen_core.dir
+/home/class3d/softw/Work/Voreen/src/core/CMakeFiles/voreen_core_gch.dir
+/home/class3d/softw/Work/Voreen/src/qt/CMakeFiles/voreen_qt.dir
+/home/class3d/softw/Work/Voreen/src/qt/CMakeFiles/voreen_qt_gch.dir
+/home/class3d/softw/Work/Voreen/apps/voreentool/CMakeFiles/voreentool.dir
+/home/class3d/softw/Work/Voreen/apps/voreenve/CMakeFiles/voreenve.dir
+/home/class3d/softw/Work/Voreen/apps/voreenve/CMakeFiles/voreenve_gch.dir

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<VoreenData version="1">
+    <Properties>
+        <name value="enableProcessing" />
+        <Property>
+            <value value="false" />
+        </Property>
+        <name value="segmentCount" />
+        <Property>
+            <value value="10" />
+        </Property>
+    </Properties>
+</VoreenData>

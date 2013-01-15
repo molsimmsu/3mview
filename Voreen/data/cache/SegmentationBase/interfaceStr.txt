@@ -1,0 +1,9 @@
+Inports:
+volumehandle.inport
+
+Outports:
+volumehandle.outport
+
+Properites:
+enableProcessing [BoolProperty]
+segmentCount [IntegerProperty]

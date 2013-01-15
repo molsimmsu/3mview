@@ -1,0 +1,292 @@
+<?xml version="1.0" ?>
+<VoreenData version="1">
+    <Volumes>
+        <Volume>
+            <RawData filename="volumehandle_outport.raw" format="uint8" x="41" y="41" z="41" />
+            <MetaData>
+                <MetaItem name="Offset" type="Vec3MetaData">
+                    <value x="-0.99999994" y="-0.99999994" z="-0.99999994" />
+                </MetaItem>
+                <MetaItem name="Spacing" type="Vec3MetaData">
+                    <value x="0.04878049" y="0.04878049" z="0.04878049" />
+                </MetaItem>
+            </MetaData>
+            <DerivedData>
+                <DerivedItem type="VolumePreview" height="64" prevData="rq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urgCuAACuAK6urq6urq6urq6urq6urq6urq7/rq6urq6urq6urgCurq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6uAK6urq6urq6urq6urq6urq6urgCurv+urq6urq6urv+urq6urq6urq6urq6urq6urq6urv+urq6urq6urq4Arq7/rv+urq6urq6u/66urq6urq6urq7/rv+urv+urgCuAK6urq6urq6urq6urq7/rv+urq6urgCuAK6uAK6uAACurq6u/66u/66urq6urq6urv+urq6urq6uAAD/rq4Arq4A/66urq7/rq6urq6urq6urq6urq6urq6urq4Arq6urv+urq6urq6urq6urq6urq6urq6u/64Arq6urq6urq6urq6u/66urq6urv+urq6urq6urv+uAK6urq6uAK4AAK6uAK6urq6urq6urq6urq6urv+urv//rv+urq6uAK7/rq6uAP+urq6urv+urq6urq6urq6urq6urq6urq6uAK6u/wCurq6urq6urq6urv+urq6urq6urq6urq6uAK6urq6u/66urq6urq6urq6u/66urq6u/66urq4Arq6urq6urq6urq6urq6urq6urq6urq6urq6urv+urq4Arq6uAP+uAK6urq6urq6urq6urq6urq6urv+urq4Arq6urq6urq7/rv//rv+urq7/rq6urq6u/66urq6urq6urq6urq7/rgCurv+urv+urq6urq6urq6urq6urq6urq6urq7/AK6urq6urq6urq6urq6urq6urq6urq6urq6urq6uAACu/66urq6urgCurv+urq6urq6urq6urq4Arq6u/wCu/66urv8Arq6urq6urq6u/66urq6urq6urv+urq6u/66urq4Arv+u/66urgD//66urq6urq6u//+urq6urq4Arq4Arq6urq7/rq7/rq6urq6urq6u/66urq6urq6urv+uAACurq6urq6urq6u/66urq6u/66urq6urq6uAK6urq6urq6u/66urq7/rq6urq6urq6urq6urq7//wCurgD/rq6urq4Arq6urq6urq6urq6urq7/rq6u/66urgCurq4A/wCurv+u/66urq7/rgCurq6u/66urq6urq6urgCu/66uAP+urq6u//+urq6u/66urq6urq6urgCurq4Arq6urq4Arq6urq6urq6urq6u/66urv+urq6urv+urq6urq6urq6urgCurq6urq4Arq4Arq6urq6urq6urq7/AK6urgCurq6urq7/rq6urq6urq6urq6urq6urq6u/66uAK6uAAAArgCurgD/rq6urq6urq6urq6urq7/rq6urq6urgCurq4Arv+u/66urv+urq6u/66urv+urq6u/66urq6urq6urq6uAK6urq6urgCurv+urq6urq6urq4Arq4Arq6urv+urq7/AK6u/66urq6u/66urq6urq6urq6urq4Arv+urq6urgCurq6urq6urq6uAK6urq6urq7/rq6urgCuAK6urgAArgD/rq6urq6urq6urq6urq6urq6urq6urgCurq6urq6urq6urq6urq6urgCurq6urq6urq6urq6urq6urgCurq6urq6urq7/rq6urq6urq6urq6uAK6u/64Arq6urq6urq4Arq6urq6urq6urq6urq4A/66urv+urq6urv+uAAD/rq6urq6urq6urq6urq4Arq6urv+urq6urq4ArgCurq7/rq6u/66urq6urq6urq6urq6urgCurq6urgD/rq4Arq6urq6urq6urq6urq6urq6urq6urq6uAACurgCurq6urgD/rq7/rq6urq6urq6urq6urq6urgCurq6urq6urq6urq6urq4Arq6urq6urq6urq6urq6urgCurq6urq6urq6urq6urq6urq6urq6u/66u/66urq6urq4Arq6uAK7/rq6urq6urq4Arq6u//+urq7/rq6urq4Arq6uAACurq7/rq6urq6urv+urq6urq6urq6urq6urq6urq6uAK6urq6urq6urq6urq6urq6urq4Arq6urq6urq6urq6urq4Arq6u/66urq6urq6urq6urv+urq4ArgCurgCurq6urv+urq6urq6urq6urq6urq6uAK6urq6urq4Arq6uAK6urq4Arq6urq6urq6urq6urq6urq6urq6urq6urq6urgCurq6urq6urq6urq6urq6urq6urq7/rq6uAP+urq6uAK7/rq6urq6urq6urq6urq6urq6urq6urq6urgCurgCurq6urq6urq6urq6urq6urq6urq6urq6urgCurq6urq6urq6urq6urq6urq6urq6urq6urq4ArgCurgCurgCurv+urq6urq6urq6urq7/rq6urq6urq6urq6urq6urq6urq6u/66urq6u/66urq6urgCurq6urq6urq6uAK6uAK6urq6urq6urq6urq6urq6urq6urq6urq4Arq6urq7/rq7/rq6urq6urq6urq6urq6urq6urq6urq6urgCurq6u/66u/66urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq7/rq6urq6urq6urq6urq6urq6urq6urv+urq6urq6urq6urq6urq6urq6urq6urgCurq6urq6uAK6urq6urq6u/66urq6urq6urq6urq6urq4Arq6urq6urq6urq6urq6urq6urq6urq6urq6urq4Arq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urgCurq6uAK6u/66urq6urq6urq6urq6urq6urq6urq6urgCuAK6urq6urq6urq6urq6urq6urq6urq6urq6urq6urgCurq6urv+urq6urq6urq6urq6urq6urq6urq6urq6urq6urv+urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq7/rq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq7/rq6urq6urq6urq6urq6urq6urq6u/64Arq6urv+urq6urq6urq6urq6urq6urq6urq6urq6urgCuAP+urq6u/66urq6urq6urq6urq6urq6urq6urq6uAP+urq7/rq7/rq6urq6urq6urq6urq6urq6urq6urq6uAK6urq7/rv//rq6urq6urq6urq6urq6urq6urq6urq6urgAA/67/rq6urq7/rq6urq6urq6urq6urq6uAK6uAK6u/66urq7/rq6urq6urq6urq6urq6urq6urq6urq4Arq6uAK6u/66urq6urq6urq6urq6urq6urq6urgCurq6uAK6urq6urq6urq6urq7/rq6urq6urq6urq6urq6urq6urq7/rq6urq6urq6urq6urq6urq6urq7/rq6urq6urq7/rq6urq7/rq6urq6urq6urq6urq6urq6urq6uAACurq6u/wCurq6urq6urq6urq6urq6urq7/rq6urq6urgAArq6urq6urv+urq6urq6urq6urq6urq6u/66urq6urgAArv+urq6urq6uAK6urgAArq6urq6urq4Arq6u/wCurq6urv+urq4AAK6urq6urq6urq6urq6urq6urq6uAP+urq7/rq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6uAK6urq6uAK4A/66urq6urq6urq6urq6urq6urq6urq6uAK6urq6u/64Arq7//66urq6urv+urv+urq6u/66urq4Arq4Arq6uAP+u/66urq6urq6urq4Arq6urgCurq6urgAArq6uAK6urv+urq6urq6urq6urq6urq6urq4Arq4Arv+urq4Arq7/AK6urq6urq6u/66urq6urq7/rv//rq6urv+urgCurgCurv+urq6urq6urq7/rq6urq6urq6uAK7/rq6urq4A/67/rq6urq6uAK6urq6urq6urq6u/66uAK6urq6urq4Arq7/rq6uAK6urq6urq6urq6urq6urgAArq6urq6uAK6urq6urq6urq6urv8Arq6urq6urq4Arq6urgCurv+urq6u/66urq6urq6urq6u/66urq6uAK4Arv+urv8Arq7/rq6urq6u/66urq6urq6u/66urq6urq6urq6urq6urq6urv+urq6urq6urq6urq6urq6urq7/rq6uAACurq6u/66urq6u/66urq6urq6urq6urq6u/66urq7/rgCurq4Arq6urq6urq7/rq6urq6urq4Arq6urq6urq6urgCurq6urv+uAK6urq6urq6urq6uAK6urq6urq4Arq6urv+urq6urq6urq6urq6urq6urq6uAK6urq6urv8Arv+urq7/AK7/rq6urq6urq6urq6urq6urq6urq6urq4AAK6urq7/rq6urq6u/66urq6urq6urq6urq6urgCurgCuAK6u/66u/wAArq6uAK6urgCurgAArq4Arq6uAK6uAK4ArgCurq6urq6urgCuAK6urq4Arq4Arq6urq6urq6urq6urq4Arq6urq6urq6urq6urq4AAK6urq6urq6u/66urq6urq6u/66urv+urq6urq6urq6urq6urq6uAP+urq6urq6urq6urq6urq6urq6urq6urq6urq6uAK6urq6urq6urq6urq6urq6urq6urq6uAK6urq4Arq6uAACuAK6urq6urgD/rq6urq6urq6uAK6urq6urq6u/wD/rq6urq6u/64A/66urgCurq7/rq6urq6urq6urq6urgCu/wCu/66urq6u/66urq6urq6urq6urq6urq6urv+urq6u/66urq6urq6urq7/rq6urq6urq6urq6urq6urq4AAK6urq4Arq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq7/rq6urv+urq6urq6urq6urq6urq6urq7/rgCurgCurq4A/66urq6urq6uAK6urq6uAK7/rq6urq6uAACuAK4Arq4Arq6urq4Arq6urq6urq6urq6urq6urq6urgCurq6urq4A/66urq6urq6urq6urq6urq6urq6urgCurq6uAP+uAK6u/66urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urg==" />
+                <DerivedItem type="VolumeHash" hash="547e22b60a89b5e186196c940efb4a7e" />
+                <DerivedItem>
+                    <histogram>
+                        <minValues>
+                            <item value="0" />
+                        </minValues>
+                        <maxValues>
+                            <item value="0.00392157" />
+                        </maxValues>
+                        <bucketCounts>
+                            <item value="256" />
+                        </bucketCounts>
+                        <buckets>
+                            <item value="68921" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                            <item value="0" />
+                        </buckets>
+                    </histogram>
+                </DerivedItem>
+                <DerivedItem type="VolumeMinMax" min="0" max="0.00392157" minNorm="0" maxNorm="0.00392157" />
+            </DerivedData>
+        </Volume>
+    </Volumes>
+</VoreenData>

@@ -1,0 +1,182 @@
+<?xml version="1.0" ?>
+<VoreenData version="1">
+    <Workspace version="2" GlobalDescription="" readonly="true">
+        <ProcessorNetwork version="13">
+            <MetaData>
+                <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
+                    <values>
+                        <item type="SliceViewer" ref="ref1" />
+                    </values>
+                </MetaItem>
+            </MetaData>
+            <Processors>
+                <Processor type="VolumeSource" name="VolumeSource" id="ref0">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-117" y="-360" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="volumeURL" url="../volumes/walnut.vvd?preferredReader=VvdVolumeReader" />
+                    </Properties>
+                    <Inports />
+                    <Outports>
+                        <Port name="volumehandle.volumehandle">
+                            <Properties>
+                                <Property name="blockEvents" value="false" />
+                            </Properties>
+                        </Port>
+                    </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="SliceViewer" name="SliceViewer" id="ref1">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-111" y="-253" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="boundaryColor">
+                            <value x="1" y="1" z="1" w="1" />
+                        </Property>
+                        <Property name="distanceLegendColor">
+                            <value x="1" y="1" z="1" w="1" />
+                        </Property>
+                        <Property name="distanceLegendPos">
+                            <value x="0.05" y="0.1" />
+                        </Property>
+                        <Property name="fontSize" value="14" />
+                        <Property name="mouseEvent.Shift" lod="1" enabled="true" mouseAction="3" mouseButtons="1" keyCode="0" modifier="1" shareEvents="false" />
+                        <Property name="mouseEvent.cursorPositionMove" lod="1" enabled="true" mouseAction="1" mouseButtons="0" keyCode="0" modifier="0" shareEvents="true" />
+                        <Property name="mouseEvent.cursorPositionPress" lod="1" enabled="true" mouseAction="19" mouseButtons="3" keyCode="0" modifier="0" shareEvents="true" />
+                        <Property name="numSlicesPerCol" value="1" />
+                        <Property name="numSlicesPerRow" value="1" />
+                        <Property name="pickingMatrix">
+                            <value.row0 x="1" y="0" z="0" w="0" />
+                            <value.row1 x="0" y="1" z="0" w="0" />
+                            <value.row2 x="0" y="0" z="1" w="0" />
+                            <value.row3 x="0" y="0" z="0" w="1" />
+                        </Property>
+                        <Property name="renderDistanceLegend" value="false" />
+                        <Property name="renderSliceBoundaries" value="true" />
+                        <Property name="showCursorInformation" value="onMove" />
+                        <Property name="showSliceNumber" value="true" />
+                        <Property name="sliceAlignmentProp" value="xy-plane" />
+                        <Property name="sliceIndex" value="53" />
+                        <Property name="sliceX" value="27" />
+                        <Property name="sliceY" value="92" />
+                        <Property name="sliceZ" value="53" />
+                        <Property name="textureMode" value="3d-texture" />
+                        <Property name="transferFunction" AlwaysFitDomain="false">
+                            <MetaData>
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
+                            </MetaData>
+                            <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
+                                <Keys>
+                                    <key type="TransFuncMappingKey" intensity="0.02013423" split="false">
+                                        <colorL r="0" g="0" b="0" a="0" />
+                                    </key>
+                                    <key type="TransFuncMappingKey" intensity="0.13265306" split="false">
+                                        <colorL r="255" g="255" b="255" a="255" />
+                                    </key>
+                                </Keys>
+                                <domain x="0" y="1" />
+                            </TransferFunction>
+                        </Property>
+                        <Property name="voxelOffset">
+                            <value x="0" y="0" />
+                        </Property>
+                        <Property name="zoomFactor" value="1" />
+                    </Properties>
+                    <Inports>
+                        <Port name="volumehandle.volumehandle">
+                            <Properties>
+                                <Property name="textureBorderIntensity" value="0" />
+                                <Property name="textureClampMode_" value="clamp-to-edge" />
+                                <Property name="textureFilterMode_" value="linear" />
+                            </Properties>
+                        </Port>
+                    </Inports>
+                    <Outports>
+                        <Port name="image.outport">
+                            <Properties>
+                                <Property name="blockEvents" value="false" />
+                                <Property name="image.outport.renderSizeReceive" id="ref4">
+                                    <value x="450" y="365" />
+                                </Property>
+                            </Properties>
+                        </Port>
+                    </Outports>
+                    <InteractionHandlers>
+                        <Handler name="mouseWheelHandler">
+                            <Properties>
+                                <Property name="mouseWheelHandler" lod="1" enabled="true" mouseAction="23" mouseButtons="98" keyCode="0" modifier="0" shareEvents="false" />
+                            </Properties>
+                        </Handler>
+                        <Handler name="zoomHandler">
+                            <Properties>
+                                <Property name="zoomHandler" lod="1" enabled="true" mouseAction="23" mouseButtons="2" keyCode="0" modifier="2" shareEvents="false" />
+                            </Properties>
+                        </Handler>
+                    </InteractionHandlers>
+                </Processor>
+                <Processor type="Canvas" name="Canvas" id="ref2">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-111" y="-142" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="299" y="95" width="450" height="365" />
+                        <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
+                        <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
+                            <value x="299" y="95" />
+                        </MetaItem>
+                        <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
+                            <value x="450" y="365" />
+                        </MetaItem>
+                    </MetaData>
+                    <Properties>
+                        <Property name="canvasSize">
+                            <value x="450" y="365" />
+                        </Property>
+                        <Property name="saveScreenshot" />
+                        <Property name="screenshotFilename" noPathSet="true" value="" />
+                        <Property name="showCursor" value="true" />
+                        <Property name="showFullScreen" value="false" />
+                    </Properties>
+                    <Inports>
+                        <Port name="image.input">
+                            <Properties>
+                                <Property name="image.input.renderSizeOrigin" id="ref3">
+                                    <value x="450" y="365" />
+                                </Property>
+                            </Properties>
+                        </Port>
+                    </Inports>
+                    <Outports />
+                    <InteractionHandlers />
+                </Processor>
+            </Processors>
+            <Connections>
+                <Connection>
+                    <Outport name="volumehandle.volumehandle">
+                        <Processor type="VolumeSource" ref="ref0" />
+                    </Outport>
+                    <Inport name="volumehandle.volumehandle">
+                        <Processor type="SliceViewer" ref="ref1" />
+                    </Inport>
+                </Connection>
+                <Connection>
+                    <Outport name="image.outport">
+                        <Processor type="SliceViewer" ref="ref1" />
+                    </Outport>
+                    <Inport name="image.input">
+                        <Processor type="Canvas" ref="ref2" />
+                    </Inport>
+                </Connection>
+            </Connections>
+            <CoProcessorConnections />
+            <PropertyLinks>
+                <PropertyLink>
+                    <SourceProperty ref="ref3" />
+                    <DestinationProperty ref="ref4" />
+                    <Evaluator type="LinkEvaluatorRenderSize" />
+                </PropertyLink>
+            </PropertyLinks>
+        </ProcessorNetwork>
+        <Animation />
+    </Workspace>
+</VoreenData>
