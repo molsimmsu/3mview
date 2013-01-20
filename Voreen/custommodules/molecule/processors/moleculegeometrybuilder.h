@@ -1,11 +1,10 @@
 #ifndef VRN_MOLECULEGEOMETRYBUILDER_H
 #define VRN_MOLECULEGEOMETRYBUILDER_H
 
-#include "voreen/core/processors/processor.h"
-
-#include "voreen/core/ports/geometryport.h"
 #include "../ports/moleculeport.h"
 
+#include "voreen/core/processors/processor.h"
+#include "voreen/core/ports/geometryport.h"
 using namespace voreen;
 
 class MoleculeGeometryBuilder : public Processor {

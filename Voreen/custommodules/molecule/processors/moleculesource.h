@@ -1,11 +1,11 @@
 #ifndef VRN_MOLECULESOURCE_H
 #define VRN_MOLECULESOURCE_H
 
+#include "../ports/moleculeport.h"
+
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/properties/filedialogproperty.h"
 #include "voreen/core/properties/buttonproperty.h"
-#include "../ports/moleculeport.h"
-
 using namespace voreen;
 
 class MoleculeSource : public Processor {

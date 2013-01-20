@@ -2,16 +2,17 @@
 #define VRN_MOLECULE_H
 
 #include "voreen/core/io/serialization/serializable.h"
+using namespace voreen;
+
 #include "tgt/vector.h"
 
-#include <vector>
-#include <string>
-
-using namespace voreen;
+#include "openbabel/obmol.h"
+using namespace OpenBabel;
 
 class Molecule : public Serializable {
 public:
     Molecule();
+    Molecule(OBMol* mol);
     virtual ~Molecule() {}
     
     /**
@@ -24,48 +25,27 @@ public:
 
     /**
      * Returns a copy of the molecule object.
+     * TODO Should create a copy of underlying OBMol structure
      */
     virtual Molecule* clone() const;
     
     /**
-     * Adds atom to the molecule
-     * @param coords coordinates of the atom
+     * Returns underlying OpenBabel molecule data structure
      */
-     void addAtom(const tgt::vec3& coords);
-     
-    /**
-     * Returns the number of atoms this molecule.
-     *
-     * @returns atom count
-     */
-    size_t getAtomCount() const;
-     
-    /**
-     * Returns the atom coordinates of the given atom
-     * @param index atom's index in the @c atomsCoords_ array
-     * @returns atom coordinates
-     */
-     tgt::vec3 getAtomCoords(size_t index) const;
-     
-    /**
-     * Modifies coordinates of the given atom
-     * @param index atom's index in the @c atomsCoords_ array
-     * @param coords coordinates of the atom
-     */
-     void setAtomCoords(size_t index, const tgt::vec3& coords);
+    OBMol* getOBMol() const;
     
     /**
-     * Implementation of the Serializable interface.
+     * TODO Implementation of the Serializable interface.
      */
-    virtual void serialize(XmlSerializer& s) const;
+    virtual void serialize(XmlSerializer& s) const {}
 
     /**
-     * Implementation of the Serializable interface.
+     * TODO Implementation of the Serializable interface.
      */
-    virtual void deserialize(XmlDeserializer& s);
+    virtual void deserialize(XmlDeserializer& s) {}
     
 private:
-    std::vector<tgt::vec3> atomsCoords_; ///< vector of atoms coordinates
+    OBMol* mol_;  ///< OpenBabel molecule data structure
 };
 
 #endif // VRN_MOLECULE_H

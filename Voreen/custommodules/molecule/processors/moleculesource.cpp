@@ -1,7 +1,10 @@
 #include "moleculesource.h"
 
+#include "openbabel/obconversion.h"
+#include "openbabel/obmol.h"
+using namespace OpenBabel;
+
 #include <fstream>
-#include <sstream>
 
 MoleculeSource::MoleculeSource()
   : Processor()
@@ -47,20 +50,15 @@ Molecule* MoleculeSource::loadMoleculeFromFile(const std::string& filename)
     if (stream.fail())
         throw VoreenException("Failed to open file for reading: " + filename);
 
-    Molecule* molecule = new Molecule();
+    string molFormat("pdb");
+
+    OBConversion conv;
+    if (!conv.SetInFormat(molFormat.c_str()))
+        throw VoreenException("Failed to set input format for reading molecule: " + molFormat);
+        
+    OBMol* mol;
+    if (!conv.Read(&stream))
+        throw VoreenException("Failed to read molecule from file: " + filename);
     
-    char buf[82];
-	while (stream.getline(buf, 82)) {
-	    if (std::string(buf).compare(0, 6, "ATOM  ") != 0)
-	        continue;
-		
-		std::stringstream string(buf + 30);
-		
-		float x, y, z;
-		string >> x >> y >> z;
-		
-		molecule->addAtom(tgt::vec3(x, y, z));
-	}
-    
-    return molecule;
+    return new Molecule(mol);
 }
