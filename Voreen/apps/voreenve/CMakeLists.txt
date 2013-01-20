@@ -182,6 +182,8 @@ IF (VRN_PRECOMPILED_HEADER AND MSVC)
     ADD_MSVC_PRECOMPILED_HEADER("pch_ve.h" "pch_ve.cpp" VRN_VE_SOURCES)
 ENDIF()
 
+LINK_DIRECTORIES(${OPENBABEL_LIBRARY_DIRECTORY} ${BOOST_LIBRARY_DIRECTORY})
+
 # define target
 IF(VRN_WINDOWS_DEPLOYMENT)
     MESSAGE("* Linking against Windows subsystem (deployment build)")
@@ -216,10 +218,13 @@ ENDIF()
 INCLUDE(${QT_USE_FILE})
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}) #< location of generated ui headers in out-of-source builds
 ADD_DEFINITIONS(${QT_DEFINITIONS})
-TARGET_LINK_LIBRARIES(voreenve ${QT_LIBRARIES})
+TARGET_LINK_LIBRARIES(voreenve ${QT_LIBRARIES} )
 
 # add OpenBabel dependency
 TARGET_LINK_LIBRARIES(voreenve openbabel)
+
+# add Boost dependency
+TARGET_LINK_LIBRARIES(voreenve ${BOOST_LIBRARIES})
 
 # add gcc pch
 IF (VRN_PRECOMPILED_HEADER AND CMAKE_COMPILER_IS_GNUCXX)
