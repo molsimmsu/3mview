@@ -635,7 +635,7 @@ VRN_BUILD_SIMPLEQT:BOOL=OFF
 VRN_BUILD_TESTAPPS:BOOL=OFF
 
 //Build VoreenTool console application?
-VRN_BUILD_VOREENTOOL:BOOL=ON
+VRN_BUILD_VOREENTOOL:BOOL=OFF
 
 //Build VoreenVE application?
 VRN_BUILD_VOREENVE:BOOL=ON
@@ -721,8 +721,8 @@ VRN_MODULE_SEGY:BOOL=ON
 //Experimental code almost ready for productive use
 VRN_MODULE_STAGING:BOOL=ON
 
-//Include module "stereo"?
-VRN_MODULE_STEREO:BOOL=OFF
+//No help, variable specified on the command line.
+VRN_MODULE_STEREO:UNINITIALIZED=ON
 
 //Provides stereo rendering
 VRN_MODULE_STEREOSCOPY:BOOL=ON
@@ -904,14 +904,11 @@ ZLIB_INCLUDE_DIR:PATH=/usr/include
 //Path to a library.
 ZLIB_LIBRARY:FILEPATH=/usr/lib/libz.so
 
-//No help, variable specified on the command line.
-_VRN_MODULE_STEREO:UNINITIALIZED=ON
-
 //Value Computed by CMake
 tgt_BINARY_DIR:STATIC=/home/dimax/3mview/Voreen/ext/tgt
 
 //Dependencies for the target
-tgt_LIB_DEPENDS:STATIC=general;/usr/lib/libGLU.so;general;/usr/lib/libGL.so;general;/usr/lib/libSM.so;general;/usr/lib/libICE.so;general;/usr/lib/libX11.so;general;/usr/lib/libXext.so;general;/usr/lib/libGLEW.so;general;/usr/lib/libboost_date_time-mt.so;general;/usr/lib/libboost_prg_exec_monitor-mt.so;general;/usr/lib/libboost_program_options-mt.so;general;/usr/lib/libboost_regex-mt.so;general;/usr/lib/libboost_thread-mt.so;general;/usr/lib/libboost_unit_test_framework-mt.so;general;/usr/lib/libIL.so;general;/usr/lib/libILU.so;general;/usr/lib/libz.so;
+tgt_LIB_DEPENDS:STATIC=general;/usr/lib/libGLU.so;general;/usr/lib/libGL.so;general;/usr/lib/libSM.so;general;/usr/lib/libICE.so;general;/usr/lib/libX11.so;general;/usr/lib/libXext.so;general;/usr/lib/libGLEW.so;general;/usr/lib/libIL.so;general;/usr/lib/libILU.so;general;/usr/lib/libz.so;
 
 //Value Computed by CMake
 tgt_SOURCE_DIR:STATIC=/home/dimax/3mview/Voreen/ext/tgt
@@ -920,7 +917,7 @@ tgt_SOURCE_DIR:STATIC=/home/dimax/3mview/Voreen/ext/tgt
 voreen_core_BINARY_DIR:STATIC=/home/dimax/3mview/Voreen/src/core
 
 //Dependencies for the target
-voreen_core_LIB_DEPENDS:STATIC=general;tgt;general;/usr/lib/libGLU.so;general;/usr/lib/libGL.so;general;/usr/lib/libSM.so;general;/usr/lib/libICE.so;general;/usr/lib/libX11.so;general;/usr/lib/libXext.so;general;/usr/lib/libGLEW.so;general;/usr/lib/libboost_date_time-mt.so;general;/usr/lib/libboost_prg_exec_monitor-mt.so;general;/usr/lib/libboost_program_options-mt.so;general;/usr/lib/libboost_regex-mt.so;general;/usr/lib/libboost_thread-mt.so;general;/usr/lib/libboost_unit_test_framework-mt.so;general;/usr/lib/libIL.so;general;/usr/lib/libILU.so;general;/usr/lib/libz.so;
+voreen_core_LIB_DEPENDS:STATIC=general;tgt;general;/usr/lib/libGLU.so;general;/usr/lib/libGL.so;general;/usr/lib/libSM.so;general;/usr/lib/libICE.so;general;/usr/lib/libX11.so;general;/usr/lib/libXext.so;general;/usr/lib/libGLEW.so;general;/usr/lib/libIL.so;general;/usr/lib/libILU.so;general;/usr/lib/libz.so;
 
 //Value Computed by CMake
 voreen_core_SOURCE_DIR:STATIC=/home/dimax/3mview/Voreen/src/core
@@ -929,16 +926,10 @@ voreen_core_SOURCE_DIR:STATIC=/home/dimax/3mview/Voreen/src/core
 voreen_qt_BINARY_DIR:STATIC=/home/dimax/3mview/Voreen/src/qt
 
 //Dependencies for the target
-voreen_qt_LIB_DEPENDS:STATIC=general;tgt;general;voreen_core;general;/usr/lib/libGLU.so;general;/usr/lib/libGL.so;general;/usr/lib/libSM.so;general;/usr/lib/libICE.so;general;/usr/lib/libX11.so;general;/usr/lib/libXext.so;general;/usr/lib/libGLEW.so;general;/usr/lib/libboost_date_time-mt.so;general;/usr/lib/libboost_prg_exec_monitor-mt.so;general;/usr/lib/libboost_program_options-mt.so;general;/usr/lib/libboost_regex-mt.so;general;/usr/lib/libboost_thread-mt.so;general;/usr/lib/libboost_unit_test_framework-mt.so;general;/usr/lib/libIL.so;general;/usr/lib/libILU.so;general;/usr/lib/libz.so;general;/usr/lib/libQtOpenGL.so;general;-lGLU -lGL;general;/usr/lib/libQtGui.so;general;/usr/lib/libpng.so;general;/usr/lib/libSM.so;general;/usr/lib/libICE.so;general;/usr/lib/libXrender.so;general;/usr/lib/libfreetype.so;general;/usr/lib/libfontconfig.so;general;/usr/lib/libXext.so;general;/usr/lib/libX11.so;general;/usr/lib/libm.so;general;/usr/lib/libQtCore.so;general;/usr/lib/libz.so;general;/usr/lib/librt.so;general;-lpthread;general;-ldl;
+voreen_qt_LIB_DEPENDS:STATIC=general;tgt;general;voreen_core;general;/usr/lib/libGLU.so;general;/usr/lib/libGL.so;general;/usr/lib/libSM.so;general;/usr/lib/libICE.so;general;/usr/lib/libX11.so;general;/usr/lib/libXext.so;general;/usr/lib/libGLEW.so;general;/usr/lib/libIL.so;general;/usr/lib/libILU.so;general;/usr/lib/libz.so;general;/usr/lib/libQtOpenGL.so;general;-lGLU -lGL;general;/usr/lib/libQtGui.so;general;/usr/lib/libpng.so;general;/usr/lib/libSM.so;general;/usr/lib/libICE.so;general;/usr/lib/libXrender.so;general;/usr/lib/libfreetype.so;general;/usr/lib/libfontconfig.so;general;/usr/lib/libXext.so;general;/usr/lib/libX11.so;general;/usr/lib/libm.so;general;/usr/lib/libQtCore.so;general;/usr/lib/libz.so;general;/usr/lib/librt.so;general;-lpthread;general;-ldl;
 
 //Value Computed by CMake
 voreen_qt_SOURCE_DIR:STATIC=/home/dimax/3mview/Voreen/src/qt
-
-//Value Computed by CMake
-voreentool_BINARY_DIR:STATIC=/home/dimax/3mview/Voreen/apps/voreentool
-
-//Value Computed by CMake
-voreentool_SOURCE_DIR:STATIC=/home/dimax/3mview/Voreen/apps/voreentool
 
 //Value Computed by CMake
 voreenve_BINARY_DIR:STATIC=/home/dimax/3mview/Voreen/apps/voreenve
@@ -1105,7 +1096,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=7
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=6
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -1417,7 +1408,7 @@ VRN_MODULE_CORE-ADVANCED:INTERNAL=1
 X11_ICE_INCLUDE_PATH-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: X11_ICE_LIB
 X11_ICE_LIB-ADVANCED:INTERNAL=1
-//Have library /usr/lib/libX11.so
+//Have library /usr/lib/libX11.so;/usr/lib/libXext.so
 X11_LIB_X11_SOLO:INTERNAL=1
 //ADVANCED property for variable: X11_SM_LIB
 X11_SM_LIB-ADVANCED:INTERNAL=1
