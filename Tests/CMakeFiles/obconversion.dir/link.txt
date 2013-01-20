@@ -1,1 +1,0 @@
-/usr/bin/c++      CMakeFiles/obconversion.dir/src/obconversion.cpp.o  -o bin/obconversion -rdynamic -L/home/dimax/3mview/Tests/../openbabel-2.3.2/lib -lopenbabel -Wl,-rpath,/home/dimax/3mview/Tests/../openbabel-2.3.2/lib 

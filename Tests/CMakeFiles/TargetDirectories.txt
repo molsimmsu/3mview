@@ -1,1 +1,0 @@
-/home/dimax/3mview/Tests/CMakeFiles/obconversion.dir
