@@ -49,6 +49,10 @@ IF(VRN_BUILD_SIMPLEGLUT)
     ADD_SUBDIRECTORY(apps/simple/simple-glut)
 ENDIF()
 
+IF(VRN_BUILD_3MVIEW)
+    ADD_SUBDIRECTORY(apps/3mview)
+ENDIF()
+
 #-------------------------------------------------------------------------------
 
 IF(VRN_BUILD_TESTAPPS AND EXISTS ${VRN_HOME}/apps/tests)
