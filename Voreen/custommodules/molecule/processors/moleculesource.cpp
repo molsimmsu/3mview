@@ -28,7 +28,6 @@ MoleculeSource::MoleculeSource()
 }
 
 void MoleculeSource::readMolecule() {
-
     try {
         Molecule* molecule = loadMoleculeFromFile(inputFile_.get());
         tgtAssert(molecule, "null pointer returned (exception expected)");
