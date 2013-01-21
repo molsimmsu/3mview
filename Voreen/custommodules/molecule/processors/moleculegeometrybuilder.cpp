@@ -2,7 +2,7 @@
 
 #include "voreen/core/datastructures/geometry/meshlistgeometry.h"
 
-#include "openbabel/obmol.h"
+#include "openbabel/mol.h"
 using namespace OpenBabel;
 
 MoleculeGeometryBuilder::MoleculeGeometryBuilder()
@@ -18,7 +18,7 @@ void MoleculeGeometryBuilder::process() {
     MeshListGeometry* geometry = new MeshListGeometry();
     
     const Molecule* molecule = inport_.getData();
-    OBMol* mol = molecule.getOBMol();
+    const OBMol* mol = molecule->getOBMol();
     
     // Cubes parameters
     tgt::vec3 diag(0.1f, 0.1f, 0.1f);
@@ -32,7 +32,7 @@ void MoleculeGeometryBuilder::process() {
         OBAtom* a = mol->GetAtom(i);
         tgt::vec3 atomCoords(a->x(), a->y(), a->z());
         
-        const MeshGeometry cube = MeshGeometry::createCube(atomCoords - diag, atomCoords + diag,
+        MeshGeometry cube = MeshGeometry::createCube(atomCoords - diag, atomCoords + diag,
                                                            tex1, tex2, color, color);
         
         geometry->addMesh(cube);
@@ -41,7 +41,14 @@ void MoleculeGeometryBuilder::process() {
     // Draw bonds with cylinders
     // NOTE: Bonds indices in OpenBabel start with 0
     for (size_t i = 0; i < mol->NumBonds(); i++) {
-        OBBond* a = mol->GetBond(i);
+        OBBond* bond = mol->GetBond(i);
+        OBAtom* a1 = bond->GetBeginAtom();
+        OBAtom* a2 = bond->GetEndAtom();
+        tgt::vec3 atom1Coords(a1->x(), a1->y(), a1->z());
+        tgt::vec3 atom2Coords(a2->x(), a2->y(), a2->z());
+        
+        MeshGeometry cyl = PrimitiveGeometryBuilder::createCylinder(atom1Coords, atom2Coords, 0.02f, 6, color);
+        geometry->addMesh(cyl);
     }
     
     outport_.setData(geometry);

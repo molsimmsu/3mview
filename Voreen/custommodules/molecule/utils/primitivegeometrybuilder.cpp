@@ -1,6 +1,6 @@
 #include "primitivegeometrybuilder.h"
 
-MeshGeometry PrimitiveGeometryBuilder::createCylinder(tgt::vec3 v1, tgt::vec3 v2, float radius, size_t numSides, tgt::vec4 color, bool buildCaps) {
+MeshGeometry PrimitiveGeometryBuilder::createCylinder(tgt::vec3 v1, tgt::vec3 v2, float radius, size_t numSides, tgt::vec3 color, bool buildCaps) {
     // Get the basis on which the cap vertices are built
     std::vector<tgt::vec3> basis = getCylinderCapBasis(v1, v2);
     // Cylinder vertices
@@ -30,6 +30,9 @@ MeshGeometry PrimitiveGeometryBuilder::createCylinder(tgt::vec3 v1, tgt::vec3 v2
     vertices.push_back(vertices[0]);
     vertices.push_back(vertices[1]);
     
+    // Transform vec3 to vec4
+    tgt::vec4 color4(color[0], color[1], color[2], 1.f);
+    
     // Build cylinder's sides
     MeshGeometry cyl;
     for (size_t i = 0; i < 2*numSides; i+=2) {
@@ -39,10 +42,10 @@ MeshGeometry PrimitiveGeometryBuilder::createCylinder(tgt::vec3 v1, tgt::vec3 v2
         
         // Face vertices
         // TODO Replace faceNormal with vertex normals for smoother representation
-        VertexGeometry fv1(vertices[i], tgt::vec3(0.f), color, faceNormal);
-        VertexGeometry fv2(vertices[i+1], tgt::vec3(0.f), color, faceNormal);
-        VertexGeometry fv3(vertices[i+3], tgt::vec3(0.f), color, faceNormal);
-        VertexGeometry fv4(vertices[i+2], tgt::vec3(0.f), color, faceNormal);
+        VertexGeometry fv1(vertices[i], tgt::vec3(0.f), color4, faceNormal);
+        VertexGeometry fv2(vertices[i+1], tgt::vec3(0.f), color4, faceNormal);
+        VertexGeometry fv3(vertices[i+3], tgt::vec3(0.f), color4, faceNormal);
+        VertexGeometry fv4(vertices[i+2], tgt::vec3(0.f), color4, faceNormal);
         face.addVertex(fv1);
         face.addVertex(fv2);
         face.addVertex(fv3);

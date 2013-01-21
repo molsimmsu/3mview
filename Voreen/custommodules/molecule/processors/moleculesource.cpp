@@ -1,10 +1,11 @@
 #include "moleculesource.h"
 
 #include "openbabel/obconversion.h"
-#include "openbabel/obmol.h"
+#include "openbabel/mol.h"
 using namespace OpenBabel;
 
 #include <fstream>
+#include <string>
 
 MoleculeSource::MoleculeSource()
   : Processor()
@@ -21,11 +22,7 @@ MoleculeSource::MoleculeSource()
     
     loadMolecule_.onChange(CallMemberAction<MoleculeSource>(this, &MoleculeSource::readMolecule));
     
-    Molecule *molecule = new Molecule();
-    molecule->addAtom(tgt::vec3(0.f, 0.f, 0.f));
-    molecule->addAtom(tgt::vec3(1.f, 0.f, 0.f));
-    molecule->addAtom(tgt::vec3(0.f, 1.f, 0.f));
-    molecule->addAtom(tgt::vec3(0.f, 0.f, 1.f));
+    Molecule* molecule = new Molecule();
     
     outport_.setData(molecule);
 }
@@ -46,18 +43,18 @@ Molecule* MoleculeSource::loadMoleculeFromFile(const std::string& filename)
     throw (VoreenException)
 {
     std::ifstream stream;
-    stream.open(filename.c_str(), std::ios_base::in);
+    stream.open(filename.c_str());
     if (stream.fail())
         throw VoreenException("Failed to open file for reading: " + filename);
 
-    string molFormat("pdb");
+    std::string molFormat("PDB");
 
     OBConversion conv;
     if (!conv.SetInFormat(molFormat.c_str()))
         throw VoreenException("Failed to set input format for reading molecule: " + molFormat);
         
-    OBMol* mol;
-    if (!conv.Read(&stream))
+    OBMol* mol = new OBMol();
+    if (!conv.Read(mol, &stream))
         throw VoreenException("Failed to read molecule from file: " + filename);
     
     return new Molecule(mol);

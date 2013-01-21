@@ -13,6 +13,6 @@ Molecule* Molecule::clone() const {
     return new Molecule(mol_);
 }
 
-OBMol* getOBMol() const {
+const OBMol* Molecule::getOBMol() const {
     return mol_;
 }

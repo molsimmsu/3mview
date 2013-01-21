@@ -15,7 +15,7 @@ using namespace voreen;
 class PrimitiveGeometryBuilder {
 public:
     static MeshGeometry createCylinder(tgt::vec3 v1, tgt::vec3 v2, float radius, 
-                                size_t numSides, tgt::vec4 color, bool buildCaps = false);
+                                size_t numSides, tgt::vec3 color, bool buildCaps = false);
 
 private:
    /* Returns the basis, on which cylinder's caps are built.

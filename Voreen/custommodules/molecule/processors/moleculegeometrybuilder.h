@@ -2,6 +2,7 @@
 #define VRN_MOLECULEGEOMETRYBUILDER_H
 
 #include "../ports/moleculeport.h"
+#include "../utils/primitivegeometrybuilder.h"
 
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/ports/geometryport.h"

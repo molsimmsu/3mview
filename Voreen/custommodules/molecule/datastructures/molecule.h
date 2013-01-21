@@ -6,7 +6,7 @@ using namespace voreen;
 
 #include "tgt/vector.h"
 
-#include "openbabel/obmol.h"
+#include "openbabel/mol.h"
 using namespace OpenBabel;
 
 class Molecule : public Serializable {
@@ -32,7 +32,7 @@ public:
     /**
      * Returns underlying OpenBabel molecule data structure
      */
-    OBMol* getOBMol() const;
+    const OBMol* getOBMol() const;
     
     /**
      * TODO Implementation of the Serializable interface.
