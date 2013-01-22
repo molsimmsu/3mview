@@ -232,7 +232,7 @@ ENDIF(GLEW_FOUND)
 MESSAGE(STATUS "* Found Boost 1.52.0")
 LIST(APPEND VRN_INCLUDE_DIRECTORIES "${BOOST_HOME}/include")
 SET(BOOST_LIBRARY_DIRECTORY ${BOOST_HOME}/lib)
-LIST(APPEND BOOST_LIBRARIES boost_date_time boost_prg_exec_monitor boost_program_options boost_regex boost_thread boost_unit_test_framework)
+LIST(APPEND BOOST_LIBRARIES boost_system boost_date_time boost_prg_exec_monitor boost_program_options boost_regex boost_thread boost_unit_test_framework)
 
 # tinyxml
 LIST(APPEND VRN_EXTERNAL_LICENSE_FILES "${VRN_HOME}/ext/tinyxml/license.txt")
