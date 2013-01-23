@@ -18,7 +18,7 @@ Ubuntu:
 
     cmake . -DVRN_BUILD_3MVIEW=ON -DVRN_BUILD_VOREENVE=ON -DVRN_BUILD_VOREENTOOL=OFF -DVRN_MODULE_MOLECULE=ON -DVRN_MODULE_STEREO=ON
     
-# Если при компиляции выданы ошибки, связанные с Boost:
+# Если при компиляции выданы ошибки, связанные с Boost
 
 Скачиваем [Boost 1.52.0](http://sourceforge.net/projects/boost/files/boost/1.52.0/boost_1_52_0.tar.bz2/download)
 
