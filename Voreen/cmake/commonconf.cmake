@@ -228,11 +228,27 @@ ELSE(GLEW_FOUND)
     MESSAGE(FATAL_ERROR "GLEW not found!")
 ENDIF(GLEW_FOUND)
 
-# Boost 1.52.0
-MESSAGE(STATUS "* Found Boost 1.52.0")
-LIST(APPEND VRN_INCLUDE_DIRECTORIES "${BOOST_HOME}/include")
-SET(BOOST_LIBRARY_DIRECTORY ${BOOST_HOME}/lib)
-LIST(APPEND BOOST_LIBRARIES boost_system boost_date_time boost_prg_exec_monitor boost_program_options boost_regex boost_thread boost_unit_test_framework)
+# Boost	
+#SET(USE_CUSTOM_BOOST ON)
+
+IF(USE_CUSTOM_BOOST)
+    MESSAGE(STATUS "* Found Boost 1.52.0")
+    LIST(APPEND VRN_INCLUDE_DIRECTORIES "${BOOST_HOME}/include")
+    SET(BOOST_LIBRARY_DIRECTORY ${BOOST_HOME}/lib)
+    LIST(APPEND BOOST_LIBRARIES boost_system boost_date_time boost_prg_exec_monitor boost_program_options boost_regex boost_thread boost_unit_test_framework)
+ELSE(USE_CUSTOM_BOOST)
+    FIND_PACKAGE(BoostVRN REQUIRED)
+    IF(Boost_FOUND)
+        MESSAGE(STATUS "* Found Boost")
+        LIST(APPEND VRN_DEFINITIONS ${Boost_DEFINITIONS})
+        LIST(APPEND VRN_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIRS})
+        LIST(APPEND VRN_EXTERNAL_LIBRARIES ${Boost_LIBRARIES})
+        LIST(APPEND VRN_EXTERNAL_DEBUG_DLLS ${Boost_DEBUG_DLLS})
+        LIST(APPEND VRN_EXTERNAL_RELEASE_DLLS ${Boost_RELEASE_DLLS})
+    ELSE(Boost_FOUND)
+        MESSAGE(FATAL_ERROR "Boost not found!")
+    ENDIF(Boost_FOUND)
+ENDIF(USE_CUSTOM_BOOST)
 
 # tinyxml
 LIST(APPEND VRN_EXTERNAL_LICENSE_FILES "${VRN_HOME}/ext/tinyxml/license.txt")
