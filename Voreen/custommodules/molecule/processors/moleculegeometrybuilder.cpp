@@ -9,15 +9,31 @@ MoleculeGeometryBuilder::MoleculeGeometryBuilder()
   : Processor()
   , inport_(Port::INPORT, "molecule", "Molecule Input")
   , outport_(Port::OUTPORT, "geometry", "Geometry Output")
+  , repType_("repType", "Representation")
 {
     addPort(inport_);
     addPort(outport_);
+    
+    addProperty(repType_);
+    repType_.addOption("atomsAndBonds", "Atoms and bonds");
+    repType_.addOption("backboneTrace", "Backbone trace");
 }
 
 void MoleculeGeometryBuilder::process() {
+    // TODO Check for memory leaks and unnecessary rebuildung of geometry
     MeshListGeometry* geometry = new MeshListGeometry();
-    
     const Molecule* molecule = inport_.getData();
+
+    // TODO Add @repType as a parameter to the Molecule class
+    /**/ if (repType_.get() == "atomsAndBonds")
+        buildAtomsAndBondsGeometry(geometry, molecule);
+    //else if (repType.get() == "backboneTrace")
+        //buildBackboneTraceGeometry(geometry, molecule);
+    
+    outport_.setData(geometry);
+}
+
+void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
     const OBMol* mol = molecule->getOBMol();
     
     // Cubes parameters
@@ -47,9 +63,7 @@ void MoleculeGeometryBuilder::process() {
         tgt::vec3 atom1Coords(a1->x(), a1->y(), a1->z());
         tgt::vec3 atom2Coords(a2->x(), a2->y(), a2->z());
         
-        MeshGeometry cyl = PrimitiveGeometryBuilder::createCylinder(atom1Coords, atom2Coords, 0.02f, 6, color);
+        MeshGeometry cyl = PrimitiveGeometryBuilder::createCylinder(atom1Coords, atom2Coords, 0.02f, 2, color);
         geometry->addMesh(cyl);
     }
-    
-    outport_.setData(geometry);
 }
