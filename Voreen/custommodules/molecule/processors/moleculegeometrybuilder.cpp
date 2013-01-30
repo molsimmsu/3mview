@@ -2,6 +2,8 @@
 
 #include "voreen/core/datastructures/geometry/meshlistgeometry.h"
 
+#include "../../geometry/utils/primitivegeometrybuilder.h"
+
 #include "openbabel/mol.h"
 using namespace OpenBabel;
 
@@ -27,8 +29,8 @@ void MoleculeGeometryBuilder::process() {
     // TODO Add @repType as a parameter to the Molecule class
     /**/ if (repType_.get() == "atomsAndBonds")
         buildAtomsAndBondsGeometry(geometry, molecule);
-    //else if (repType.get() == "backboneTrace")
-        //buildBackboneTraceGeometry(geometry, molecule);
+    else if (repType_.get() == "backboneTrace")
+        buildBackboneTraceGeometry(geometry, molecule);
     
     outport_.setData(geometry);
 }
@@ -43,7 +45,7 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
     tgt::vec3 color(0.f, 1.f, 1.f);
     
     // Draw atoms with cubes.
-    // NOTE: Atoms indices in OpenBabel start with 1
+    // XXX Atoms indices in OpenBabel start with 1
     for (size_t i = 1; i <= mol->NumAtoms(); i++) {
         OBAtom* a = mol->GetAtom(i);
         tgt::vec3 atomCoords(a->x(), a->y(), a->z());
@@ -55,7 +57,7 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
     }
     
     // Draw bonds with cylinders
-    // NOTE: Bonds indices in OpenBabel start with 0
+    // XXX Bonds indices in OpenBabel start with 0
     for (size_t i = 0; i < mol->NumBonds(); i++) {
         OBBond* bond = mol->GetBond(i);
         OBAtom* a1 = bond->GetBeginAtom();
@@ -66,4 +68,9 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
         MeshGeometry cyl = PrimitiveGeometryBuilder::createCylinder(atom1Coords, atom2Coords, 0.02f, 2, color);
         geometry->addMesh(cyl);
     }
+}
+
+void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
+    // 1. Первичная обработка. На выходе: координаты и матрицы вращения вершин сплайнов, типы вторичных структур и цвета сегментов.
+    // 2. Построение геометрии на основе указанных данных.
 }

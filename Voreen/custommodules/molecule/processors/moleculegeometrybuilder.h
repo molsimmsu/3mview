@@ -2,11 +2,13 @@
 #define VRN_MOLECULEGEOMETRYBUILDER_H
 
 #include "../ports/moleculeport.h"
-#include "../utils/primitivegeometrybuilder.h"
 
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/ports/geometryport.h"
 #include "voreen/core/properties/optionproperty.h"
+#include "voreen/core/datastructures/geometry/meshlistgeometry.h"
+#include "voreen/core/datastructures/geometry/meshgeometry.h"
+#include "voreen/core/datastructures/geometry/facegeometry.h"
 using namespace voreen;
 
 class MoleculeGeometryBuilder : public Processor {
@@ -42,6 +44,7 @@ protected:
      * @param molecule Molecule which should be constructed
      */
     void buildAtomsAndBondsGeometry(MeshListGeometry* geometry, const Molecule* molecule);
+    void buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule);
 
 private:
     // ports and properties

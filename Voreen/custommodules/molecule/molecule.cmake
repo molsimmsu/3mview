@@ -6,7 +6,6 @@ SET(MOD_CORE_MODULECLASS MoleculeModule)
 SET(MOD_CORE_SOURCES
     ${MOD_DIR}/datastructures/molecule.cpp
     ${MOD_DIR}/ports/moleculeport.cpp
-    ${MOD_DIR}/utils/primitivegeometrybuilder.cpp
     ${MOD_DIR}/processors/moleculesource.cpp
     ${MOD_DIR}/processors/moleculetransformer.cpp
     ${MOD_DIR}/processors/moleculegeometrybuilder.cpp
@@ -16,7 +15,6 @@ SET(MOD_CORE_SOURCES
 SET(MOD_CORE_HEADERS
     ${MOD_DIR}/datastructures/molecule.h
     ${MOD_DIR}/ports/moleculeport.h
-    ${MOD_DIR}/utils/primitivegeometrybuilder.h
     ${MOD_DIR}/processors/moleculesource.h
     ${MOD_DIR}/processors/moleculetransformer.h
     ${MOD_DIR}/processors/moleculegeometrybuilder.h
