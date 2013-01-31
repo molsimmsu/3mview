@@ -2,34 +2,95 @@
 
 MeshGeometry PrimitiveGeometryBuilder::createCylinder(tgt::vec3 v1, tgt::vec3 v2, float radius, size_t numSides, tgt::vec3 color, bool buildCaps) {
     // Get the basis on which the cap vertices are built
-    std::vector<tgt::vec3> basis = getCylinderCapBasis(v1, v2);
+    Basis basis = getCylinderCapBasis(v1, v2);
     // Cylinder vertices
+    std::vector<tgt::vec3> vertices = makeBasisVertices(v1, basis, radius, radius, 
+                                                        v2, basis, radius, radius, 
+                                                        numSides);
+    
+    return buildCylinderMesh(vertices, numSides, color);
+}
+
+MeshListGeometry* PrimitiveGeometryBuilder::createPolyLine(const PolyLine* line, float radius, 
+                                size_t numSides, tgt::vec3 color, bool buildCaps) {
+    MeshListGeometry* geometry = new MeshListGeometry();
+    
+    for (size_t i = 1; i < line->getVertexCount(); i++) {
+        tgt::vec3 v1 = line->getVertex(i-1);
+        tgt::vec3 v2 = line->getVertex(i);
+        //MeshGeometry seg = createCylinder(v1, v2, radius, numSides, color, buildCaps);
+        
+        Basis basis1;
+        basis1.push_back(line->getNormal(i-1));
+        basis1.push_back(line->getBinormal(i-1));
+        
+        Basis basis2;
+        basis2.push_back(line->getNormal(i));
+        basis2.push_back(line->getBinormal(i));
+    
+        std::vector<tgt::vec3> vertices = makeBasisVertices(v1, basis1, radius, radius*4, 
+                                                            v2, basis2, radius, radius*4, 
+                                                            numSides);
+    
+        MeshGeometry seg = buildCylinderMesh(vertices, numSides, color);
+    
+        geometry->addMesh(seg);
+    }
+    
+    return geometry;
+}
+
+MeshListGeometry* PrimitiveGeometryBuilder::createPolyLineCoords(const PolyLine* line, float radius) {
+    MeshListGeometry* geometry = new MeshListGeometry();
+    
+    for (size_t i = 1; i < line->getVertexCount(); i++) {
+        tgt::vec3 v = line->getVertex(i);
+        tgt::vec3 t = line->getTangent(i);
+        tgt::vec3 n = line->getNormal(i);
+        tgt::vec3 b = line->getBinormal(i);
+
+        geometry->addMesh(createCylinder(v, v+t, radius, 3, tgt::vec3(1,0,0)));
+        geometry->addMesh(createCylinder(v, v+n, radius, 3, tgt::vec3(0,1,0)));
+        geometry->addMesh(createCylinder(v, v+b, radius, 3, tgt::vec3(0,0,1)));
+    }
+    
+    return geometry;
+}
+
+std::vector<tgt::vec3> PrimitiveGeometryBuilder::makeBasisVertices(tgt::vec3 v1, Basis basis1, float rx1, float ry1, 
+                                                                   tgt::vec3 v2, Basis basis2, float rx2, float ry2,
+                                                                   size_t numSides) {
     std::vector<tgt::vec3> vertices;
     
     // Build vertices of two caps by rotating a vector in the basis plane
     for (size_t i = 0; i < numSides; i++) {
         float angle = 2 * tgt::PI * i / numSides;
         
-        // Basis coefficients
-        float ca = cos(angle)*radius;
-        float sa = sin(angle)*radius;
-        
-        // Multiply basis vectors
-        tgt::vec3 a(basis[0][0]*ca, basis[0][1]*ca, basis[0][2]*ca);
-        tgt::vec3 b(basis[1][0]*sa, basis[1][1]*sa, basis[1][2]*sa);
-        
-        // Vector from cap center to its vertex
-        tgt::vec3 rel = a + b;
-        
-        // Add vertices to the cylinder
-        vertices.push_back(v1 + rel);
-        vertices.push_back(v2 + rel);
+        vertices.push_back(v1 + makeBasisVertex(angle, basis1, rx1, ry1));
+        vertices.push_back(v2 + makeBasisVertex(angle, basis2, rx2, ry2));
     }
     
     // Add two first vertices to the end of the list to loop the cycle
     vertices.push_back(vertices[0]);
     vertices.push_back(vertices[1]);
     
+    return vertices;
+}
+
+tgt::vec3 PrimitiveGeometryBuilder::makeBasisVertex(float angle, Basis basis, float rx, float ry) {
+    // Basis coefficients
+    float ca = cos(angle)*rx;
+    float sa = sin(angle)*ry;
+    
+    // Multiply basis vectors
+    tgt::vec3 a(basis[0][0]*ca, basis[0][1]*ca, basis[0][2]*ca);
+    tgt::vec3 b(basis[1][0]*sa, basis[1][1]*sa, basis[1][2]*sa);
+    
+    // Vector from cap center to its vertex
+    return a + b;
+}
+
+MeshGeometry PrimitiveGeometryBuilder::buildCylinderMesh(std::vector<tgt::vec3>& vertices, size_t numSides, tgt::vec3 color) {
     // Transform vec3 to vec4
     tgt::vec4 color4(color[0], color[1], color[2], 1.f);
     
@@ -54,37 +115,6 @@ MeshGeometry PrimitiveGeometryBuilder::createCylinder(tgt::vec3 v1, tgt::vec3 v2
         cyl.addFace(face);
     }
     return cyl;
-}
-
-MeshListGeometry* PrimitiveGeometryBuilder::createPolyLine(const PolyLine* line, float radius, 
-                                size_t numSides, tgt::vec3 color, bool buildCaps) {
-    MeshListGeometry* geometry = new MeshListGeometry();
-    
-    for (size_t i = 1; i < line->getVertexCount(); i++) {
-        tgt::vec3 v1 = line->getVertex(i-1);
-        tgt::vec3 v2 = line->getVertex(i);
-        MeshGeometry cyl = createCylinder(v1, v2, radius, numSides, color, buildCaps);
-        geometry->addMesh(cyl);
-    }
-    
-    return geometry;
-}
-
-MeshListGeometry* PrimitiveGeometryBuilder::createPolyLineCoords(const PolyLine* line, float radius) {
-    MeshListGeometry* geometry = new MeshListGeometry();
-    
-    for (size_t i = 1; i < line->getVertexCount(); i++) {
-        tgt::vec3 v = line->getVertex(i);
-        tgt::vec3 t = line->getTangent(i);
-        tgt::vec3 n = line->getNormal(i);
-        tgt::vec3 b = line->getBinormal(i);
-
-        geometry->addMesh(createCylinder(v, v+t, radius, 3, tgt::vec3(1,0,0)));
-        geometry->addMesh(createCylinder(v, v+n, radius, 3, tgt::vec3(0,1,0)));
-        geometry->addMesh(createCylinder(v, v+b, radius, 3, tgt::vec3(0,0,1)));
-    }
-    
-    return geometry;
 }
 
 std::vector<tgt::vec3> PrimitiveGeometryBuilder::getCylinderCapBasis(tgt::vec3 v1, tgt::vec3 v2) {
