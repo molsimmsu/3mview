@@ -32,7 +32,7 @@ public:
     /**
      * Returns underlying OpenBabel molecule data structure
      */
-    const OBMol* getOBMol() const;
+    OBMol* getOBMol() const;
     
     /**
      * TODO Implementation of the Serializable interface.

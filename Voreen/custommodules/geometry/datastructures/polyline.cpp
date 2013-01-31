@@ -29,6 +29,17 @@ const tgt::vec3 PolyLine::getTangent(size_t index) const {
     return tgt::normalize(getSegment(index) + getSegment(index-1));
 }
 
+/*const tgt::vec3 PolyLine::getBinormal(size_t index) const {
+    if (index == 0) return getBinormal(1);
+    if (index == getVertexCount() - 1) return getBinormal(index - 1);
+    
+    tgt::vec3 v1 = getTangent();
+    tgt::vec3 v2;
+    if (index > 0) v2 = getSegment(index-1);
+    else v2 = getSegment(0);
+    return tgt::normalize(getSegment(index) + getSegment(index-1));
+}*/
+
 size_t PolyLine::getVertexCount() const {
     return vertices_.size();
 }

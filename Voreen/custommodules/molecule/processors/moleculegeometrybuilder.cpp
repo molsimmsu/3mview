@@ -3,9 +3,14 @@
 #include "voreen/core/datastructures/geometry/meshlistgeometry.h"
 
 #include "../../geometry/utils/primitivegeometrybuilder.h"
+#include "../../geometry/utils/primitivegeometrybuilder.h"
 
 #include "openbabel/mol.h"
 using namespace OpenBabel;
+
+#include "tgt/vector.h"
+
+#include <iostream>
 
 MoleculeGeometryBuilder::MoleculeGeometryBuilder()
   : Processor()
@@ -73,4 +78,34 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
 void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
     // 1. Первичная обработка. На выходе: координаты и матрицы вращения вершин сплайнов, типы вторичных структур и цвета сегментов.
     // 2. Построение геометрии на основе указанных данных.
+    PolyLine backbone;
+    
+    OBMol* mol = molecule->getOBMol();
+    if (mol->NumResidues() < 2) return;
+    
+    OBResidueIterator res = mol->BeginResidues();
+    OBResidueIterator resEnd = mol->EndResidues();
+    
+    for (;res != resEnd; ++res) {
+        std::vector<OBAtom*> atoms = (*res)->GetAtoms();
+        size_t numAtoms = atoms.size();
+        
+        for (size_t i = 0; i < numAtoms; i++) {
+            OBAtom* a = atoms[i];
+            
+            std::string atomID = (*res)->GetAtomID(a);
+            atomID.erase(remove(atomID.begin(), atomID.end(), ' '), atomID.end());
+            
+            if (atomID.compare("CA") == 0)
+                backbone.addVertex(tgt::vec3(a->x(),a->y(),a->z()));
+        }
+        
+    }
+    
+    PolyLine* smoothBackbone = backbone.interpolateBezier(10, 2.0f);
+    MeshListGeometry* lineGeometry = PrimitiveGeometryBuilder::createPolyLine(smoothBackbone, 0.1f, 8, tgt::vec3(1, 1, 0));
+    
+    size_t meshCount = lineGeometry->getMeshCount();
+    for (size_t i = 0; i < meshCount; i++)
+        geometry->addMesh(lineGeometry->getMesh(i));
 }

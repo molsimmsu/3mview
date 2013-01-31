@@ -30,6 +30,8 @@ public:
     
     const tgt::vec3 getTangent(size_t index) const;
     
+    //const tgt::vec3 getBinormal(size_t index) const;
+    
     size_t getVertexCount() const;
     
     size_t getSegmentCount() const;
