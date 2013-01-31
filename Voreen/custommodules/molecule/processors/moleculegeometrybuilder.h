@@ -6,6 +6,8 @@
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/ports/geometryport.h"
 #include "voreen/core/properties/optionproperty.h"
+#include "voreen/core/properties/floatproperty.h"
+#include "voreen/core/properties/intproperty.h"
 #include "voreen/core/datastructures/geometry/meshlistgeometry.h"
 #include "voreen/core/datastructures/geometry/meshgeometry.h"
 #include "voreen/core/datastructures/geometry/facegeometry.h"
@@ -52,6 +54,10 @@ private:
     GeometryPort outport_;
     
     StringOptionProperty repType_; ///< Determines the type of representation of the molecule
+    FloatProperty traceTangentLength_;
+    FloatProperty traceCylinderRadius_;
+    IntProperty traceNumCylinderSides_;
+    IntProperty traceNumSteps_;
 
 };
 

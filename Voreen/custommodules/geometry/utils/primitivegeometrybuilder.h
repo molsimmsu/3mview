@@ -20,7 +20,9 @@ public:
                                 size_t numSides, tgt::vec3 color, bool buildCaps = false);
                                 
     static MeshListGeometry* createPolyLine(const PolyLine* line, float radius, 
-                                size_t numSides, tgt::vec3 color, bool buildCaps = false);   
+                                size_t numSides, tgt::vec3 color, bool buildCaps = false);
+                                
+    static MeshListGeometry* createPolyLineCoords(const PolyLine* line, float radius);
 
 private:
    /* Returns the basis, on which cylinder's caps are built.

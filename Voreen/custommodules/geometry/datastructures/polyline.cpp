@@ -24,21 +24,34 @@ const tgt::vec3 PolyLine::getSegment(size_t index) const {
 }
 
 const tgt::vec3 PolyLine::getTangent(size_t index) const {
-    if (index == 0) return tgt::normalize(getVertex(1) - getVertex(0));
-    if (index == getVertexCount() - 1) return tgt::normalize(getVertex(index) - getVertex(index-1));
-    return tgt::normalize(getSegment(index) + getSegment(index-1));
+    if (index == 0)
+        return tgt::normalize(getVertex(1) - getVertex(0));
+        
+    if (index == getVertexCount() - 1)
+        return tgt::normalize(getVertex(index) - getVertex(index-1));
+        
+    return tgt::normalize(tgt::normalize(getSegment(index)) + tgt::normalize(getSegment(index-1)));
 }
 
-/*const tgt::vec3 PolyLine::getBinormal(size_t index) const {
-    if (index == 0) return getBinormal(1);
-    if (index == getVertexCount() - 1) return getBinormal(index - 1);
-    
-    tgt::vec3 v1 = getTangent();
-    tgt::vec3 v2;
-    if (index > 0) v2 = getSegment(index-1);
-    else v2 = getSegment(0);
-    return tgt::normalize(getSegment(index) + getSegment(index-1));
-}*/
+const tgt::vec3 PolyLine::getNormal(size_t index) const {
+    if (index == 0)
+        return tgt::cross(getBinormal(1), getTangent(0));
+        
+    if (index == getVertexCount() - 1)
+        return tgt::cross(getBinormal(index-1), getTangent(index));
+        
+    return tgt::normalize(tgt::normalize(getSegment(index)) - tgt::normalize(getSegment(index-1)));
+}
+
+const tgt::vec3 PolyLine::getBinormal(size_t index) const {
+    if (index == 0)
+        return getBinormal(1);
+        
+    if (index == getVertexCount() - 1)
+        return getBinormal(index-1);
+        
+    return tgt::cross(getTangent(index), getNormal(index));
+}
 
 size_t PolyLine::getVertexCount() const {
     return vertices_.size();

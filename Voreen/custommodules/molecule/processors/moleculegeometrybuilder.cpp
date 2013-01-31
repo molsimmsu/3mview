@@ -17,11 +17,20 @@ MoleculeGeometryBuilder::MoleculeGeometryBuilder()
   , inport_(Port::INPORT, "molecule", "Molecule Input")
   , outport_(Port::OUTPORT, "geometry", "Geometry Output")
   , repType_("repType", "Representation")
+  , traceTangentLength_("traceTangentLength", "Tangent length", 1.5f, 1.f, 2.f)
+  , traceCylinderRadius_("traceCylinderRadius", "Trace radius", 0.1f, 0.01f, 0.3f)
+  , traceNumCylinderSides_("traceNumCylinderSides", "Cylinder side count", 8, 2, 12)
+  , traceNumSteps_("traceNumSteps", "Step count", 8, 1, 12)
 {
     addPort(inport_);
     addPort(outport_);
     
     addProperty(repType_);
+    addProperty(traceTangentLength_);
+    addProperty(traceCylinderRadius_);
+    addProperty(traceNumCylinderSides_);
+    addProperty(traceNumSteps_);
+    
     repType_.addOption("atomsAndBonds", "Atoms and bonds");
     repType_.addOption("backboneTrace", "Backbone trace");
 }
@@ -76,8 +85,7 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
 }
 
 void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
-    // 1. Первичная обработка. На выходе: координаты и матрицы вращения вершин сплайнов, типы вторичных структур и цвета сегментов.
-    // 2. Построение геометрии на основе указанных данных.
+    // TODO Parse chain numbers
     PolyLine backbone;
     
     OBMol* mol = molecule->getOBMol();
@@ -99,13 +107,15 @@ void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geome
             if (atomID.compare("CA") == 0)
                 backbone.addVertex(tgt::vec3(a->x(),a->y(),a->z()));
         }
-        
     }
     
-    PolyLine* smoothBackbone = backbone.interpolateBezier(10, 2.0f);
-    MeshListGeometry* lineGeometry = PrimitiveGeometryBuilder::createPolyLine(smoothBackbone, 0.1f, 8, tgt::vec3(1, 1, 0));
+    PolyLine* smoothBackbone = backbone.interpolateBezier(traceNumSteps_.get(), traceTangentLength_.get());
+    MeshListGeometry* lineGeometry = PrimitiveGeometryBuilder::createPolyLine(smoothBackbone, traceCylinderRadius_.get(), traceNumCylinderSides_.get(), tgt::vec3(1, 1, 0));
     
-    size_t meshCount = lineGeometry->getMeshCount();
-    for (size_t i = 0; i < meshCount; i++)
-        geometry->addMesh(lineGeometry->getMesh(i));
+    geometry->addMeshList(*lineGeometry);
+    
+    // Coords    
+    MeshListGeometry* coordsGeometry = PrimitiveGeometryBuilder::createPolyLineCoords(smoothBackbone, traceCylinderRadius_.get() * 0.5);
+    
+    geometry->addMeshList(*coordsGeometry);
 }
