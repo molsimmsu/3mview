@@ -63,6 +63,12 @@ void MeshListGeometry::addMesh(const MeshGeometry& mesh) {
     meshes_.push_back(mesh);
 }
 
+void MeshListGeometry::addMeshList(const MeshListGeometry& meshList) {
+    size_t meshCount = meshList.getMeshCount();
+    for (size_t i = 0; i < meshCount; i++)
+        addMesh(meshList.getMesh(i));
+}
+
 const MeshGeometry& MeshListGeometry::getMesh(size_t index) const {
     tgtAssert(index < meshes_.size(), "Invalid index");
     return meshes_.at(index);

@@ -121,6 +121,13 @@ public:
      * @param mesh the mesh geometry
      */
     void addMesh(const MeshGeometry& mesh);
+    
+    /**
+     * Adds the given mesh list geometry to this mesh list geometry.
+     *
+     * @param meshList the mesh list geometry
+     */
+    void addMeshList(const MeshListGeometry& meshList);
 
     /**
      * Returns a const reference to the mesh geometry at the given @c index.
