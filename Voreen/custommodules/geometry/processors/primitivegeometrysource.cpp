@@ -24,6 +24,8 @@
  ***********************************************************************************/
 
 #include "primitivegeometrysource.h"
+#include "../utils/primitivegeometrybuilder.h"
+#include "../datastructures/polyline.h"
 
 #include "voreen/core/voreenapplication.h"
 #include "voreen/core/datastructures/geometry/meshlistgeometry.h"
@@ -54,6 +56,7 @@ PrimitiveGeometrySource::PrimitiveGeometrySource()
     outport_(Port::OUTPORT, "geometry.pointlist", "PointList Output")
 {
     geometryType_.addOption("plane", "Plane");
+    geometryType_.addOption("polyline", "PolyLine");
     geometryType_.addOption("loadFile", "Load from file");
 
     loadGeometry_.onChange(CallMemberAction<PrimitiveGeometrySource>(this, &PrimitiveGeometrySource::readGeometry));
@@ -86,6 +89,20 @@ void PrimitiveGeometrySource::readGeometry() {
         try {
             Geometry* geometry = createPlaneGeometry();
             tgtAssert(geometry, "null pointer returned (exception expected)");
+            outport_.setData(geometry);
+        }
+        catch (VoreenException& e) {
+            LERROR(e.what());
+        }
+    }
+    else if (geometryType_.isSelected("polyline")) {
+        try {
+            PolyLine line;
+            line.addVertex(tgt::vec3(0, 0, 0));
+            line.addVertex(tgt::vec3(1, 1, 1));
+            line.addVertex(tgt::vec3(2, 2, 4));
+            line.addVertex(tgt::vec3(4, 4, 4));
+            Geometry* geometry = PrimitiveGeometryBuilder::createPolyLine(line, .05f, 8, tgt::vec3(1.f, 1.f, 0.f));
             outport_.setData(geometry);
         }
         catch (VoreenException& e) {

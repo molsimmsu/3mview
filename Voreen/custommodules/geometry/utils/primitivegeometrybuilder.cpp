@@ -56,6 +56,20 @@ MeshGeometry PrimitiveGeometryBuilder::createCylinder(tgt::vec3 v1, tgt::vec3 v2
     return cyl;
 }
 
+MeshListGeometry* PrimitiveGeometryBuilder::createPolyLine(const PolyLine& line, float radius, 
+                                size_t numSides, tgt::vec3 color, bool buildCaps) {
+    MeshListGeometry* geometry = new MeshListGeometry();
+    
+    for (size_t i = 1; i < line.getVertexCount(); i++) {
+        tgt::vec3 v1 = line.getVertex(i-1);
+        tgt::vec3 v2 = line.getVertex(i);
+        MeshGeometry cyl = createCylinder(v1, v2, radius, numSides, color, buildCaps);
+        geometry->addMesh(cyl);
+    }
+    
+    return geometry;
+}
+
 std::vector<tgt::vec3> PrimitiveGeometryBuilder::getCylinderCapBasis(tgt::vec3 v1, tgt::vec3 v2) {
     tgt::vec3 a = v2 - v1; // Cylinder axis
     tgt::vec3 b, c; // Basis vectors
@@ -94,8 +108,8 @@ std::vector<tgt::vec3> PrimitiveGeometryBuilder::getCylinderCapBasis(tgt::vec3 v
     
     // Return the basis
     std::vector<tgt::vec3> basis;
-    basis.push_back(b);
-    basis.push_back(c);
+    basis.push_back(tgt::normalize(b));
+    basis.push_back(tgt::normalize(c));
     
     return basis;
 }

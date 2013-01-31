@@ -1,6 +1,8 @@
 #ifndef VRN_PRIMITIVEGEOMETRYBUILDER_H
 #define VRN_PRIMITIVEGEOMETRYBUILDER_H
 
+#include "../datastructures/polyline.h"
+
 #include "voreen/core/datastructures/geometry/meshlistgeometry.h"
 #include "voreen/core/datastructures/geometry/meshgeometry.h"
 #include "voreen/core/datastructures/geometry/facegeometry.h"
@@ -16,6 +18,9 @@ class PrimitiveGeometryBuilder {
 public:
     static MeshGeometry createCylinder(tgt::vec3 v1, tgt::vec3 v2, float radius, 
                                 size_t numSides, tgt::vec3 color, bool buildCaps = false);
+                                
+    static MeshListGeometry* createPolyLine(const PolyLine& line, float radius, 
+                                size_t numSides, tgt::vec3 color, bool buildCaps = false);   
 
 private:
    /* Returns the basis, on which cylinder's caps are built.
