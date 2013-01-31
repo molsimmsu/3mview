@@ -56,13 +56,13 @@ MeshGeometry PrimitiveGeometryBuilder::createCylinder(tgt::vec3 v1, tgt::vec3 v2
     return cyl;
 }
 
-MeshListGeometry* PrimitiveGeometryBuilder::createPolyLine(const PolyLine& line, float radius, 
+MeshListGeometry* PrimitiveGeometryBuilder::createPolyLine(const PolyLine* line, float radius, 
                                 size_t numSides, tgt::vec3 color, bool buildCaps) {
     MeshListGeometry* geometry = new MeshListGeometry();
     
-    for (size_t i = 1; i < line.getVertexCount(); i++) {
-        tgt::vec3 v1 = line.getVertex(i-1);
-        tgt::vec3 v2 = line.getVertex(i);
+    for (size_t i = 1; i < line->getVertexCount(); i++) {
+        tgt::vec3 v1 = line->getVertex(i-1);
+        tgt::vec3 v2 = line->getVertex(i);
         MeshGeometry cyl = createCylinder(v1, v2, radius, numSides, color, buildCaps);
         geometry->addMesh(cyl);
     }

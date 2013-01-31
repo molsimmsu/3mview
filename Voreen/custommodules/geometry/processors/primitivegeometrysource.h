@@ -29,8 +29,7 @@
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/ports/geometryport.h"
 #include "voreen/core/properties/filedialogproperty.h"
-#include "voreen/core/properties/optionproperty.h"
-#include "voreen/core/properties/intproperty.h"
+#include "voreen/core/properties/floatproperty.h"
 #include "voreen/core/properties/buttonproperty.h"
 
 namespace voreen {
@@ -102,6 +101,7 @@ private:
     FileDialogProperty inputFile_;
     ButtonProperty loadGeometry_;
     ButtonProperty clearGeometry_;
+    FloatProperty polylineTangent_;
 
     GeometryPort outport_;
 

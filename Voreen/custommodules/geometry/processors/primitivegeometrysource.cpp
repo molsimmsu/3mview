@@ -53,6 +53,7 @@ PrimitiveGeometrySource::PrimitiveGeometrySource()
     inputFile_("inputFile", "Input file", "Load OBJ", VoreenApplication::app()->getUserDataPath(), "*.obj"),
     loadGeometry_("loadGeometry", "Load Geometry"),
     clearGeometry_("clearGeometry", "Clear Geometry"),
+    polylineTangent_("polylineTangent", "Polyline Tangent", 1.f, 0.f, 10.f),
     outport_(Port::OUTPORT, "geometry.pointlist", "PointList Output")
 {
     geometryType_.addOption("plane", "Plane");
@@ -68,6 +69,7 @@ PrimitiveGeometrySource::PrimitiveGeometrySource()
     addProperty(inputFile_);
     addProperty(loadGeometry_);
     addProperty(clearGeometry_);
+    addProperty(polylineTangent_);
 
     addPort(outport_);
 }
@@ -102,7 +104,9 @@ void PrimitiveGeometrySource::readGeometry() {
             line.addVertex(tgt::vec3(1, 1, 1));
             line.addVertex(tgt::vec3(2, 2, 4));
             line.addVertex(tgt::vec3(4, 4, 4));
-            Geometry* geometry = PrimitiveGeometryBuilder::createPolyLine(line, .05f, 8, tgt::vec3(1.f, 1.f, 0.f));
+            
+            PolyLine* bezier = line.interpolateBezier(10, polylineTangent_.get());
+            Geometry* geometry = PrimitiveGeometryBuilder::createPolyLine(bezier, .05f, 8, tgt::vec3(1.f, 1.f, 0.f));
             outport_.setData(geometry);
         }
         catch (VoreenException& e) {

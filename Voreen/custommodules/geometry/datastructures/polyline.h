@@ -24,9 +24,17 @@ public:
     
     void addVertex(const tgt::vec3& vertex);
     
-    const tgt::vec3& getVertex(size_t index) const;
+    const tgt::vec3 getVertex(size_t index) const;
+    
+    const tgt::vec3 getSegment(size_t index) const;
+    
+    const tgt::vec3 getTangent(size_t index) const;
     
     size_t getVertexCount() const;
+    
+    size_t getSegmentCount() const;
+    
+    PolyLine* interpolateBezier(size_t numSegments, float tangentLength) const;
     
     /**
      * TODO Implementation of the Serializable interface.
