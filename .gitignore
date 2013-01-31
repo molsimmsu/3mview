@@ -1,10 +1,15 @@
 Makefile
 moc_*.cpp
+moc_*.cxx
+bin
 tags
 ui_*.h
 *.user
 3mview-build-*
 # Compiled source #
+CMakeCache.txt
+CMakeFiles
+*.gch
 ###################
 *.com
 *.class
