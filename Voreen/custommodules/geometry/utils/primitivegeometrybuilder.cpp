@@ -15,6 +15,8 @@ MeshListGeometry* PrimitiveGeometryBuilder::createPolyLine(const PolyLine* line,
                                 size_t numSides, tgt::vec3 color, bool buildCaps) {
     MeshListGeometry* geometry = new MeshListGeometry();
     
+    bool invertBasis = false;
+    
     for (size_t i = 1; i < line->getVertexCount(); i++) {
         tgt::vec3 v1 = line->getVertex(i-1);
         tgt::vec3 v2 = line->getVertex(i);
@@ -27,6 +29,19 @@ MeshListGeometry* PrimitiveGeometryBuilder::createPolyLine(const PolyLine* line,
         Basis basis2;
         basis2.push_back(line->getNormal(i));
         basis2.push_back(line->getBinormal(i));
+        
+        /*if (invertBasis) {
+            basis1[0] = -basis1[0];
+            basis1[1] = -basis1[1];
+            basis2[0] = -basis2[0];
+            basis2[1] = -basis2[1];
+        }
+        
+        if (tgt::dot(line->getNormal(i-1), line->getNormal(i+1)) < -0.7) {
+            invertBasis = !invertBasis;
+            basis2[0] = -basis2[0];
+            basis2[1] = -basis2[1];
+        }*/
     
         std::vector<tgt::vec3> vertices = makeBasisVertices(v1, basis1, radius, radius*4, 
                                                             v2, basis2, radius, radius*4, 

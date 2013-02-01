@@ -8,6 +8,7 @@
 #include "voreen/core/properties/optionproperty.h"
 #include "voreen/core/properties/floatproperty.h"
 #include "voreen/core/properties/intproperty.h"
+#include "voreen/core/properties/boolproperty.h"
 #include "voreen/core/datastructures/geometry/meshlistgeometry.h"
 #include "voreen/core/datastructures/geometry/meshgeometry.h"
 #include "voreen/core/datastructures/geometry/facegeometry.h"
@@ -58,6 +59,7 @@ private:
     FloatProperty traceCylinderRadius_;
     IntProperty traceNumCylinderSides_;
     IntProperty traceNumSteps_;
+    BoolProperty showCoords_;
 
 };
 

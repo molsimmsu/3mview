@@ -19,8 +19,9 @@ MoleculeGeometryBuilder::MoleculeGeometryBuilder()
   , repType_("repType", "Representation")
   , traceTangentLength_("traceTangentLength", "Tangent length", 1.5f, 1.f, 2.f)
   , traceCylinderRadius_("traceCylinderRadius", "Trace radius", 0.1f, 0.01f, 0.3f)
-  , traceNumCylinderSides_("traceNumCylinderSides", "Cylinder side count", 8, 2, 12)
-  , traceNumSteps_("traceNumSteps", "Step count", 8, 1, 12)
+  , traceNumCylinderSides_("traceNumCylinderSides", "Cylinder side count", 5, 2, 12)
+  , traceNumSteps_("traceNumSteps", "Step count", 4, 1, 12)
+  , showCoords_("showCoords", "Show coords", true)
 {
     addPort(inport_);
     addPort(outport_);
@@ -30,6 +31,7 @@ MoleculeGeometryBuilder::MoleculeGeometryBuilder()
     addProperty(traceCylinderRadius_);
     addProperty(traceNumCylinderSides_);
     addProperty(traceNumSteps_);
+    addProperty(showCoords_);
     
     repType_.addOption("atomsAndBonds", "Atoms and bonds");
     repType_.addOption("backboneTrace", "Backbone trace");
@@ -88,6 +90,14 @@ void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geome
     // TODO Parse chain numbers
     std::vector<PolyLine> backbone;
     
+    std::vector<tgt::vec3> chainColors;
+    chainColors.push_back(tgt::vec3(1, 0.4, 0.4));
+    chainColors.push_back(tgt::vec3(0.4, 1, 0.4));
+    chainColors.push_back(tgt::vec3(0.4, 0.4, 1));
+    chainColors.push_back(tgt::vec3(0, 1, 1));
+    chainColors.push_back(tgt::vec3(1, 0, 1));
+    chainColors.push_back(tgt::vec3(1, 1, 0));
+    
     OBMol* mol = molecule->getOBMol();
     if (mol->NumResidues() < 2) return;
     
@@ -115,15 +125,17 @@ void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geome
                 backbone.back().addVertex(tgt::vec3(a->x(),a->y(),a->z()));
         }
     }
+    
     for (size_t i = 0; i < backbone.size(); i++) {
         PolyLine* smoothBackbone = backbone[i].interpolateBezier(traceNumSteps_.get(), traceTangentLength_.get());
-        MeshListGeometry* lineGeometry = PrimitiveGeometryBuilder::createPolyLine(smoothBackbone, traceCylinderRadius_.get(), traceNumCylinderSides_.get(), tgt::vec3(1, 1, 0));
+        MeshListGeometry* lineGeometry = PrimitiveGeometryBuilder::createPolyLine(smoothBackbone, traceCylinderRadius_.get(), traceNumCylinderSides_.get(), chainColors[i]);
         
         geometry->addMeshList(*lineGeometry);
         
-        // Coords    
-        MeshListGeometry* coordsGeometry = PrimitiveGeometryBuilder::createPolyLineCoords(smoothBackbone, traceCylinderRadius_.get() * 0.5);
-        
-        geometry->addMeshList(*coordsGeometry);
+        // Coords  
+        if (showCoords_.get()) {  
+            MeshListGeometry* coordsGeometry = PrimitiveGeometryBuilder::createPolyLineCoords(smoothBackbone, traceCylinderRadius_.get() * 0.5);
+            geometry->addMeshList(*coordsGeometry);
+        }
     }
 }
