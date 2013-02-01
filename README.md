@@ -1,7 +1,7 @@
-# СОЗДАНИЕ РАБОЧЕЙ КОПИИ
+# Создание рабочей копии
     git clone https://github.com/molsimmsu/3mview.git
 
-# КОМПИЛЯЦИЯ
+# Компиляция
 
 Ubuntu:
 
