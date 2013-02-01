@@ -9,8 +9,9 @@ PolyLine::PolyLine(std::vector<tgt::vec3> vertices)
   : vertices_(vertices)
 {}
 
-void PolyLine::addVertex(const tgt::vec3& vertex) {
+void PolyLine::addVertex(const tgt::vec3& vertex, float scale) {
     vertices_.push_back(vertex);
+    scales_.push_back(scale);
 }
     
 const tgt::vec3 PolyLine::getVertex(size_t index) const {

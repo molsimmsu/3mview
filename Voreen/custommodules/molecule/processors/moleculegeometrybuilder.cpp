@@ -86,7 +86,7 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
 
 void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
     // TODO Parse chain numbers
-    PolyLine backbone;
+    std::vector<PolyLine> backbone;
     
     OBMol* mol = molecule->getOBMol();
     if (mol->NumResidues() < 2) return;
@@ -94,8 +94,15 @@ void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geome
     OBResidueIterator res = mol->BeginResidues();
     OBResidueIterator resEnd = mol->EndResidues();
     
+    size_t currentChainNum = 0;
+    
     for (;res != resEnd; ++res) {
         std::vector<OBAtom*> atoms = (*res)->GetAtoms();
+        size_t residueChainNum = (*res)->GetChainNum();
+        if (residueChainNum > currentChainNum) {
+            backbone.push_back(PolyLine());
+            currentChainNum = residueChainNum;
+        }
         size_t numAtoms = atoms.size();
         
         for (size_t i = 0; i < numAtoms; i++) {
@@ -105,17 +112,18 @@ void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geome
             atomID.erase(remove(atomID.begin(), atomID.end(), ' '), atomID.end());
             
             if (atomID.compare("CA") == 0)
-                backbone.addVertex(tgt::vec3(a->x(),a->y(),a->z()));
+                backbone.back().addVertex(tgt::vec3(a->x(),a->y(),a->z()));
         }
     }
-    
-    PolyLine* smoothBackbone = backbone.interpolateBezier(traceNumSteps_.get(), traceTangentLength_.get());
-    MeshListGeometry* lineGeometry = PrimitiveGeometryBuilder::createPolyLine(smoothBackbone, traceCylinderRadius_.get(), traceNumCylinderSides_.get(), tgt::vec3(1, 1, 0));
-    
-    geometry->addMeshList(*lineGeometry);
-    
-    // Coords    
-    MeshListGeometry* coordsGeometry = PrimitiveGeometryBuilder::createPolyLineCoords(smoothBackbone, traceCylinderRadius_.get() * 0.5);
-    
-    geometry->addMeshList(*coordsGeometry);
+    for (size_t i = 0; i < backbone.size(); i++) {
+        PolyLine* smoothBackbone = backbone[i].interpolateBezier(traceNumSteps_.get(), traceTangentLength_.get());
+        MeshListGeometry* lineGeometry = PrimitiveGeometryBuilder::createPolyLine(smoothBackbone, traceCylinderRadius_.get(), traceNumCylinderSides_.get(), tgt::vec3(1, 1, 0));
+        
+        geometry->addMeshList(*lineGeometry);
+        
+        // Coords    
+        MeshListGeometry* coordsGeometry = PrimitiveGeometryBuilder::createPolyLineCoords(smoothBackbone, traceCylinderRadius_.get() * 0.5);
+        
+        geometry->addMeshList(*coordsGeometry);
+    }
 }

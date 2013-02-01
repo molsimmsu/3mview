@@ -22,7 +22,7 @@ public:
      */
     virtual std::string getClassName() const { return "PolyLine"; };
     
-    void addVertex(const tgt::vec3& vertex);
+    void addVertex(const tgt::vec3& vertex, float scale = 1.f);
     
     const tgt::vec3 getVertex(size_t index) const;
     
@@ -52,6 +52,7 @@ public:
     
 private:
     std::vector<tgt::vec3> vertices_; ///< The array of vertices
+    std::vector<float> scales_; ///< Vertex scales needed for ribbon/cartoon representation
 };
 
 #endif // VRN_PolyLine_H
