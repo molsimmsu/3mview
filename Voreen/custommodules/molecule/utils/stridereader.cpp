@@ -1,4 +1,4 @@
-#include "StrideReader.h"
+#include "stridereader.h"
 
 StrideReader::StrideReader(const char* pdbPath)
 {
@@ -42,7 +42,11 @@ unsigned int StrideReader::numResidues(unsigned int chainNum)
 	return data[chainNum].size();
 }
 
-char StrideReader::secondaryStructure(unsigned int chainNum, unsigned int residueNum)
+char StrideReader::getResidueStructure(unsigned int chainNum, unsigned int residueNum)
 {
 	return data[chainNum][residueNum];
+}
+
+const vector< vector<char> >& StrideReader::getStructure() {
+    return data;
 }

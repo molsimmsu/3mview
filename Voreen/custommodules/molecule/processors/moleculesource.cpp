@@ -1,5 +1,7 @@
 #include "moleculesource.h"
 
+#include "../utils/stridereader.h"
+
 #include "openbabel/obconversion.h"
 #include "openbabel/mol.h"
 using namespace OpenBabel;
@@ -56,5 +58,7 @@ Molecule* MoleculeSource::loadMoleculeFromFile(const std::string& filename)
     if (!conv.Read(mol, &stream))
         throw VoreenException("Failed to read molecule from file: " + filename);
     
-    return new Molecule(mol);
+    StrideReader stride(filename.c_str());
+    
+    return new Molecule(mol, stride.getStructure());
 }

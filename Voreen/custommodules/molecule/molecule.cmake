@@ -9,6 +9,7 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/moleculesource.cpp
     ${MOD_DIR}/processors/moleculetransformer.cpp
     ${MOD_DIR}/processors/moleculegeometrybuilder.cpp
+    ${MOD_DIR}/utils/stridereader.cpp
 )
 
 # module's core header files, path relative to module dir
@@ -18,4 +19,5 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/moleculesource.h
     ${MOD_DIR}/processors/moleculetransformer.h
     ${MOD_DIR}/processors/moleculegeometrybuilder.h
+    ${MOD_DIR}/utils/stridereader.h
 )   

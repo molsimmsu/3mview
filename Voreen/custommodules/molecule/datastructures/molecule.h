@@ -9,10 +9,13 @@ using namespace voreen;
 #include "openbabel/mol.h"
 using namespace OpenBabel;
 
+typedef std::vector< std::vector<char> > SecStructure;
+
 class Molecule : public Serializable {
 public:
     Molecule();
     Molecule(OBMol* mol);
+    Molecule(OBMol* mol, const SecStructure& secStructure);
     virtual ~Molecule() {}
     
     /**
@@ -35,6 +38,11 @@ public:
     OBMol* getOBMol() const;
     
     /**
+     * Returns secondary structure of a given residue
+     */
+    char getSecondaryStructure(size_t chainNum, size_t residueNum);
+    
+    /**
      * TODO Implementation of the Serializable interface.
      */
     virtual void serialize(XmlSerializer& s) const {}
@@ -46,6 +54,7 @@ public:
     
 private:
     OBMol* mol_;  ///< OpenBabel molecule data structure
+    SecStructure secStructure_;
 };
 
 #endif // VRN_MOLECULE_H

@@ -13,7 +13,8 @@ public:
 	StrideReader(const char* pdbPath);
 	unsigned int numChains();
 	unsigned int numResidues(unsigned int chainNum);
-	char secondaryStructure(unsigned int chainNum, unsigned int residueNum);
+	char getResidueStructure(unsigned int chainNum, unsigned int residueNum);
+	const vector< vector<char> >& getStructure();
 
 private:
 	vector< vector<char> > data;
