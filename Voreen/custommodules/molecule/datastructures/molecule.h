@@ -1,7 +1,7 @@
 #ifndef VRN_MOLECULE_H
 #define VRN_MOLECULE_H
 
-#include "voreen/core/io/serialization/serializable.h"
+#include "voreen/core/utils/observer.h"
 using namespace voreen;
 
 #include "tgt/vector.h"
@@ -11,11 +11,41 @@ using namespace OpenBabel;
 
 typedef std::vector< std::vector<char> > SecStructure;
 
-class Molecule : public Serializable {
+class Molecule;
+
+/**
+ * Interface for volume handle observers.
+ */
+class MoleculeObserver : public Observer {
+public:
+    /**
+     * This method is called by the observed Molecule's destructor.
+     *
+     * @param source the calling Molecule
+     */
+    virtual void moleculeDelete(const Molecule* source) = 0;
+
+    /**
+     * This method is called by the observed Molecule
+     * after its member Molecule object has changed.
+     *
+     * When this function is called, the new Molecule object has
+     * already been assigned. The former Molecule object is still
+     * valid at this point, but it is deleted immediately after
+     * this function has been called.
+     *
+     * @param source the calling Molecule
+     */
+    virtual void moleculeChange(const Molecule* source) = 0;
+};
+
+//-------------------------------------------------------------------------------------------------
+
+class Molecule : public Observable<MoleculeObserver> {
 public:
     Molecule();
-    Molecule(OBMol* mol);
-    Molecule(OBMol* mol, const SecStructure& secStructure);
+    Molecule(const OBMol& mol);
+    Molecule(const OBMol& mol, const SecStructure& secStructure);
     virtual ~Molecule() {}
     
     /**
@@ -28,32 +58,22 @@ public:
 
     /**
      * Returns a copy of the molecule object.
-     * TODO Should create a copy of underlying OBMol structure
      */
     virtual Molecule* clone() const;
     
     /**
      * Returns underlying OpenBabel molecule data structure
      */
-    OBMol* getOBMol() const;
+    const OBMol& getOBMol() const;
     
     /**
      * Returns secondary structure of a given residue
      */
-    char getSecondaryStructure(size_t chainNum, size_t residueNum);
+    char getSecondaryStructure(size_t chainNum, size_t residueNum) const;
     
-    /**
-     * TODO Implementation of the Serializable interface.
-     */
-    virtual void serialize(XmlSerializer& s) const {}
-
-    /**
-     * TODO Implementation of the Serializable interface.
-     */
-    virtual void deserialize(XmlDeserializer& s) {}
     
 private:
-    OBMol* mol_;  ///< OpenBabel molecule data structure
+    OBMol mol_;  ///< OpenBabel molecule data structure
     SecStructure secStructure_;
 };
 

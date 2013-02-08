@@ -35,24 +35,45 @@ MoleculeGeometryBuilder::MoleculeGeometryBuilder()
     
     repType_.addOption("atomsAndBonds", "Atoms and bonds");
     repType_.addOption("backboneTrace", "Backbone trace");
+	
+	// Create empty data to make this outport valid. Take ownership is true because
+	// we want the data to be automatically deleted when replaced at the next setData() call
+	outport_.setData(new MeshListGeometry(), true);
 }
 
 void MoleculeGeometryBuilder::process() {
-    // TODO Check for memory leaks and unnecessary rebuildung of geometry
-    MeshListGeometry* geometry = new MeshListGeometry();
-    const Molecule* molecule = inport_.getData();
+	// TODO Check for memory leaks and unnecessary rebuildung of geometry
 
-    // TODO Add @repType as a parameter to the Molecule class
-    /**/ if (repType_.get() == "atomsAndBonds")
-        buildAtomsAndBondsGeometry(geometry, molecule);
-    else if (repType_.get() == "backboneTrace")
-        buildBackboneTraceGeometry(geometry, molecule);
-    
-    outport_.setData(geometry);
+	// We don't check if this port is valid because we assume that the source
+	// always contains molecule data structure (even if it does not contain any data)
+
+	// If inport is not connected or nothing changed since the last call then do nothing
+	if (!inport_.isReady() || !inport_.hasChanged()) return;
+	
+	// Delete old data
+	// TODO Check deletion of subunits: meshes, faces, etc.
+	try {
+	    const Molecule* mol = inport_.getData();
+	    tgtAssert(mol, "null pointer to mol returned (exception expected) at MoleculeGeometryBuilder::process()");
+        MeshListGeometry* geom = new MeshListGeometry();
+
+        // TODO Add @repType as a parameter to the Molecule class
+        /**/ if (repType_.get() == "atomsAndBonds")
+            buildAtomsAndBondsGeometry(geom, mol);
+        else if (repType_.get() == "backboneTrace")
+            buildBackboneTraceGeometry(geom, mol);
+        
+        // Delete old data and set new
+        outport_.setData(geom);
+    }
+    catch (...) {
+        LERROR("Error at MoleculeGeometryBuilder::process()");
+    }
 }
 
 void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
-    const OBMol* mol = molecule->getOBMol();
+    LWARNING("Enter MoleculeGeometryBuilder::buildAtomsAndBondsGeometry()");
+    const OBMol& mol = molecule->getOBMol();
     
     // Cubes parameters
     tgt::vec3 diag(0.1f, 0.1f, 0.1f);
@@ -62,8 +83,8 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
     
     // Draw atoms with cubes.
     // XXX Atoms indices in OpenBabel start with 1
-    for (size_t i = 1; i <= mol->NumAtoms(); i++) {
-        OBAtom* a = mol->GetAtom(i);
+    for (size_t i = 1; i <= mol.NumAtoms(); i++) {
+        OBAtom* a = mol.GetAtom(i);
         tgt::vec3 atomCoords(a->x(), a->y(), a->z());
         
         MeshGeometry cube = MeshGeometry::createCube(atomCoords - diag, atomCoords + diag,
@@ -74,8 +95,8 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
     
     // Draw bonds with cylinders
     // XXX Bonds indices in OpenBabel start with 0
-    for (size_t i = 0; i < mol->NumBonds(); i++) {
-        OBBond* bond = mol->GetBond(i);
+    for (size_t i = 0; i < mol.NumBonds(); i++) {
+        OBBond* bond = mol.GetBond(i);
         OBAtom* a1 = bond->GetBeginAtom();
         OBAtom* a2 = bond->GetEndAtom();
         tgt::vec3 atom1Coords(a1->x(), a1->y(), a1->z());
@@ -87,7 +108,8 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
 }
 
 void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
-    // TODO Parse chain numbers
+    LWARNING("ENTER MoleculeGeometryBuilder::buildBackboneTraceGeometry()");
+    tgtAssert(molecule, "molecule parameter is NULL at MoleculeGeometryBuilder::buildBackboneTraceGeometry()");
     std::vector<PolyLine> backbone;
     
     std::vector<tgt::vec3> chainColors;
@@ -97,45 +119,64 @@ void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geome
     chainColors.push_back(tgt::vec3(0, 1, 1));
     chainColors.push_back(tgt::vec3(1, 0, 1));
     chainColors.push_back(tgt::vec3(1, 1, 0));
+    LWARNING("1");
+    const OBMol& mol = molecule->getOBMol();
+    LWARNING("2");
+    if (mol.NumResidues() < 2) {
+        LWARNING("mol.NumResidues() < 2");
+        LWARNING("EXIT MoleculeGeometryBuilder::buildBackboneTraceGeometry()");
+        return;
+    }
     
-    OBMol* mol = molecule->getOBMol();
-    if (mol->NumResidues() < 2) return;
-    
-    OBResidueIterator res = mol->BeginResidues();
-    OBResidueIterator resEnd = mol->EndResidues();
+    //OBResidueIterator res = mol.BeginResidues();
+    //OBResidueIterator resEnd = mol.EndResidues();
     
     size_t currentChainNum = 0;
+    size_t numResidues = mol.NumResidues();
     
-    for (;res != resEnd; ++res) {
-        std::vector<OBAtom*> atoms = (*res)->GetAtoms();
-        size_t residueChainNum = (*res)->GetChainNum();
+	// Read backbone of each chain to a separate PolyLine
+    for (size_t i = 0; i < numResidues; i++) {
+        
+        OBResidue* res = mol.GetResidue(i);
+        
+        std::vector<OBAtom*> atoms = res->GetAtoms();
+        size_t residueChainNum = res->GetChainNum();
+        
         if (residueChainNum > currentChainNum) {
             backbone.push_back(PolyLine());
             currentChainNum = residueChainNum;
         }
+        
         size_t numAtoms = atoms.size();
         
         for (size_t i = 0; i < numAtoms; i++) {
             OBAtom* a = atoms[i];
             
-            std::string atomID = (*res)->GetAtomID(a);
+            std::string atomID = res->GetAtomID(a);
             atomID.erase(remove(atomID.begin(), atomID.end(), ' '), atomID.end());
             
             if (atomID.compare("CA") == 0)
                 backbone.back().addVertex(tgt::vec3(a->x(),a->y(),a->z()));
         }
+        
     }
     
+	// For each backbone PolyLine
     for (size_t i = 0; i < backbone.size(); i++) {
+		// Build ribbon trace
+		
         PolyLine* smoothBackbone = backbone[i].interpolateBezier(traceNumSteps_.get(), traceTangentLength_.get());
         MeshListGeometry* lineGeometry = PrimitiveGeometryBuilder::createPolyLine(smoothBackbone, traceCylinderRadius_.get(), traceNumCylinderSides_.get(), chainColors[i]);
         
         geometry->addMeshList(*lineGeometry);
+		delete lineGeometry;
         
-        // Coords  
+        // Build moving frame coords (just for testing)  
         if (showCoords_.get()) {  
             MeshListGeometry* coordsGeometry = PrimitiveGeometryBuilder::createPolyLineCoords(smoothBackbone, traceCylinderRadius_.get() * 0.5);
             geometry->addMeshList(*coordsGeometry);
+			delete coordsGeometry;
         }
     }
+    LWARNING("EXIT MoleculeGeometryBuilder::buildBackboneTraceGeometry()");
 }

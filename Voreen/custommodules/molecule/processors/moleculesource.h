@@ -37,7 +37,7 @@ private:
         throw (VoreenException);
 
     // ports and properties
-    MoleculePort outport_;
+    MoleculePort outport_; ///< This outport must always contain valid data
     
     FileDialogProperty inputFile_;
     ButtonProperty loadMolecule_;

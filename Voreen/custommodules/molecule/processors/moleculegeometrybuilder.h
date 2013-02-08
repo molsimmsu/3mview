@@ -42,6 +42,7 @@ protected:
     
     /**
      * Geometry building methods for different representation types.
+	 * These functions append meshes to the given MeshListGeometry
      *
      * @param geometry Geometry to which the crated geometry is appended
      * @param molecule Molecule which should be constructed
