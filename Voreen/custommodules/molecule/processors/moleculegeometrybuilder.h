@@ -39,6 +39,11 @@ protected:
      */
     virtual void process();
     
+    /**
+     * This function is called whenever the molecule needs to be rebuilt, 
+     * i.e. if the input data or representation params have changed
+     */
+    void rebuildMolecule();
     
     /**
      * Geometry building methods for different representation types.

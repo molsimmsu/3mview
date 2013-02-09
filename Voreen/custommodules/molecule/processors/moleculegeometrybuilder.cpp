@@ -12,6 +12,8 @@ using namespace OpenBabel;
 
 #include <iostream>
 
+#define REBUILD_MOLECULE_ACTION CallMemberAction<MoleculeGeometryBuilder>(this, &MoleculeGeometryBuilder::rebuildMolecule)
+
 MoleculeGeometryBuilder::MoleculeGeometryBuilder()
   : Processor()
   , inport_(Port::INPORT, "molecule", "Molecule Input")
@@ -35,6 +37,13 @@ MoleculeGeometryBuilder::MoleculeGeometryBuilder()
     
     repType_.addOption("atomsAndBonds", "Atoms and bonds");
     repType_.addOption("backboneTrace", "Backbone trace");
+    
+    repType_.onChange(REBUILD_MOLECULE_ACTION);
+    traceTangentLength_.onChange(REBUILD_MOLECULE_ACTION);
+    traceCylinderRadius_.onChange(REBUILD_MOLECULE_ACTION);
+    traceNumCylinderSides_.onChange(REBUILD_MOLECULE_ACTION);
+    traceNumSteps_.onChange(REBUILD_MOLECULE_ACTION);
+    showCoords_.onChange(REBUILD_MOLECULE_ACTION);
 	
 	// Create empty data to make this outport valid. Take ownership is true because
 	// we want the data to be automatically deleted when replaced at the next setData() call
@@ -50,11 +59,15 @@ void MoleculeGeometryBuilder::process() {
 	// If inport is not connected or nothing changed since the last call then do nothing
 	if (!inport_.isReady() || !inport_.hasChanged()) return;
 	
-	// Delete old data
-	// TODO Check deletion of subunits: meshes, faces, etc.
+	// Port is ready and input data has changed
+    rebuildMolecule();
+}
+
+void MoleculeGeometryBuilder::rebuildMolecule() {
 	try {
 	    const Molecule* mol = inport_.getData();
-	    tgtAssert(mol, "null pointer to mol returned (exception expected) at MoleculeGeometryBuilder::process()");
+	    if (!mol) return;
+	    
         MeshListGeometry* geom = new MeshListGeometry();
 
         // TODO Add @repType as a parameter to the Molecule class
@@ -72,7 +85,7 @@ void MoleculeGeometryBuilder::process() {
 }
 
 void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
-    LWARNING("Enter MoleculeGeometryBuilder::buildAtomsAndBondsGeometry()");
+    tgtAssert(molecule, "molecule parameter is NULL at MoleculeGeometryBuilder::buildAtomsAndBondsGeometry()");
     const OBMol& mol = molecule->getOBMol();
     
     // Cubes parameters
@@ -108,7 +121,6 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
 }
 
 void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
-    LWARNING("ENTER MoleculeGeometryBuilder::buildBackboneTraceGeometry()");
     tgtAssert(molecule, "molecule parameter is NULL at MoleculeGeometryBuilder::buildBackboneTraceGeometry()");
     std::vector<PolyLine> backbone;
     
@@ -119,14 +131,11 @@ void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geome
     chainColors.push_back(tgt::vec3(0, 1, 1));
     chainColors.push_back(tgt::vec3(1, 0, 1));
     chainColors.push_back(tgt::vec3(1, 1, 0));
-    LWARNING("1");
+
     const OBMol& mol = molecule->getOBMol();
-    LWARNING("2");
-    if (mol.NumResidues() < 2) {
-        LWARNING("mol.NumResidues() < 2");
-        LWARNING("EXIT MoleculeGeometryBuilder::buildBackboneTraceGeometry()");
-        return;
-    }
+ 
+    if (mol.NumResidues() < 2) return;
+    
     
     //OBResidueIterator res = mol.BeginResidues();
     //OBResidueIterator resEnd = mol.EndResidues();
@@ -178,5 +187,4 @@ void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geome
 			delete coordsGeometry;
         }
     }
-    LWARNING("EXIT MoleculeGeometryBuilder::buildBackboneTraceGeometry()");
 }
