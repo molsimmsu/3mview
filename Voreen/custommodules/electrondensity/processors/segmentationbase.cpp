@@ -61,6 +61,7 @@ Processor* SegmentationBase::create() const {
 
 void SegmentationBase::process() {
     if (!enableProcessing_.get()) {
+        // TODO Create single-segment volume or return NULL
         outport_.setData(const_cast<VolumeBase*>(inport_.getData()), false);
     }
     else if (forceUpdate_ || inport_.hasChanged()) {
@@ -75,6 +76,8 @@ void SegmentationBase::forceUpdate() {
 }
 
 void SegmentationBase::segmentVolume() {
+    // TODO Make this virtual and move to subclass
+    
     const VolumeBase* handle = inport_.getData();
     tgtAssert(handle, "Inport has no data");
 

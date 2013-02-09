@@ -27,18 +27,18 @@
  *                                                                    *
  **********************************************************************/
 
-#include "segmentationmodule.h"
+#include "electrondensitymodule.h"
 
 // include classes to be registered
 #include "processors/segmentationbase.h"
 
 namespace voreen {
 
-SegmentationModule::SegmentationModule(const std::string& modulePath) 
+ElectronDensityModule::ElectronDensityModule(const std::string& modulePath) 
     : VoreenModule(modulePath)
 {
     // module name to be used in the GUI
-    setName("Segmentation");
+    setName("Electron Density Maps");
     
     // each module processor needs to be registered
     registerProcessor(new SegmentationBase());

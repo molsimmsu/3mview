@@ -1,6 +1,6 @@
 
 # module class must reside in sample/samplemodule.h + sample/samplemodule.cpp
-SET(MOD_CORE_MODULECLASS SegmentationModule)
+SET(MOD_CORE_MODULECLASS ElectronDensityModule)
 
 # module's core source files, path relative to module dir
 SET(MOD_CORE_SOURCES

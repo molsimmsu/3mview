@@ -27,23 +27,23 @@
  *                                                                    *
  **********************************************************************/
 
-#ifndef VRN_SEGMENTATIONMODULE_H
-#define VRN_SEGMENTATIONMODULE_H
+#ifndef VRN_ELECTRONDENSITY_H
+#define VRN_ELECTRONDENSITY_H
 
 #include "voreen/core/voreenmodule.h"
 
 namespace voreen {
 
-class SegmentationModule : public VoreenModule {
+class ElectronDensityModule : public VoreenModule {
 
 public:
-    SegmentationModule(const std::string& modulePath);
+    ElectronDensityModule(const std::string& modulePath);
 
     virtual std::string getDescription() const { 
-        return "Segmentation module"; 
+        return "Electron Density module"; 
     }
 };
 
 } // namespace
 
-#endif // VRN_SEGMENTATIONMODULE_H
+#endif // VRN_ELECTRONDENSITY_H
