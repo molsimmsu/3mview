@@ -23,8 +23,8 @@
  *                                                                                 *
  ***********************************************************************************/
 
-#ifndef VRN_TIFFVOLUMEREADER_H
-#define VRN_TIFFVOLUMEREADER_H
+#ifndef VRN_MRCVOLUMEREADER_H
+#define VRN_MRCVOLUMEREADER_H
 
 #include "voreen/core/io/volumereader.h"
 
@@ -35,14 +35,14 @@ class IOProgress;
 /**
  * Reads a multi-image TIFF file into a volume dataset.
  */
-class TiffVolumeReader : public VolumeReader {
+class MRCVolumeReader : public VolumeReader {
 public:
-    TiffVolumeReader(ProgressBar* progress = 0);
-    ~TiffVolumeReader() {}
+    MRCVolumeReader(ProgressBar* progress = 0);
+    ~MRCVolumeReader() {}
     virtual VolumeReader* create(ProgressBar* progress = 0) const;
 
-    virtual std::string getClassName() const   { return "TiffVolumeReader"; }
-    virtual std::string getFormatDescription() const { return "3D TIFF format"; }
+    virtual std::string getClassName() const   { return "MRCVolumeReader"; }
+    virtual std::string getFormatDescription() const { return "MRC/CCP4 electron density map format"; }
 
     virtual VolumeCollection* read(const std::string& url)
         throw (tgt::FileException, tgt::IOException, std::bad_alloc);
@@ -53,4 +53,4 @@ private:
 
 } // namespace voreen
 
-#endif // VRN_TIFFVOLUMEREADER_H
+#endif // VRN_MRCVOLUMEREADER_H

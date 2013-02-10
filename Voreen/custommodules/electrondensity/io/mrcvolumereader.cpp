@@ -23,9 +23,7 @@
  *                                                                                 *
  ***********************************************************************************/
 
-#include "tiffvolumereader.h"
-
-#include "tiffio.h"
+#include "mrcvolumereader.h"
 
 #include "voreen/core/datastructures/volume/volumeatomic.h"
 #include "voreen/core/io/textfilereader.h"
@@ -47,25 +45,76 @@ using tgt::Texture;
 
 namespace voreen {
 
-const std::string TiffVolumeReader::loggerCat_ = "voreen.tiff.TiffVolumeReader";
+const std::string MRCVolumeReader::loggerCat_ = "voreen.electrondensity.MRCVolumeReader";
 
-TiffVolumeReader::TiffVolumeReader(ProgressBar* progress) : VolumeReader(progress)
+MRCVolumeReader::MRCVolumeReader(ProgressBar* progress) : VolumeReader(progress)
 {
-    extensions_.push_back("tiff");
-    extensions_.push_back("tif");
+    extensions_.push_back("mrc");
+    extensions_.push_back("ccp4");
 }
 
-VolumeCollection* TiffVolumeReader::read(const std::string &url)
+VolumeCollection* MRCVolumeReader::read(const std::string &url)
     throw (tgt::FileException, tgt::IOException, std::bad_alloc)
 {
+    VolumeCollection* volumeCollection = new VolumeCollection();
+
     VolumeURL origin(url);
     std::string fileName = origin.getPath();
-
-    ivec3 dimensions;
-    int band = 1;
-
     LINFO(fileName);
 
+    
+    
+    std::ifstream mrc;
+    mrc.open(fileName.c_str(), std::ios::binary);
+    if (!mrc.is_open()) {
+        LWARNING("Can't open stream");
+    }
+    else {
+        int dimensions[3];
+        mrc.read((char*)(&dimensions), sizeof(dimensions));
+        std::cout << "X: " << dimensions[0] << std::endl; // number of columns (fastest changing in map)
+        std::cout << "Y: " << dimensions[1] << std::endl; // number of rows
+        std::cout << "Z: " << dimensions[2] << std::endl; // number of sections (slowest changing in map)
+        
+        int numVoxels = dimensions[0] * dimensions[1] * dimensions[2];
+        std::cout << "numVoxels: " << numVoxels << std::endl;
+        
+        int dataType;
+        mrc.read((char*)(&dataType), sizeof(dataType));
+        std::cout << "dataType: " << dataType << std::endl;
+        
+        int dataSize = 0;
+             if (dataType == 0) dataSize = 1; // signed 8-bit bytes range -128 to 127
+        else if (dataType == 1) dataSize = 2; // 16-bit halfwords
+        else if (dataType == 2) dataSize = 4; // 32-bit reals
+        else if (dataType == 6) dataSize = 2; // unsigned 16-bit range 0 to 65535
+        
+        tgtAssert(dataSize, "Datasize is 0 at MRCVolumeReader::read()");
+        
+        int totalDataSize = dataSize * numVoxels;
+        
+        void* data = malloc(totalDataSize);
+        mrc.read((char*)data, totalDataSize);
+        mrc.close();
+        
+        std::vector<VolumeRAM*> targetDataset;
+        targetDataset.push_back(new VolumeRAM_Float(ivec3(dimensions[0], dimensions[1], dimensions[2])));
+        
+        std::vector<float*> scalars32;
+        
+        if (dataType == 2) 
+            scalars32.push_back(reinterpret_cast<float*>(((VolumeRAM_Float*)targetDataset[0])->voxel()));
+            
+        memcpy(scalars32[0], data, numVoxels);
+        
+                Volume* volumeHandle = new Volume(targetDataset[0], vec3(1.0f), vec3(0.0f));
+        
+        //oldVolumePosition(volumeHandle);
+        volumeCollection->add(volumeHandle);
+    }
+
+    
+/*
     TIFF* tif = TIFFOpen(fileName.c_str(), "r");
     if (tif) {
         int dircount = 0;
@@ -261,21 +310,19 @@ VolumeCollection* TiffVolumeReader::read(const std::string &url)
         delete[] minValue;
         delete[] maxValue;
     }
+*/
+    
+    
 
-    VolumeCollection* volumeCollection = new VolumeCollection();
-    for (int i = 0; i < band; i++ ) {
-        Volume* volumeHandle = new Volume(targetDataset[i], vec3(1.0f), vec3(0.0f));
-        volumeHandle->setTimestep(static_cast<float>(i));
-        oldVolumePosition(volumeHandle);
-        volumeCollection->add(volumeHandle);
-    }
+    
     if (!volumeCollection->empty())
         volumeCollection->first()->setOrigin(VolumeURL(fileName));
+        
     return volumeCollection;
 }
 
-VolumeReader* TiffVolumeReader::create(ProgressBar* progress) const {
-    return new TiffVolumeReader(progress);
+VolumeReader* MRCVolumeReader::create(ProgressBar* progress) const {
+    return new MRCVolumeReader(progress);
 }
 
 } // namespace voreen

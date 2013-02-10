@@ -31,6 +31,7 @@
 
 // include classes to be registered
 #include "processors/segmentationbase.h"
+#include "io/mrcvolumereader.h"
 
 namespace voreen {
 
@@ -40,8 +41,9 @@ ElectronDensityModule::ElectronDensityModule(const std::string& modulePath)
     // module name to be used in the GUI
     setName("Electron Density Maps");
     
-    // each module processor needs to be registered
     registerProcessor(new SegmentationBase());
+    
+    registerVolumeReader(new MRCVolumeReader());
 }
 
 } // namespace
