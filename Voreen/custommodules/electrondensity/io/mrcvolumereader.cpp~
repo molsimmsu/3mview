@@ -196,9 +196,9 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         );
         
         tgt::Matrix4<float> transform2(
-        1, 0, 0, row[0][4],
-        0, 1, 0, row[1][4], //cosG*sclY, sinG*sclY, 0.0f, 1.0f,
-        0, 0, 1, row[2][4], //0.0f, 0.0f, sclZ, 1.0f,
+        1, 0, 0, -row[0][4],
+        0, 1, 0, -row[1][4], //cosG*sclY, sinG*sclY, 0.0f, 1.0f,
+        0, 0, 1, -row[2][4], //0.0f, 0.0f, sclZ, 1.0f,
         0.0f, 0.0f, 0.0f, 1.0f
         );
         

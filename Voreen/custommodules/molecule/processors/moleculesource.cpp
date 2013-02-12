@@ -56,15 +56,24 @@ Molecule* MoleculeSource::loadMoleculeFromFile(const std::string& filename)
 
     std::string molFormat("PDB");
 
+    LWARNING("Start loading");
+
     OBConversion conv;
     if (!conv.SetInFormat(molFormat.c_str()))
         throw VoreenException("Failed to set input format for reading molecule: " + molFormat);
         
+    LWARNING("Start conversion");
+        
     OBMol mol;
     if (!conv.Read(&mol, &stream))
         throw VoreenException("Failed to read molecule from file: " + filename);
+        
+    LWARNING("Start STRIDE");
     
-    StrideReader stride(filename.c_str());
+    //StrideReader stride(filename.c_str());
     
-    return new Molecule(mol, stride.getStructure());
+    LWARNING("Loading successful");
+    
+    //return new Molecule(mol, stride.getStructure());
+    return new Molecule(mol);
 }

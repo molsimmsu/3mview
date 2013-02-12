@@ -1,7 +1,13 @@
 #include "moleculesource.h"
 
+#include "../utils/stridereader.h"
+
+#include "openbabel/obconversion.h"
+#include "openbabel/mol.h"
+using namespace OpenBabel;
+
 #include <fstream>
-#include <sstream>
+#include <string>
 
 MoleculeSource::MoleculeSource()
   : Processor()
@@ -18,49 +24,55 @@ MoleculeSource::MoleculeSource()
     
     loadMolecule_.onChange(CallMemberAction<MoleculeSource>(this, &MoleculeSource::readMolecule));
     
-    Molecule *molecule = new Molecule();
-    molecule->addAtom(tgt::vec3(0.f, 0.f, 0.f));
-    molecule->addAtom(tgt::vec3(1.f, 0.f, 0.f));
-    molecule->addAtom(tgt::vec3(0.f, 1.f, 0.f));
-    molecule->addAtom(tgt::vec3(0.f, 0.f, 1.f));
-    
-    outport_.setData(molecule);
+	// Create empty data to make this outport valid. Take ownership is true because
+	// we want the data to be automatically deleted when replaced at the next setData() call
+    outport_.setData(new Molecule(), true);
 }
 
 void MoleculeSource::readMolecule() {
-
     try {
-        Molecule* molecule = loadMoleculeFromFile(inputFile_.get());
-        tgtAssert(molecule, "null pointer returned (exception expected)");
-        outport_.setData(molecule);
+		// Load new molecule
+        Molecule* mol = loadMoleculeFromFile(inputFile_.get());
+        tgtAssert(mol, "null pointer to mol returned (exception expected) at MoleculeSource::readMolecule()");
+        
+        // Delete old data and set new
+        outport_.setData(mol);
     }
     catch (VoreenException& e) {
         LERROR(e.what());
     }
+    catch (...) {
+        LERROR("Error at MoleculeSource::readMolecule()");
+    }
 }
 
-Molecule* loadMoleculeFromFile(const std::string& filename)
+Molecule* MoleculeSource::loadMoleculeFromFile(const std::string& filename)
     throw (VoreenException)
 {
     std::ifstream stream;
-    stream.open(filename.c_str(), std::ios_base::in);
+    stream.open(filename.c_str());
     if (stream.fail())
         throw VoreenException("Failed to open file for reading: " + filename);
 
-    Molecule* molecule = new Molecule();
+    std::string molFormat("PDB");
+
+    LWARNING("Start loading");
+
+    OBConversion conv;
+    if (!conv.SetInFormat(molFormat.c_str()))
+        throw VoreenException("Failed to set input format for reading molecule: " + molFormat);
+        
+    LWARNING("Start conversion");
+        
+    OBMol mol;
+    if (!conv.Read(&mol, &stream))
+        throw VoreenException("Failed to read molecule from file: " + filename);
+        
+    LWARNING("Start STRIDE");
     
-    char buf[82];
-	while (stream.getline(buf, 82)) {
-	    if (std::string(buf).compare(0, 6, "ATOM  ") != 0)
-	        continue;
-		
-		std::stringstream string(buf + 30);
-		
-		float x, y, z;
-		string >> x >> y >> z;
-		
-		molecule->addAtom(tgt::vec3(x, y, z));
-	}
+    //StrideReader stride(filename.c_str());
     
-    return molecule;
+    LWARNING("Loading successful");
+    
+    return new Molecule(mol);
 }
