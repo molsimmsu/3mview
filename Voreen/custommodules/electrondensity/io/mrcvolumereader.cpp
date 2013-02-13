@@ -25,7 +25,6 @@
 
 #include "mrcvolumereader.h"
 
-#include "voreen/core/datastructures/volume/volumeatomic.h"
 #include "voreen/core/datastructures/volume/volumedecorator.h"
 #include "voreen/core/io/textfilereader.h"
 #include "voreen/core/io/progressbar.h"
@@ -72,20 +71,20 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         LWARNING("Can't open stream");
     }
     else {
-        int dim[3];
+        int dim[3]; // grid dimensions i.e. numbers of voxels for each dimension
         mrc.read((char*)(&dim), sizeof(dim));
         std::cout << "X: " << dim[0] << std::endl; // number of columns (fastest changing in map)
         std::cout << "Y: " << dim[1] << std::endl; // number of rows
         std::cout << "Z: " << dim[2] << std::endl; // number of sections (slowest changing in map)
         
-        int numVoxels = dim[0] * dim[1] * dim[2];
+        int numVoxels = dim[0] * dim[1] * dim[2]; // total number of voxels in volume
         std::cout << "numVoxels: " << numVoxels << std::endl;
         
-        int dataType;
+        int dataType; // see below
         mrc.read((char*)(&dataType), sizeof(dataType));
         std::cout << "dataType: " << dataType << std::endl;
         
-        int dataSize = 0;
+        int dataSize = 0; // i.e. 8-bit, 16-bit or 32-bit
              if (dataType == 0) dataSize = 1; // signed 8-bit bytes range -128 to 127
         else if (dataType == 1) dataSize = 2; // 16-bit halfwords
         else if (dataType == 2) dataSize = 4; // 32-bit reals
@@ -95,28 +94,25 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         
         int totalDataSize = dataSize * numVoxels;
         
-        int start[3]; // numbers of first columns
-        
+        int start[3]; // numbers of first columns i.e. offset of the volume origin in voxel coordinates
         mrc.read((char*)(&start), sizeof(start));
         std::cout << "startX: " << start[0] << std::endl; // number of columns (fastest changing in map)
         std::cout << "startY: " << start[1] << std::endl; // number of rows
         std::cout << "startZ: " << start[2] << std::endl; // number of sections (slowest changing in map)
 
         int gridSize[3];
-        
         mrc.read((char*)(&gridSize), sizeof(gridSize));
         std::cout << "gridSizeX: " << gridSize[0] << std::endl;
         std::cout << "gridSizeY: " << gridSize[1] << std::endl; 
         std::cout << "gridSizeZ: " << gridSize[2] << std::endl;
      
         float cellDimensions[3]; // cell dimensions in angstroms
-        
         mrc.read((char*)(&cellDimensions), sizeof(cellDimensions));
         std::cout << "cellX: " << cellDimensions[0] << std::endl; 
         std::cout << "cellY: " << cellDimensions[1] << std::endl; 
         std::cout << "cellZ: " << cellDimensions[2] << std::endl; 
         
-        float scale[3];
+        float scale[3]; // pixelSpacing i.e. scale from voxel to real-word coordinates
         scale[0] = cellDimensions[0] / gridSize[0];
         scale[1] = cellDimensions[1] / gridSize[1];
         scale[2] = cellDimensions[2] / gridSize[2];
@@ -124,15 +120,13 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         std::cout << "pixelSpacingY: " << scale[1] << std::endl; 
         std::cout << "pixelSpacingZ: " << scale[2] << std::endl; 
         
-        float cellAngles[3]; // cell angles in degrees
-
-        mrc.read((char*)(&cellAngles), sizeof(cellAngles));
-        std::cout << "cellAngleX: " << cellAngles[0] << std::endl;
-        std::cout << "cellAngleY: " << cellAngles[1] << std::endl;
-        std::cout << "cellAngleZ: " << cellAngles[2] << std::endl;
+        float angles[3]; // cell angles in degrees
+        mrc.read((char*)(&angles), sizeof(angles));
+        std::cout << "cellAngleX: " << angles[0] << std::endl;
+        std::cout << "cellAngleY: " << angles[1] << std::endl;
+        std::cout << "cellAngleZ: " << angles[2] << std::endl;
         
-        int axes[3]; 
-        
+        int axes[3]; // Which axis corresponds to columns, rows and sections (1,2,3 for X,Y,Z)
         mrc.read((char*)(&axes), sizeof(axes));
         std::cout << "axesX: " << axes[0] << std::endl;
         std::cout << "axesY: " << axes[1] << std::endl; 
@@ -150,23 +144,31 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         mrc.read((char*)data, totalDataSize);
         mrc.close();
         
-        int a = axes[0]-1;
-        int b = axes[1]-1;
-        int c = axes[2]-1;
+        VolumeRAM* targetDataset;
         
-        VolumeRAM* targetDataset = new VolumeRAM_Float(ivec3(dim[a], dim[b], dim[c]));
-        
-        std::cout << "Created volume with sizeX=" << dim[a] << " sizeY=" << dim[b] << " sizeZ=" << dim[c] << std::endl;
-        
-        size_t i[3];
-        for (i[2] = 0; i[2] < dim[c]; i[2]++)
-        for (i[1] = 0; i[1] < dim[b]; i[1]++)
-        for (i[0] = 0; i[0] < dim[a]; i[0]++)
-        {
-            ((VolumeRAM_Float*)targetDataset)->voxel(i[0],i[1],i[2]) = *ptr((float*)data, i[a], i[b], i[c], dim[b], dim[a]);
+        /**/ if (dataType == 0) {
+            targetDataset = new VolumeAtomic<int8_t>(ivec3(dim[a], dim[b], dim[c]));
+            fillVolume<int8_t>(targetDataset, data, dim, axes);
         }
+        else if (dataType == 1) {
+            targetDataset = new VolumeAtomic<int16_t>(ivec3(dim[a], dim[b], dim[c]));
+            fillVolume<int16_t>(targetDataset, data, dim, axes);
+        }
+        else if (dataType == 2) {
+            targetDataset = new VolumeAtomic<float>(ivec3(dim[a], dim[b], dim[c]));
+            fillVolume<float>(targetDataset, data, dim, axes);
+        }
+        else if (dataType == 6) {
+            targetDataset = new VolumeAtomic<uint16_t>(ivec3(dim[a], dim[b], dim[c]));
+            fillVolume<uint16_t>(targetDataset, data, dim, axes);
+        }
+        else LERROR("Unsupported data type at MRCVolumeReader::read()");
             
         free(data);
+        
+        angles[0] *= (PI / 180.);
+        angles[1] *= (PI / 180.);
+        angles[2] *= (PI / 180.);
         
         float row[3][3];
         
@@ -176,14 +178,14 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         row[0][2] = 0;
         
         // Y
-        row[1][0] = cos(cellAngles[2] * PI / 180.);
-        row[1][1] = sin(cellAngles[2] * PI / 180.);
+        row[1][0] = cos(angles[2]); // cos(gamma)
+        row[1][1] = sin(angles[2]); // sin(gamma)
         row[1][2] = 0;
         
         // Z
-        row[2][0] = 0;
-        row[2][1] = 0;
-        row[2][2] = 1;
+        row[2][0] = cos(angles[1]); // cos(beta)
+        row[2][1] = (cos(angles[0]) - row[2][0] * row[1][0]) / row[1][1];  // [cos(alpha) - cos(beta)*cos(gamma)] / sin(gamma)
+        row[2][2] = sqrt(1 - row[2][0] * row[2][0] - row[2][1] * row[2][1]); // squared length is 1
         
         tgt::Matrix4<float> transform
         (
@@ -192,6 +194,10 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
             row[0][2], row[1][2], row[2][2], 0,
             0.0f, 0.0f, 0.0f, 1.0f
         );
+        
+        int a = axes[0]-1;
+        int b = axes[1]-1;
+        int c = axes[2]-1;
         
         Volume* volumeHandle = new Volume(
             targetDataset,                                                 // data

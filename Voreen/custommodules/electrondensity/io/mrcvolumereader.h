@@ -27,6 +27,7 @@
 #define VRN_MRCVOLUMEREADER_H
 
 #include "voreen/core/io/volumereader.h"
+#include "voreen/core/datastructures/volume/volumeatomic.h"
 
 namespace voreen {
 
@@ -48,8 +49,24 @@ public:
         throw (tgt::FileException, tgt::IOException, std::bad_alloc);
 
 private:
-    float* ptr(float* ptr, int x, int y, int z, int sizeX, int sizeY) {
+    template<typename T>
+    T* ptr(T* ptr, int x, int y, int z, int sizeX, int sizeY) {
         return ptr + x + y*sizeX + z*sizeX*sizeY;
+    }
+    
+    template<typename T>
+    void fillVolume(VolumeRAM* targetDataset, void* data, int dim[3], int axes[3]) {
+        int a = axes[0]-1;
+        int b = axes[1]-1;
+        int c = axes[2]-1;
+        
+        size_t i[3];
+        for (i[2] = 0; i[2] < dim[c]; i[2]++)
+        for (i[1] = 0; i[1] < dim[b]; i[1]++)
+        for (i[0] = 0; i[0] < dim[a]; i[0]++)
+        {
+            ((VolumeAtomic<T>*)targetDataset)->voxel(i[0],i[1],i[2]) = *ptr<T>((T*)data, i[a], i[b], i[c], dim[b], dim[a]);
+        }
     }
 
     static const std::string loggerCat_;
