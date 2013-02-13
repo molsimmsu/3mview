@@ -56,6 +56,7 @@ PrimitiveGeometrySource::PrimitiveGeometrySource()
     polylineTangent_("polylineTangent", "Polyline Tangent", 1.f, 0.f, 10.f),
     outport_(Port::OUTPORT, "geometry.pointlist", "PointList Output")
 {
+    geometryType_.addOption("axes", "Axes");
     geometryType_.addOption("plane", "Plane");
     geometryType_.addOption("polyline", "PolyLine");
     geometryType_.addOption("loadFile", "Load from file");
@@ -84,10 +85,33 @@ void PrimitiveGeometrySource::initialize() throw (tgt::Exception) {
     Processor::initialize();
 
     updatePropertyVisibility();
+    readGeometry();
 }
 
 void PrimitiveGeometrySource::readGeometry() {
-    if (geometryType_.isSelected("plane")) {
+    if (geometryType_.isSelected("axes")) {
+        try {
+            MeshListGeometry* geometry = new MeshListGeometry();
+            
+            MeshGeometry X = PrimitiveGeometryBuilder::createCylinder(
+                tgt::vec3(0,0,0), tgt::vec3(10,0,0), 1, 8, tgt::vec3(1,0,0));
+            MeshGeometry Y = PrimitiveGeometryBuilder::createCylinder(
+                tgt::vec3(0,0,0), tgt::vec3(0,10,0), 1, 8, tgt::vec3(0,1,0));
+            MeshGeometry Z = PrimitiveGeometryBuilder::createCylinder(
+                tgt::vec3(0,0,0), tgt::vec3(0,0,10), 1, 8, tgt::vec3(0,0,1));
+                
+            geometry->addMesh(X);
+            geometry->addMesh(Y);
+            geometry->addMesh(Z);
+            
+            tgtAssert(geometry, "null pointer returned (exception expected)");
+            outport_.setData(geometry);
+        }
+        catch (VoreenException& e) {
+            LERROR(e.what());
+        }
+    }
+    else if (geometryType_.isSelected("plane")) {
         try {
             Geometry* geometry = createPlaneGeometry();
             tgtAssert(geometry, "null pointer returned (exception expected)");

@@ -48,6 +48,10 @@ public:
         throw (tgt::FileException, tgt::IOException, std::bad_alloc);
 
 private:
+    float* ptr(float* ptr, int x, int y, int z, int sizeX, int sizeY) {
+        return ptr + x + y*sizeX + z*sizeX*sizeY;
+    }
+
     static const std::string loggerCat_;
 };
 

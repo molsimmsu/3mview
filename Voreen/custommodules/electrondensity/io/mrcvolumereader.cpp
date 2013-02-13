@@ -65,8 +65,6 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
     VolumeURL origin(url);
     std::string fileName = origin.getPath();
     LINFO(fileName);
-
-    
     
     std::ifstream mrc;
     mrc.open(fileName.c_str(), std::ios::binary);
@@ -74,13 +72,13 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         LWARNING("Can't open stream");
     }
     else {
-        int dimensions[3];
-        mrc.read((char*)(&dimensions), sizeof(dimensions));
-        std::cout << "X: " << dimensions[0] << std::endl; // number of columns (fastest changing in map)
-        std::cout << "Y: " << dimensions[1] << std::endl; // number of rows
-        std::cout << "Z: " << dimensions[2] << std::endl; // number of sections (slowest changing in map)
+        int dim[3];
+        mrc.read((char*)(&dim), sizeof(dim));
+        std::cout << "X: " << dim[0] << std::endl; // number of columns (fastest changing in map)
+        std::cout << "Y: " << dim[1] << std::endl; // number of rows
+        std::cout << "Z: " << dim[2] << std::endl; // number of sections (slowest changing in map)
         
-        int numVoxels = dimensions[0] * dimensions[1] * dimensions[2];
+        int numVoxels = dim[0] * dim[1] * dim[2];
         std::cout << "numVoxels: " << numVoxels << std::endl;
         
         int dataType;
@@ -104,28 +102,27 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         std::cout << "startY: " << start[1] << std::endl; // number of rows
         std::cout << "startZ: " << start[2] << std::endl; // number of sections (slowest changing in map)
 
-        int gridSize[3]; // cell dimensions in angstroms
-        
+        int gridSize[3];
         
         mrc.read((char*)(&gridSize), sizeof(gridSize));
-        std::cout << "gridSizeX: " << gridSize[0] << std::endl; // number of columns (fastest changing in map)
-        std::cout << "gridSizeY: " << gridSize[1] << std::endl; // number of rows
-        std::cout << "gridSizeZ: " << gridSize[2] << std::endl; // number of sections (slowest changing in map)
+        std::cout << "gridSizeX: " << gridSize[0] << std::endl;
+        std::cout << "gridSizeY: " << gridSize[1] << std::endl; 
+        std::cout << "gridSizeZ: " << gridSize[2] << std::endl;
      
         float cellDimensions[3]; // cell dimensions in angstroms
         
         mrc.read((char*)(&cellDimensions), sizeof(cellDimensions));
-        std::cout << "cellX: " << cellDimensions[0] << std::endl; // number of columns (fastest changing in map)
-        std::cout << "cellY: " << cellDimensions[1] << std::endl; // number of rows
-        std::cout << "cellZ: " << cellDimensions[2] << std::endl; // number of sections (slowest changing in map)
+        std::cout << "cellX: " << cellDimensions[0] << std::endl; 
+        std::cout << "cellY: " << cellDimensions[1] << std::endl; 
+        std::cout << "cellZ: " << cellDimensions[2] << std::endl; 
         
-        float sclX, sclY, sclZ;
-        sclX = cellDimensions[0] / gridSize[0];
-        sclY = cellDimensions[1] / gridSize[1];
-        sclZ = cellDimensions[2] / gridSize[2];
-        std::cout << "pixelSpacingX: " << sclX << std::endl; // number of columns (fastest changing in map)
-        std::cout << "pixelSpacingY: " << sclY << std::endl; // number of rows
-        std::cout << "pixelSpacingZ: " << sclZ << std::endl; // number of sections (slowest changing in map)
+        float scale[3];
+        scale[0] = cellDimensions[0] / gridSize[0];
+        scale[1] = cellDimensions[1] / gridSize[1];
+        scale[2] = cellDimensions[2] / gridSize[2];
+        std::cout << "pixelSpacingX: " << scale[0] << std::endl; 
+        std::cout << "pixelSpacingY: " << scale[1] << std::endl; 
+        std::cout << "pixelSpacingZ: " << scale[2] << std::endl; 
         
         float cellAngles[3]; // cell angles in degrees
 
@@ -134,14 +131,14 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         std::cout << "cellAngleY: " << cellAngles[1] << std::endl;
         std::cout << "cellAngleZ: " << cellAngles[2] << std::endl;
         
-        int axes[3]; // cell dimensions in angstroms
+        int axes[3]; 
         
         mrc.read((char*)(&axes), sizeof(axes));
         std::cout << "axesX: " << axes[0] << std::endl;
         std::cout << "axesY: " << axes[1] << std::endl; 
         std::cout << "axesZ: " << axes[2] << std::endl; 
         
-        float origin[3]; // cell angles in degrees
+        float origin[3];
         mrc.seekg(4*49, std::ios::beg);
         mrc.read((char*)(&origin), sizeof(origin));
         std::cout << "originX: " << origin[0] << std::endl; 
@@ -153,40 +150,66 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         mrc.read((char*)data, totalDataSize);
         mrc.close();
         
-        std::vector<VolumeRAM*> targetDataset;
-        targetDataset.push_back(new VolumeRAM_Float(ivec3(dimensions[0], dimensions[1], dimensions[2])));
+        int a = axes[0]-1;
+        int b = axes[1]-1;
+        int c = axes[2]-1;
         
-        std::vector<float*> scalars32;
+        std::vector<VolumeRAM*> targetDataset;
+        targetDataset.push_back(new VolumeRAM_Float(ivec3(dim[a], dim[b], dim[c])));
+        
+        float* scalars32;
         
         if (dataType == 2) 
-            scalars32.push_back(reinterpret_cast<float*>(((VolumeRAM_Float*)targetDataset[0])->voxel()));
+            scalars32 = reinterpret_cast<float*>(((VolumeRAM_Float*)targetDataset[0])->voxel());
             
-        memcpy(scalars32[0], data, totalDataSize);
+        //memcpy(scalars32, data, totalDataSize);
+        /*
+        if (axes[0] == 2 && axes[1] == 1 && axes[2] == 3) {
+            for (size_t k = 0; k < dim[2]; k++)
+            for (size_t j = 0; j < dim[1]; j++)
+            for (size_t i = 0; i < dim[0]; i++) {
+                *ptr(scalars32, i, j, k, dim[0], dim[0]) = *ptr((float*)data, i, j, k, dim[0], dim[1]);
+            }
+        }*/
         
-        Volume* volumeHandle = new Volume(targetDataset[0], vec3(1.0f), vec3(0.0f));
+        int t = 0;
+        // i - X, j - Y, k - Z
+        for (size_t k = 0; k < dim[c]; k++)
+        for (size_t j = 0; j < dim[b]; j++)
+        for (size_t i = 0; i < dim[a]; i++, t++) {
+        
+            if (axes[0] == 2 && axes[1] == 1 && axes[2] == 3)
+                *ptr(scalars32, i, j, k, dim[a], dim[b]) = *ptr((float*)data, j, i, k, dim[b], dim[a]);
+            
+            else LERROR("WRONG AXES");
+        }
+            
+        free(data);
+        
+        
         
         float row[3][4];
         
-        // Xtriclinic
-        int i1 = axes[0]-1;
-        row[i1][0] = sclX;
+        // X
+        int i1 = 0;
+        row[i1][0] = 1;
         row[i1][1] = 0;
         row[i1][2] = 0;
-        row[i1][3] = sclX * start[i1];
+        row[i1][3] = start[i1];
         
         // Y
-        i1 = axes[1]-1;
-        row[i1][0] = sclY*cos(cellAngles[2] * PI / 180.);
-        row[i1][1] = sclY*sin(cellAngles[2] * PI / 180.);
+        i1 = 1;
+        row[i1][0] = cos(cellAngles[2] * PI / 180.);
+        row[i1][1] = sin(cellAngles[2] * PI / 180.);
         row[i1][2] = 0;
-        row[i1][3] = sclY * start[i1];
+        row[i1][3] = start[i1];
         
         // Z
-        i1 = axes[2]-1;
+        i1 = 2;
         row[i1][0] = 0;
         row[i1][1] = 0;
-        row[i1][2] = sclZ;
-        row[i1][3] = sclZ * start[i1];
+        row[i1][2] = 1;
+        row[i1][3] = start[i1];
         
         tgt::Matrix4<float> transform1(
         row[0][0], row[1][0], row[2][0], 0,
@@ -196,16 +219,17 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         );
         
         tgt::Matrix4<float> transform2(
-        1, 0, 0, row[0][4],
-        0, 1, 0, row[1][4], //cosG*sclY, sinG*sclY, 0.0f, 1.0f,
-        0, 0, 1, row[2][4], //0.0f, 0.0f, sclZ, 1.0f,
+        1, 0, 0, row[0][3],
+        0, 1, 0, row[1][3], //cosG*sclY, sinG*sclY, 0.0f, 1.0f,
+        0, 0, 1, row[2][3], //0.0f, 0.0f, sclZ, 1.0f,
         0.0f, 0.0f, 0.0f, 1.0f
         );
         
         tgt::Matrix4<float> transform = transform1 * transform2;
         
-        VolumeBase* outVol = new VolumeDecoratorReplaceTransformation(volumeHandle, transform);
-        volumeCollection->add(outVol);
+        //VolumeBase* outVol = new VolumeDecoratorReplaceTransformation(volumeHandle, transform1);
+        Volume* volumeHandle = new Volume(targetDataset[0], vec3(scale[a], scale[b], scale[c]), vec3(start[a]*scale[a], start[b]*scale[b], start[c]*scale[c]), transform1);
+        volumeCollection->add(volumeHandle);
     }
     
     if (!volumeCollection->empty())
