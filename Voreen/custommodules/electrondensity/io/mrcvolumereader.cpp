@@ -154,81 +154,52 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         int b = axes[1]-1;
         int c = axes[2]-1;
         
-        std::vector<VolumeRAM*> targetDataset;
-        targetDataset.push_back(new VolumeRAM_Float(ivec3(dim[a], dim[b], dim[c])));
+        VolumeRAM* targetDataset = new VolumeRAM_Float(ivec3(dim[a], dim[b], dim[c]));
         
-        float* scalars32;
+        std::cout << "Created volume with sizeX=" << dim[a] << " sizeY=" << dim[b] << " sizeZ=" << dim[c] << std::endl;
         
-        if (dataType == 2) 
-            scalars32 = reinterpret_cast<float*>(((VolumeRAM_Float*)targetDataset[0])->voxel());
-            
-        //memcpy(scalars32, data, totalDataSize);
-        /*
-        if (axes[0] == 2 && axes[1] == 1 && axes[2] == 3) {
-            for (size_t k = 0; k < dim[2]; k++)
-            for (size_t j = 0; j < dim[1]; j++)
-            for (size_t i = 0; i < dim[0]; i++) {
-                *ptr(scalars32, i, j, k, dim[0], dim[0]) = *ptr((float*)data, i, j, k, dim[0], dim[1]);
-            }
-        }*/
-        
-        int t = 0;
-        // i - X, j - Y, k - Z
-        for (size_t k = 0; k < dim[c]; k++)
-        for (size_t j = 0; j < dim[b]; j++)
-        for (size_t i = 0; i < dim[a]; i++, t++) {
-        
-            if (axes[0] == 2 && axes[1] == 1 && axes[2] == 3)
-                *ptr(scalars32, i, j, k, dim[a], dim[b]) = *ptr((float*)data, j, i, k, dim[b], dim[a]);
-            
-            else LERROR("WRONG AXES");
+        size_t i[3];
+        for (i[2] = 0; i[2] < dim[c]; i[2]++)
+        for (i[1] = 0; i[1] < dim[b]; i[1]++)
+        for (i[0] = 0; i[0] < dim[a]; i[0]++)
+        {
+            ((VolumeRAM_Float*)targetDataset)->voxel(i[0],i[1],i[2]) = *ptr((float*)data, i[a], i[b], i[c], dim[b], dim[a]);
         }
             
         free(data);
         
-        
-        
-        float row[3][4];
+        float row[3][3];
         
         // X
-        int i1 = 0;
-        row[i1][0] = 1;
-        row[i1][1] = 0;
-        row[i1][2] = 0;
-        row[i1][3] = start[i1];
+        row[0][0] = 1;
+        row[0][1] = 0;
+        row[0][2] = 0;
         
         // Y
-        i1 = 1;
-        row[i1][0] = cos(cellAngles[2] * PI / 180.);
-        row[i1][1] = sin(cellAngles[2] * PI / 180.);
-        row[i1][2] = 0;
-        row[i1][3] = start[i1];
+        row[1][0] = cos(cellAngles[2] * PI / 180.);
+        row[1][1] = sin(cellAngles[2] * PI / 180.);
+        row[1][2] = 0;
         
         // Z
-        i1 = 2;
-        row[i1][0] = 0;
-        row[i1][1] = 0;
-        row[i1][2] = 1;
-        row[i1][3] = start[i1];
+        row[2][0] = 0;
+        row[2][1] = 0;
+        row[2][2] = 1;
         
-        tgt::Matrix4<float> transform1(
-        row[0][0], row[1][0], row[2][0], 0,
-        row[0][1], row[1][1], row[2][1], 0, //cosG*sclY, sinG*sclY, 0.0f, 1.0f,
-        row[0][2], row[1][2], row[2][2], 0, //0.0f, 0.0f, sclZ, 1.0f,
-        0.0f, 0.0f, 0.0f, 1.0f
+        tgt::Matrix4<float> transform
+        (
+            row[0][0], row[1][0], row[2][0], 0,
+            row[0][1], row[1][1], row[2][1], 0,
+            row[0][2], row[1][2], row[2][2], 0,
+            0.0f, 0.0f, 0.0f, 1.0f
         );
         
-        tgt::Matrix4<float> transform2(
-        1, 0, 0, row[0][3],
-        0, 1, 0, row[1][3], //cosG*sclY, sinG*sclY, 0.0f, 1.0f,
-        0, 0, 1, row[2][3], //0.0f, 0.0f, sclZ, 1.0f,
-        0.0f, 0.0f, 0.0f, 1.0f
+        Volume* volumeHandle = new Volume(
+            targetDataset,                                                 // data
+            vec3(scale[a], scale[b], scale[c]),                            // scale
+            vec3(start[a]*scale[a], start[b]*scale[b], start[c]*scale[c]), // offset
+            transform                                                      // transform
         );
         
-        tgt::Matrix4<float> transform = transform1 * transform2;
-        
-        //VolumeBase* outVol = new VolumeDecoratorReplaceTransformation(volumeHandle, transform1);
-        Volume* volumeHandle = new Volume(targetDataset[0], vec3(scale[a], scale[b], scale[c]), vec3(start[a]*scale[a], start[b]*scale[b], start[c]*scale[c]), transform1);
         volumeCollection->add(volumeHandle);
     }
     
