@@ -5,7 +5,7 @@
             <MetaData>
                 <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
                     <values>
-                        <item type="CubeProxyGeometry" ref="ref12" />
+                        <item type="MoleculeSource" ref="ref9" />
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
@@ -24,9 +24,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="211" y="156" />
                             </MetaData>
-                            <position x="9.10612965" y="27.77351379" z="267.56173706" />
-                            <focus x="7.67647934" y="35.62807083" z="-46.9671402" />
-                            <upVector x="-0.23816481" y="0.95754147" z="-0.16245569" />
+                            <position x="30.31071281" y="25.80076981" z="322.99182129" />
+                            <focus x="5.17109203" y="35.58014297" z="-47.3446846" />
+                            <upVector x="-0.23467782" y="0.96095836" z="-0.14657904" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -141,10 +141,10 @@
                 <Processor type="Canvas" name="Canvas" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-476" y="287" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="824" y="304" width="829" height="732" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="697" y="396" width="829" height="732" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="824" y="304" />
+                            <value x="697" y="396" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="829" y="732" />
@@ -222,9 +222,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="801" y="149" />
                             </MetaData>
-                            <position x="9.10612965" y="27.77351379" z="267.56173706" />
-                            <focus x="7.67647934" y="35.62807083" z="-46.9671402" />
-                            <upVector x="-0.23816481" y="0.95754147" z="-0.16245569" />
+                            <position x="30.31071281" y="25.80076981" z="322.99182129" />
+                            <focus x="5.17109203" y="35.58014297" z="-47.3446846" />
+                            <upVector x="-0.23467782" y="0.96095836" z="-0.14657904" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -285,9 +285,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="9.10612965" y="27.77351379" z="267.56173706" />
-                            <focus x="7.67647934" y="35.62807083" z="-46.9671402" />
-                            <upVector x="-0.23816481" y="0.95754147" z="-0.16245569" />
+                            <position x="30.31071281" y="25.80076981" z="322.99182129" />
+                            <focus x="5.17109203" y="35.58014297" z="-47.3446846" />
+                            <upVector x="-0.23467782" y="0.96095836" z="-0.14657904" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -337,9 +337,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="9.10612965" y="27.77351379" z="267.56173706" />
-                            <focus x="7.67647934" y="35.62807083" z="-46.9671402" />
-                            <upVector x="-0.23816481" y="0.95754147" z="-0.16245569" />
+                            <position x="30.31071281" y="25.80076981" z="322.99182129" />
+                            <focus x="5.17109203" y="35.58014297" z="-47.3446846" />
+                            <upVector x="-0.23467782" y="0.96095836" z="-0.14657904" />
                         </Property>
                         <Property name="renderGeometries" value="true" />
                     </Properties>
@@ -507,6 +507,7 @@
                                 <url value="../volumes/nucleon.vvd" />
                                 <url value="../../../Tests/6ins.ccp4" />
                                 <url value="../../../Tests/4e7v.ccp4" />
+                                <url value="../../../Tests/6ins.ccp4" />
                             </VolumeURLs>
                             <Selection>
                                 <entry url="../../../Tests/4e7v.ccp4" value="true" />
@@ -4673,9 +4674,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="20" y="-31" />
                             </MetaData>
-                            <position x="9.10612965" y="27.77351379" z="267.56173706" />
-                            <focus x="7.67647934" y="35.62807083" z="-46.9671402" />
-                            <upVector x="-0.23816481" y="0.95754147" z="-0.16245569" />
+                            <position x="30.31071281" y="25.80076981" z="322.99182129" />
+                            <focus x="5.17109203" y="35.58014297" z="-47.3446846" />
+                            <upVector x="-0.23467782" y="0.96095836" z="-0.14657904" />
                         </Property>
                         <Property name="compositing" value="dvr" />
                         <Property name="compositing1" value="dvr" />

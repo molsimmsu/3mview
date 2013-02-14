@@ -4,8 +4,8 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/class3d/softw/Work/Voreen/apps/voreentool/networkconfigurator.cpp" "/home/class3d/softw/Work/Voreen/apps/voreentool/CMakeFiles/voreentool.dir/networkconfigurator.cpp.o"
-  "/home/class3d/softw/Work/Voreen/apps/voreentool/voreentool.cpp" "/home/class3d/softw/Work/Voreen/apps/voreentool/CMakeFiles/voreentool.dir/voreentool.cpp.o"
+  "/home/dimax/3mview/Voreen/apps/voreentool/networkconfigurator.cpp" "/home/dimax/3mview/Voreen/apps/voreentool/CMakeFiles/voreentool.dir/networkconfigurator.cpp.o"
+  "/home/dimax/3mview/Voreen/apps/voreentool/voreentool.cpp" "/home/dimax/3mview/Voreen/apps/voreentool/CMakeFiles/voreentool.dir/voreentool.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -33,17 +33,16 @@ SET(CMAKE_TARGET_DEFINITIONS
   "VRN_MODULE_STAGING"
   "VRN_MODULE_VOLUMELABELING"
   "VRN_MODULE_ZIP"
-  "VRN_MODULE_MOLECULE"
-  "VRN_MODULE_STEREO"
-  "QT_NO_DEBUG"
+  "QT_DLL"
   "QT_OPENGL_LIB"
   "QT_GUI_LIB"
   "QT_CORE_LIB"
+  "QT_DLL"
   )
 
 # Targets to which this target links.
 SET(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/class3d/softw/Work/Voreen/ext/tgt/CMakeFiles/tgt.dir/DependInfo.cmake"
-  "/home/class3d/softw/Work/Voreen/src/core/CMakeFiles/voreen_core.dir/DependInfo.cmake"
-  "/home/class3d/softw/Work/Voreen/src/qt/CMakeFiles/voreen_qt.dir/DependInfo.cmake"
+  "/home/dimax/3mview/Voreen/ext/tgt/CMakeFiles/tgt.dir/DependInfo.cmake"
+  "/home/dimax/3mview/Voreen/src/core/CMakeFiles/voreen_core.dir/DependInfo.cmake"
+  "/home/dimax/3mview/Voreen/src/qt/CMakeFiles/voreen_qt.dir/DependInfo.cmake"
   )

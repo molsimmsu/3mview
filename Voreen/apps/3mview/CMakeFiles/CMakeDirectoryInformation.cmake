@@ -10,11 +10,12 @@ SET(CMAKE_FORCE_UNIX_PATHS 1)
 
 # The C and CXX include file search paths:
 SET(CMAKE_C_INCLUDE_PATH
-  "../openbabel-2.3.2/include"
   "."
   "include"
   "ext"
+  "../boost-1.52.0/include"
   "ext/eigen"
+  "../openbabel-2.3.2/include"
   "modules/connexe/ext/connexe"
   "/usr/include/IL"
   "modules/plotting/ext/triangle"

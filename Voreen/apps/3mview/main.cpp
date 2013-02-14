@@ -38,7 +38,9 @@
 #include "voreen/core/network/networkevaluator.h"
 #include "voreen/core/network/workspace.h"
 #include "voreen/core/network/processornetwork.h"
+
 #include "voreen/qt/voreenapplicationqt.h"
+#include "voreen/qt/widgets/property/processorpropertieswidget.h"
 
 #include "modules/core/processors/output/canvasrenderer.h"
 
@@ -74,7 +76,7 @@ int main(int argc, char* argv[]) {
     // load workspace from disc
     Workspace* workspace = new Workspace();
     try {
-        workspace->load(VoreenApplication::app()->getResourcePath("/workspaces/standard.vws"));
+        workspace->load(VoreenApplication::app()->getResourcePath("/workspaces/geometry.vws"));
     }
     catch (SerializationException& e) {
         QMessageBox::critical(mainwindow, "Loading Workspace Failed", QString::fromStdString(e.what()));
@@ -98,6 +100,15 @@ int main(int argc, char* argv[]) {
 
     // pass the network to the network evaluator, which also initializes the processors
     networkEvaluator->setProcessorNetwork(network);
+    
+    //------------------------------
+    Processor* volumeCollectionSource = network->getProcessor("VolumeCollectionSource");
+    if (volumeCollectionSource) {
+        ProcessorPropertiesWidget* volumeCollectionSourceWidget = new ProcessorPropertiesWidget(0, volumeCollectionSource, true);
+        volumeCollectionSourceWidget->show();
+    }
+    
+    //------------------------------
 
     // start the event process; the program runs as long as theres no exit-event
     myapp.exec();

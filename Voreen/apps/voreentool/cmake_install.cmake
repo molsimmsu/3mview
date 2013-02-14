@@ -1,4 +1,4 @@
-# Install script for directory: /home/class3d/softw/Work/Voreen/apps/voreentool
+# Install script for directory: /home/dimax/3mview/Voreen/apps/voreentool
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

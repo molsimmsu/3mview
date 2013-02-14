@@ -88,12 +88,6 @@ bin/3mview: /usr/lib/libICE.so
 bin/3mview: /usr/lib/libX11.so
 bin/3mview: /usr/lib/libXext.so
 bin/3mview: /usr/lib/libGLEW.so
-bin/3mview: /usr/lib/libboost_date_time-mt.so
-bin/3mview: /usr/lib/libboost_prg_exec_monitor-mt.so
-bin/3mview: /usr/lib/libboost_program_options-mt.so
-bin/3mview: /usr/lib/libboost_regex-mt.so
-bin/3mview: /usr/lib/libboost_thread-mt.so
-bin/3mview: /usr/lib/libboost_unit_test_framework-mt.so
 bin/3mview: /usr/lib/libIL.so
 bin/3mview: /usr/lib/libILU.so
 bin/3mview: /usr/lib/libz.so
@@ -120,12 +114,6 @@ bin/3mview: /usr/lib/libICE.so
 bin/3mview: /usr/lib/libX11.so
 bin/3mview: /usr/lib/libXext.so
 bin/3mview: /usr/lib/libGLEW.so
-bin/3mview: /usr/lib/libboost_date_time-mt.so
-bin/3mview: /usr/lib/libboost_prg_exec_monitor-mt.so
-bin/3mview: /usr/lib/libboost_program_options-mt.so
-bin/3mview: /usr/lib/libboost_regex-mt.so
-bin/3mview: /usr/lib/libboost_thread-mt.so
-bin/3mview: /usr/lib/libboost_unit_test_framework-mt.so
 bin/3mview: /usr/lib/libIL.so
 bin/3mview: /usr/lib/libILU.so
 bin/3mview: /usr/lib/libz.so
