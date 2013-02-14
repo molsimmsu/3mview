@@ -146,6 +146,10 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         
         VolumeRAM* targetDataset;
         
+        int a = axes[0]-1;
+        int b = axes[1]-1;
+        int c = axes[2]-1;
+        
         /**/ if (dataType == 0) {
             targetDataset = new VolumeAtomic<int8_t>(ivec3(dim[a], dim[b], dim[c]));
             fillVolume<int8_t>(targetDataset, data, dim, axes);
@@ -194,10 +198,6 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
             row[0][2], row[1][2], row[2][2], 0,
             0.0f, 0.0f, 0.0f, 1.0f
         );
-        
-        int a = axes[0]-1;
-        int b = axes[1]-1;
-        int c = axes[2]-1;
         
         Volume* volumeHandle = new Volume(
             targetDataset,                                                 // data
