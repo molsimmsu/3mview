@@ -33,3 +33,13 @@ Ubuntu:
 
     cmake . -DUSE_CUSTOM_BOOST=ON -DVRN_BUILD_3MVIEW=ON -DVRN_BUILD_VOREENVE=ON -DVRN_BUILD_VOREENTOOL=OFF -DVRN_MODULE_MOLECULE=ON -DVRN_MODULE_STEREO=ON -DVRN_MODULE_GEOMETRY=ON -DVRN_MODULE_ELECTRONDENSITY=ON
     make -j4
+    
+Запускаем программы
+
+VoreenVE:
+
+    ./voreenve.sh
+    
+3mview:
+
+    ./3mview.sh
