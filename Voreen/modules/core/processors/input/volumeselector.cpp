@@ -83,7 +83,7 @@ void VolumeSelector::adjustToVolumeCollection() {
         tgtAssert((volumeID_.get() >= 0) && (volumeID_.get() < max), "Invalid volume index");
 
         // update output handle
-        if (collection->at(volumeID_.get()) != outport_.getData())
+        //if (collection->at(volumeID_.get()) != outport_.getData())
             outport_.setData(collection->at(volumeID_.get()), false);
     }
     else {
@@ -98,7 +98,8 @@ void VolumeSelector::adjustToVolumeCollection() {
         if (collection != 0 && !collection->empty()) {
             volumeID_.set(max);
             if (static_cast<int>(collection->size()) > volumeID_.get()
-                && collection->at(volumeID_.get()) != outport_.getData())
+                //&& collection->at(volumeID_.get()) != outport_.getData()
+                )
             {
                 outport_.setData(collection->at(volumeID_.get()), false);
             }

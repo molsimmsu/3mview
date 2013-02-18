@@ -5,11 +5,15 @@ SET(MOD_CORE_MODULECLASS ElectronDensityModule)
 # module's core source files, path relative to module dir
 SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/segmentationbase.cpp
+    ${MOD_DIR}/processors/manipulationbase.cpp
+    ${MOD_DIR}/processors/densitymapcollectionsource.cpp
     ${MOD_DIR}/io/mrcvolumereader.cpp
 )
 
 # module's core header files, path relative to module dir
 SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/segmentationbase.h
+    ${MOD_DIR}/processors/manipulationbase.h
+    ${MOD_DIR}/processors/densitymapcollectionsource.h
     ${MOD_DIR}/io/mrcvolumereader.h
 )   

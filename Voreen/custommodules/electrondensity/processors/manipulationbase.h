@@ -30,6 +30,7 @@
 #ifndef VRN_MANIPULATIONBASE_H
 #define VRN_MANIPULATIONBASE_H
 
+#include "voreen/core/ports/allports.h"
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/properties/boolproperty.h"
 #include "voreen/core/properties/floatproperty.h"
@@ -41,37 +42,32 @@ namespace voreen {
  * Segments the incoming volume. This is a simple
  * VolumeProcessor for demonstrating the concept.
  */
-class ManipulationBase : public CachingVolumeProcessor {
+class ManipulationBase : public Processor {
 public:
     ManipulationBase();
     virtual ~ManipulationBase();
     virtual Processor* create() const;
 
     virtual std::string getClassName() const { return "ManipulationBase";       }
-    virtual std::string getCategory() const  { return "Segmentation";      }
+    virtual std::string getCategory() const  { return "Manipulation";      }
     virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL; }
-
-    virtual bool usesExpensiveComputation() const { return true; }
     
 protected:
     virtual void setDescriptions() {
-        setDescription("Base processor for segmentation");
+        setDescription("Base processor for manipulation");
     }
 
     virtual void process();
 
 private:
     void forceUpdate();
-    void segmentVolume();  
   
-    VolumePort inport_;
-    VolumePort outport_;
+    CoProcessorPort inport_;
     
 	StringOptionProperty manipulationType_;
+	StringOptionProperty manipulationAxis_;
     BoolProperty invertDirection_;
 	FloatProperty manipulationSlider_;
-    
-    bool forceUpdate_;
 };
 
 } // namespace

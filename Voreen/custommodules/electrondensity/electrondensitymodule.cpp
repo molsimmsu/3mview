@@ -31,6 +31,8 @@
 
 // include classes to be registered
 #include "processors/segmentationbase.h"
+#include "processors/manipulationbase.h"
+#include "processors/densitymapcollectionsource.h"
 #include "io/mrcvolumereader.h"
 
 namespace voreen {
@@ -42,6 +44,8 @@ ElectronDensityModule::ElectronDensityModule(const std::string& modulePath)
     setName("Electron Density Maps");
     
     registerProcessor(new SegmentationBase());
+    registerProcessor(new ManipulationBase());
+    registerProcessor(new DensityMapCollectionSource());
     
     registerVolumeReader(new MRCVolumeReader());
 }
