@@ -5,16 +5,19 @@
 
 AlignByMoments :: AlignByMoments()
   : Processor(),
-    inport_(Port::INPORT,   "pointCloud", "Weighted Point Cloud Input"),
-    outport_(Port::OUTPORT, "pointCloud", "Weighted Point Cloud Output")
+    inport_(Port::INPORT,   "pointCloud1", "Weighted Point Cloud Input"),
+    outport_(Port::OUTPORT, "pointCloud2", "Weighted Point Cloud Output")
 {
     addPort(inport_);
     addPort(outport_);
+}
 
+void AlignByMoments :: process()
+{
 	O[0] = 0;
 	O[1] = 0;
 	O[2] = 0;
-  total_weight = 0;
+    total_weight = 0;
 	entries = inport_.getData()->size();
 
 	for (int i=0; i<entries; ++i)

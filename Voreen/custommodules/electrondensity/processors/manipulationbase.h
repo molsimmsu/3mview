@@ -30,6 +30,10 @@
 #ifndef VRN_MANIPULATIONBASE_H
 #define VRN_MANIPULATIONBASE_H
 
+#include "tgt/timer.h"
+#include "tgt/event/eventhandler.h"
+using namespace tgt;
+
 #include "voreen/core/ports/allports.h"
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/properties/boolproperty.h"
@@ -38,10 +42,15 @@
 
 namespace voreen {
 
-/**
- * Segments the incoming volume. This is a simple
- * VolumeProcessor for demonstrating the concept.
- */
+class SpaceballEventListener : public EventListener {
+public:
+    SpaceballEventListener();
+    virtual ~SpaceballEventListener() {}
+
+    virtual void timerEvent(TimeEvent* e);
+};
+ 
+ 
 class ManipulationBase : public Processor {
 public:
     ManipulationBase();
@@ -51,6 +60,8 @@ public:
     virtual std::string getClassName() const { return "ManipulationBase";       }
     virtual std::string getCategory() const  { return "Manipulation";      }
     virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL; }
+    
+    virtual void update(tgt::vec3 offset, tgt::vec3 matrix);
     
 protected:
     virtual void setDescriptions() {
@@ -68,6 +79,10 @@ private:
 	StringOptionProperty manipulationAxis_;
     BoolProperty invertDirection_;
 	FloatProperty manipulationSlider_;
+	
+	Timer* timer_;
+	SpaceballEventListener* spaceballListener_;
+	EventHandler* eventHandler_;
 };
 
 } // namespace

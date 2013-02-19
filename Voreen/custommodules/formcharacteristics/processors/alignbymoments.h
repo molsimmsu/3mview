@@ -18,6 +18,16 @@ public:
     virtual std::string getCategory()  const { return "Form Analysis";         }
     virtual CodeState getCodeState()   const { return CODE_STATE_EXPERIMENTAL; }
 
+
+
+protected:
+    virtual void setDescriptions() {
+        setDescription("Accepts WeigthedPointCloud as input, outputs a matrix as a WeigthedPointCloud");
+    }
+
+    virtual void process();
+
+private:
     double  O[3]; 
     double Ox[3];
     double Oy[3];
@@ -25,15 +35,6 @@ public:
     double polynom[3];
     double total_weight;
     int    entries;
-
-protected:
-    virtual void setDescriptions() {
-        setDescription("Accepts WeigthedPointCloud as input, outputs a matrix as a WeigthedPointCloud");
-    }
-
-    virtual void process() {}
-
-private:
 
     WeightedPointCloudPort inport_;
     WeightedPointCloudPort outport_;   

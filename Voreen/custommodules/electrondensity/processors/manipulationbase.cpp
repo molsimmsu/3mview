@@ -31,7 +31,18 @@
 #include "densitymapcollectionsource.h"
 #include "voreen/core/datastructures/volume/volumedecorator.h"
 
+//#include "tgt/qt/qttimer.h"
+
 namespace voreen {
+
+SpaceballEventListener::SpaceballEventListener()
+    : EventListener() {
+
+}
+
+void SpaceballEventListener::timerEvent(TimeEvent* e) {
+    std::cout << "Timer" << std::endl;
+}
 
 ManipulationBase::ManipulationBase()
     : Processor()
@@ -43,7 +54,6 @@ ManipulationBase::ManipulationBase()
 {
     // register ports and properties
     addPort(inport_);
-    //addPort(outport_);
 	
 	manipulationType_.addOption("rotate", "Rotate");
 	manipulationType_.addOption("move", "Move");
@@ -58,6 +68,13 @@ ManipulationBase::ManipulationBase()
     addProperty(manipulationAxis_);
     addProperty(invertDirection_);
     addProperty(manipulationSlider_);
+    
+    spaceballListener_ = new SpaceballEventListener();
+    eventHandler_ = new EventHandler();
+    eventHandler_->addListenerToFront(spaceballListener_);
+    
+    //timer_ = new QtTimer(eventHandler_);
+    //timer_->start(500);
 }
 
 ManipulationBase::~ManipulationBase() {
@@ -68,6 +85,10 @@ Processor* ManipulationBase::create() const {
 }
 
 void ManipulationBase::process() {
+    
+}
+
+void ManipulationBase::update(tgt::vec3 offset, tgt::vec3 matrix) {
     
 }
 
