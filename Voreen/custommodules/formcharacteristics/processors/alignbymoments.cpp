@@ -2,6 +2,7 @@
 
 #define    SCALE              30
 #define    SOLVE_ITER  	      52
+#define    PI_2    1.57079632679
 
 AlignByMoments :: AlignByMoments()
   : Processor(),
@@ -22,10 +23,10 @@ void AlignByMoments :: process()
 
 	for (int i=0; i<entries; ++i)
 	{
-		O[0] += inport_.getData()->get(i).coords_[0] * inport_.getData()->get(i).coords_[3];
-		O[1] += inport_.getData()->get(i).coords_[1] * inport_.getData()->get(i).coords_[3];
-		O[2] += inport_.getData()->get(i).coords_[2] * inport_.getData()->get(i).coords_[3];
-		total_weight += inport_.getData()->get(i).coords_[3];
+		O[0] += inport_.getData()->get(i)[0] * inport_.getData()->get(i)[3];
+		O[1] += inport_.getData()->get(i)[1] * inport_.getData()->get(i)[3];
+		O[2] += inport_.getData()->get(i)[2] * inport_.getData()->get(i)[3];
+		total_weight += inport_.getData()->get(i)[3];
 	}
 
 	O[0] /= total_weight;
@@ -42,20 +43,20 @@ double AlignByMoments :: CalculateMoment(int degX, int degY, int degZ)
 	double temp;
 	for (int i=0; i<entries; ++i)
 	{
-		temp = inport_.getData()->get(i).coords_[3];
+		temp = inport_.getData()->get(i)[3];
 		for (int j = 0; j < degX; ++j)
 		{
-			temp *= (inport_.getData()->get(i).coords_[0] - O[0])/SCALE;
+			temp *= (inport_.getData()->get(i)[0] - O[0])/SCALE;
 		}
 		
 		for (int j = 0; j < degY; ++j)
 		{
-			temp *= (inport_.getData()->get(i).coords_[1] - O[1])/SCALE;
+			temp *= (inport_.getData()->get(i)[1] - O[1])/SCALE;
 		}
 		
 		for (int j = 0; j < degZ; ++j)
 		{
-			temp *= (inport_.getData()->get(i).coords_[2] - O[2])/SCALE;
+			temp *= (inport_.getData()->get(i)[2] - O[2])/SCALE;
 		}
 
 		res += temp/total_weight;
@@ -69,13 +70,13 @@ double AlignByMoments :: CalculateFourrier(int degX, int degY, int degZ)
 	double temp;
 	for (int i=0; i<entries; ++i)
 	{
-		temp = inport_.getData()->get(i).coords_[3];
-		if (degX<0) temp *= cos(degX*(inport_.getData()->get(i).coords_[0] - O[0])/SCALE/MAX_SIZE*PI_2);
-		if (degX>0) temp *= sin(degX*(inport_.getData()->get(i).coords_[0] - O[0])/SCALE/MAX_SIZE*PI_2);
-		if (degY<0) temp *= cos(degY*(inport_.getData()->get(i).coords_[1] - O[1])/SCALE/MAX_SIZE*PI_2);
-		if (degY>0) temp *= sin(degY*(inport_.getData()->get(i).coords_[1] - O[1])/SCALE/MAX_SIZE*PI_2);
-		if (degZ<0) temp *= cos(degZ*(inport_.getData()->get(i).coords_[2] - O[2])/SCALE/MAX_SIZE*PI_2);
-		if (degZ>0) temp *= sin(degZ*(inport_.getData()->get(i).coords_[2] - O[2])/SCALE/MAX_SIZE*PI_2);
+		temp = inport_.getData()->get(i)[3];
+		if (degX<0) temp *= cos(degX*(inport_.getData()->get(i)[0] - O[0])/SCALE/MAX_SIZE*PI_2);
+		if (degX>0) temp *= sin(degX*(inport_.getData()->get(i)[0] - O[0])/SCALE/MAX_SIZE*PI_2);
+		if (degY<0) temp *= cos(degY*(inport_.getData()->get(i)[1] - O[1])/SCALE/MAX_SIZE*PI_2);
+		if (degY>0) temp *= sin(degY*(inport_.getData()->get(i)[1] - O[1])/SCALE/MAX_SIZE*PI_2);
+		if (degZ<0) temp *= cos(degZ*(inport_.getData()->get(i)[2] - O[2])/SCALE/MAX_SIZE*PI_2);
+		if (degZ>0) temp *= sin(degZ*(inport_.getData()->get(i)[2] - O[2])/SCALE/MAX_SIZE*PI_2);
 		res += temp;
 	}
 	return res;
@@ -83,11 +84,14 @@ double AlignByMoments :: CalculateFourrier(int degX, int degY, int degZ)
 
 void AlignByMoments :: FillOutport()
 {
-		WeightedPointCloud out_data;
-		out_data.add(new WeigthedPoint(O[0],   O[1],   O[2],  0));
-		out_data.add(new WeigthedPoint(Ox[0],  Ox[1],  Ox[2], 0));
-		out_data.add(new WeigthedPoint(Oy[0],  Oy[1],  Oy[2], 0));
-		out_data.add(new WeigthedPoint(Oz[0],  Oz[1],  Oz[2], 0));
+		WeightedPointCloud* out_data = new WeightedPointCloud(); // Must be a pointer
+		
+		out_data->add(WeightedPoint(O[0],   O[1],   O[2],  0));
+		out_data->add(WeightedPoint(Ox[0],  Ox[1],  Ox[2], 0));
+		out_data->add(WeightedPoint(Oy[0],  Oy[1],  Oy[2], 0));
+		out_data->add(WeightedPoint(Oz[0],  Oz[1],  Oz[2], 0));
+		
+		outport_.setData(out_data);
 }
 
 void AlignByMoments :: FindAxes()
@@ -174,7 +178,7 @@ void AlignByMoments :: FindAxes()
 	Ox[1] = V1[2]*V2[0] - V1[0]*V2[2];	
 	Ox[2] = V1[0]*V2[1] - V1[1]*V2[0];
 	
-	len = sqrt(Ox[0]*Ox[0]+Ox[1]*Ox[1]+Ox[2]*Ox[2]);
+	double len = sqrt(Ox[0]*Ox[0]+Ox[1]*Ox[1]+Ox[2]*Ox[2]);
 	Ox[0] /= len;
 	Ox[1] /= len;
 	Ox[2] /= len;

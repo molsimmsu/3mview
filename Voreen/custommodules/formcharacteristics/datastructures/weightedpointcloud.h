@@ -12,6 +12,10 @@ public:
     WeightedPoint(float x, float y, float z, float weight);
     virtual ~WeightedPoint() {}
     
+    const float operator [](size_t index) const {
+        return coords_[index];
+    }
+    
 private:
     std::vector<float> coords_; // 0-2: coords; 3: weight
 };

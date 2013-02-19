@@ -28,7 +28,7 @@
  **********************************************************************/
 
 #include "formcharacteristicsmodule.h"
-#include "alignbymoments.h"
+#include "processors/alignbymoments.h"
 
 // include classes to be registered
 //#include "processors/pointcloudcharacteristics.h"
