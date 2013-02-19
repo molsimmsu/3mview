@@ -22,7 +22,7 @@ public:
     double Ox[3];
     double Oy[3];
     double Oz[3];
-    double polunom[3];
+    double polynom[3];
     double total_weight;
     int    entries;
 
