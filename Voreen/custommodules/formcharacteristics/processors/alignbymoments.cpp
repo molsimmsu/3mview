@@ -3,6 +3,8 @@
 #define    SCALE              30
 #define    SOLVE_ITER  	      52
 #define    PI_2    1.57079632679
+#define    MAX_SIZE	      5
+
 
 AlignByMoments :: AlignByMoments()
   : Processor(),
