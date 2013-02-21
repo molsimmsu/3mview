@@ -1,7 +1,7 @@
 ### Содержание
-1. [Установка](https://github.com/molsimmsu/3mview/edit/master/README.md#-1)
-2. [Разработка модулей](https://github.com/molsimmsu/3mview/edit/master/README.md#--1)
-3. [Организационные вопросы](https://github.com/molsimmsu/3mview/edit/master/README.md#--3)
+1. [Установка](#-1)
+2. [Разработка модулей](#--1)
+3. [Организационные вопросы](#--3)
 
 Установка
 ----------
