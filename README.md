@@ -9,7 +9,7 @@
 ### Создание рабочей копии
     git clone https://github.com/molsimmsu/3mview.git
 
-### Установка требуемых пакетов
+### Установка пакетов
 Ubuntu:
 
     sudo apt-get install libqt4-dev cmake libeigen2-dev libboost-dev libpng12-dev libfftw3-dev libtiff5-dev python-sip-dev python-qt4-dev
