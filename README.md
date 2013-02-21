@@ -71,12 +71,12 @@ VoreenVE:
 
 Общая последовательность действий:
 
-1. Создаем свойство: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
+1. Создаем property: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
     * [Пример1.h](Voreen/include/voreen/core/properties/floatproperty.h)
     * [Пример1.cpp](Voreen/src/core/properties/floatproperty.cpp)
-2. Создаем виджет: наследуем от [QPropertyWidget](Voreen/include/voreen/qt/widgets/property/qpropertywidget.h)
+2. Создаем widget: наследуем от [QPropertyWidget](Voreen/include/voreen/qt/widgets/property/qpropertywidget.h)
     * Примеры в каталогах [include](Voreen/include/voreen/qt/widgets/property/) и [src](Voreen/src/qt/widgets/property/)
-3. Создаем фабрику виждетов: наследуем от [PropertyWidgetFactory](Voreen/include/voreen/core/properties/propertywidgetfactory.h)
+3. Создаем widget factory: наследуем от [PropertyWidgetFactory](Voreen/include/voreen/core/properties/propertywidgetfactory.h)
     * [Пример1.h](Voreen/modules/opencl/qt/openclpropertywidgetfactory.h)
     * [Пример1.cpp](Voreen/modules/opencl/qt/openclpropertywidgetfactory.cpp)
     * [Пример2.h](Voreen/include/voreen/qt/widgets/property/corepropertywidgetfactory.h)
