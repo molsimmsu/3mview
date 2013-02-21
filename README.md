@@ -61,17 +61,20 @@ VoreenVE:
 ### Создание структур данных
 1. В каталоге модуля создаем подкаталог `datastructures`
 2. Размещаем в нем файлы стуктур. [Примеры](Voreen/custommodules/molecule/datastructures)
-3. Если требуется передача структуры данных между процессорами, создаем [порт](Voreen/custommodules/molecule/ports).
+3. Если требуется передача структуры данных между процессорами, создаем [порт](Voreen/custommodules/molecule/ports)
+4. Добавляем в файл `<modulename>.cmake` пути к созданным файлам
 
 ### Создание модулей чтения карт ЭП
 1. В каталоге модуля создаем подкаталог `io`
 2. Берем за образец [модуль чтения формата MRC](Voreen/custommodules/electrondensity/io)
+3. Добавляем в файл `<modulename>.cmake` пути к созданным файлам
 
 ### Создание properties
 1. В каталоге модуля создаем подкаталог `properties`
 2. Создаем Property: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
     * [stringproperty.h](Voreen/include/voreen/core/properties/stringproperty.h)
     * [stringproperty.cpp](Voreen/src/core/properties/stringproperty.cpp)
+    * Примечание: Функции `serialize()` и `deserialize()` можно исключить
     * Другие примеры [include](Voreen/include/voreen/core/properties) и [src](Voreen/src/core/properties)
 3. Создаем Property Widget: наследуем от [QPropertyWidget](Voreen/include/voreen/qt/widgets/property/qpropertywidget.h)
     * Примеры [include](Voreen/include/voreen/qt/widgets/property/) и [src](Voreen/src/qt/widgets/property/)
@@ -84,6 +87,7 @@ VoreenVE:
     * [openclmoduleqt.h](Voreen/modules/opencl/openclmoduleqt.h)
     * [openclmoduleqt.cpp](Voreen/modules/opencl/openclmoduleqt.cpp)
 6. Регистрируем Widget Factory в конструкторе Module Qt.
+7. Добавляем в файл `<modulename>.cmake` пути к созданным файлам
 
 Организационные вопросы
 -----------------------
