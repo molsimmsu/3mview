@@ -1,12 +1,16 @@
-Создание рабочей копии
-----------------------
-    git clone https://github.com/molsimmsu/3mview.git
+### Содержание
+1. [Установка](https://github.com/molsimmsu/3mview/edit/master/README.md#-1)
+2. [Разработка модулей](https://github.com/molsimmsu/3mview/edit/master/README.md#--1)
+3. [Организационные вопросы](https://github.com/molsimmsu/3mview/edit/master/README.md#--3)
 
-Компиляция
+Установка
 ----------
 
-### Ubuntu
+### Создание рабочей копии
+    git clone https://github.com/molsimmsu/3mview.git
 
+### Установка требуемых пакетов
+Ubuntu:
     sudo apt-get install libqt4-dev cmake libeigen2-dev libboost-dev libpng12-dev libfftw3-dev libtiff5-dev python-sip-dev python-qt4-dev
 
 Скачиваем [OpenBabel](http://sourceforge.net/projects/openbabel/files/openbabel/2.3.2/openbabel-2.3.2.tar.gz/download) и распаковываем его в 3mview/openbabel-2.3.2
