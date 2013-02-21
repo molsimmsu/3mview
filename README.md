@@ -74,11 +74,11 @@ VoreenVE:
 2. В каталоге `properties` создаем Property: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
     * [stringproperty.h](Voreen/include/voreen/core/properties/stringproperty.h)
     * [stringproperty.cpp](Voreen/src/core/properties/stringproperty.cpp)
-    * Примечание: функции `serialize()` и `deserialize()` можно исключить
-    * Другие примеры [include](Voreen/include/voreen/core/properties) и [src](Voreen/src/core/properties)
+    * Функции `serialize()` и `deserialize()` можно исключить
+    * Другие примеры: [include](Voreen/include/voreen/core/properties) и [src](Voreen/src/core/properties)
 3. В каталоге модуля создаем подкаталог `qt`
 4. В каталоге `qt` создаем QPropertyWidget: наследуем от [QPropertyWidget](Voreen/include/voreen/qt/widgets/property/qpropertywidget.h)
-    * Примеры [include](Voreen/include/voreen/qt/widgets/property/) и [src](Voreen/src/qt/widgets/property/)
+    * Примеры: [include](Voreen/include/voreen/qt/widgets/property/) и [src](Voreen/src/qt/widgets/property/)
 5. В каталоге `qt` создаем WidgetFactory: наследуем от [PropertyWidgetFactory](Voreen/include/voreen/core/properties/propertywidgetfactory.h)
     * [openclpropertywidgetfactory.h](Voreen/modules/opencl/qt/openclpropertywidgetfactory.h)
     * [openclpropertywidgetfactory.cpp](Voreen/modules/opencl/qt/openclpropertywidgetfactory.cpp)
