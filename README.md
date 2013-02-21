@@ -69,20 +69,20 @@ VoreenVE:
 
 ### Создание properties
 1. В каталоге модуля создаем подкаталог `properties`
-2. Создаем property: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
+2. Создаем Property: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
     * [Пример1.h](Voreen/include/voreen/core/properties/floatproperty.h)
     * [Пример1.cpp](Voreen/src/core/properties/floatproperty.cpp)
-3. Создаем widget: наследуем от [QPropertyWidget](Voreen/include/voreen/qt/widgets/property/qpropertywidget.h)
+3. Создаем Widget: наследуем от [QPropertyWidget](Voreen/include/voreen/qt/widgets/property/qpropertywidget.h)
     * Примеры в каталогах [include](Voreen/include/voreen/qt/widgets/property/) и [src](Voreen/src/qt/widgets/property/)
-4. Создаем widget factory: наследуем от [PropertyWidgetFactory](Voreen/include/voreen/core/properties/propertywidgetfactory.h)
+4. Создаем Widget Factory: наследуем от [PropertyWidgetFactory](Voreen/include/voreen/core/properties/propertywidgetfactory.h)
     * [Пример1.h](Voreen/modules/opencl/qt/openclpropertywidgetfactory.h)
     * [Пример1.cpp](Voreen/modules/opencl/qt/openclpropertywidgetfactory.cpp)
     * [Пример2.h](Voreen/include/voreen/qt/widgets/property/corepropertywidgetfactory.h)
     * [Пример2.cpp](Voreen/src/qt/widgets/property/corepropertywidgetfactory.cpp)
-5. Создаем модуль Qt: наследуем от [VoreenModuleQt](Voreen/include/voreen/qt/voreenmoduleqt.h).
+5. Создаем Qt Module: наследуем от [VoreenModuleQt](Voreen/include/voreen/qt/voreenmoduleqt.h).
     * [Пример1.h](Voreen/modules/opencl/openclmoduleqt.h)
     * [Пример1.cpp](Voreen/modules/opencl/openclmoduleqt.cpp)
-6. Регистрируем widget factory в конструкторе модуля Qt.
+6. Регистрируем Widget Factory в конструкторе Qt Module.
 
 Организационные вопросы
 -----------------------
