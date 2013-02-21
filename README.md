@@ -71,23 +71,24 @@ VoreenVE:
 
 ### Создание properties
 1. В каталоге модуля создаем подкаталог `properties`
-2. Создаем Property: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
+2. В каталоге `properties` создаем Property: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
     * [stringproperty.h](Voreen/include/voreen/core/properties/stringproperty.h)
     * [stringproperty.cpp](Voreen/src/core/properties/stringproperty.cpp)
     * Примечание: Функции `serialize()` и `deserialize()` можно исключить
     * Другие примеры [include](Voreen/include/voreen/core/properties) и [src](Voreen/src/core/properties)
-3. Создаем QPropertyWidget: наследуем от [QPropertyWidget](Voreen/include/voreen/qt/widgets/property/qpropertywidget.h)
+3. В каталоге модуля создаем подкаталог `qt`
+4. В каталоге `qt` создаем QPropertyWidget: наследуем от [QPropertyWidget](Voreen/include/voreen/qt/widgets/property/qpropertywidget.h)
     * Примеры [include](Voreen/include/voreen/qt/widgets/property/) и [src](Voreen/src/qt/widgets/property/)
-4. Создаем WidgetFactory: наследуем от [PropertyWidgetFactory](Voreen/include/voreen/core/properties/propertywidgetfactory.h)
+5. В каталоге `qt` создаем WidgetFactory: наследуем от [PropertyWidgetFactory](Voreen/include/voreen/core/properties/propertywidgetfactory.h)
     * [openclpropertywidgetfactory.h](Voreen/modules/opencl/qt/openclpropertywidgetfactory.h)
     * [openclpropertywidgetfactory.cpp](Voreen/modules/opencl/qt/openclpropertywidgetfactory.cpp)
     * [corepropertywidgetfactory.h](Voreen/include/voreen/qt/widgets/property/corepropertywidgetfactory.h)
     * [corepropertywidgetfactory.cpp](Voreen/src/qt/widgets/property/corepropertywidgetfactory.cpp)
-5. Создаем ModuleQt: наследуем от [VoreenModuleQt](Voreen/include/voreen/qt/voreenmoduleqt.h).
+6. В каталоге модуля cоздаем ModuleQt: наследуем от [VoreenModuleQt](Voreen/include/voreen/qt/voreenmoduleqt.h).
     * [openclmoduleqt.h](Voreen/modules/opencl/openclmoduleqt.h)
     * [openclmoduleqt.cpp](Voreen/modules/opencl/openclmoduleqt.cpp)
-6. Регистрируем WidgetFactory в конструкторе ModuleQt.
-7. Добавляем в файл `<modulename>.cmake` пути к созданным файлам
+7. Регистрируем WidgetFactory в конструкторе ModuleQt.
+8. Добавляем в файл `<modulename>.cmake` пути к созданным файлам
 
 Организационные вопросы
 -----------------------
