@@ -70,10 +70,9 @@ VoreenVE:
 ### Создание properties
 1. В каталоге модуля создаем подкаталог `properties`
 2. Создаем Property: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
-    * [Пример1.h](Voreen/include/voreen/core/properties/floatproperty.h)
-    * [Пример1.cpp](Voreen/src/core/properties/floatproperty.cpp)
+    * Примеры [include](Voreen/include/voreen/core/properties) и [src](Voreen/src/core/properties)
 3. Создаем Property Widget: наследуем от [QPropertyWidget](Voreen/include/voreen/qt/widgets/property/qpropertywidget.h)
-    * Примеры в каталогах [include](Voreen/include/voreen/qt/widgets/property/) и [src](Voreen/src/qt/widgets/property/)
+    * Примеры [include](Voreen/include/voreen/qt/widgets/property/) и [src](Voreen/src/qt/widgets/property/)
 4. Создаем Widget Factory: наследуем от [PropertyWidgetFactory](Voreen/include/voreen/core/properties/propertywidgetfactory.h)
     * [Пример1.h](Voreen/modules/opencl/qt/openclpropertywidgetfactory.h)
     * [Пример1.cpp](Voreen/modules/opencl/qt/openclpropertywidgetfactory.cpp)
