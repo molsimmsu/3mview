@@ -70,17 +70,19 @@ VoreenVE:
 ### Создание properties
 1. В каталоге модуля создаем подкаталог `properties`
 2. Создаем Property: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
-    * Примеры [include](Voreen/include/voreen/core/properties) и [src](Voreen/src/core/properties)
+    * [stringproperty.h](Voreen/include/voreen/core/properties/stringproperty.h)
+    * [stringproperty.cpp](Voreen/src/core/properties/stringproperty.cpp)
+    * Другие примеры [include](Voreen/include/voreen/core/properties) и [src](Voreen/src/core/properties)
 3. Создаем Property Widget: наследуем от [QPropertyWidget](Voreen/include/voreen/qt/widgets/property/qpropertywidget.h)
     * Примеры [include](Voreen/include/voreen/qt/widgets/property/) и [src](Voreen/src/qt/widgets/property/)
 4. Создаем Widget Factory: наследуем от [PropertyWidgetFactory](Voreen/include/voreen/core/properties/propertywidgetfactory.h)
-    * [Пример1.h](Voreen/modules/opencl/qt/openclpropertywidgetfactory.h)
-    * [Пример1.cpp](Voreen/modules/opencl/qt/openclpropertywidgetfactory.cpp)
-    * [Пример2.h](Voreen/include/voreen/qt/widgets/property/corepropertywidgetfactory.h)
-    * [Пример2.cpp](Voreen/src/qt/widgets/property/corepropertywidgetfactory.cpp)
+    * [openclpropertywidgetfactory.h](Voreen/modules/opencl/qt/openclpropertywidgetfactory.h)
+    * [openclpropertywidgetfactory.cpp](Voreen/modules/opencl/qt/openclpropertywidgetfactory.cpp)
+    * [corepropertywidgetfactory.h](Voreen/include/voreen/qt/widgets/property/corepropertywidgetfactory.h)
+    * [corepropertywidgetfactory.cpp](Voreen/src/qt/widgets/property/corepropertywidgetfactory.cpp)
 5. Создаем Module Qt: наследуем от [VoreenModuleQt](Voreen/include/voreen/qt/voreenmoduleqt.h).
-    * [Пример1.h](Voreen/modules/opencl/openclmoduleqt.h)
-    * [Пример1.cpp](Voreen/modules/opencl/openclmoduleqt.cpp)
+    * [openclmoduleqt.h](Voreen/modules/opencl/openclmoduleqt.h)
+    * [openclmoduleqt.cpp](Voreen/modules/opencl/openclmoduleqt.cpp)
 6. Регистрируем Widget Factory в конструкторе Module Qt.
 
 Организационные вопросы
