@@ -74,7 +74,7 @@ VoreenVE:
 2. В каталоге `properties` создаем Property: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
     * [stringproperty.h](Voreen/include/voreen/core/properties/stringproperty.h)
     * [stringproperty.cpp](Voreen/src/core/properties/stringproperty.cpp)
-    * Примечание: Функции `serialize()` и `deserialize()` можно исключить
+    * Примечание: функции `serialize()` и `deserialize()` можно исключить
     * Другие примеры [include](Voreen/include/voreen/core/properties) и [src](Voreen/src/core/properties)
 3. В каталоге модуля создаем подкаталог `qt`
 4. В каталоге `qt` создаем QPropertyWidget: наследуем от [QPropertyWidget](Voreen/include/voreen/qt/widgets/property/qpropertywidget.h)
@@ -89,7 +89,7 @@ VoreenVE:
     * [openclmoduleqt.cpp](Voreen/modules/opencl/openclmoduleqt.cpp)
 7. Регистрируем WidgetFactory в конструкторе ModuleQt.
 8. Добавляем в файл `<modulename>.cmake` пути к созданным файлам. 
-    * Примечание. Классы, использующие Qt, помещаем в специальные списки. [core.cmake](Voreen/modules/core/core.cmake)
+    * Классы, использующие Qt, помещаем в специальные списки (как в [core.cmake](Voreen/modules/core/core.cmake))
 
 Организационные вопросы
 -----------------------
