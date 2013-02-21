@@ -55,8 +55,9 @@ VoreenVE:
 ------------------
 
 ### Создание модуля
-1. Изучаем [Adding a Module Tutorial](http://voreen.uni-muenster.de/?q=module-tutorial)
-2. Убираем из примера все то, что относится к GLSL (каталог `glsl` и функцию `addShaderPath()`)
+1. Знакомимся в [принципами Voreen](http://voreen.uni-muenster.de/?q=concepts). Полезно также посмотреть [подробное описание](http://voreen.uni-muenster.de/?q=tutorial-slides).
+2. Выполняем шаги, описанные в [Adding a Module Tutorial](http://voreen.uni-muenster.de/?q=module-tutorial)
+3. Убираем из примера все то, что относится к GLSL (каталог `glsl` и функцию `addShaderPath()`)
 
 ### Создание структур данных
 1. В каталоге модуля создаем подкаталог `datastructures`
