@@ -63,7 +63,9 @@ VoreenVE:
 2. Берем за образец [модуль чтения формата MRC](Voreen/custommodules/electrondensity/io)
 
 ### Создание properties
+
 Общая последовательность действий:
+
 1. Создаем свойство: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
     * [Пример1.h](Voreen/include/voreen/core/properties/floatproperty.h)
     * [Пример1.cpp](Voreen/src/core/properties/floatproperty.cpp)
