@@ -5,7 +5,7 @@
 Компиляция
 ----------
 
-Ubuntu:
+### Ubuntu
 
     sudo apt-get install libqt4-dev cmake libeigen2-dev libboost-dev libpng12-dev libfftw3-dev libtiff5-dev python-sip-dev python-qt4-dev
 
@@ -49,10 +49,21 @@ VoreenVE:
 Разработка модулей
 ------------------
 
+### Создание модуля
+1. Изучаем [Adding a Module Tutorial](http://voreen.uni-muenster.de/?q=module-tutorial)
+2. Убираем из примера все то, что относится к GLSL (каталог `glsl` и функцию `addShaderPath()`)
+
+### Создание структур данных
+1. В каталоге модуля создаем подкаталог `datastructures`
+2. Размещаем в нем файлы стуктур. [Примеры](Voreen/custommodules/molecule/datastructures)
+3. Если требуется передача структуры данных между процессорами, создаем [порт](Voreen/custommodules/molecule/ports).
+
+### Создание модулей чтения карт ЭП
+1. В каталоге модуля создаем подкаталог `io`
+2. Берем за образец [модуль чтения формата MRC](Voreen/custommodules/electrondensity/io)
+
 ### Создание properties
-
 Общая последовательность действий:
-
 1. Создаем свойство: наследуем от [TemplateProperty](Voreen/include/voreen/core/properties/templateproperty.h)
     * [Пример1.h](Voreen/include/voreen/core/properties/floatproperty.h)
     * [Пример1.cpp](Voreen/src/core/properties/floatproperty.cpp)
