@@ -88,7 +88,8 @@ VoreenVE:
     * [openclmoduleqt.h](Voreen/modules/opencl/openclmoduleqt.h)
     * [openclmoduleqt.cpp](Voreen/modules/opencl/openclmoduleqt.cpp)
 7. Регистрируем WidgetFactory в конструкторе ModuleQt.
-8. Добавляем в файл `<modulename>.cmake` пути к созданным файлам. Классы, использующие Qt, помещаем в специальные списки. [Образец](Voreen/modules/core/core.cmake)
+8. Добавляем в файл `<modulename>.cmake` пути к созданным файлам. 
+    * Примечание. Классы, использующие Qt, помещаем в специальные списки. [core.cmake](Voreen/modules/core/core.cmake)
 
 Организационные вопросы
 -----------------------
