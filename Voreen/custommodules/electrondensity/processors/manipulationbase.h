@@ -40,6 +40,9 @@ using namespace tgt;
 #include "voreen/core/properties/floatproperty.h"
 #include "voreen/core/properties/optionproperty.h"
 
+#include "../properties/volumeselectionproperty.h"
+#include "densitymapcollectionsource.h"
+
 namespace voreen {
 
 class SpaceballEventListener : public EventListener {
@@ -71,10 +74,15 @@ protected:
     virtual void process();
 
 private:
+    DensityMapCollectionSource* getSourceProcessor() const;
+
+    const VolumeCollection* getInputVolumeCollection() const;
+    
     void forceUpdate();
   
     CoProcessorPort inport_;
     
+    VolumeSelectionProperty volumeSelection_;
 	StringOptionProperty manipulationType_;
 	StringOptionProperty manipulationAxis_;
     BoolProperty invertDirection_;

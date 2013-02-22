@@ -28,7 +28,6 @@
  **********************************************************************/
 
 #include "manipulationbase.h"
-#include "densitymapcollectionsource.h"
 #include "voreen/core/datastructures/volume/volumedecorator.h"
 
 //#include "tgt/qt/qttimer.h"
@@ -47,6 +46,7 @@ void SpaceballEventListener::timerEvent(TimeEvent* e) {
 ManipulationBase::ManipulationBase()
     : Processor()
     , inport_(Port::INPORT, "volumeCollection", "Volume Collection")
+    , volumeSelection_("volumeSelection", "Volume selection", getInputVolumeCollection())
 	, manipulationType_("manipulationType", "Manipulation type")
 	, manipulationAxis_("manipulationAxis", "Manipulation axis")
 	, invertDirection_("invertDirection", "Invert direction")
@@ -64,6 +64,7 @@ ManipulationBase::ManipulationBase()
     
     manipulationSlider_.onChange(CallMemberAction<ManipulationBase>(this, &ManipulationBase::forceUpdate));
 	
+	addProperty(volumeSelection_);
     addProperty(manipulationType_);
     addProperty(manipulationAxis_);
     addProperty(invertDirection_);
@@ -94,12 +95,23 @@ void ManipulationBase::update(tgt::vec3 offset, tgt::vec3 matrix) {
 
 // private methods
 //
-void ManipulationBase::forceUpdate() {
+DensityMapCollectionSource* ManipulationBase::getSourceProcessor() const {
     Processor* processor = inport_.getConnectedProcessor();
-    if (processor == 0) return;
+    if (processor == 0 || typeid(*processor) == typeid(DensityMapCollectionSource)) return 0;
     
-    if (typeid(*processor) == typeid(DensityMapCollectionSource)) {
-        const VolumeCollection* collection = static_cast<DensityMapCollectionSource*>(processor)->getVolumeCollection();
+    return static_cast<DensityMapCollectionSource*>(processor);
+}
+
+const VolumeCollection* ManipulationBase::getInputVolumeCollection() const {
+    DensityMapCollectionSource* source = getSourceProcessor();
+    if (source == 0) return 0;
+    
+    return source->getVolumeCollection();
+}
+
+void ManipulationBase::forceUpdate() {
+
+        const VolumeCollection* collection = getInputVolumeCollection();
         if (collection == 0 || collection->size() == 0) return;
         
         for (size_t i = 0; i < collection->size(); i++) {
@@ -154,8 +166,10 @@ void ManipulationBase::forceUpdate() {
             }
         }
         
-        processor->getPort("volumecollection")->invalidatePort();
-    }
+        Processor* processor = getSourceProcessor();
+        if (processor != 0)
+            processor->getPort("volumecollection")->invalidatePort();
+    
 }
 
 } // namespace

@@ -1,5 +1,6 @@
 #include "volumeselectionpropertywidget.h"
 #include "voreen/core/datastructures/volume/volumecollection.h"
+#include "voreen/qt/widgets/volumeviewhelper.h"
 
 #include <QLabel>
 #include <QPushButton>
@@ -17,28 +18,17 @@ namespace voreen {
 
 const std::string VolumeSelectionPropertyWidget::loggerCat_("voreenqt.VolumeSelectionPropertyWidget");
 
-VolumeSelectionPropertyWidget::VolumeSelectionPropertyWidget(VolumeSelectionProperty* volumeCollectionProp, QWidget* parent) :
-        QPropertyWidget(volumeCollectionProp, parent, false),
-        volumeIOHelper_(parent, VolumeIOHelper::MULTI_FILE)
+VolumeSelectionPropertyWidget::VolumeSelectionPropertyWidget(VolumeSelectionProperty* volumeSelectionProp, QWidget* parent)
+    : QPropertyWidget(volumeSelectionProp, parent, false)
 {
-    urlListProperty_ = volumeCollectionProp;
-    tgtAssert(urlListProperty_, "No volume collection property");
+    volumeSelectionProp_ = volumeSelectionProp;
+    tgtAssert(volumeSelectionProp_, "No volume collection property");
 
     setFocusPolicy(Qt::StrongFocus);
     QVBoxLayout* mainLayout = new QVBoxLayout();
     layout_->addLayout(mainLayout);
 
-    QHBoxLayout* buttonLayout = new QHBoxLayout();
-    loadButton_ = new QPushButton(tr("Load Volumes..."));
-    loadButton_->setIcon(QPixmap(":/qt/icons/open-volume.png"));
-    loadButton_->setMinimumWidth(110);
-    clearButton_ = new QPushButton(tr("Clear Volumes"));
-    buttonLayout->addWidget(loadButton_);
-    buttonLayout->addWidget(clearButton_);
-    mainLayout->addLayout(buttonLayout);
-
     selectAll_ = new QCheckBox("Select All", this);
-    //selectAll_->move(8, 0);
     mainLayout->addWidget(selectAll_);
 
     volumeTreeWidget_ = new QTreeWidget(this);
@@ -49,10 +39,6 @@ VolumeSelectionPropertyWidget::VolumeSelectionPropertyWidget(VolumeSelectionProp
     volumeTreeWidget_->setIconSize(QSize(50,50));
     volumeTreeWidget_->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-
-    connect(loadButton_, SIGNAL(clicked()), &volumeIOHelper_, SLOT(showFileOpenDialog()));
-    connect(&volumeIOHelper_, SIGNAL(volumeLoaded(const VolumeBase*)), this, SLOT(volumeLoaded(const VolumeBase*)));
-    connect(clearButton_, SIGNAL(clicked()), this, SLOT(clearVolumes()));
 
     connect(volumeTreeWidget_, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemSelected(QTreeWidgetItem*, int)));
     connect(volumeTreeWidget_, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SIGNAL(widgetChanged()));
@@ -68,33 +54,34 @@ CustomLabel* VolumeSelectionPropertyWidget::getNameLabel() const {
 }
 
 void VolumeSelectionPropertyWidget::updateFromProperty() {
-    if (!urlListProperty_)
+    if (!volumeSelectionProp_)
         return;
     if (!volumeTreeWidget_->updatesEnabled())
         return;
-
-    VolumeCollection* collection = urlListProperty_->getVolumes(false);
+    
+    // Get full collection of volumes
+    const VolumeCollection* collection = volumeSelectionProp_->get();
     tgtAssert(collection, "null pointer returned");
 
     volumeTreeWidget_->clear();
 
     int numSelected = 0;
     for (size_t i = 0 ; i< collection->size(); i++) {
-        VolumeBase* handle = collection->at(i);
-        std::string url = handle->getOrigin().getURL();
+        VolumeBase* volume = collection->at(i);
+        std::string url = volume->getOrigin().getURL();
         QTreeWidgetItem* qtwi = new QTreeWidgetItem(volumeTreeWidget_);
 
         qtwi->setFont(0, QFont(QString("Arial"), fontSize));
-        QString info = QString::fromStdString(VolumeViewHelper::getStrippedVolumeName(handle)
+        QString info = QString::fromStdString(VolumeViewHelper::getStrippedVolumeName(volume)
             + "\n"
-            + VolumeViewHelper::getVolumePath(handle));
+            + VolumeViewHelper::getVolumePath(volume));
         qtwi->setText(0, info);
-        qtwi->setIcon(0, QIcon(VolumeViewHelper::generateBorderedPreview(handle, 27, 0)));
+        qtwi->setIcon(0, QIcon(VolumeViewHelper::generateBorderedPreview(volume, 27, 0)));
         qtwi->setSizeHint(0,QSize(27,27));
         qtwi->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-        // set tree widget to checked, if the corresponding volume handle is contained by the property's collection
-        bool selected = urlListProperty_->isSelected(url) ? Qt::Checked : Qt::Unchecked;
+        // Set tree widget to be checked, if the corresponding volume handle is contained by the property's collection
+        bool selected = volumeSelectionProp_->isSelected(volume) ? Qt::Checked : Qt::Unchecked;
         qtwi->setCheckState(0, selected ? Qt::Checked : Qt::Unchecked);
         if (selected)
             numSelected++;
@@ -102,21 +89,18 @@ void VolumeSelectionPropertyWidget::updateFromProperty() {
         volumeTreeWidget_->addTopLevelItem(qtwi);
     }
 
-    clearButton_->setEnabled(!collection->empty());
     selectAll_->setEnabled(!collection->empty());
     if (numSelected == 0)
         selectAll_->setChecked(false);
     else if (numSelected == (int)collection->size())
         selectAll_->setChecked(true);
-
-    delete collection;
 }
 
 void VolumeSelectionPropertyWidget::updateSelection() {
     if (!prop_)
         return;
 
-    VolumeCollection* collection = urlListProperty_->getVolumes(false);
+    const VolumeCollection* collection = volumeSelectionProp_->get();
     tgtAssert(collection, "null pointer returned");
 
     volumeTreeWidget_->setUpdatesEnabled(false);
@@ -124,19 +108,11 @@ void VolumeSelectionPropertyWidget::updateSelection() {
     QList<QTreeWidgetItem*> items = volumeTreeWidget_->findItems("", Qt::MatchContains);
     for(size_t i = 0; i < collection->size(); i++) {
         bool selected = items.at(static_cast<int>(i))->checkState(0) == Qt::Checked;
-        urlListProperty_->setSelected(collection->at(i)->getOrigin().getURL(), selected);
+        //volumeSelectionProp_->setSelected(collection->at(i)->getOrigin().getURL(), selected);
     }
     volumeTreeWidget_->setUpdatesEnabled(true);
 
     delete collection;
-}
-
-void VolumeSelectionPropertyWidget::volumeLoaded(const VolumeBase* handle) {
-    urlListProperty_->addVolume(const_cast<VolumeBase*>(handle), true, true);
-}
-
-void VolumeSelectionPropertyWidget::clearVolumes() {
-    urlListProperty_->clear();
 }
 
 void VolumeSelectionPropertyWidget::itemSelected(QTreeWidgetItem*, int) {
@@ -144,7 +120,7 @@ void VolumeSelectionPropertyWidget::itemSelected(QTreeWidgetItem*, int) {
 }
 
 void VolumeSelectionPropertyWidget::selectAll(bool toggle) {
-    urlListProperty_->setAllSelected(toggle);
+    //volumeSelectionProp_->setAllSelected(toggle);
 }
 
 } //namespace

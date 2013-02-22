@@ -11,7 +11,7 @@ ElectronDensityModuleQt::ElectronDensityModuleQt(const std::string& modulePath)
 {
     setName("Electron Density (Qt)");
 
-    //registerPropertyWidgetFactory(new ElectronDensityPropertyWidgetFactory());
+    registerPropertyWidgetFactory(new ElectronDensityPropertyWidgetFactory());
 }
 
 } // namespace

@@ -11,7 +11,7 @@ template class VRN_CORE_API TemplateProperty<const VolumeCollection*>;
 
 class VRN_CORE_API VolumeSelectionProperty : public TemplateProperty<const VolumeCollection*> {
 public:
-    VolumeSelectionProperty(const std::string& id, const std::string& guiText, const VolumeCollection* value,
+    VolumeSelectionProperty(const std::string& id, const std::string& guiText, const VolumeCollection* value = 0,
         int invalidationLevel=Processor::INVALID_RESULT);
     VolumeSelectionProperty();
     virtual ~VolumeSelectionProperty() {}
@@ -20,6 +20,20 @@ public:
 
     virtual std::string getClassName() const       { return "VolumeSelectionProperty"; }
     virtual std::string getTypeDescription() const { return "VolumeCollection"; }
+    
+    /*
+     * Returns a collection of selected volumes
+     */
+    const VolumeCollection* getSelected() const;
+    
+    /*
+     * Checks if the given volume is selected
+     */
+    bool isSelected(const VolumeBase*) const;
+
+private:
+    VolumeCollection selection_; ///< Volume collection containing selected volumes
+    
 };
 
 }

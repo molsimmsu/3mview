@@ -14,5 +14,13 @@ Property* VolumeSelectionProperty::create() const {
     return new VolumeSelectionProperty();
 }
 
+const VolumeCollection* VolumeSelectionProperty::getSelected() const {
+    return &selection_;
+}
+    
+bool VolumeSelectionProperty::isSelected(const VolumeBase* volumeHandle) const {
+    return selection_.contains(volumeHandle);
+}
+
 }   // namespace
 
