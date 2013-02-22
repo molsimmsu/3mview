@@ -68,7 +68,9 @@ VoreenVE:
 ### Создание модулей чтения карт ЭП
 1. В каталоге модуля создаем подкаталог `io`
 2. Берем за образец [модуль чтения формата MRC](Voreen/custommodules/electrondensity/io)
-3. Добавляем в файл `<modulename>.cmake` пути к созданным файлам
+3. Регистрируем модуль чтения в конструкторе основного класса модуля с помощью функции `registerVolumeReader(new MyVolumeReader());`
+    * Пример: [electrondensity.cpp](Voreen/custommodules/electrondensity/electrondensity.cpp)
+4. Добавляем в файл `<modulename>.cmake` пути к созданным файлам
 
 ### Создание properties
 1. В каталоге модуля создаем подкаталог `properties`
