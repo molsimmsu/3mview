@@ -63,7 +63,7 @@ ManipulationBase::ManipulationBase()
 	manipulationAxis_.addOption("z", "Z");
     
     manipulationSlider_.onChange(CallMemberAction<ManipulationBase>(this, &ManipulationBase::forceUpdate));
-	
+
 	addProperty(volumeSelection_);
     addProperty(manipulationType_);
     addProperty(manipulationAxis_);
@@ -93,25 +93,61 @@ void ManipulationBase::update(tgt::vec3 offset, tgt::vec3 matrix) {
     
 }
 
+void ManipulationBase::invalidate(int inv) {
+    if (!getSourceProcessor()) return;
+    updateSelection();
+    Processor::invalidate(inv);
+}
+
 // private methods
 //
 DensityMapCollectionSource* ManipulationBase::getSourceProcessor() const {
-    Processor* processor = inport_.getConnectedProcessor();
-    if (processor == 0 || typeid(*processor) == typeid(DensityMapCollectionSource)) return 0;
+    std::vector<Processor*> processors = inport_.getConnectedProcessors();
+    if (processors.size() == 0) {
+        LWARNING("Processors.size() is 0 at ManipulationBase::getSourceProcessor()");
+        return 0;
+    }
+    
+    Processor* processor = processors[0];
+    
+    if (processor == 0) {
+        LWARNING("Processor is NULL at ManipulationBase::getSourceProcessor()");
+        return 0;
+    }
+    
+    if (typeid(*processor) != typeid(DensityMapCollectionSource)) {
+        LWARNING("Processor is not a DensityMapCollectionSource at ManipulationBase::getSourceProcessor()");
+        return 0;
+    }
     
     return static_cast<DensityMapCollectionSource*>(processor);
 }
 
 const VolumeCollection* ManipulationBase::getInputVolumeCollection() const {
     DensityMapCollectionSource* source = getSourceProcessor();
-    if (source == 0) return 0;
+    if (source == 0) {
+        LWARNING("Source is NULL at ManipulationBase::getInputVolumeCollection()");
+        return 0;
+    }
     
-    return source->getVolumeCollection();
+    return source->getSelectedVolumeCollection();
+}
+
+void ManipulationBase::updateSelection() {
+    LINFO("Calling ManipulationBase::updateSelection()");
+    const VolumeCollection* collection = getInputVolumeCollection();
+    if (!collection) {
+        LERROR("Collection is NULL at ManipulationBase::updateSelection()");
+        return;
+    }
+    LINFO("Setting collection at ManipulationBase::updateSelection()");
+    volumeSelection_.setInputVolumes(collection);
+    LINFO("REturning from ManipulationBase::updateSelection()");
 }
 
 void ManipulationBase::forceUpdate() {
 
-        const VolumeCollection* collection = getInputVolumeCollection();
+        const VolumeCollection* collection = volumeSelection_.getSelectedVolumes();
         if (collection == 0 || collection->size() == 0) return;
         
         for (size_t i = 0; i < collection->size(); i++) {

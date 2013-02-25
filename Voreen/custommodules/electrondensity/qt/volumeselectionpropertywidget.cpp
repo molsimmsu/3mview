@@ -60,7 +60,7 @@ void VolumeSelectionPropertyWidget::updateFromProperty() {
         return;
     
     // Get full collection of volumes
-    const VolumeCollection* collection = volumeSelectionProp_->get();
+    const VolumeCollection* collection = volumeSelectionProp_->getInputVolumes();
     tgtAssert(collection, "null pointer returned");
 
     volumeTreeWidget_->clear();
@@ -100,7 +100,7 @@ void VolumeSelectionPropertyWidget::updateSelection() {
     if (!prop_)
         return;
 
-    const VolumeCollection* collection = volumeSelectionProp_->get();
+    const VolumeCollection* collection = volumeSelectionProp_->getInputVolumes();
     tgtAssert(collection, "null pointer returned");
 
     volumeTreeWidget_->setUpdatesEnabled(false);
@@ -108,11 +108,9 @@ void VolumeSelectionPropertyWidget::updateSelection() {
     QList<QTreeWidgetItem*> items = volumeTreeWidget_->findItems("", Qt::MatchContains);
     for(size_t i = 0; i < collection->size(); i++) {
         bool selected = items.at(static_cast<int>(i))->checkState(0) == Qt::Checked;
-        //volumeSelectionProp_->setSelected(collection->at(i)->getOrigin().getURL(), selected);
+        volumeSelectionProp_->setSelected(collection->at(i), selected);
     }
     volumeTreeWidget_->setUpdatesEnabled(true);
-
-    delete collection;
 }
 
 void VolumeSelectionPropertyWidget::itemSelected(QTreeWidgetItem*, int) {
@@ -120,7 +118,7 @@ void VolumeSelectionPropertyWidget::itemSelected(QTreeWidgetItem*, int) {
 }
 
 void VolumeSelectionPropertyWidget::selectAll(bool toggle) {
-    //volumeSelectionProp_->setAllSelected(toggle);
+    volumeSelectionProp_->setAllSelected(toggle);
 }
 
 } //namespace

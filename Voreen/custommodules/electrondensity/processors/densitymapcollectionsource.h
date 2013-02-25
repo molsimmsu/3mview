@@ -66,6 +66,11 @@ public:
      * Returns the currently assigned volume collection.
      */
     VolumeCollection* getVolumeCollection() const;
+    
+    /**
+     * Returns the currently selected volume collection.
+     */
+    VolumeCollection* getSelectedVolumeCollection() const;
 
 protected:
     virtual void setDescriptions() {

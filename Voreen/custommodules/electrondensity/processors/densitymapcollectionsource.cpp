@@ -74,7 +74,7 @@ void DensityMapCollectionSource::initialize() throw (tgt::Exception) {
 
 void DensityMapCollectionSource::invalidate(int inv) {
     outport_.setData(volumeURLList_.getVolumes(true), true);
-
+    
     Processor::invalidate(inv);
 }
 
@@ -88,6 +88,10 @@ void DensityMapCollectionSource::setVolumeCollection(VolumeCollection* collectio
 
 VolumeCollection* DensityMapCollectionSource::getVolumeCollection() const {
     return volumeURLList_.getVolumes(false);
+}
+
+VolumeCollection* DensityMapCollectionSource::getSelectedVolumeCollection() const {
+    return volumeURLList_.getVolumes(true);
 }
 
 } // namespace

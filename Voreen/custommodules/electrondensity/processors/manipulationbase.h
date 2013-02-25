@@ -66,6 +66,8 @@ public:
     
     virtual void update(tgt::vec3 offset, tgt::vec3 matrix);
     
+    virtual void invalidate(int inv = INVALID_RESULT);
+    
 protected:
     virtual void setDescriptions() {
         setDescription("Base processor for manipulation");
@@ -78,7 +80,10 @@ private:
 
     const VolumeCollection* getInputVolumeCollection() const;
     
+    void updateSelection();
+    
     void forceUpdate();
+    
   
     CoProcessorPort inport_;
     
