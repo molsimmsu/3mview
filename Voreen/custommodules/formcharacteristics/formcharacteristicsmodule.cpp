@@ -29,6 +29,7 @@
 
 #include "formcharacteristicsmodule.h"
 #include "processors/alignbymoments.h"
+#include "processors/databasematch.h"
 
 // include classes to be registered
 //#include "processors/pointcloudcharacteristics.h"
@@ -44,6 +45,7 @@ FormCharacteristicsModule::FormCharacteristicsModule(const std::string& modulePa
     // each module processor needs to be registered
     //registerProcessor(new PointCloudCharacteristics());
     registerProcessor(new AlignByMoments());
+    registerProcessor(new DatabaseMatch());
 }
 
 } // namespace
