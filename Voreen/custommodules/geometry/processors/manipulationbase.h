@@ -39,6 +39,8 @@ public:
     virtual void applyTransformation(tgt::vec3 offset, tgt::mat4 matrix);
     
 protected:
+    CoProcessorPort inport_;
+
     virtual void setDescriptions() {
         setDescription("Base processor for manipulation");
     }
@@ -47,8 +49,6 @@ protected:
 
 private:
     void guiEventHandler();
-    
-    CoProcessorPort inport_;
     
 	StringOptionProperty manipulationType_;
 	StringOptionProperty manipulationAxis_;

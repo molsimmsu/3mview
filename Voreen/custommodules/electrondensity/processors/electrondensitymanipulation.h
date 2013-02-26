@@ -32,7 +32,7 @@ private:
     
     void updateSelection();
     
-    void forceUpdate();
+    //void forceUpdate();
     
     virtual void applyTransformation(tgt::vec3 offset, tgt::mat4 matrix);
     

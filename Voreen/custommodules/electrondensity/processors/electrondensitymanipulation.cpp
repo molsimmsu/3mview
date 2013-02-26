@@ -1,4 +1,4 @@
-#include "manipulationbase.h"
+#include "electrondensitymanipulation.h"
 #include "voreen/core/datastructures/volume/volumedecorator.h"
 
 namespace voreen {
@@ -6,26 +6,55 @@ namespace voreen {
 
 ElectronDensityManipulation::ElectronDensityManipulation()
     : ManipulationBase()
-    , volumeSelection_("volumeSelection", "Volume selection", getInputVolumeCollection())
+    , volumeSelection_("volumeSelection", "Volume selection")
 {
+    LINFO("ENTER ElectronDensityManipulation::ElectronDensityManipulation()");
 	addProperty(volumeSelection_);
+	LINFO("EXIT ElectronDensityManipulation::ElectronDensityManipulation()");
 }
 
 ElectronDensityManipulation::~ElectronDensityManipulation() {
+    
 }
 
 Processor* ElectronDensityManipulation::create() const {
+    std::cout << "ElectronDensityManipulation::create()" << std::endl;
     return new ElectronDensityManipulation();
 }
 
 void ElectronDensityManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 matrix) {
+    std::cout << "ElectronDensityManipulation::applyTransformation()" << std::endl;
+    ManipulationBase::applyTransformation(offset, matrix);
     
+        const VolumeCollection* collection = volumeSelection_.getSelectedVolumes();
+        if (collection == 0 || collection->size() == 0) return;
+        
+        for (size_t i = 0; i < collection->size(); i++) {
+            VolumeBase* volume = collection->at(i);
+            
+            if (typeid(*volume) != typeid(Volume)) {
+                LWARNING("Base class is not an instance of Volume");
+                continue;
+            }
+            
+            tgt::vec3 volumeOffset = volume->getOffset() + offset;
+            static_cast<Volume*>(volume)->setOffset(volumeOffset);
+            
+            tgt::mat4 transform = volume->getPhysicalToWorldMatrix();
+            static_cast<Volume*>(volume)->setPhysicalToWorldMatrix(transform * matrix);
+        }
+        
+        Processor* processor = getSourceProcessor();
+        if (processor != 0)
+            processor->getPort("volumecollection")->invalidatePort();
 }
 
-void ManipulationBase::invalidate(int inv) {
+void ElectronDensityManipulation::invalidate(int inv) {
+    LINFO("ENTER ElectronDensityManipulation::invalidate()");
     if (!getSourceProcessor()) return;
     updateSelection();
     Processor::invalidate(inv);
+    LINFO("ENTER ElectronDensityManipulation::invalidate()");
 }
 
 // private methods
@@ -74,6 +103,7 @@ void ElectronDensityManipulation::updateSelection() {
     LINFO("REturning from ElectronDensityManipulation::updateSelection()");
 }
 
+/*
 void ElectronDensityManipulation::forceUpdate() {
 
         const VolumeCollection* collection = volumeSelection_.getSelectedVolumes();
@@ -91,7 +121,7 @@ void ElectronDensityManipulation::forceUpdate() {
                 
                 float offsetSize = 10;
                 if (invertDirection_.get() == true) offsetSize = -offsetSize;
-                /**/ if (manipulationAxis_.get() == "x") offset[0] += offsetSize;
+                 if (manipulationAxis_.get() == "x") offset[0] += offsetSize;
                 else if (manipulationAxis_.get() == "y") offset[1] += offsetSize;
                 else if (manipulationAxis_.get() == "z") offset[2] += offsetSize;
                 
@@ -105,7 +135,7 @@ void ElectronDensityManipulation::forceUpdate() {
                 if (invertDirection_.get() == true) angle = - angle;
                 float sina = sin(angle);
                 float cosa = cos(angle);
-                /**/ if (manipulationAxis_.get() == "x")
+                 if (manipulationAxis_.get() == "x")
                 transformMatrix = tgt::mat4(
                     1.0f, 0.0f, 0.0f, 0.0f, 
                     0.0f, cosa,-sina, 0.0f, 
@@ -136,5 +166,5 @@ void ElectronDensityManipulation::forceUpdate() {
             processor->getPort("volumecollection")->invalidatePort();
     
 }
-
+*/
 } // namespace
