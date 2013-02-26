@@ -1,5 +1,5 @@
-#ifndef VRN_MOLECULESOURCE_H
-#define VRN_MOLECULESOURCE_H
+#ifndef VRN_DATABASEMATCH_H
+#define VRN_DATABASEMATCH_H
 
 #include "../ports/weightedpointcloudport.h"
 
@@ -51,4 +51,4 @@ private:
     void   GetMoments();  
 };
 
-#endif // VRN_MOLECULESOURCE_H
+#endif // VRN_DATABASEMATCH_H
