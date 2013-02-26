@@ -15,3 +15,17 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/utils/primitivegeometrybuilder.h
     ${MOD_DIR}/datastructures/polyline.h
 )   
+
+SET(MOD_QT_MODULECLASS GeometryModuleQt)
+
+SET(MOD_QT_SOURCES
+    ${MOD_DIR}/processors/manipulationbase.cpp
+)
+    
+SET(MOD_QT_HEADERS
+
+)
+
+SET(MOD_QT_HEADERS_NONMOC
+    ${MOD_DIR}/processors/manipulationbase.cpp
+)

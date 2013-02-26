@@ -31,6 +31,7 @@
 
 // include classes to be registered
 #include "processors/primitivegeometrysource.h"
+#include "processors/manipulationbase.h"
 
 namespace voreen {
 
@@ -42,6 +43,7 @@ GeometryModule::GeometryModule(const std::string& modulePath)
     
     // each module processor needs to be registered
     registerProcessor(new PrimitiveGeometrySource());
+    registerProcessor(new ManipulationBase());
 }
 
 } // namespace
