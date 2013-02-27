@@ -1,5 +1,5 @@
-#ifndef VRN_MOLECULESOURCE_H
-#define VRN_MOLECULESOURCE_H
+#ifndef VRN_ALIGNBYMOMENTS_H
+#define VRN_ALIGNBYMOMENTS_H
 
 #include "../ports/weightedpointcloudport.h"
 
@@ -17,8 +17,6 @@ public:
     virtual std::string getClassName() const { return "AlignByMoments";        }
     virtual std::string getCategory()  const { return "Form Analysis";         }
     virtual CodeState getCodeState()   const { return CODE_STATE_EXPERIMENTAL; }
-
-
 
 protected:
     virtual void setDescriptions() {
@@ -47,4 +45,4 @@ private:
    
 };
 
-#endif // VRN_MOLECULESOURCE_H
+#endif // VRN_ALIGNBYMOMENTS_H
