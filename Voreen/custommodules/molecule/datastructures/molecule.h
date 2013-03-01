@@ -71,10 +71,26 @@ public:
      */
     char getSecondaryStructure(size_t chainNum, size_t residueNum) const;
     
+    /**
+     * Returns transformation matrix for offset and rotation
+     */
+     const tgt::mat4& getTransformationMatrix() const;
+     
+    /**
+     * Returns transformation matrix for offset and rotation
+     */
+     void setTransformationMatrix(const tgt::mat4& matrix);
+     
+    /**
+     * Tells if the transformation matrix has changed
+     */
+     //bool transformationMatrixChanged() const;
+    
     
 private:
     OBMol mol_;  ///< OpenBabel molecule data structure
     SecStructure secStructure_;
+    tgt::mat4 transformationMatrix_;
 };
 
 #endif // VRN_MOLECULE_H

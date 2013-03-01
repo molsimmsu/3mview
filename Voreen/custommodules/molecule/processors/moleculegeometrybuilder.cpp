@@ -23,7 +23,7 @@ MoleculeGeometryBuilder::MoleculeGeometryBuilder()
   , traceCylinderRadius_("traceCylinderRadius", "Trace radius", 0.1f, 0.01f, 0.3f)
   , traceNumCylinderSides_("traceNumCylinderSides", "Cylinder side count", 5, 2, 12)
   , traceNumSteps_("traceNumSteps", "Step count", 4, 1, 12)
-  , showCoords_("showCoords", "Show coords", true)
+  , showCoords_("showCoords", "Show coords", false)
 {
     addPort(inport_);
     addPort(outport_);

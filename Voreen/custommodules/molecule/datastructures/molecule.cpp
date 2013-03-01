@@ -24,3 +24,11 @@ const OBMol& Molecule::getOBMol() const {
 char Molecule::getSecondaryStructure(size_t chainNum, size_t residueNum) const {
 	return secStructure_[chainNum][residueNum];
 }
+
+const tgt::mat4& Molecule::getTransformationMatrix() const {
+    return transformationMatrix_;
+}
+     
+void Molecule::setTransformationMatrix(const tgt::mat4& matrix) {
+    transformationMatrix_ = matrix;
+}
