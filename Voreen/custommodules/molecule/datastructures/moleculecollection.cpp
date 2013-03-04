@@ -1,30 +1,4 @@
-/***********************************************************************************
- *                                                                                 *
- * Voreen - The Volume Rendering Engine                                            *
- *                                                                                 *
- * Copyright (C) 2005-2012 University of Muenster, Germany.                        *
- * Visualization and Computer Graphics Group <http://viscg.uni-muenster.de>        *
- * For a list of authors please refer to the file "CREDITS.txt".                   *
- *                                                                                 *
- * This file is part of the Voreen software package. Voreen is free software:      *
- * you can redistribute it and/or modify it under the terms of the GNU General     *
- * Public License version 2 as published by the Free Software Foundation.          *
- *                                                                                 *
- * Voreen is distributed in the hope that it will be useful, but WITHOUT ANY       *
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR   *
- * A PARTICULAR PURPOSE. See the GNU General Public License for more details.      *
- *                                                                                 *
- * You should have received a copy of the GNU General Public License in the file   *
- * "LICENSE.txt" along with this file. If not, see <http://www.gnu.org/licenses/>. *
- *                                                                                 *
- * For non-commercial academic use see the license exception specified in the file *
- * "LICENSE-academic.txt". To get information about commercial licensing please    *
- * contact the authors.                                                            *
- *                                                                                 *
- ***********************************************************************************/
-
 #include "moleculecollection.h"
-
 #include "molecule.h"
 
 using std::vector;
@@ -42,58 +16,58 @@ MoleculeCollection::~MoleculeCollection()     {
     clear();
 }
 
-void MoleculeCollection::add(VolumeBase* volumeHandle) {
+void MoleculeCollection::add(Molecule* moleculeHandle) {
 
-    tgtAssert(volumeHandle, "Null pointer as Volume passed");
-    if (!contains(volumeHandle)) {
-        volumeHandles_.push_back(volumeHandle);
-        volumeHandle->addObserver(this);
-        notifyVolumeAdded(volumeHandle);
+    tgtAssert(moleculeHandle, "Null pointer as Molecule passed");
+    if (!contains(moleculeHandle)) {
+        moleculeHandles_.push_back(moleculeHandle);
+        moleculeHandle->addObserver(this);
+        notifyMoleculeAdded(moleculeHandle);
     }
 }
 
-void MoleculeCollection::add(const MoleculeCollection* volumeCollection) {
+void MoleculeCollection::add(const MoleculeCollection* moleculeCollection) {
 
-    tgtAssert(volumeCollection, "Unexpected null pointer");
-    for (size_t i=0; i<volumeCollection->size(); ++i) {
-        add(volumeCollection->at(i));
+    tgtAssert(moleculeCollection, "Unexpected null pointer");
+    for (size_t i=0; i<moleculeCollection->size(); ++i) {
+        add(moleculeCollection->at(i));
     }
 }
 
-void MoleculeCollection::remove(const VolumeBase* volumeHandle){
-    std::vector<VolumeBase*>::iterator handleIter = find(volumeHandle);
-    if (handleIter != volumeHandles_.end()) {
-        volumeHandles_.erase(handleIter);
-        notifyVolumeRemoved(volumeHandle);
+void MoleculeCollection::remove(const Molecule* moleculeHandle){
+    std::vector<Molecule*>::iterator handleIter = find(moleculeHandle);
+    if (handleIter != moleculeHandles_.end()) {
+        moleculeHandles_.erase(handleIter);
+        notifyMoleculeRemoved(moleculeHandle);
     }
 }
 
-void MoleculeCollection::remove(const MoleculeCollection* volumeCollection) {
-   tgtAssert(volumeCollection, "Unexpected null pointer");
-    for (size_t i=0; i<volumeCollection->size(); ++i) {
-        remove(volumeCollection->at(i));
+void MoleculeCollection::remove(const MoleculeCollection* moleculeCollection) {
+   tgtAssert(moleculeCollection, "Unexpected null pointer");
+    for (size_t i=0; i<moleculeCollection->size(); ++i) {
+        remove(moleculeCollection->at(i));
     }
 }
 
-std::vector<VolumeBase*>::iterator MoleculeCollection::find(const VolumeBase* volumeHandle) {
-    return std::find(volumeHandles_.begin(), volumeHandles_.end(), volumeHandle);
+std::vector<Molecule*>::iterator MoleculeCollection::find(const Molecule* moleculeHandle) {
+    return std::find(moleculeHandles_.begin(), moleculeHandles_.end(), moleculeHandle);
 }
 
-std::vector<VolumeBase*>::const_iterator MoleculeCollection::find(const VolumeBase* volumeHandle) const {
-    return std::find(volumeHandles_.begin(), volumeHandles_.end(), volumeHandle);
+std::vector<Molecule*>::const_iterator MoleculeCollection::find(const Molecule* moleculeHandle) const {
+    return std::find(moleculeHandles_.begin(), moleculeHandles_.end(), moleculeHandle);
 }
 
-bool MoleculeCollection::contains(const VolumeBase* volumeHandle) const {
-    return (find(volumeHandle) != volumeHandles_.end());
+bool MoleculeCollection::contains(const Molecule* moleculeHandle) const {
+    return (find(moleculeHandle) != moleculeHandles_.end());
 }
 
-VolumeBase* MoleculeCollection::at(size_t i) const {
-    tgtAssert(i < volumeHandles_.size(), "Invalid index");
-    return volumeHandles_.at(i);
+Molecule* MoleculeCollection::at(size_t i) const {
+    tgtAssert(i < moleculeHandles_.size(), "Invalid index");
+    return moleculeHandles_.at(i);
 }
 
-VolumeBase* MoleculeCollection::first() const {
-    return (!empty() ? volumeHandles_.front() : 0);
+Molecule* MoleculeCollection::first() const {
+    return (!empty() ? moleculeHandles_.front() : 0);
 }
 
 void MoleculeCollection::clear() {
@@ -112,19 +86,19 @@ MoleculeCollection* MoleculeCollection::selectRepresentation(const std::string& 
 MoleculeCollection* MoleculeCollection::selectModality(const Modality& modality) const {
 
     MoleculeCollection* collection = new MoleculeCollection();
-    for (size_t i=0; i<volumeHandles_.size(); ++i) {
-        if (volumeHandles_[i]->getModality() == modality)
-            collection->add(volumeHandles_[i]);
+    for (size_t i=0; i<moleculeHandles_.size(); ++i) {
+        if (moleculeHandles_[i]->getModality() == modality)
+            collection->add(moleculeHandles_[i]);
     }
     return collection;
 }
 
-voreen::MoleculeCollection* MoleculeCollection::selectOrigin(const VolumeURL& origin) const {
+voreen::MoleculeCollection* MoleculeCollection::selectOrigin(const MoleculeURL& origin) const {
     MoleculeCollection* collection = new MoleculeCollection();
-    for (size_t i=0; i<volumeHandles_.size(); ++i) {
-        Volume* vh = dynamic_cast<Volume*>(volumeHandles_[i]);
+    for (size_t i=0; i<moleculeHandles_.size(); ++i) {
+        Molecule* vh = dynamic_cast<Molecule*>(moleculeHandles_[i]);
         if (vh && vh->getOrigin() == origin)
-            collection->add(volumeHandles_[i]);
+            collection->add(moleculeHandles_[i]);
     }
     return collection;
 }
@@ -132,59 +106,59 @@ voreen::MoleculeCollection* MoleculeCollection::selectOrigin(const VolumeURL& or
 MoleculeCollection* MoleculeCollection::subCollection(size_t start, size_t end) const {
     MoleculeCollection* subCollection = new MoleculeCollection();
     tgtAssert(start <= end, "invalid indices");
-    tgtAssert(start < volumeHandles_.size(), "invalid start index");
-    tgtAssert(end < volumeHandles_.size(), "invalid end index");
+    tgtAssert(start < moleculeHandles_.size(), "invalid start index");
+    tgtAssert(end < moleculeHandles_.size(), "invalid end index");
     for (size_t index = start; index <= end; index++)
-        subCollection->add(volumeHandles_.at(index));
+        subCollection->add(moleculeHandles_.at(index));
     return subCollection;
 }
 
 MoleculeCollection* MoleculeCollection::subCollection(const std::vector<size_t>& indices) const {
     MoleculeCollection* subCollection = new MoleculeCollection();
     for (size_t i=0; i<indices.size(); i++) {
-        tgtAssert(indices.at(i) < volumeHandles_.size(), "invalid index");
-        subCollection->add(volumeHandles_.at(indices.at(i)));
+        tgtAssert(indices.at(i) < moleculeHandles_.size(), "invalid index");
+        subCollection->add(moleculeHandles_.at(indices.at(i)));
     }
     return subCollection;
 }
 
 
 size_t MoleculeCollection::size() const {
-    return volumeHandles_.size();
+    return moleculeHandles_.size();
 }
 
 bool MoleculeCollection::empty() const {
     return (size() == 0);
 }
 
-void MoleculeCollection::notifyVolumeAdded(const VolumeBase* handle) {
+void MoleculeCollection::notifyMoleculeAdded(const Molecule* handle) {
     const vector<MoleculeCollectionObserver*> observers = getObservers();
     for (size_t i=0; i<observers.size(); ++i)
-        observers[i]->volumeAdded(this, handle);
+        observers[i]->moleculeAdded(this, handle);
 
 }
 
-void MoleculeCollection::notifyVolumeRemoved(const VolumeBase* handle) {
+void MoleculeCollection::notifyMoleculeRemoved(const Molecule* handle) {
     const vector<MoleculeCollectionObserver*> observers = getObservers();
     for (size_t i=0; i<observers.size(); ++i)
-        observers[i]->volumeRemoved(this, handle);
+        observers[i]->moleculeRemoved(this, handle);
 }
 
-void MoleculeCollection::notifyVolumeChanged(const VolumeBase* handle) {
+void MoleculeCollection::notifyMoleculeChanged(const Molecule* handle) {
     const vector<MoleculeCollectionObserver*> observers = getObservers();
     for (size_t i=0; i<observers.size(); ++i)
-        observers[i]->volumeChanged(this, handle);
+        observers[i]->moleculeChanged(this, handle);
 }
 
-// implementation of VolumeHandleObserver interface
-void MoleculeCollection::volumeChange(const VolumeBase* handle) {
+// implementation of MoleculeObserver interface
+void MoleculeCollection::moleculeChange(const Molecule* handle) {
     if (contains(handle))
-        notifyVolumeChanged(handle);
+        notifyMoleculeChanged(handle);
 
 }
 
-// implementation of VolumeHandleObserver interface
-void MoleculeCollection::volumeHandleDelete(const VolumeBase* handle) {
+// implementation of MoleculeObserver interface
+void MoleculeCollection::moleculeHandleDelete(const Molecule* handle) {
     if (contains(handle))
         remove(handle);
 }

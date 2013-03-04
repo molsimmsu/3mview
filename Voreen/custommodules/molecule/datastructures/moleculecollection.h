@@ -1,28 +1,3 @@
-/***********************************************************************************
- *                                                                                 *
- * Voreen - The Volume Rendering Engine                                            *
- *                                                                                 *
- * Copyright (C) 2005-2012 University of Muenster, Germany.                        *
- * Visualization and Computer Graphics Group <http://viscg.uni-muenster.de>        *
- * For a list of authors please refer to the file "CREDITS.txt".                   *
- *                                                                                 *
- * This file is part of the Voreen software package. Voreen is free software:      *
- * you can redistribute it and/or modify it under the terms of the GNU General     *
- * Public License version 2 as published by the Free Software Foundation.          *
- *                                                                                 *
- * Voreen is distributed in the hope that it will be useful, but WITHOUT ANY       *
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR   *
- * A PARTICULAR PURPOSE. See the GNU General Public License for more details.      *
- *                                                                                 *
- * You should have received a copy of the GNU General Public License in the file   *
- * "LICENSE.txt" along with this file. If not, see <http://www.gnu.org/licenses/>. *
- *                                                                                 *
- * For non-commercial academic use see the license exception specified in the file *
- * "LICENSE-academic.txt". To get information about commercial licensing please    *
- * contact the authors.                                                            *
- *                                                                                 *
- ***********************************************************************************/
-
 #ifndef VRN_MOLECULECOLLECTION_H
 #define VRN_MOLECULECOLLECTION_H
 
@@ -38,38 +13,38 @@ class MoleculeCollection;
 class Modality;
 
 /**
- * Interface for volume collection observers.
+ * Interface for molecule collection observers.
  */
 class VRN_CORE_API MoleculeCollectionObserver : public Observer {
 public:
 
     /**
      * This method is called by the observed collection after
-     * a volume handle has been added.
+     * a molecule handle has been added.
      *
      * @param source the calling collection
-     * @param handle the volume handle that has been added
+     * @param handle the molecule handle that has been added
      */
-    virtual void volumeAdded(const MoleculeCollection* /*source*/, const VolumeBase* /*handle*/) {};
+    virtual void moleculeAdded(const MoleculeCollection* /*source*/, const Molecule* /*handle*/) {};
 
     /**
      * This method is called by the observed collection after
-     * a volume handle has been removed.
+     * a molecule handle has been removed.
      *
      * @param source the calling collection
-     * @param handle the volume handle that has been removed
+     * @param handle the molecule handle that has been removed
      */
-    virtual void volumeRemoved(const MoleculeCollection* /*source*/, const VolumeBase* /*handle*/) {};
+    virtual void moleculeRemoved(const MoleculeCollection* /*source*/, const Molecule* /*handle*/) {};
 
     /**
     * This method is called by the observed collection after
-    * a volume handle has been changed. This usually happens when
-    * a volume handle reloads the wrapped volume.
+    * a molecule handle has been changed. This usually happens when
+    * a molecule handle reloads the wrapped molecule.
     *
     * @param source the calling collection
-    * @param handle the volume handle that has been changed
+    * @param handle the molecule handle that has been changed
     */
-    virtual void volumeChanged(const MoleculeCollection* /*source*/, const VolumeBase* /*handle*/) {};
+    virtual void moleculeChanged(const MoleculeCollection* /*source*/, const Molecule* /*handle*/) {};
 
 };
 
@@ -78,14 +53,14 @@ template class VRN_CORE_API Observable<MoleculeCollectionObserver>;
 #endif
 
 /**
- * Collection of volume handles that can be observed.
+ * Collection of molecule handles that can be observed.
  *
- * The collection does not perform memory management, i.e., added volume handles
+ * The collection does not perform memory management, i.e., added molecule handles
  * are not deleted on removal or destruction of the collection.
  *
- * @see VolumeContainer
+ * @see MoleculeContainer
  */
-class VRN_CORE_API MoleculeCollection : public Observable<MoleculeCollectionObserver>, protected VolumeHandleObserver {
+class VRN_CORE_API MoleculeCollection : public Observable<MoleculeCollectionObserver>, protected MoleculeObserver {
 
 public:
 
@@ -94,101 +69,73 @@ public:
     virtual ~MoleculeCollection();
 
     /**
-     * Adds the passed Volume to the collection,
+     * Adds the passed Molecule to the collection,
      * if it is not already contained.
      *
      * The Collection does not take ownership of the
-     * added Volume and does therefore not delete it
+     * added Molecule and does therefore not delete it
      * on its own destruction.
      */
-    virtual void add(VolumeBase* volumeHandle);
+    virtual void add(Molecule* moleculeHandle);
 
     /**
-     * Adds VolumeHandles contained by the passed MoleculeCollection
+     * Adds MoleculeHandles contained by the passed MoleculeCollection
      * to the collection, if they are not already contained.
      *
      * The Collection does not take ownership of the
-     * added VolumeHandles and does therefore not delete them
+     * added MoleculeHandles and does therefore not delete them
      * on its own destruction.
      */
-    virtual void add(const MoleculeCollection* volumeCollection);
+    virtual void add(const MoleculeCollection* moleculeCollection);
 
     /**
-     * Removes the passed Volume from the Collection
+     * Removes the passed Molecule from the Collection
      * without deleting it.
      */
-    virtual void remove(const VolumeBase* volumeHandle);
+    virtual void remove(const Molecule* moleculeHandle);
 
     /**
-     * Removes all VolumeHandles contained by the passed collection
+     * Removes all MoleculeHandles contained by the passed collection
      * without deleting them.
      */
-    virtual void remove(const MoleculeCollection* volumeCollection);
+    virtual void remove(const MoleculeCollection* moleculeCollection);
 
     /**
-     * Returns whether the passed Volume is contained
+     * Returns whether the passed Molecule is contained
      * by the collection.
      */
-    virtual bool contains(const VolumeBase* volumeHandle) const;
+    virtual bool contains(const Molecule* moleculeHandle) const;
 
     /**
-     * Returns the VolumeElement at a specified index position.
+     * Returns the MoleculeElement at a specified index position.
      *
-     * @param The index of the Volume to return. Must be valid, i.e. i < size().
+     * @param The index of the Molecule to return. Must be valid, i.e. i < size().
      */
-    virtual VolumeBase* at(size_t i) const;
+    virtual Molecule* at(size_t i) const;
 
     /**
-     * Returns the first Volume of the collection, or null
+     * Returns the first Molecule of the collection, or null
      * if the collection is empty.
      */
-    virtual VolumeBase* first() const;
+    virtual Molecule* first() const;
 
     /**
-     * Clears the collection without deleting the VolumeHandles.
+     * Clears the collection without deleting the MoleculeHandles.
      */
     virtual void clear();
 
     /**
-     * Returns a collection containing all VolumeHandles of the
-     * specified entity.
-     *
-     * @note not yet implemented, returns empty collection.
-     */
-    virtual MoleculeCollection* selectEntity(const std::string& name) const;
-
-    /**
-     * Returns a collection containing all VolumeHandles of the
-     * specified representation.
-     *
-     * @note not yet implemented, returns empty collection.
-     */
-    virtual MoleculeCollection* selectRepresentation(const std::string& name) const;
-
-    /**
-     * Returns a collection containing all VolumeHandles of the
-     * specified modality.
-     */
-    virtual MoleculeCollection* selectModality(const Modality& name) const;
-
-    /**
-     * Returns a collection containing all VolumeHandles with the
-     * specified origin.
-     */
-    virtual MoleculeCollection* selectOrigin(const VolumeURL& origin) const;
-
-    /**
-     * Returns a new collection containing the volumes between the passed start and end indices (inclusive).
+     * Returns a new collection containing the molecules between the passed start and end indices (inclusive).
      */
     virtual MoleculeCollection* subCollection(size_t start, size_t end) const;
 
     /**
-     * Returns a new collection containing the volumes at the passed indices.
+     * Returns a new collection containing the molecules at the passed indices.
      */
     virtual MoleculeCollection* subCollection(const std::vector<size_t>& indices) const;
 
     /**
-     * Returns the number of VolumeHandles contained by the collection.
+     * Returns the number of MoleculeHandles contained by the collection.
      */
     virtual size_t size() const;
 
@@ -197,30 +144,30 @@ public:
      */
     virtual bool empty() const;
 
-    /// @see VolumeHandleObserver::volumeChange
-    virtual void volumeChange(const VolumeBase* handle);
+    /// @see MoleculeObserver::moleculeChange
+    virtual void moleculeChange(const Molecule* handle);
 
-    /// @see VolumeHandleObserver::volumeHandleDelete
-    virtual void volumeHandleDelete(const VolumeBase* handle);
+    /// @see MoleculeObserver::moleculeHandleDelete
+    virtual void moleculeHandleDelete(const Molecule* handle);
 
 protected:
     /**
-     * Returns an iterator pointing to the position of the passed Volume
-     * within the volumeHandles_ vector. Returns volumeHandles_.end(), if
+     * Returns an iterator pointing to the position of the passed Molecule
+     * within the moleculeHandles_ vector. Returns moleculeHandles_.end(), if
      * the handle is not contained by the collection.
      */
-    std::vector<VolumeBase*>::iterator find(const VolumeBase* volumeHandle);
-    std::vector<VolumeBase*>::const_iterator find(const VolumeBase* volumeHandle) const;
+    std::vector<Molecule*>::iterator find(const Molecule* moleculeHandle);
+    std::vector<Molecule*>::const_iterator find(const Molecule* moleculeHandle) const;
 
     /// Notifies all MoleculeCollectionObservers that a handle has been added.
-    void notifyVolumeAdded(const VolumeBase* handle);
+    void notifyMoleculeAdded(const Molecule* handle);
     /// Notifies all MoleculeCollectionObservers that a handle has been removed.
-    void notifyVolumeRemoved(const VolumeBase* handle);
+    void notifyMoleculeRemoved(const Molecule* handle);
     /// Notifies all MoleculeCollectionObservers that a handle has been changed.
-    void notifyVolumeChanged(const VolumeBase* handle);
+    void notifyMoleculeChanged(const Molecule* handle);
 
-    /// Vector storing the VolumeHandles contained by the collection.
-    std::vector<VolumeBase*> volumeHandles_;
+    /// Vector storing the MoleculeHandles contained by the collection.
+    std::vector<Molecule*> moleculeHandles_;
 
     /// category for logging.
     static const std::string loggerCat_;
