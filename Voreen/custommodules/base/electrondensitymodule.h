@@ -27,27 +27,23 @@
  *                                                                    *
  **********************************************************************/
 
-#include "electrondensitymodule.h"
+#ifndef VRN_ELECTRONDENSITY_H
+#define VRN_ELECTRONDENSITY_H
 
-// include classes to be registered
-#include "processors/segmentationbase.h"
-#include "processors/densitymapmanipulation.h"
-#include "processors/densitymapcollectionsource.h"
-#include "io/mrcvolumereader.h"
+#include "voreen/core/voreenmodule.h"
 
 namespace voreen {
 
-ElectronDensityModule::ElectronDensityModule(const std::string& modulePath) 
-    : VoreenModule(modulePath)
-{
-    // module name to be used in the GUI
-    setName("Electron Density Maps");
-    
-    registerProcessor(new SegmentationBase());
-    registerProcessor(new DensityMapManipulation());
-    registerProcessor(new DensityMapCollectionSource());
-    
-    registerVolumeReader(new MRCVolumeReader());
-}
+class ElectronDensityModule : public VoreenModule {
+
+public:
+    ElectronDensityModule(const std::string& modulePath);
+
+    virtual std::string getDescription() const { 
+        return "Electron Density module"; 
+    }
+};
 
 } // namespace
+
+#endif // VRN_ELECTRONDENSITY_H

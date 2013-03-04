@@ -26,7 +26,7 @@ private:
     ManipulationBase* manipulation_;
 };
 
-class ManipulationBase : public Processor {
+class ManipulationBase : virtual public Processor {
 public:
     ManipulationBase();
     virtual ~ManipulationBase();
@@ -39,8 +39,6 @@ public:
     virtual void applyTransformation(tgt::vec3 offset, tgt::mat4 matrix);
     
 protected:
-    CoProcessorPort inport_;
-
     virtual void setDescriptions() {
         setDescription("Base processor for manipulation");
     }
