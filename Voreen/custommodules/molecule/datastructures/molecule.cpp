@@ -1,5 +1,7 @@
 #include "molecule.h"
 
+using namespace voreen;
+
 Molecule::Molecule() {
     
 }

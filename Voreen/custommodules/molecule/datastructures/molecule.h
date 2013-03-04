@@ -2,12 +2,14 @@
 #define VRN_MOLECULE_H
 
 #include "voreen/core/utils/observer.h"
-using namespace voreen;
+
 
 #include "tgt/vector.h"
 
 #include "openbabel/mol.h"
 using namespace OpenBabel;
+
+namespace voreen {
 
 typedef std::vector< std::vector<char> > SecStructure;
 
@@ -93,4 +95,5 @@ private:
     tgt::mat4 transformationMatrix_;
 };
 
+} // namespace voreen
 #endif // VRN_MOLECULE_H

@@ -1,25 +1,26 @@
-#ifndef VRN_MOLECULESOURCE_H
-#define VRN_MOLECULESOURCE_H
+#ifndef VRN_MOLECULECOLLECTIONSOURCE_H
+#define VRN_MOLECULECOLLECTIONSOURCE_H
 
-#include "../ports/moleculeport.h"
-#include "../datastructures/molecule.h"
+#include "../ports/moleculecollectionport.h"
 
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/properties/filedialogproperty.h"
 #include "voreen/core/properties/buttonproperty.h"
 using namespace voreen;
 
-class MoleculeSource : public Processor {
+class MoleculeCollectionSource : public Processor {
 public:
-    MoleculeSource();
+    MoleculeCollectionSource();
 
     // virtual constructor
-    virtual Processor* create() const { return new MoleculeSource(); }
+    virtual Processor* create() const { return new MoleculeCollectionSource(); }
 
     // documentary functions
-    virtual std::string getClassName() const { return "MoleculeSource";       }
+    virtual std::string getClassName() const { return "MoleculeCollectionSource";       }
     virtual std::string getCategory() const  { return "Input";      }
     virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL; }
+    
+    MoleculeCollection* getMoleculeCollection();
 
 protected:
     virtual void setDescriptions() {
@@ -38,12 +39,11 @@ private:
         throw (VoreenException);
 
     // ports and properties
-    MoleculePort outport_; ///< This outport must always contain valid data
+    MoleculeCollectionPort outport_; ///< This outport must always contain valid data
     
     FileDialogProperty inputFile_;
     ButtonProperty loadMolecule_;
-    ButtonProperty clearMolecule_;
     
 };
 
-#endif // VRN_MOLECULESOURCE_H
+#endif // VRN_MOLECULECOLLECTIONSOURCE_H

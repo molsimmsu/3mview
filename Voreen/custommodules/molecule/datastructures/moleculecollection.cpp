@@ -75,34 +75,6 @@ void MoleculeCollection::clear() {
         remove(first());
 }
 
-MoleculeCollection* MoleculeCollection::selectEntity(const std::string& /*name*/) const {
-    return new MoleculeCollection();
-}
-
-MoleculeCollection* MoleculeCollection::selectRepresentation(const std::string& /*name*/) const {
-    return new MoleculeCollection();
-}
-
-MoleculeCollection* MoleculeCollection::selectModality(const Modality& modality) const {
-
-    MoleculeCollection* collection = new MoleculeCollection();
-    for (size_t i=0; i<moleculeHandles_.size(); ++i) {
-        if (moleculeHandles_[i]->getModality() == modality)
-            collection->add(moleculeHandles_[i]);
-    }
-    return collection;
-}
-
-voreen::MoleculeCollection* MoleculeCollection::selectOrigin(const MoleculeURL& origin) const {
-    MoleculeCollection* collection = new MoleculeCollection();
-    for (size_t i=0; i<moleculeHandles_.size(); ++i) {
-        Molecule* vh = dynamic_cast<Molecule*>(moleculeHandles_[i]);
-        if (vh && vh->getOrigin() == origin)
-            collection->add(moleculeHandles_[i]);
-    }
-    return collection;
-}
-
 MoleculeCollection* MoleculeCollection::subCollection(size_t start, size_t end) const {
     MoleculeCollection* subCollection = new MoleculeCollection();
     tgtAssert(start <= end, "invalid indices");
@@ -158,7 +130,7 @@ void MoleculeCollection::moleculeChange(const Molecule* handle) {
 }
 
 // implementation of MoleculeObserver interface
-void MoleculeCollection::moleculeHandleDelete(const Molecule* handle) {
+void MoleculeCollection::moleculeDelete(const Molecule* handle) {
     if (contains(handle))
         remove(handle);
 }

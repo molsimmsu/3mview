@@ -2,7 +2,7 @@
 #define VRN_MOLECULECOLLECTION_H
 
 #include "voreen/core/utils/observer.h"
-#include "datastructures/molecule.h"
+#include "molecule.h"
 
 #include <vector>
 #include <string>
@@ -148,7 +148,7 @@ public:
     virtual void moleculeChange(const Molecule* handle);
 
     /// @see MoleculeObserver::moleculeHandleDelete
-    virtual void moleculeHandleDelete(const Molecule* handle);
+    virtual void moleculeDelete(const Molecule* handle);
 
 protected:
     /**

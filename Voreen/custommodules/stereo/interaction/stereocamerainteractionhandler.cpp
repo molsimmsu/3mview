@@ -253,6 +253,16 @@ void StereoCameraInteractionHandler::rotateEvent(tgt::MouseEvent* e) {
     float right = camFrust.getRight();
     float delta = 0.5 * eyeSeparation_->get();
     
+    camLeft.setFovy(cam.getFovy());
+    camLeft.setRatio(cam.getRatio());
+    camLeft.setNearDist(cam.getNearDist());
+    camLeft.setFarDist(cam.getFarDist());
+    
+    camRight.setFovy(cam.getFovy());
+    camRight.setRatio(cam.getRatio());
+    camRight.setNearDist(cam.getNearDist());
+    camRight.setFarDist(cam.getFarDist());
+    
     tgt::Frustum camLeftFrust = camFrust;
     camLeftFrust.setLeft(left + delta);
     camLeftFrust.setRight(right + delta);
@@ -260,7 +270,6 @@ void StereoCameraInteractionHandler::rotateEvent(tgt::MouseEvent* e) {
     tgt::Frustum camRightFrust = camFrust;
     camRightFrust.setLeft(left - delta);
     camRightFrust.setRight(right - delta);
-    
     
     cameraPropLeft_->set(camLeft);
     cameraPropRight_->set(camRight);
