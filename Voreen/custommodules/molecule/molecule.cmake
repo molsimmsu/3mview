@@ -13,6 +13,7 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/moleculecollectionsource.cpp
     ${MOD_DIR}/processors/moleculetransformer.cpp
     ${MOD_DIR}/processors/moleculegeometrybuilder.cpp
+    ${MOD_DIR}/processors/moleculecollectiongeometrybuilder.cpp
     ${MOD_DIR}/properties/moleculeselectionproperty.cpp
     ${MOD_DIR}/utils/stridereader.cpp
 )
@@ -28,6 +29,7 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/moleculecollectionsource.h
     ${MOD_DIR}/processors/moleculetransformer.h
     ${MOD_DIR}/processors/moleculegeometrybuilder.h
+    ${MOD_DIR}/processors/moleculecollectiongeometrybuilder.h
     ${MOD_DIR}/properties/moleculeselectionproperty.h
     ${MOD_DIR}/utils/stridereader.h
 )   

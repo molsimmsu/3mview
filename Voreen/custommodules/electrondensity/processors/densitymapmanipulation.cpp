@@ -22,7 +22,7 @@ Processor* DensityMapManipulation::create() const {
 }
 
 void DensityMapManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 matrix) {
-    std::cout << "DensityMapManipulation::applyTransformation()" << std::endl;
+    //std::cout << "DensityMapManipulation::applyTransformation()" << std::endl;
     ManipulationBase::applyTransformation(offset, matrix);
     
         const VolumeCollection* collection = volumeSelection_.getSelectedVolumes();

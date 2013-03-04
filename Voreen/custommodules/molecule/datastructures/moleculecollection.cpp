@@ -107,7 +107,6 @@ void MoleculeCollection::notifyMoleculeAdded(const Molecule* handle) {
     const vector<MoleculeCollectionObserver*> observers = getObservers();
     for (size_t i=0; i<observers.size(); ++i)
         observers[i]->moleculeAdded(this, handle);
-
 }
 
 void MoleculeCollection::notifyMoleculeRemoved(const Molecule* handle) {

@@ -1,6 +1,7 @@
 #include "moleculemodule.h"
 
 // include classes to be registered
+#include "processors/moleculecollectiongeometrybuilder.h"
 #include "processors/moleculecollectionsource.h"
 #include "processors/moleculegeometrybuilder.h"
 #include "processors/moleculeselector.h"
@@ -16,6 +17,7 @@ MoleculeModule::MoleculeModule(const std::string& modulePath)
     setName("Molecule");
     
     // each module processor needs to be registered
+    registerProcessor(new MoleculeCollectionGeometryBuilder());
     registerProcessor(new MoleculeCollectionSource());
     registerProcessor(new MoleculeGeometryBuilder());
     registerProcessor(new MoleculeSelector());
