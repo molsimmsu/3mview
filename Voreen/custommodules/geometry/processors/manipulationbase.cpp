@@ -49,6 +49,12 @@ ManipulationBase::ManipulationBase()
 }
 
 ManipulationBase::~ManipulationBase() {
+    timer_->stop();
+    eventHandler_->clear();
+    
+    delete spaceballListener_;
+    delete eventHandler_;
+    delete timer_;
 }
 
 Processor* ManipulationBase::create() const {
