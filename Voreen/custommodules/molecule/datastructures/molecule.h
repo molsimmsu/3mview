@@ -40,7 +40,7 @@ public:
      */
     virtual void moleculeChange(const Molecule* source) = 0;
     
-    virtual void moleculeTransform(const Molecule* source) = 0;
+    virtual void moleculeTransform(const Molecule* source, const tgt::mat4& matrix) = 0;
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -83,12 +83,12 @@ public:
     /**
      * Returns transformation matrix for offset and rotation
      */
-     void setTransformationMatrix(const tgt::mat4& matrix);
+     void transform(const tgt::mat4& matrix);
      
     /**
      * Tells if the transformation matrix has changed
      */
-     void notifyTransformationChange();
+     void notifyTransformationChange(const tgt::mat4& matrix);
     
     
 private:

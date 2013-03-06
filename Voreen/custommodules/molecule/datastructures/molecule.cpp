@@ -4,12 +4,14 @@ using namespace voreen;
 const std::string Molecule::loggerCat_ = "voreen.Molecule";
 
 Molecule::Molecule() {
-    
+    transformationMatrix_ = tgt::mat4::createIdentity();
 }
 
 Molecule::Molecule(const OBMol& mol)
   : mol_(mol)
-{}
+{
+    transformationMatrix_ = tgt::mat4::createIdentity();
+}
 
 Molecule::Molecule(const OBMol& mol, const SecStructure& secStructure)
   : mol_(mol)
@@ -32,14 +34,19 @@ const tgt::mat4& Molecule::getTransformationMatrix() const {
     return transformationMatrix_;
 }
      
-void Molecule::setTransformationMatrix(const tgt::mat4& matrix) {
-    transformationMatrix_ = matrix;
-    notifyTransformationChange();
+void Molecule::transform(const tgt::mat4& matrix) {
+    transformationMatrix_ *= matrix;
+    notifyTransformationChange(matrix);
 }
 
-void Molecule::notifyTransformationChange() {
+void Molecule::notifyTransformationChange(const tgt::mat4& matrix) {
     LINFO("Molecule::notifyTransformationChange()");
     std::vector<MoleculeObserver*> observers = getObservers();
-    for (size_t i=0; i<observers.size(); ++i)
-        observers[i]->moleculeTransform(this);
+    for (size_t i=0; i<observers.size(); ++i) {
+        if (observers[i] == 0) {
+            LERROR("Observer is 0 at Molecule::notifyTransformationChange()");
+            continue;
+        }
+        observers[i]->moleculeTransform(this, matrix);
+    }
 }

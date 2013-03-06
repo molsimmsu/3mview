@@ -54,7 +54,7 @@ public:
     * @param source the calling collection
     * @param handle the molecule handle that has been changed
     */
-    virtual void moleculeTransformed(const MoleculeCollection* /*source*/, const Molecule* /*handle*/) {};
+    virtual void moleculeTransformed(const MoleculeCollection* /*source*/, const Molecule* /*handle*/, const tgt::mat4& matrix) {};
 
 };
 
@@ -161,7 +161,7 @@ public:
     virtual void moleculeDelete(const Molecule* handle);
     
     /// @see MoleculeObserver::moleculeDelete
-    virtual void moleculeTransform(const Molecule* handle);
+    virtual void moleculeTransform(const Molecule* handle, const tgt::mat4& matrix);
 
 protected:
     /**
@@ -179,7 +179,7 @@ protected:
     /// Notifies all MoleculeCollectionObservers that a handle has been changed.
     void notifyMoleculeChanged(const Molecule* handle);
     /// Notifies all MoleculeCollectionObservers that a handle has been transformed.
-    void notifyMoleculeTransformed(const Molecule* handle);
+    void notifyMoleculeTransformed(const Molecule* handle, const tgt::mat4& matrix);
 
     /// Vector storing the MoleculeHandles contained by the collection.
     std::vector<Molecule*> moleculeHandles_;

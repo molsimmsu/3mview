@@ -3,13 +3,15 @@
 
 #include "../ports/moleculecollectionport.h"
 
+#include "../../geometry/processors/manipulationbase.h"
+
 #include "voreen/core/ports/coprocessorport.h"
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/properties/filedialogproperty.h"
 #include "voreen/core/properties/buttonproperty.h"
 using namespace voreen;
 
-class MoleculeCollectionSource : public Processor {
+class MoleculeCollectionSource : virtual public Processor, virtual public ManipulationBase {
 public:
     MoleculeCollectionSource();
 
@@ -23,6 +25,8 @@ public:
     
     MoleculeCollection* getMoleculeCollection();
     MoleculeCollection* getSelectedMoleculeCollection();
+    
+    virtual void applyTransformation(tgt::vec3 offset, tgt::mat4 matrix);
 
 protected:
     virtual void setDescriptions() {

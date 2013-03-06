@@ -37,6 +37,18 @@ MoleculeCollection* MoleculeCollectionSource::getSelectedMoleculeCollection() {
     return outport_.getWritableData();
 }
 
+void MoleculeCollectionSource::applyTransformation(tgt::vec3 offset, tgt::mat4 matrix) {
+    LWARNING("MoleculeCollectionSource::applyTransformation()");
+    MoleculeCollection* mc = outport_.getWritableData();
+    for (size_t i = 0; i < mc->size(); i++) {
+        Molecule* mol = mc->at(i);
+        matrix[0][3] = offset[0];
+        matrix[1][3] = offset[1];
+        matrix[2][3] = offset[2];
+        mol->transform(matrix);
+    }
+}
+
 void MoleculeCollectionSource::readMolecule() {
     try {
 		// Load new molecule

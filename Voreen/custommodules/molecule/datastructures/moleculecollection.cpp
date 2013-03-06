@@ -121,10 +121,15 @@ void MoleculeCollection::notifyMoleculeChanged(const Molecule* handle) {
         observers[i]->moleculeChanged(this, handle);
 }
 
-void MoleculeCollection::notifyMoleculeTransformed(const Molecule* handle) {
+void MoleculeCollection::notifyMoleculeTransformed(const Molecule* handle, const tgt::mat4& matrix) {
     const vector<MoleculeCollectionObserver*> observers = getObservers();
-    for (size_t i=0; i<observers.size(); ++i)
-        observers[i]->moleculeTransformed(this, handle);
+    for (size_t i=0; i<observers.size(); ++i) {
+        if (observers[i] == 0) {
+            LERROR("Observer is 0 at MoleculeCollection::notifyMoleculeTransformed()");
+            continue;
+        }
+        observers[i]->moleculeTransformed(this, handle, matrix);
+    }
 }
 
 // implementation of MoleculeObserver interface
@@ -141,10 +146,10 @@ void MoleculeCollection::moleculeDelete(const Molecule* handle) {
 }
 
 // implementation of MoleculeObserver interface
-void MoleculeCollection::moleculeTransform(const Molecule* handle) {
+void MoleculeCollection::moleculeTransform(const Molecule* handle, const tgt::mat4& matrix) {
     LINFO("MoleculeCollection::moleculeTransform()");
     if (contains(handle))
-        notifyMoleculeTransformed(handle);
+        notifyMoleculeTransformed(handle, matrix);
 }
 
 } // namespace

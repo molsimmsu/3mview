@@ -5,6 +5,7 @@ namespace voreen {
 
 MoleculeManipulation::MoleculeManipulation()
     : ManipulationBase()
+    , MoleculeCoProcessor()
     , moleculeSelection_("moleculeSelection", "Molecule selection")
 {
     //LINFO("ENTER MoleculeManipulation::MoleculeManipulation()");
@@ -22,32 +23,39 @@ Processor* MoleculeManipulation::create() const {
 }
 
 void MoleculeManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 matrix) {
-    //LINFO("MoleculeManipulation::applyTransformation()");
+    //LINFO("Enter MoleculeManipulation::applyTransformation()");
     ManipulationBase::applyTransformation(offset, matrix);
+    /*
+    //moleculeSelection_.setAllSelected(true); // TODO Fix Molecule selection and remove
     
-        const MoleculeCollection* collection = moleculeSelection_.getSelectedMolecules();
-        if (collection == 0 || collection->size() == 0) return;
+        const MoleculeCollection* collection = moleculeSelection_.getInputMolecules(); // TODO Fix to selected
+        if (collection == 0 || collection->size() == 0) {
+            LINFO("Exit MoleculeManipulation::applyTransformation() at return");
+            return;
+        }
         
         for (size_t i = 0; i < collection->size(); i++) {
             Molecule* molecule = collection->at(i);
-            
-            if (typeid(*molecule) != typeid(Molecule)) {
-                LWARNING("Base class is not an instance of Molecule");
+            if (!molecule) {
+                LWARNING("Molecule is 0 at MoleculeManipulation::applyTransformation()");
                 continue;
             }
-            
+            LINFO("Start transform");
             tgt::mat4 transform = molecule->getTransformationMatrix();
-            static_cast<Molecule*>(molecule)->setTransformationMatrix(transform * matrix);
+            molecule->setTransformationMatrix(transform * matrix);
+            LINFO("End transform");
         }
         
         Processor* processor = getSourceProcessor();
         if (processor != 0)
             processor->getPort("moleculecollection")->invalidatePort();
+            */
+     //LINFO("Exit MoleculeManipulation::applyTransformation() at the end");
 }
 
 void MoleculeManipulation::invalidate(int inv) {
     //LINFO("ENTER MoleculeManipulation::invalidate()");
-    if (!getSourceProcessor()) return;
+    if (getSourceProcessor() == 0) return;
     updateSelection();
     Processor::invalidate(inv);
     //LINFO("ENTER MoleculeManipulation::invalidate()");

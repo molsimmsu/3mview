@@ -32,7 +32,7 @@ MoleculeCollectionSource* MoleculeCoProcessor::getSourceProcessor() const {
         return 0;
     }
     
-    return static_cast<MoleculeCollectionSource*>(processor);
+    return dynamic_cast<MoleculeCollectionSource*>(processor);
 }
 
 const MoleculeCollection* MoleculeCoProcessor::getInputMoleculeCollection() const {

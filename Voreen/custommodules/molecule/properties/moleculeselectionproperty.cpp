@@ -61,6 +61,8 @@ void MoleculeSelectionProperty::setSelected(Molecule* moleculeHandle, bool selec
 
 void MoleculeSelectionProperty::setAllSelected(bool selected) {
     const MoleculeCollection* allMolecules = getInputMolecules();
+    if (allMolecules == 0) return;
+    
     for (size_t i = 0; i < allMolecules->size(); i++)
         setSelected(allMolecules->at(i), selected);
 }

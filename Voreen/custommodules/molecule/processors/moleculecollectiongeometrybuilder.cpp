@@ -5,6 +5,7 @@
 #include "../../geometry/utils/primitivegeometrybuilder.h"
 #include "../../geometry/utils/primitivegeometrybuilder.h"
 
+
 #include "openbabel/mol.h"
 using namespace OpenBabel;
 
@@ -47,7 +48,7 @@ MoleculeCollectionGeometryBuilder::MoleculeCollectionGeometryBuilder()
 	
 	// Create empty data to make this outport valid. Take ownership is true because
 	// we want the data to be automatically deleted when replaced at the next setData() call
-	outport_.setData(new MeshListGeometry(), true);
+	outport_.setData(new GeometryCollection(), true);
 }
 
 void MoleculeCollectionGeometryBuilder::invalidate(int inv) {
@@ -67,6 +68,7 @@ void MoleculeCollectionGeometryBuilder::process() {
 	if (!inport_.isReady()) return;
 	
 	const MoleculeCollection* mc = inport_.getData();
+	if (!mc) return;
 	if (!observes(mc)) {
         mc->addObserver(this);
         LWARNING("MoleculeCollection Observeer added");
@@ -76,8 +78,29 @@ void MoleculeCollectionGeometryBuilder::process() {
     rebuildMolecule();
 }
 
+GeometryCollection* MoleculeCollectionGeometryBuilder::getOutputGeometry() {
+    return outport_.getWritableData();
+}
+
+MoleculeGeometry* MoleculeCollectionGeometryBuilder::getMoleculeGeometry(const Molecule* molecule) {
+    GeometryCollection* collection = getOutputGeometry();
+    
+    for (size_t i = 0; i < collection->size(); i++) {
+        Geometry* geometry = collection->at(i);
+        if (typeid(*geometry) != typeid(MoleculeGeometry)) continue;
+        
+        MoleculeGeometry* molGeom = dynamic_cast<MoleculeGeometry*>(geometry);
+        if (molGeom->getMolecule() == molecule) return molGeom;
+    }
+        
+    LERROR("GEOMETRY IS NULL AT MoleculeCollectionGeometryBuilder::getMoleculeGeometry()");
+    return 0;
+}
+
 void MoleculeCollectionGeometryBuilder::moleculeAdded(const MoleculeCollection* mc, const Molecule* mol) {
     LINFO("Molecule added");
+    buildBackboneTraceGeometry(mol);
+    outport_.invalidatePort();
 }
 
 
@@ -85,8 +108,13 @@ void MoleculeCollectionGeometryBuilder::moleculeRemoved(const MoleculeCollection
     LINFO("Molecule removed");
 }
 
-void MoleculeCollectionGeometryBuilder::moleculeTransformed(const MoleculeCollection* mc, const Molecule* mol) {
+void MoleculeCollectionGeometryBuilder::moleculeTransformed(const MoleculeCollection* mc, const Molecule* mol, const tgt::mat4& matrix) {
     LINFO("Molecule transformed");
+    
+    MoleculeGeometry* moleculeGeometry = getMoleculeGeometry(mol);
+    moleculeGeometry->transform(matrix);
+    
+    outport_.invalidatePort();
 }
 
 void MoleculeCollectionGeometryBuilder::rebuildMolecule() {
@@ -110,9 +138,11 @@ void MoleculeCollectionGeometryBuilder::rebuildMolecule() {
     }*/
 }
 
-void MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
+void MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(const Molecule* molecule) {
     tgtAssert(molecule, "molecule parameter is NULL at MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry()");
     const OBMol& mol = molecule->getOBMol();
+    
+    MoleculeGeometry* moleculeGeometry = new MoleculeGeometry(molecule);
     
     // Cubes parameters
     tgt::vec3 diag(0.1f, 0.1f, 0.1f);
@@ -129,7 +159,7 @@ void MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeome
         MeshGeometry cube = MeshGeometry::createCube(atomCoords - diag, atomCoords + diag,
                                                            tex1, tex2, color, color);
         
-        geometry->addMesh(cube);
+        moleculeGeometry->addMesh(cube);
     }
     
     // Draw bonds with cylinders
@@ -142,11 +172,13 @@ void MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeome
         tgt::vec3 atom2Coords(a2->x(), a2->y(), a2->z());
         
         MeshGeometry cyl = PrimitiveGeometryBuilder::createCylinder(atom1Coords, atom2Coords, 0.02f, 2, color);
-        geometry->addMesh(cyl);
+        moleculeGeometry->addMesh(cyl);
     }
+    
+    getOutputGeometry()->push_back(moleculeGeometry);
 }
 
-void MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
+void MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry(const Molecule* molecule) {
     tgtAssert(molecule, "molecule parameter is NULL at MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry()");
     std::vector<PolyLine> backbone;
     
@@ -196,6 +228,8 @@ void MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry(MeshListGeome
         
     }
     
+    MoleculeGeometry* moleculeGeometry = new MoleculeGeometry(molecule);
+    
 	// For each backbone PolyLine
     for (size_t i = 0; i < backbone.size(); i++) {
 		// Build ribbon trace
@@ -203,14 +237,16 @@ void MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry(MeshListGeome
         PolyLine* smoothBackbone = backbone[i].interpolateBezier(traceNumSteps_.get(), traceTangentLength_.get());
         MeshListGeometry* lineGeometry = PrimitiveGeometryBuilder::createPolyLine(smoothBackbone, traceCylinderRadius_.get(), traceNumCylinderSides_.get(), chainColors[i]);
         
-        geometry->addMeshList(*lineGeometry);
+        moleculeGeometry->addMeshList(*lineGeometry);
 		delete lineGeometry;
         
         // Build moving frame coords (just for testing)  
         if (showCoords_.get()) {  
             MeshListGeometry* coordsGeometry = PrimitiveGeometryBuilder::createPolyLineCoords(smoothBackbone, traceCylinderRadius_.get() * 0.5);
-            geometry->addMeshList(*coordsGeometry);
+            moleculeGeometry->addMeshList(*coordsGeometry);
 			delete coordsGeometry;
         }
     }
+    
+    getOutputGeometry()->push_back(moleculeGeometry);
 }

@@ -2,6 +2,7 @@
 #define VRN_MOLECULECOLLECTIONGEOMETRYBUILDER_H
 
 #include "../ports/moleculecollectionport.h"
+#include "../../geometry/ports/geometrycollectionport.h"
 
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/ports/geometryport.h"
@@ -13,6 +14,47 @@
 #include "voreen/core/datastructures/geometry/meshgeometry.h"
 #include "voreen/core/datastructures/geometry/facegeometry.h"
 using namespace voreen;
+
+class MoleculeGeometry : public MeshGeometry {
+public:
+    MoleculeGeometry(const Molecule* molecule)
+        : molecule_(molecule)
+    {}
+    
+    const Molecule* getMolecule() const { return molecule_; }
+    
+    /*
+     * Add all faces of a given MeshGeometry to this MoleculeGeometry
+     */
+    void addMesh(MeshGeometry& mesh) {
+        for (size_t i = 0; i < mesh.getFaceCount(); i++) {
+            FaceGeometry& face = mesh.getFace(i);
+            addFace(face);
+            saveFaceVertices(getFace(getFaceCount() - 1));
+        }
+    }
+    
+    void addMeshList(MeshListGeometry& meshList) {
+        for (size_t i = 0; i < meshList.getMeshCount(); i++) {
+            addMesh(meshList.getMesh(i));
+        }
+    }
+    
+    void saveFaceVertices(FaceGeometry& face) {
+        for (size_t i = 0; i < face.getVertexCount(); i++) {
+            vertices_.push_back(&face.getVertex(i));
+        }
+    }
+    
+    //void transform(const tgt::mat4& transformation) {
+        //for (size_t i = 0; i < vertices_.size(); i++)
+           // vertices_[i]->transform(transformation);
+    //}
+    
+private:
+    const Molecule* molecule_;
+    std::vector<VertexGeometry*> vertices_;
+};
 
 class MoleculeCollectionGeometryBuilder : public Processor, public MoleculeCollectionObserver {
 public:
@@ -41,9 +83,12 @@ protected:
      */
     virtual void process();
     
+    GeometryCollection* getOutputGeometry();
+    MoleculeGeometry* getMoleculeGeometry(const Molecule* molecule);
+    
     virtual void moleculeAdded(const MoleculeCollection* /*source*/, const Molecule* /*handle*/);
     virtual void moleculeRemoved(const MoleculeCollection* /*source*/, const Molecule* /*handle*/);
-    virtual void moleculeTransformed(const MoleculeCollection* /*source*/, const Molecule* /*handle*/);
+    virtual void moleculeTransformed(const MoleculeCollection* /*source*/, const Molecule* /*handle*/, const tgt::mat4& matrix);
     
     /**
      * This function is called whenever the molecule needs to be rebuilt, 
@@ -58,13 +103,13 @@ protected:
      * @param geometry Geometry to which the crated geometry is appended
      * @param molecule Molecule which should be constructed
      */
-    void buildAtomsAndBondsGeometry(MeshListGeometry* geometry, const Molecule* molecule);
-    void buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule);
+    void buildAtomsAndBondsGeometry(const Molecule* molecule);
+    void buildBackboneTraceGeometry(const Molecule* molecule);
 
 private:
     // ports and properties
     MoleculeCollectionPort inport_;
-    GeometryPort outport_;
+    GeometryCollectionPort outport_;
     
     StringOptionProperty repType_; ///< Determines the type of representation of the molecule
     FloatProperty traceTangentLength_;
@@ -72,7 +117,6 @@ private:
     IntProperty traceNumCylinderSides_;
     IntProperty traceNumSteps_;
     BoolProperty showCoords_;
-
 };
 
 #endif // VRN_MOLECULECOLLECTIONGEOMETRYBUILDER_H
