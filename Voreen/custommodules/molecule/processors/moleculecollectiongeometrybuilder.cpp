@@ -85,6 +85,10 @@ void MoleculeCollectionGeometryBuilder::moleculeRemoved(const MoleculeCollection
     LINFO("Molecule removed");
 }
 
+void MoleculeCollectionGeometryBuilder::moleculeTransformed(const MoleculeCollection* mc, const Molecule* mol) {
+    LINFO("Molecule transformed");
+}
+
 void MoleculeCollectionGeometryBuilder::rebuildMolecule() {
 	/*try {
 	    const Molecule* mol = inport_.getData();

@@ -121,6 +121,12 @@ void MoleculeCollection::notifyMoleculeChanged(const Molecule* handle) {
         observers[i]->moleculeChanged(this, handle);
 }
 
+void MoleculeCollection::notifyMoleculeTransformed(const Molecule* handle) {
+    const vector<MoleculeCollectionObserver*> observers = getObservers();
+    for (size_t i=0; i<observers.size(); ++i)
+        observers[i]->moleculeTransformed(this, handle);
+}
+
 // implementation of MoleculeObserver interface
 void MoleculeCollection::moleculeChange(const Molecule* handle) {
     if (contains(handle))
@@ -132,6 +138,13 @@ void MoleculeCollection::moleculeChange(const Molecule* handle) {
 void MoleculeCollection::moleculeDelete(const Molecule* handle) {
     if (contains(handle))
         remove(handle);
+}
+
+// implementation of MoleculeObserver interface
+void MoleculeCollection::moleculeTransform(const Molecule* handle) {
+    LINFO("MoleculeCollection::moleculeTransform()");
+    if (contains(handle))
+        notifyMoleculeTransformed(handle);
 }
 
 } // namespace

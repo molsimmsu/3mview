@@ -43,6 +43,7 @@ protected:
     
     virtual void moleculeAdded(const MoleculeCollection* /*source*/, const Molecule* /*handle*/);
     virtual void moleculeRemoved(const MoleculeCollection* /*source*/, const Molecule* /*handle*/);
+    virtual void moleculeTransformed(const MoleculeCollection* /*source*/, const Molecule* /*handle*/);
     
     /**
      * This function is called whenever the molecule needs to be rebuilt, 

@@ -5,13 +5,13 @@
             <MetaData>
                 <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
                     <values>
-                        <item type="VolumeSelector" ref="ref9" />
+                        <item type="MoleculeManipulation" ref="ref16" />
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
-                    <value x="-624.20507812" y="-710.1048584" />
+                    <value x="-376.11914062" y="-661.33331299" />
                 </MetaItem>
-                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.34924421" />
+                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.88004035" />
             </MetaData>
             <Processors>
                 <Processor type="SingleVolumeRaycaster" name="SingleVolumeRaycaster" id="ref0">
@@ -20,13 +20,13 @@
                     </MetaData>
                     <Properties>
                         <Property name="applyLightAttenuation" value="false" />
-                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref17">
+                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref18">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="211" y="156" />
                             </MetaData>
-                            <position x="-11.68007088" y="323.35635376" z="50.65964127" />
-                            <focus x="15.83090591" y="23.31975174" z="41.52888489" />
-                            <upVector x="0.5021264" y="-0.11614144" z="-0.85695994" />
+                            <position x="43.30596161" y="280.25286865" z="163.84431458" />
+                            <focus x="18.00207329" y="3.66529799" z="46.70724487" />
+                            <upVector x="0.50790399" y="0.11108121" z="-0.85422158" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -90,7 +90,7 @@
                     <Inports>
                         <Port name="image.entrypoints">
                             <Properties>
-                                <Property name="image.entrypoints.renderSizeOrigin" id="ref20">
+                                <Property name="image.entrypoints.renderSizeOrigin" id="ref21">
                                     <value x="317" y="271" />
                                 </Property>
                             </Properties>
@@ -114,7 +114,7 @@
                         <Port name="image.output">
                             <Properties>
                                 <Property name="blockEvents" value="false" />
-                                <Property name="image.output.renderSizeReceive" id="ref25">
+                                <Property name="image.output.renderSizeReceive" id="ref26">
                                     <value x="317" y="271" />
                                 </Property>
                             </Properties>
@@ -141,10 +141,10 @@
                 <Processor type="Canvas" name="Canvas" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-476" y="287" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="705" y="420" width="317" height="271" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="586" y="374" width="317" height="271" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="705" y="420" />
+                            <value x="586" y="374" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="317" y="271" />
@@ -162,7 +162,7 @@
                     <Inports>
                         <Port name="image.input">
                             <Properties>
-                                <Property name="image.input.renderSizeOrigin" id="ref24">
+                                <Property name="image.input.renderSizeOrigin" id="ref25">
                                     <value x="317" y="271" />
                                 </Property>
                             </Properties>
@@ -218,13 +218,13 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-382" y="-213" />
                     </MetaData>
                     <Properties>
-                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref16">
+                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref17">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="801" y="149" />
                             </MetaData>
-                            <position x="-11.68007088" y="323.35635376" z="50.65964127" />
-                            <focus x="15.83090591" y="23.31975174" z="41.52888489" />
-                            <upVector x="0.5021264" y="-0.11614144" z="-0.85695994" />
+                            <position x="43.30596161" y="280.25286865" z="163.84431458" />
+                            <focus x="18.00207329" y="3.66529799" z="46.70724487" />
+                            <upVector x="0.50790399" y="0.11108121" z="-0.85422158" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -241,7 +241,7 @@
                         <Port name="image.entrypoints">
                             <Properties>
                                 <Property name="blockEvents" value="false" />
-                                <Property name="image.entrypoints.renderSizeReceive" id="ref21">
+                                <Property name="image.entrypoints.renderSizeReceive" id="ref22">
                                     <value x="317" y="271" />
                                 </Property>
                             </Properties>
@@ -249,7 +249,7 @@
                         <Port name="image.exitpoints">
                             <Properties>
                                 <Property name="blockEvents" value="false" />
-                                <Property name="image.exitpoints.renderSizeReceive" id="ref22">
+                                <Property name="image.exitpoints.renderSizeReceive" id="ref23">
                                     <value x="317" y="271" />
                                 </Property>
                             </Properties>
@@ -281,13 +281,13 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-323" y="-112" />
                     </MetaData>
                     <Properties>
-                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref18">
+                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref19">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="-11.68007088" y="323.35635376" z="50.65964127" />
-                            <focus x="15.83090591" y="23.31975174" z="41.52888489" />
-                            <upVector x="0.5021264" y="-0.11614144" z="-0.85695994" />
+                            <position x="43.30596161" y="280.25286865" z="163.84431458" />
+                            <focus x="18.00207329" y="3.66529799" z="46.70724487" />
+                            <upVector x="0.50790399" y="0.11108121" z="-0.85422158" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -333,13 +333,13 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="158" y="-244" />
                     </MetaData>
                     <Properties>
-                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref19">
+                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref20">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="-11.68007088" y="323.35635376" z="50.65964127" />
-                            <focus x="15.83090591" y="23.31975174" z="41.52888489" />
-                            <upVector x="0.5021264" y="-0.11614144" z="-0.85695994" />
+                            <position x="43.30596161" y="280.25286865" z="163.84431458" />
+                            <focus x="18.00207329" y="3.66529799" z="46.70724487" />
+                            <upVector x="0.50790399" y="0.11108121" z="-0.85422158" />
                         </Property>
                         <Property name="renderGeometries" value="true" />
                     </Properties>
@@ -356,7 +356,7 @@
                         <Port name="image.output">
                             <Properties>
                                 <Property name="blockEvents" value="false" />
-                                <Property name="image.output.renderSizeReceive" id="ref23">
+                                <Property name="image.output.renderSizeReceive" id="ref24">
                                     <value x="317" y="271" />
                                 </Property>
                             </Properties>
@@ -482,7 +482,7 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-860" y="-535" />
                     </MetaData>
                     <Properties>
-                        <Property name="volumeID" value="1" />
+                        <Property name="volumeID" value="0" />
                     </Properties>
                     <Inports>
                         <Port name="volumecollection">
@@ -4620,13 +4620,13 @@
                             </TransferFunction>
                         </Property>
                         <Property name="SegmentationRaycatser.applySegmentation" value="true" />
-                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref26">
+                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref27">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-11.68007088" y="323.35635376" z="50.65964127" />
-                            <focus x="15.83090591" y="23.31975174" z="41.52888489" />
-                            <upVector x="0.5021264" y="-0.11614144" z="-0.85695994" />
+                            <position x="43.30596161" y="280.25286865" z="163.84431458" />
+                            <focus x="18.00207329" y="3.66529799" z="46.70724487" />
+                            <upVector x="0.50790399" y="0.11108121" z="-0.85422158" />
                         </Property>
                         <Property name="compositing" value="dvr" />
                         <Property name="compositing1" value="dvr" />
@@ -4842,7 +4842,7 @@
                     </Properties>
                     <Inports />
                     <Outports>
-                        <Port name="molecule">
+                        <Port name="moleculecollection">
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                             </Properties>
@@ -4855,7 +4855,7 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-245" y="-571" />
                     </MetaData>
                     <Properties>
-                        <Property name="moleculeID" value="1" />
+                        <Property name="moleculeID" value="0" />
                     </Properties>
                     <Inports>
                         <Port name="moleculecollection">
@@ -4869,6 +4869,21 @@
                             </Properties>
                         </Port>
                     </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="MoleculeManipulation" name="MoleculeManipulation" id="ref16">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="24" y="-753" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="invertDirection" value="false" />
+                        <Property name="manipulationAxis" value="x" />
+                        <Property name="manipulationSlider" value="0.09" />
+                        <Property name="manipulationType" value="rotate" />
+                        <Property name="moleculeSelection" />
+                    </Properties>
+                    <Inports />
+                    <Outports />
                     <InteractionHandlers />
                 </Processor>
             </Processors>
@@ -5002,7 +5017,7 @@
                     </Inport>
                 </Connection>
                 <Connection>
-                    <Outport name="molecule">
+                    <Outport name="moleculecollection">
                         <Processor type="MoleculeCollectionSource" ref="ref14" />
                     </Outport>
                     <Inport name="moleculecollection">
@@ -5035,45 +5050,23 @@
                         <Processor type="GeometryProcessor" ref="ref6" />
                     </Inport>
                 </CoProcessorConnection>
+                <CoProcessorConnection>
+                    <Outport name="coProcessor">
+                        <Processor type="MoleculeCollectionSource" ref="ref14" />
+                    </Outport>
+                    <Inport name="MoleculeSource">
+                        <Processor type="MoleculeManipulation" ref="ref16" />
+                    </Inport>
+                </CoProcessorConnection>
             </CoProcessorConnections>
             <PropertyLinks>
                 <PropertyLink>
-                    <SourceProperty type="CameraProperty" ref="ref16" />
-                    <DestinationProperty type="CameraProperty" ref="ref17" />
-                    <Evaluator type="LinkEvaluatorCameraId" />
-                </PropertyLink>
-                <PropertyLink>
-                    <SourceProperty type="CameraProperty" ref="ref17" />
-                    <DestinationProperty type="CameraProperty" ref="ref16" />
-                    <Evaluator type="LinkEvaluatorCameraId" />
-                </PropertyLink>
-                <PropertyLink>
                     <SourceProperty type="CameraProperty" ref="ref17" />
                     <DestinationProperty type="CameraProperty" ref="ref18" />
                     <Evaluator type="LinkEvaluatorCameraId" />
                 </PropertyLink>
                 <PropertyLink>
                     <SourceProperty type="CameraProperty" ref="ref18" />
-                    <DestinationProperty type="CameraProperty" ref="ref17" />
-                    <Evaluator type="LinkEvaluatorCameraId" />
-                </PropertyLink>
-                <PropertyLink>
-                    <SourceProperty type="CameraProperty" ref="ref16" />
-                    <DestinationProperty type="CameraProperty" ref="ref18" />
-                    <Evaluator type="LinkEvaluatorCameraId" />
-                </PropertyLink>
-                <PropertyLink>
-                    <SourceProperty type="CameraProperty" ref="ref18" />
-                    <DestinationProperty type="CameraProperty" ref="ref16" />
-                    <Evaluator type="LinkEvaluatorCameraId" />
-                </PropertyLink>
-                <PropertyLink>
-                    <SourceProperty type="CameraProperty" ref="ref17" />
-                    <DestinationProperty type="CameraProperty" ref="ref19" />
-                    <Evaluator type="LinkEvaluatorCameraId" />
-                </PropertyLink>
-                <PropertyLink>
-                    <SourceProperty type="CameraProperty" ref="ref19" />
                     <DestinationProperty type="CameraProperty" ref="ref17" />
                     <Evaluator type="LinkEvaluatorCameraId" />
                 </PropertyLink>
@@ -5088,43 +5081,73 @@
                     <Evaluator type="LinkEvaluatorCameraId" />
                 </PropertyLink>
                 <PropertyLink>
-                    <SourceProperty ref="ref20" />
-                    <DestinationProperty ref="ref21" />
-                    <Evaluator type="LinkEvaluatorRenderSize" />
+                    <SourceProperty type="CameraProperty" ref="ref17" />
+                    <DestinationProperty type="CameraProperty" ref="ref19" />
+                    <Evaluator type="LinkEvaluatorCameraId" />
                 </PropertyLink>
                 <PropertyLink>
-                    <SourceProperty ref="ref20" />
+                    <SourceProperty type="CameraProperty" ref="ref19" />
+                    <DestinationProperty type="CameraProperty" ref="ref17" />
+                    <Evaluator type="LinkEvaluatorCameraId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="CameraProperty" ref="ref18" />
+                    <DestinationProperty type="CameraProperty" ref="ref20" />
+                    <Evaluator type="LinkEvaluatorCameraId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="CameraProperty" ref="ref20" />
+                    <DestinationProperty type="CameraProperty" ref="ref18" />
+                    <Evaluator type="LinkEvaluatorCameraId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="CameraProperty" ref="ref19" />
+                    <DestinationProperty type="CameraProperty" ref="ref20" />
+                    <Evaluator type="LinkEvaluatorCameraId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="CameraProperty" ref="ref20" />
+                    <DestinationProperty type="CameraProperty" ref="ref19" />
+                    <Evaluator type="LinkEvaluatorCameraId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty ref="ref21" />
                     <DestinationProperty ref="ref22" />
                     <Evaluator type="LinkEvaluatorRenderSize" />
                 </PropertyLink>
                 <PropertyLink>
-                    <SourceProperty ref="ref20" />
+                    <SourceProperty ref="ref21" />
                     <DestinationProperty ref="ref23" />
                     <Evaluator type="LinkEvaluatorRenderSize" />
                 </PropertyLink>
                 <PropertyLink>
-                    <SourceProperty ref="ref24" />
-                    <DestinationProperty ref="ref25" />
+                    <SourceProperty ref="ref21" />
+                    <DestinationProperty ref="ref24" />
                     <Evaluator type="LinkEvaluatorRenderSize" />
                 </PropertyLink>
                 <PropertyLink>
-                    <SourceProperty type="CameraProperty" ref="ref17" />
-                    <DestinationProperty type="CameraProperty" ref="ref26" />
+                    <SourceProperty ref="ref25" />
+                    <DestinationProperty ref="ref26" />
+                    <Evaluator type="LinkEvaluatorRenderSize" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="CameraProperty" ref="ref18" />
+                    <DestinationProperty type="CameraProperty" ref="ref27" />
                     <Evaluator type="LinkEvaluatorCameraId" />
                 </PropertyLink>
                 <PropertyLink>
-                    <SourceProperty type="CameraProperty" ref="ref26" />
-                    <DestinationProperty type="CameraProperty" ref="ref17" />
+                    <SourceProperty type="CameraProperty" ref="ref27" />
+                    <DestinationProperty type="CameraProperty" ref="ref18" />
                     <Evaluator type="LinkEvaluatorCameraId" />
                 </PropertyLink>
                 <PropertyLink>
-                    <SourceProperty type="CameraProperty" ref="ref19" />
-                    <DestinationProperty type="CameraProperty" ref="ref26" />
+                    <SourceProperty type="CameraProperty" ref="ref20" />
+                    <DestinationProperty type="CameraProperty" ref="ref27" />
                     <Evaluator type="LinkEvaluatorCameraId" />
                 </PropertyLink>
                 <PropertyLink>
-                    <SourceProperty type="CameraProperty" ref="ref26" />
-                    <DestinationProperty type="CameraProperty" ref="ref19" />
+                    <SourceProperty type="CameraProperty" ref="ref27" />
+                    <DestinationProperty type="CameraProperty" ref="ref20" />
                     <Evaluator type="LinkEvaluatorCameraId" />
                 </PropertyLink>
             </PropertyLinks>

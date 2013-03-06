@@ -3,6 +3,7 @@
 
 #include "../ports/moleculecollectionport.h"
 
+#include "voreen/core/ports/coprocessorport.h"
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/properties/filedialogproperty.h"
 #include "voreen/core/properties/buttonproperty.h"
@@ -21,6 +22,7 @@ public:
     virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL; }
     
     MoleculeCollection* getMoleculeCollection();
+    MoleculeCollection* getSelectedMoleculeCollection();
 
 protected:
     virtual void setDescriptions() {
@@ -40,6 +42,7 @@ private:
 
     // ports and properties
     MoleculeCollectionPort outport_; ///< This outport must always contain valid data
+    CoProcessorPort coProcessorPort_; ///< This outport must always contain valid data
     
     FileDialogProperty inputFile_;
     ButtonProperty loadMolecule_;

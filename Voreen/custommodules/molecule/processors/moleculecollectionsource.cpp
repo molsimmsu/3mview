@@ -11,11 +11,13 @@ using namespace OpenBabel;
 
 MoleculeCollectionSource::MoleculeCollectionSource()
   : Processor()
-  , outport_(Port::OUTPORT, "molecule", "Molecule Output")
+  , outport_(Port::OUTPORT, "moleculecollection", "Molecule Collection Output")
+  , coProcessorPort_(Port::OUTPORT, "coProcessor", "Molecule Collection Co-processor")
   , inputFile_("inputFile", "Input file", "Load PDB", VoreenApplication::app()->getUserDataPath(), "*.pdb")
   , loadMolecule_("loadMolecule", "Load Molecule")
 {
     addPort(outport_);
+    addPort(coProcessorPort_);
     
     addProperty(inputFile_);
     addProperty(loadMolecule_);
@@ -28,6 +30,10 @@ MoleculeCollectionSource::MoleculeCollectionSource()
 }
 
 MoleculeCollection* MoleculeCollectionSource::getMoleculeCollection() {
+    return outport_.getWritableData();
+}
+
+MoleculeCollection* MoleculeCollectionSource::getSelectedMoleculeCollection() {
     return outport_.getWritableData();
 }
 

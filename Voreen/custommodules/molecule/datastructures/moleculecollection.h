@@ -39,12 +39,22 @@ public:
     /**
     * This method is called by the observed collection after
     * a molecule handle has been changed. This usually happens when
-    * a molecule handle reloads the wrapped molecule.
+    * a molecule handle reloads the wrapped molecule (i.e. OpenBabel structure has changed).
     *
     * @param source the calling collection
     * @param handle the molecule handle that has been changed
     */
     virtual void moleculeChanged(const MoleculeCollection* /*source*/, const Molecule* /*handle*/) {};
+    
+    /**
+    * This method is called by the observed collection after
+    * a molecule has been transformed. This happens when
+    * a setTransformationMatrix() is called over a given molecule.
+    *
+    * @param source the calling collection
+    * @param handle the molecule handle that has been changed
+    */
+    virtual void moleculeTransformed(const MoleculeCollection* /*source*/, const Molecule* /*handle*/) {};
 
 };
 
@@ -147,8 +157,11 @@ public:
     /// @see MoleculeObserver::moleculeChange
     virtual void moleculeChange(const Molecule* handle);
 
-    /// @see MoleculeObserver::moleculeHandleDelete
+    /// @see MoleculeObserver::moleculeDelete
     virtual void moleculeDelete(const Molecule* handle);
+    
+    /// @see MoleculeObserver::moleculeDelete
+    virtual void moleculeTransform(const Molecule* handle);
 
 protected:
     /**
@@ -165,6 +178,8 @@ protected:
     void notifyMoleculeRemoved(const Molecule* handle);
     /// Notifies all MoleculeCollectionObservers that a handle has been changed.
     void notifyMoleculeChanged(const Molecule* handle);
+    /// Notifies all MoleculeCollectionObservers that a handle has been transformed.
+    void notifyMoleculeTransformed(const Molecule* handle);
 
     /// Vector storing the MoleculeHandles contained by the collection.
     std::vector<Molecule*> moleculeHandles_;

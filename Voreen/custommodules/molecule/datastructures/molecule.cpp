@@ -1,6 +1,7 @@
 #include "molecule.h"
-
 using namespace voreen;
+
+const std::string Molecule::loggerCat_ = "voreen.Molecule";
 
 Molecule::Molecule() {
     
@@ -33,4 +34,12 @@ const tgt::mat4& Molecule::getTransformationMatrix() const {
      
 void Molecule::setTransformationMatrix(const tgt::mat4& matrix) {
     transformationMatrix_ = matrix;
+    notifyTransformationChange();
+}
+
+void Molecule::notifyTransformationChange() {
+    LINFO("Molecule::notifyTransformationChange()");
+    std::vector<MoleculeObserver*> observers = getObservers();
+    for (size_t i=0; i<observers.size(); ++i)
+        observers[i]->moleculeTransform(this);
 }

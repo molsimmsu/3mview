@@ -39,6 +39,8 @@ public:
      * @param source the calling Molecule
      */
     virtual void moleculeChange(const Molecule* source) = 0;
+    
+    virtual void moleculeTransform(const Molecule* source) = 0;
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -86,13 +88,15 @@ public:
     /**
      * Tells if the transformation matrix has changed
      */
-     //bool transformationMatrixChanged() const;
+     void notifyTransformationChange();
     
     
 private:
     OBMol mol_;  ///< OpenBabel molecule data structure
     SecStructure secStructure_;
     tgt::mat4 transformationMatrix_;
+    
+    static const std::string loggerCat_;
 };
 
 } // namespace voreen
