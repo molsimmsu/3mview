@@ -5,7 +5,7 @@
             <MetaData>
                 <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
                     <values>
-                        <item type="StereoMeshEntryExitPoints" ref="ref11" />
+                        <item type="MoleculeGeometryBuilder" ref="ref20" />
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
@@ -26,9 +26,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="35" y="108" />
                             </MetaData>
-                            <position x="2.6484139" y="0.79467738" z="5.56504965" />
+                            <position x="-36.18764114" y="23.41181564" z="13.43741322" />
                             <focus x="0" y="0" z="0" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -120,14 +120,14 @@
                         <Port name="image.entrypoints">
                             <Properties>
                                 <Property name="image.entrypoints.renderSizeOrigin" id="ref37">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.exitpoints">
                             <Properties>
                                 <Property name="image.exitpoints.renderSizeOrigin">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -144,7 +144,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.output.renderSizeReceive" id="ref36">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -170,18 +170,18 @@
                 <Processor type="Canvas" name="Canvas" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-428" y="372" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="764" y="461" width="258" height="256" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="764" y="130" width="627" height="717" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="764" y="461" />
+                            <value x="764" y="130" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
-                            <value x="258" y="256" />
+                            <value x="627" y="717" />
                         </MetaItem>
                     </MetaData>
                     <Properties>
                         <Property name="canvasSize">
-                            <value x="258" y="256" />
+                            <value x="627" y="717" />
                         </Property>
                         <Property name="saveScreenshot" />
                         <Property name="screenshotFilename" noPathSet="true" value="" />
@@ -192,7 +192,7 @@
                         <Port name="image.input">
                             <Properties>
                                 <Property name="image.input.renderSizeOrigin" id="ref35">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -300,28 +300,28 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="2.6484139" y="0.79467738" z="5.56504965" />
+                            <position x="-36.18764114" y="23.41181564" z="13.43741322" />
                             <focus x="0" y="0" z="0" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="cameraDistance" value="0" />
                         <Property name="cameraLeft" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="502" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref29">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="2.51416087" y="0.9903394" z="5.60100079" />
-                            <focus x="-0.13425308" y="0.19566205" z="0.03595108" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <position x="-36.10394669" y="23.48228264" z="13.54002857" />
+                            <focus x="0.08369273" y="0.0704667" z="0.10261566" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="cameraRight" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="502" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref31">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="2.78266692" y="0.59901536" z="5.52909851" />
-                            <focus x="0.13425308" y="-0.19566205" z="-0.03595108" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <position x="-36.2713356" y="23.34134865" z="13.33479786" />
+                            <focus x="-0.08369273" y="-0.0704667" z="-0.10261566" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
-                        <Property name="eyeSeparation" value="0.23999999" />
+                        <Property name="eyeSeparation" value="0.15000001" />
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
                         <Property name="supportCameraInsideVolume" value="true" />
@@ -338,7 +338,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.entrypoints.renderSizeReceive" id="ref38">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -346,7 +346,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.exitpoints.renderSizeReceive" id="ref39">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -381,9 +381,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="2.51416087" y="0.9903394" z="5.60100079" />
-                            <focus x="-0.13425308" y="0.19566205" z="0.03595108" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <position x="-36.10394669" y="23.48228264" z="13.54002857" />
+                            <focus x="0.08369273" y="0.0704667" z="0.10261566" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -401,7 +401,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.entrypoints.renderSizeReceive" id="ref54">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -409,7 +409,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.exitpoints.renderSizeReceive" id="ref55">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -444,9 +444,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="2.78266692" y="0.59901536" z="5.52909851" />
-                            <focus x="0.13425308" y="-0.19566205" z="-0.03595108" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <position x="-36.2713356" y="23.34134865" z="13.33479786" />
+                            <focus x="-0.08369273" y="-0.0704667" z="-0.10261566" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -464,7 +464,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.entrypoints.renderSizeReceive" id="ref44">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -472,7 +472,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.exitpoints.renderSizeReceive" id="ref45">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -508,9 +508,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="35" y="108" />
                             </MetaData>
-                            <position x="2.51416087" y="0.9903394" z="5.60100079" />
-                            <focus x="-0.13425308" y="0.19566205" z="0.03595108" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <position x="-36.10394669" y="23.48228264" z="13.54002857" />
+                            <focus x="0.08369273" y="0.0704667" z="0.10261566" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -602,14 +602,14 @@
                         <Port name="image.entrypoints">
                             <Properties>
                                 <Property name="image.entrypoints.renderSizeOrigin" id="ref53">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.exitpoints">
                             <Properties>
                                 <Property name="image.exitpoints.renderSizeOrigin">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -626,7 +626,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.output.renderSizeReceive" id="ref58">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -659,9 +659,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="35" y="108" />
                             </MetaData>
-                            <position x="2.78266692" y="0.59901536" z="5.52909851" />
-                            <focus x="0.13425308" y="-0.19566205" z="-0.03595108" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <position x="-36.2713356" y="23.34134865" z="13.33479786" />
+                            <focus x="-0.08369273" y="-0.0704667" z="-0.10261566" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -753,14 +753,14 @@
                         <Port name="image.entrypoints">
                             <Properties>
                                 <Property name="image.entrypoints.renderSizeOrigin" id="ref43">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.exitpoints">
                             <Properties>
                                 <Property name="image.exitpoints.renderSizeOrigin">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -777,7 +777,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.output.renderSizeReceive" id="ref48">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -803,11 +803,11 @@
                 <Processor type="Canvas" name="Canvas 2" id="ref17">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-474" y="613" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="504" y="461" width="258" height="256" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="0" y="0" width="696" height="717" />
                     </MetaData>
                     <Properties>
                         <Property name="canvasSize">
-                            <value x="258" y="256" />
+                            <value x="696" y="717" />
                         </Property>
                         <Property name="saveScreenshot" />
                         <Property name="screenshotFilename" noPathSet="true" value="" />
@@ -818,14 +818,14 @@
                         <Port name="image.input">
                             <Properties>
                                 <Property name="image.input.renderSizeOrigin" id="ref57">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.input1">
                             <Properties>
                                 <Property name="image.input1.renderSizeOrigin" id="ref47">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -965,9 +965,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="2.6484139" y="0.79467738" z="5.56504965" />
+                            <position x="-36.18764114" y="23.41181564" z="13.43741322" />
                             <focus x="0" y="0" z="0" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="renderGeometries" value="true" />
                     </Properties>
@@ -975,7 +975,7 @@
                         <Port name="image.input">
                             <Properties>
                                 <Property name="image.input.renderSizeOrigin">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -985,7 +985,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.output.renderSizeReceive" id="ref40">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1054,9 +1054,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="2.6484139" y="0.79467738" z="5.56504965" />
+                            <position x="-36.18764114" y="23.41181564" z="13.43741322" />
                             <focus x="0" y="0" z="0" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -1157,8 +1157,8 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-1379" y="-753" />
                     </MetaData>
                     <Properties>
-                        <Property name="repType" value="backboneTrace" />
-                        <Property name="showCoords" value="true" />
+                        <Property name="repType" value="atomsAndBonds" />
+                        <Property name="showCoords" value="false" />
                         <Property name="traceCylinderRadius" value="0.1" />
                         <Property name="traceNumCylinderSides" value="5" />
                         <Property name="traceNumSteps" value="4" />
@@ -1187,9 +1187,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="2.51416087" y="0.9903394" z="5.60100079" />
-                            <focus x="-0.13425308" y="0.19566205" z="0.03595108" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <position x="-36.10394669" y="23.48228264" z="13.54002857" />
+                            <focus x="0.08369273" y="0.0704667" z="0.10261566" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="renderGeometries" value="true" />
                     </Properties>
@@ -1197,7 +1197,7 @@
                         <Port name="image.input">
                             <Properties>
                                 <Property name="image.input.renderSizeOrigin">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1207,7 +1207,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.output.renderSizeReceive" id="ref56">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1242,9 +1242,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="2.51416087" y="0.9903394" z="5.60100079" />
-                            <focus x="-0.13425308" y="0.19566205" z="0.03595108" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <position x="-36.10394669" y="23.48228264" z="13.54002857" />
+                            <focus x="0.08369273" y="0.0704667" z="0.10261566" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -1294,9 +1294,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="2.78266692" y="0.59901536" z="5.52909851" />
-                            <focus x="0.13425308" y="-0.19566205" z="-0.03595108" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <position x="-36.2713356" y="23.34134865" z="13.33479786" />
+                            <focus x="-0.08369273" y="-0.0704667" z="-0.10261566" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="renderGeometries" value="true" />
                     </Properties>
@@ -1304,7 +1304,7 @@
                         <Port name="image.input">
                             <Properties>
                                 <Property name="image.input.renderSizeOrigin">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1314,7 +1314,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.output.renderSizeReceive" id="ref46">
-                                    <value x="258" y="256" />
+                                    <value x="627" y="717" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1349,9 +1349,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="2.78266692" y="0.59901536" z="5.52909851" />
-                            <focus x="0.13425308" y="-0.19566205" z="-0.03595108" />
-                            <upVector x="0.71094656" y="0.5648005" z="-0.41899323" />
+                            <position x="-36.2713356" y="23.34134865" z="13.33479786" />
+                            <focus x="-0.08369273" y="-0.0704667" z="-0.10261566" />
+                            <upVector x="-0.21493343" y="-0.71441674" z="0.66589212" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
