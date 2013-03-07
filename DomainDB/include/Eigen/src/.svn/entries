@@ -1,0 +1,128 @@
+10
+
+dir
+31
+file:///media/DATA/repository/svn/MolSim/Work/DomainDB/include/Eigen/src
+file:///media/DATA/repository/svn/MolSim/Work
+
+
+
+2012-10-22T13:35:44.078995Z
+17
+dimax
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5bbddb1b-7b1c-406a-a185-c75cf9e8805e
+
+LU
+dir
+
+Householder
+dir
+
+plugins
+dir
+
+Cholesky
+dir
+
+CholmodSupport
+dir
+
+QR
+dir
+
+UmfPackSupport
+dir
+
+Jacobi
+dir
+
+Core
+dir
+
+Geometry
+dir
+
+misc
+dir
+
+SuperLUSupport
+dir
+
+SVD
+dir
+
+OrderingMethods
+dir
+
+PardisoSupport
+dir
+
+StlSupport
+dir
+
+SparseCholesky
+dir
+
+IterativeLinearSolvers
+dir
+
+PaStiXSupport
+dir
+
+Eigen2Support
+dir
+
+SparseCore
+dir
+
+Eigenvalues
+dir
+
+CMakeLists.txt
+file
+
+
+
+
+2012-07-22T14:17:54.000000Z
+2ebef3f13165f24e7bc3f09b782f73b2
+2012-10-22T13:35:44.078995Z
+17
+dimax
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+308
+
