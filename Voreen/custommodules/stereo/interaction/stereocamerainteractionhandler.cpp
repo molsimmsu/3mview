@@ -182,6 +182,43 @@ StereoCameraInteractionHandler::~StereoCameraInteractionHandler() {
     delete motionTimer_;
 }
 
+void StereoCameraInteractionHandler::updateStereo() {
+    tgt::Camera cam = cameraProp_->get();
+    tgt::Camera camLeft = cameraPropLeft_->get();
+    tgt::Camera camRight = cameraPropRight_->get();
+    
+    tgt::vec3 strafe = cam.getStrafe() * eyeSeparation_->get();
+    
+    camLeft.positionCamera(cam.getPosition() - strafe, cam.getFocus() - strafe, cam.getUpVector());
+    camRight.positionCamera(cam.getPosition() + strafe, cam.getFocus() + strafe, cam.getUpVector());
+    
+    tgt::Frustum camFrust = cam.getFrustum();
+    float left = camFrust.getLeft();
+    float right = camFrust.getRight();
+    float delta = 0.5 * eyeSeparation_->get();
+    
+    camLeft.setFovy(cam.getFovy());
+    camLeft.setRatio(cam.getRatio());
+    camLeft.setNearDist(cam.getNearDist());
+    camLeft.setFarDist(cam.getFarDist());
+    
+    camRight.setFovy(cam.getFovy());
+    camRight.setRatio(cam.getRatio());
+    camRight.setNearDist(cam.getNearDist());
+    camRight.setFarDist(cam.getFarDist());
+    
+    tgt::Frustum camLeftFrust = camFrust;
+    camLeftFrust.setLeft(left + delta);
+    camLeftFrust.setRight(right + delta);
+    
+    tgt::Frustum camRightFrust = camFrust;
+    camRightFrust.setLeft(left - delta);
+    camRightFrust.setRight(right - delta);
+    
+    cameraPropLeft_->set(camLeft);
+    cameraPropRight_->set(camRight);
+}
+
 // TODO: left clicked mousedragging is catched by fpNavi, too. Maybe this method should get a proper name?!
 void StereoCameraInteractionHandler::rotateEvent(tgt::MouseEvent* e) {
     if (navigationMetaphor_.isSelected("trackball")){
@@ -237,42 +274,7 @@ void StereoCameraInteractionHandler::rotateEvent(tgt::MouseEvent* e) {
         cameraProp_->invalidate();
     }
     
-    // Set up stereo cameras/ Middle camera is basic
-    
-    tgt::Camera cam = cameraProp_->get();
-    tgt::Camera camLeft = cameraPropLeft_->get();
-    tgt::Camera camRight = cameraPropRight_->get();
-    
-    tgt::vec3 strafe = cam.getStrafe() * eyeSeparation_->get();
-    
-    camLeft.positionCamera(cam.getPosition() - strafe, cam.getFocus() - strafe, cam.getUpVector());
-    camRight.positionCamera(cam.getPosition() + strafe, cam.getFocus() + strafe, cam.getUpVector());
-    
-    tgt::Frustum camFrust = cam.getFrustum();
-    float left = camFrust.getLeft();
-    float right = camFrust.getRight();
-    float delta = 0.5 * eyeSeparation_->get();
-    
-    camLeft.setFovy(cam.getFovy());
-    camLeft.setRatio(cam.getRatio());
-    camLeft.setNearDist(cam.getNearDist());
-    camLeft.setFarDist(cam.getFarDist());
-    
-    camRight.setFovy(cam.getFovy());
-    camRight.setRatio(cam.getRatio());
-    camRight.setNearDist(cam.getNearDist());
-    camRight.setFarDist(cam.getFarDist());
-    
-    tgt::Frustum camLeftFrust = camFrust;
-    camLeftFrust.setLeft(left + delta);
-    camLeftFrust.setRight(right + delta);
-    
-    tgt::Frustum camRightFrust = camFrust;
-    camRightFrust.setLeft(left - delta);
-    camRightFrust.setRight(right - delta);
-    
-    cameraPropLeft_->set(camLeft);
-    cameraPropRight_->set(camRight);
+    updateStereo();
 }
 
 // TODO: right clicked mousedragging is catched by fpNavi, too. Maybe this method should get a proper name?!
@@ -330,6 +332,8 @@ void StereoCameraInteractionHandler::zoomEvent(tgt::MouseEvent* e) {
     if (e->isAccepted()) {
         cameraProp_->invalidate();
     }
+    
+    updateStereo();
 }
 
 void StereoCameraInteractionHandler::shiftEvent(tgt::MouseEvent* e) {
@@ -372,6 +376,8 @@ void StereoCameraInteractionHandler::shiftEvent(tgt::MouseEvent* e) {
     if (e->isAccepted()) {
         cameraProp_->invalidate();
     }
+    
+    updateStereo();
 }
 
 void StereoCameraInteractionHandler::keyEvent(tgt::KeyEvent* e){

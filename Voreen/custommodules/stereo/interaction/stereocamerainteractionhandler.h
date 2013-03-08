@@ -121,6 +121,8 @@ private:
 
     /// @see InteractionHandler::onEvent
     virtual void onEvent(tgt::Event* e);
+    
+    void updateStereo();
 
     // functions called by the event properties
     void rotateEvent(tgt::MouseEvent* e);
