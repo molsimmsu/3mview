@@ -53,12 +53,14 @@ CanvasRenderer::CanvasRenderer()
     , saveScreenshotButton_("saveScreenshot", "Save Screenshot")
     , canvas_(0)
     , shader_(0)
-    , inportLeft_(Port::INPORT, "image.input", "Image Input", false, Processor::INVALID_RESULT, RenderPort::RENDERSIZE_ORIGIN)
-    , inportRight_(Port::INPORT, "image.input1", "Image Input", false, Processor::INVALID_RESULT, RenderPort::RENDERSIZE_ORIGIN)
+    , inportMono_(Port::INPORT, "image.input", "Mono Input", false, Processor::INVALID_RESULT, RenderPort::RENDERSIZE_ORIGIN)
+    , inportLeft_(Port::INPORT, "image.inputLeft", "Left Eye Input", false, Processor::INVALID_RESULT, RenderPort::RENDERSIZE_ORIGIN)
+    , inportRight_(Port::INPORT, "image.inputRight", "Right Eye Input", false, Processor::INVALID_RESULT, RenderPort::RENDERSIZE_ORIGIN)
     , errorTex_(0)
     , renderToImage_(false)
     , renderToImageFilename_("")
 {
+    addPort(inportMono_);
     addPort(inportLeft_);
     addPort(inportRight_);
     addProperty(canvasSize_);
@@ -91,7 +93,7 @@ void CanvasRenderer::process() {
     canvas_->getGLFocus();
     glViewport(0, 0, canvas_->getSize().x, canvas_->getSize().y);
 
-    if (inportLeft_.isReady()) {
+    if (inportMono_.isReady() || (inportLeft_.isReady() && inportRight_.isReady())) {
         // render inport to image, if renderToImage flag has been set
         if (renderToImage_) {
             try {
@@ -114,7 +116,7 @@ void CanvasRenderer::process() {
         }
         // map texture of input target onto a screen-aligned quad
         else {
-        	if (!inportRight_.isReady()) {
+        	if (inportMono_.isReady()) {
 		        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		        // activate shader
@@ -131,12 +133,12 @@ void CanvasRenderer::process() {
 		        shader_->setIgnoreUniformLocationError(false);
 
 		        // bind input textures
-		        inportLeft_.bindTextures(GL_TEXTURE0, GL_TEXTURE1);
+		        inportMono_.bindTextures(GL_TEXTURE0, GL_TEXTURE1);
 
 		        // pass texture parameters to the shader
 		        shader_->setUniform("colorTex_", 0);
 		        shader_->setUniform("depthTex_", 1);
-		        inportLeft_.setTextureParameters(shader_, "texParams_");
+		        inportMono_.setTextureParameters(shader_, "texParams_");
 		        LGL_ERROR;
 
 		        // execute the shader
@@ -144,7 +146,7 @@ void CanvasRenderer::process() {
 		        shader_->deactivate();
 		        LGL_ERROR;
             }
-            else {
+            else if (inportLeft_.isReady() && inportRight_.isReady()) {
             	glDrawBuffer(GL_BACK_LEFT);
 		        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -175,7 +177,7 @@ void CanvasRenderer::process() {
 		        shader_->deactivate();
 		        LGL_ERROR;
 		       
-		       
+
 		       
             	glDrawBuffer(GL_BACK_RIGHT);
 		        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -438,7 +440,7 @@ void CanvasRenderer::resizeCanvas(tgt::ivec2 newsize) {
     if (newsize != inportLeft_.getSize()) {
         canvas_->getGLFocus();
         glViewport(0, 0, static_cast<GLint>(newsize.x), static_cast<GLint>(newsize.y));
-        inportLeft_.requestSize(newsize);
+        inportMono_.requestSize(newsize);
     }
 
     canvasSize_.set(newsize);

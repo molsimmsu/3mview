@@ -55,7 +55,7 @@ void MultiVolumeProxyGeometry::process() {
 
         const VolumeBase* volume = data[d];
 
-        tgt::vec3 coordLlf = volume->getLLF();
+        /*tgt::vec3 coordLlf = volume->getLLF();
         tgt::vec3 coordUrb = volume->getURB();
 
 
@@ -70,11 +70,40 @@ void MultiVolumeProxyGeometry::process() {
                 VertexGeometry& vg = fg.getVertex(k);
                 vg.setTexCoords(vg.getCoords());
             }
-        }
+        }*/
+	MeshGeometry mesh = createVolumeGeometry(volume);
         geometry->addMesh(mesh);
     }
+    tgt::Bounds bb = geometry->getBoundingBox();
+    
+    MeshListGeometry* cube = new MeshListGeometry();
+    cube->addMesh(MeshGeometry::createCube(bb.getLLF(), bb.getURB()));
 
-    outport_.setData(geometry);
+    outport_.setData(cube);
+}
+
+MeshGeometry MultiVolumeProxyGeometry::createVolumeGeometry(const VolumeBase* inputVolume)
+{
+    tgt::vec3 volumeSize = inputVolume->getCubeSize();
+    tgt::ivec3 numSlices = inputVolume->getDimensions();
+
+    // vertex and tex coords of bounding box without clipping
+    tgt::vec3 coordLlf = inputVolume->getLLF();
+    tgt::vec3 coordUrb = inputVolume->getURB();
+    const tgt::vec3 noClippingTexLlf(0, 0, 0);
+    const tgt::vec3 noClippingTexUrb(1, 1, 1);
+
+    tgt::vec3 texLlf;
+    tgt::vec3 texUrb;
+
+    texLlf = noClippingTexLlf;
+    texUrb = noClippingTexUrb;
+
+    // create output mesh
+    MeshGeometry geometry = MeshGeometry::createCube(coordLlf, coordUrb, texLlf, texUrb, texLlf, texUrb);
+    geometry.transform(inputVolume->getPhysicalToWorldMatrix());
+    
+    return geometry;
 }
 
 } // namespace

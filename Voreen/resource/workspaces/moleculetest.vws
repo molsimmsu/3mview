@@ -5,11 +5,11 @@
             <MetaData>
                 <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
                     <values>
-                        <item type="MoleculeManipulation" ref="ref15" />
+                        <item type="MoleculeCollectionSource" ref="ref12" />
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
-                    <value x="-376.11914062" y="-661.33331299" />
+                    <value x="-270.44213867" y="-496.56814575" />
                 </MetaItem>
                 <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.88004035" />
             </MetaData>
@@ -24,9 +24,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="211" y="156" />
                             </MetaData>
-                            <position x="43.30596161" y="280.25286865" z="163.84431458" />
-                            <focus x="18.00207329" y="3.66529799" z="46.70724487" />
-                            <upVector x="0.50790399" y="0.11108121" z="-0.85422158" />
+                            <position x="102.26483917" y="-197.74154663" z="-72.93789673" />
+                            <focus x="41.76433182" y="-5.14778519" z="-27.35538864" />
+                            <upVector x="-0.0824591" y="-0.05998293" z="0.99478769" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -141,10 +141,10 @@
                 <Processor type="Canvas" name="Canvas" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-476" y="287" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="587" y="401" width="317" height="271" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="591" y="509" width="317" height="271" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="587" y="401" />
+                            <value x="591" y="509" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="317" y="271" />
@@ -222,9 +222,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="801" y="149" />
                             </MetaData>
-                            <position x="43.30596161" y="280.25286865" z="163.84431458" />
-                            <focus x="18.00207329" y="3.66529799" z="46.70724487" />
-                            <upVector x="0.50790399" y="0.11108121" z="-0.85422158" />
+                            <position x="102.26483917" y="-197.74154663" z="-72.93789673" />
+                            <focus x="41.76433182" y="-5.14778519" z="-27.35538864" />
+                            <upVector x="-0.0824591" y="-0.05998293" z="0.99478769" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -285,9 +285,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="43.30596161" y="280.25286865" z="163.84431458" />
-                            <focus x="18.00207329" y="3.66529799" z="46.70724487" />
-                            <upVector x="0.50790399" y="0.11108121" z="-0.85422158" />
+                            <position x="102.26483917" y="-197.74154663" z="-72.93789673" />
+                            <focus x="41.76433182" y="-5.14778519" z="-27.35538864" />
+                            <upVector x="-0.0824591" y="-0.05998293" z="0.99478769" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -337,9 +337,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="43.30596161" y="280.25286865" z="163.84431458" />
-                            <focus x="18.00207329" y="3.66529799" z="46.70724487" />
-                            <upVector x="0.50790399" y="0.11108121" z="-0.85422158" />
+                            <position x="102.26483917" y="-197.74154663" z="-72.93789673" />
+                            <focus x="41.76433182" y="-5.14778519" z="-27.35538864" />
+                            <upVector x="-0.0824591" y="-0.05998293" z="0.99478769" />
                         </Property>
                         <Property name="renderGeometries" value="true" />
                     </Properties>
@@ -415,40 +415,6 @@
                             </Properties>
                         </Port>
                     </Outports>
-                    <InteractionHandlers />
-                </Processor>
-                <Processor type="GeometryRenderer" name="GeometryRenderer" id="ref14">
-                    <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-93" y="-292" />
-                    </MetaData>
-                    <Properties>
-                        <Property name="enableLighting" value="true" />
-                        <Property name="lightAmbient">
-                            <value x="0.40000001" y="0.40000001" z="0.40000001" w="1" />
-                        </Property>
-                        <Property name="lightDiffuse">
-                            <value x="0.80000001" y="0.80000001" z="0.80000001" w="1" />
-                        </Property>
-                        <Property name="lightPosition">
-                            <value x="10" y="10" z="10" w="10" />
-                        </Property>
-                        <Property name="lightSpecular">
-                            <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
-                        </Property>
-                        <Property name="mapTexture" value="false" />
-                        <Property name="materialShininess" value="46.93999863" />
-                        <Property name="polygonMode" value="fill" />
-                        <Property name="textureMode" value="replace" />
-                    </Properties>
-                    <Inports>
-                        <Port name="inport.geometry">
-                            <Properties />
-                        </Port>
-                        <Port name="inport.texture">
-                            <Properties />
-                        </Port>
-                    </Inports>
-                    <Outports />
                     <InteractionHandlers />
                 </Processor>
                 <Processor type="VolumeSelector" name="VolumeSelector" id="ref7">
@@ -4598,9 +4564,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="43.30596161" y="280.25286865" z="163.84431458" />
-                            <focus x="18.00207329" y="3.66529799" z="46.70724487" />
-                            <upVector x="0.50790399" y="0.11108121" z="-0.85422158" />
+                            <position x="102.26483917" y="-197.74154663" z="-72.93789673" />
+                            <focus x="41.76433182" y="-5.14778519" z="-27.35538864" />
+                            <upVector x="-0.0824591" y="-0.05998293" z="0.99478769" />
                         </Property>
                         <Property name="compositing" value="dvr" />
                         <Property name="compositing1" value="dvr" />
@@ -4811,8 +4777,12 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-261" y="-746" />
                     </MetaData>
                     <Properties>
-                        <Property name="inputFile" noPathSet="false" value="../../../Tests/4e7v.pdb" />
+                        <Property name="inputFile" noPathSet="false" value="../../../Tests/6ins.pdb" />
+                        <Property name="invertDirection" value="false" />
                         <Property name="loadMolecule" />
+                        <Property name="manipulationAxis" value="y" />
+                        <Property name="manipulationSlider" value="0.1" />
+                        <Property name="manipulationType" value="rotate" />
                     </Properties>
                     <Inports />
                     <Outports>
@@ -4863,6 +4833,40 @@
                             </Properties>
                         </Port>
                     </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="GeometryCollectionRenderer" name="GeometryCollectionRenderer" id="ref14">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-147" y="-306" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="enableLighting" value="false" />
+                        <Property name="lightAmbient">
+                            <value x="0.40000001" y="0.40000001" z="0.40000001" w="1" />
+                        </Property>
+                        <Property name="lightDiffuse">
+                            <value x="0.80000001" y="0.80000001" z="0.80000001" w="1" />
+                        </Property>
+                        <Property name="lightPosition">
+                            <value x="2.29999995" y="1.5" z="1.5" w="1" />
+                        </Property>
+                        <Property name="lightSpecular">
+                            <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
+                        </Property>
+                        <Property name="mapTexture" value="false" />
+                        <Property name="materialShininess" value="60" />
+                        <Property name="polygonMode" value="fill" />
+                        <Property name="textureMode" value="replace" />
+                    </Properties>
+                    <Inports>
+                        <Port name="inport.geometry">
+                            <Properties />
+                        </Port>
+                        <Port name="inport.texture">
+                            <Properties />
+                        </Port>
+                    </Inports>
+                    <Outports />
                     <InteractionHandlers />
                 </Processor>
             </Processors>
@@ -5000,19 +5004,11 @@
                         <Processor type="MoleculeCollectionGeometryBuilder" ref="ref13" />
                     </Outport>
                     <Inport name="inport.geometry">
-                        <Processor type="GeometryRenderer" ref="ref14" />
+                        <Processor type="GeometryCollectionRenderer" ref="ref14" />
                     </Inport>
                 </Connection>
             </Connections>
             <CoProcessorConnections>
-                <CoProcessorConnection>
-                    <Outport name="coprocessor.geometryrenderer">
-                        <Processor type="GeometryRenderer" ref="ref14" />
-                    </Outport>
-                    <Inport name="coprocessor.geometryrenderers">
-                        <Processor type="GeometryProcessor" ref="ref6" />
-                    </Inport>
-                </CoProcessorConnection>
                 <CoProcessorConnection>
                     <Outport name="coprocessor.geometryrenderer">
                         <Processor type="GeometryRenderer" ref="ref10" />
@@ -5027,6 +5023,14 @@
                     </Outport>
                     <Inport name="MoleculeSource">
                         <Processor type="MoleculeManipulation" ref="ref15" />
+                    </Inport>
+                </CoProcessorConnection>
+                <CoProcessorConnection>
+                    <Outport name="coprocessor.geometryrenderer">
+                        <Processor type="GeometryCollectionRenderer" ref="ref14" />
+                    </Outport>
+                    <Inport name="coprocessor.geometryrenderers">
+                        <Processor type="GeometryProcessor" ref="ref6" />
                     </Inport>
                 </CoProcessorConnection>
             </CoProcessorConnections>

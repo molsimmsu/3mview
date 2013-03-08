@@ -58,6 +58,8 @@ protected:
     }
 
     virtual void process();
+    
+    MeshGeometry createVolumeGeometry(const VolumeBase* inputVolume);
 
     /**
      * Inport for the dataset.

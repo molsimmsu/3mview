@@ -213,6 +213,7 @@ protected:
     tgt::Shader* shader_;
 
     /// Inport whose rendering is mapped to the frame buffer.
+    RenderPort inportMono_;
     RenderPort inportLeft_;
     RenderPort inportRight_;
 
