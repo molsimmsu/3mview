@@ -93,7 +93,7 @@ void CanvasRenderer::process() {
     canvas_->getGLFocus();
     glViewport(0, 0, canvas_->getSize().x, canvas_->getSize().y);
 
-    if (inportMono_.isReady() || (inportLeft_.isReady() && inportRight_.isReady())) {
+    if (inportMono_.isReady()) {
         // render inport to image, if renderToImage flag has been set
         if (renderToImage_) {
             try {
@@ -116,7 +116,7 @@ void CanvasRenderer::process() {
         }
         // map texture of input target onto a screen-aligned quad
         else {
-        	if (inportMono_.isReady()) {
+        	if (!(inportLeft_.isReady() && inportRight_.isReady())) {
 		        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		        // activate shader
@@ -146,7 +146,7 @@ void CanvasRenderer::process() {
 		        shader_->deactivate();
 		        LGL_ERROR;
             }
-            else if (inportLeft_.isReady() && inportRight_.isReady()) {
+            else {
             	glDrawBuffer(GL_BACK_LEFT);
 		        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
