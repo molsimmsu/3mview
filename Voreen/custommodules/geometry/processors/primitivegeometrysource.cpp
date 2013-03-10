@@ -57,6 +57,7 @@ PrimitiveGeometrySource::PrimitiveGeometrySource()
     outport_(Port::OUTPORT, "geometry.pointlist", "PointList Output")
 {
     geometryType_.addOption("axes", "Axes");
+    geometryType_.addOption("cube", "Cube");
     geometryType_.addOption("plane", "Plane");
     geometryType_.addOption("polyline", "PolyLine");
     geometryType_.addOption("loadFile", "Load from file");
@@ -104,6 +105,17 @@ void PrimitiveGeometrySource::readGeometry() {
             geometry->addMesh(Y);
             geometry->addMesh(Z);
             
+            tgtAssert(geometry, "null pointer returned (exception expected)");
+            outport_.setData(geometry);
+        }
+        catch (VoreenException& e) {
+            LERROR(e.what());
+        }
+    }
+    else if (geometryType_.isSelected("cube")) {
+        try {
+            MeshListGeometry* geometry = new MeshListGeometry();
+            geometry->addMesh(MeshGeometry::createCube(tgt::vec3(-0.5,-0.5,-0.5),tgt::vec3(0.5,0.5,0.5)));
             tgtAssert(geometry, "null pointer returned (exception expected)");
             outport_.setData(geometry);
         }

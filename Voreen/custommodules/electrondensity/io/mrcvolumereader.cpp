@@ -201,9 +201,9 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
         
         Volume* volumeHandle = new Volume(
             targetDataset,                                                 // data
-            vec3(scale[a], scale[b], scale[c]),                            // scale
-            vec3(start[a]*scale[a], start[b]*scale[b], start[c]*scale[c]), // offset
-            transform                                                      // transform
+            vec3(1,1,1),//vec3(scale[a], scale[b], scale[c]),                            // scale
+            vec3(0,0,0)//vec3(start[a]*scale[a], start[b]*scale[b], start[c]*scale[c]), // offset
+            //transform                                                      // transform
         );
         
         volumeCollection->add(volumeHandle);

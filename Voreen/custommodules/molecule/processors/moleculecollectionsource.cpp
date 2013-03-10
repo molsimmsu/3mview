@@ -38,7 +38,7 @@ MoleculeCollection* MoleculeCollectionSource::getSelectedMoleculeCollection() {
 }
 
 void MoleculeCollectionSource::applyTransformation(tgt::vec3 offset, tgt::mat4 matrix) {
-    LWARNING("MoleculeCollectionSource::applyTransformation()");
+    //LWARNING("MoleculeCollectionSource::applyTransformation()");
     MoleculeCollection* mc = outport_.getWritableData();
     for (size_t i = 0; i < mc->size(); i++) {
         Molecule* mol = mc->at(i);
