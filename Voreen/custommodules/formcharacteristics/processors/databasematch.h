@@ -2,7 +2,11 @@
 #define VRN_DATABASEMATCH_H
 
 #include "../ports/weightedpointcloudport.h"
+#include "../../molecule/ports/moleculeport.h"
+#include "../ports/matrix4doubleport.h"
 
+#include "voreen/core/properties/optionproperty.h"
+#include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
 using namespace voreen;
 
@@ -22,13 +26,13 @@ public:
 
 protected:
     virtual void setDescriptions() {
-        setDescription("Accepts WeigthedPointCloud as input, outputs a set of PDB-codes [each has char[8] type]");
+        setDescription("Accepts Molecule or Electron density map as input, outputs a set of PDB-codes [each has char[8] type]");
     }
 
     virtual void process();
 
 private:
-    double *atoms;
+    double *coords;
 
     double  O[3]; 
     double Ox[3];
@@ -40,13 +44,14 @@ private:
     int    entries;
     int    mom_total;
 
-    WeightedPointCloudPort inport_;
- //   WeightedPointCloudPort outport_;   
+    VolumePort    		  volinport_;
+    MoleculePort           molinport_;  
+    StringOptionProperty   sourceselection_;  
 
     double CalculateMoment(int, int, int);
     double CalculateFourrier(int, int, int);
  //   void   FillOutport();    		
-    void   FindAxes();
+    void   PDBFindAxes();
     double PolynomVal(double);
     void   GetMoments();  
 };
