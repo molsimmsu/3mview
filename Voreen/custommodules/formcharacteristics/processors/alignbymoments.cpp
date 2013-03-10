@@ -8,8 +8,8 @@
 
 AlignByMoments :: AlignByMoments()
   : Processor(),
-    inport_(Port::INPORT,   "pointCloud1", "Weighted Point Cloud Input"),
-    outport_(Port::OUTPORT, "pointCloud2", "Weighted Point Cloud Output")
+    inport_(Port::INPORT,   "pointCloud",    "Weighted Point Cloud Input"),
+    outport_(Port::OUTPORT, "Matrix4double", "New coordinates system output")
 {
     addPort(inport_);
     addPort(outport_);
@@ -86,13 +86,29 @@ double AlignByMoments :: CalculateFourrier(int degX, int degY, int degZ)
 
 void AlignByMoments :: FillOutport()
 {
-		WeightedPointCloud* out_data = new WeightedPointCloud(); // Must be a pointer
+		tgt::Matrix4<double>* out_data = new tgt::Matrix4<double>(); // Must be a pointer
 		
-		out_data->add(WeightedPoint(O[0],   O[1],   O[2],  0));
-		out_data->add(WeightedPoint(Ox[0],  Ox[1],  Ox[2], 0));
-		out_data->add(WeightedPoint(Oy[0],  Oy[1],  Oy[2], 0));
-		out_data->add(WeightedPoint(Oz[0],  Oz[1],  Oz[2], 0));
+		out_data->t00 = Ox[0];
+		out_data->t10 = Ox[1];
+		out_data->t20 = Ox[2];
 		
+		out_data->t01 = Oy[0];
+		out_data->t11 = Oy[1];
+		out_data->t21 = Oy[2];
+
+		out_data->t02 = Oz[0];
+		out_data->t12 = Oz[1];
+		out_data->t22 = Oz[2];
+	
+		out_data->t03 = O[0];
+		out_data->t13 = O[1];
+		out_data->t23 = O[2];
+
+		out_data->t30 = 0;
+		out_data->t31 = 0;
+		out_data->t32 = 0;
+		out_data->t33 = 1;
+
 		outport_.setData(out_data);
 }
 
