@@ -63,6 +63,23 @@ void DatabaseMatch :: process()
 	}
 	if (sourceselection_.isSelected("vol"))
 	{
+		tgt::svec3 dims   = volinport_.getData()->getDimensions();
+		size_t     voxels = volinport_.getData()->getNumVoxels();
+		tgt::vec3  space  = volinport_.getData()->getSpacing();
+		coords = new double[4*voxels];
+
+		for (int i=0; i<dims.x; ++i)
+			for (int j=0; j<dims.y; ++j)
+				for (int k=0; k<dims.z; ++k)
+				{
+					coords[4*(i+j*dims.x+k*dims.x*dims.y)]   = i*space.x;
+					coords[4*(i+j*dims.x+k*dims.x*dims.y)+1] = j*space.y;
+					coords[4*(i+j*dims.x+k*dims.x*dims.y)+2] = k*space.z;
+					coords[4*(i+j*dims.x+k*dims.x*dims.y)+3] = ((VolumeRAM*)volinport_.getData())->getVoxelNormalized(i, j, k);
+				}
+		PDBFindAxes();
+//		PDBFillOutport();
+		delete[] coords;
 	}		
 
 //   READ THE DATABASE FILE
