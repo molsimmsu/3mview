@@ -23,6 +23,8 @@ public:
     virtual std::string getCategory() const  { return "Input";      }
     virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL; }
     
+    void load(const std::string& path);
+    
     MoleculeCollection* getMoleculeCollection();
     MoleculeCollection* getSelectedMoleculeCollection();
     

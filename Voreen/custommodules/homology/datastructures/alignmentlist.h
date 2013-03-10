@@ -22,6 +22,11 @@ public:
 		this->qstart = qstart;
 		this->qend = qend;
 	}
+	
+	const string& getName() const
+	{
+	    return name;
+	}
 
 	void write(ostream& out) const
 	{
@@ -32,6 +37,21 @@ public:
 	{
 		if (pident < A.pident) return true;
 		return false;
+	}
+	
+	bool operator == (const Alignment& A) const
+	{
+	    if (name != A.name) return false;
+		if (pident != A.pident) return false;
+		if (qstart != A.qstart) return false;
+		if (qend != A.qend) return false;
+		
+		return true;
+	}
+	
+	bool operator != (const Alignment& A) const
+	{
+    	return !(*this == A);
 	}
 
 };
@@ -49,12 +69,12 @@ public:
 		return sourceSeq.size();
 	}
 
-		unsigned int size()
+		unsigned int size() const
 		{
 			return A.size();
 		}
 
-		Alignment at(unsigned int i)
+		Alignment at(unsigned int i) const
 		{
 			return A.at(i);
 		}
@@ -67,8 +87,18 @@ public:
 		}
 	}
 	
+	bool operator == (const AlignmentList& A) const
+	{
+		return !(*this != A);
+	}
+	
 	bool operator != (const AlignmentList& A) const
 	{
+	    if (size() != A.size()) return true;
+	    
+	    for (size_t i = 0; i < size(); i++)
+	        if (at(i) != A.at(i)) return true;
+	        
 		return false;
 	}
 

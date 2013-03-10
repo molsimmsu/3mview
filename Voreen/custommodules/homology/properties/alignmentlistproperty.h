@@ -13,7 +13,7 @@ template class VRN_CORE_API TemplateProperty<AlignmentList>;
 
 class VRN_CORE_API AlignmentListProperty : public TemplateProperty<AlignmentList> {
 public:
-    AlignmentListProperty(const std::string& id, const std::string& guiText, const AlignmentList& value,
+    AlignmentListProperty(const std::string& id, const std::string& guiText, const AlignmentList& value = AlignmentList(),
         int invalidationLevel=Processor::INVALID_RESULT);
     AlignmentListProperty();
     virtual ~AlignmentListProperty() {}

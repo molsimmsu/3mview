@@ -29,6 +29,23 @@ MoleculeCollectionSource::MoleculeCollectionSource()
     outport_.setData(new MoleculeCollection(), true);
 }
 
+void MoleculeCollectionSource::load(const std::string& path) {
+    try {
+        Molecule* mol = loadMoleculeFromFile(path);
+        tgtAssert(mol, "null pointer to mol returned (exception expected) at MoleculeCollectionSource::readMolecule()");
+        
+        getMoleculeCollection()->add(mol);
+        outport_.invalidatePort();
+    }
+    catch (VoreenException& e) {
+        LERROR(e.what());
+    }
+    catch (...) {
+        LERROR("Error at MoleculeCollectionSource::load()");
+    }
+}
+
+
 MoleculeCollection* MoleculeCollectionSource::getMoleculeCollection() {
     return outport_.getWritableData();
 }
@@ -50,20 +67,7 @@ void MoleculeCollectionSource::applyTransformation(tgt::vec3 offset, tgt::mat4 m
 }
 
 void MoleculeCollectionSource::readMolecule() {
-    try {
-		// Load new molecule
-        Molecule* mol = loadMoleculeFromFile(inputFile_.get());
-        tgtAssert(mol, "null pointer to mol returned (exception expected) at MoleculeCollectionSource::readMolecule()");
-        
-        getMoleculeCollection()->add(mol);
-        outport_.invalidatePort();
-    }
-    catch (VoreenException& e) {
-        LERROR(e.what());
-    }
-    catch (...) {
-        LERROR("Error at MoleculeCollectionSource::readMolecule()");
-    }
+    load(inputFile_.get());
 }
 
 Molecule* MoleculeCollectionSource::loadMoleculeFromFile(const std::string& filename)
