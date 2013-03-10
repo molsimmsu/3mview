@@ -2,7 +2,7 @@
 #define VRN_ALIGNBYMOMENTS_H
 
 #include "../ports/weightedpointcloudport.h"
-
+#include "../ports/matrix4doubleport.h"
 #include "voreen/core/processors/processor.h"
 using namespace voreen;
 
@@ -20,7 +20,7 @@ public:
 
 protected:
     virtual void setDescriptions() {
-        setDescription("Accepts WeigthedPointCloud as input, outputs a matrix as a WeigthedPointCloud");
+        setDescription("Accepts WeigthedPointCloud as input, outputs a matrix as a tgt::Matrix4<double>");
     }
 
     virtual void process();
@@ -35,11 +35,11 @@ private:
     int    entries;
 
     WeightedPointCloudPort inport_;
-    WeightedPointCloudPort outport_;   
+    Matrix4doublePort      outport_;   
 
     double CalculateMoment(int, int, int);
     double CalculateFourrier(int, int, int);
-    void   FillOutport();  			// TODO
+    void   FillOutport();  			
     void   FindAxes();
     double PolynomVal(double);
    
