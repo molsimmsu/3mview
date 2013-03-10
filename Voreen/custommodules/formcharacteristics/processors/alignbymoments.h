@@ -1,7 +1,6 @@
 #ifndef VRN_ALIGNBYMOMENTS_H
 #define VRN_ALIGNBYMOMENTS_H
 
-#include "../ports/weightedpointcloudport.h"
 #include "../../molecule/ports/moleculeport.h"
 #include "../ports/matrix4doubleport.h"
 
