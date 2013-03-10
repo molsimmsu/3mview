@@ -4,7 +4,7 @@ namespace voreen {
 
 std::string MoleculeSelectionProperty::loggerCat_("MoleculeSelectionProperty");
 
-MoleculeSelectionProperty::MoleculeSelectionProperty(const std::string& id, const std::string& guiText, 
+MoleculeSelectionProperty::MoleculeSelectionProperty(const std::string& id, const std::string& guiText,
                    const MoleculeCollection* inputMolecules, int invalidationLevel)
     : TemplateProperty<const MoleculeCollection*>(id, guiText, 0, invalidationLevel)
 {
@@ -48,15 +48,15 @@ void MoleculeSelectionProperty::setSelected(Molecule* moleculeHandle, bool selec
         LWARNING("setSelected(): passed URL not contained by this property");
         return;
     }
-	
-	if (!isSelected(moleculeHandle) && selected) {
-		selectedMolecules_->add(moleculeHandle);
-		invalidate();
-	}
-	else if (isSelected(moleculeHandle) && !selected) {
-		selectedMolecules_->remove(moleculeHandle);
-		invalidate();
-	}
+
+if (!isSelected(moleculeHandle) && selected) {
+selectedMolecules_->add(moleculeHandle);
+invalidate();
+}
+else if (isSelected(moleculeHandle) && !selected) {
+selectedMolecules_->remove(moleculeHandle);
+invalidate();
+}
 }
 
 void MoleculeSelectionProperty::setAllSelected(bool selected) {
@@ -67,5 +67,4 @@ void MoleculeSelectionProperty::setAllSelected(bool selected) {
         setSelected(allMolecules->at(i), selected);
 }
 
-}   // namespace
-
+} // namespace

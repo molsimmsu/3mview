@@ -22,41 +22,41 @@ public:
 
     virtual Property* create() const;
 
-    virtual std::string getClassName() const       { return "MoleculeSelectionProperty"; }
+    virtual std::string getClassName() const { return "MoleculeSelectionProperty"; }
     virtual std::string getTypeDescription() const { return "MoleculeCollection"; }
     
     /*
-     * Return a collection of input molecules
-     */
+* Return a collection of input molecules
+*/
     const MoleculeCollection* getInputMolecules() const;
     
     /*
-     * Set a collection of input molecules
-     */
+* Set a collection of input molecules
+*/
     void setInputMolecules(const MoleculeCollection*);
     /*
-     * Return a collection of selected molecules
-     */
+* Return a collection of selected molecules
+*/
     MoleculeCollection* getSelectedMolecules() const;
     
     /*
-     * Set a collection of selected molecules
-     */
+* Set a collection of selected molecules
+*/
     void setSelectedMolecules(MoleculeCollection*);
     
     /*
-     * Checks if the given molecule is selected
-     */
+* Checks if the given molecule is selected
+*/
     bool isSelected(const Molecule*) const;
     
     /*
-     * Set the selection flag for a given molecule
-     */
+* Set the selection flag for a given molecule
+*/
     void setSelected(Molecule* moleculeHandle, bool selected);
     
     /*
-     * Set the selection flag for all molecules
-     */
+* Set the selection flag for all molecules
+*/
     void setAllSelected(bool selected);
 
 private:
@@ -68,4 +68,3 @@ private:
 }
 
 #endif
-

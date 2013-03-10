@@ -1,7 +1,9 @@
 #ifndef VRN_MultipleSequenceFinder_H
 #define VRN_MultipleSequenceFinder_H
 
-#include "voreen/core/processors/processor.h"
+#include "../../molecule/processors/moleculecoprocessor.h"
+#include "../properties/alignmentlistproperty.h"
+
 #include "voreen/core/properties/callmemberaction.h"
 #include "voreen/core/properties/buttonproperty.h"
 #include "voreen/core/properties/filedialogproperty.h"
@@ -12,7 +14,7 @@ using namespace voreen;
 
 #include <string>
 
-class MultipleSequenceFinder : public Processor {
+class MultipleSequenceFinder : public MoleculeCoProcessor {
 public:
     MultipleSequenceFinder();
     
@@ -26,7 +28,7 @@ public:
     
 protected:
     virtual void setDescriptions() {
-        setDescription("Add and remove domains, make BLAST database, get statistics");
+        setDescription("Find homologous domains from BLAST database for each sequence from a given collection");
     }
     
     void findDomains();
@@ -35,6 +37,7 @@ private:
     FileDialogProperty loadSequence_;
     StringProperty sequenceText_;
     ButtonProperty findDomains_;
+    AlignmentListProperty alignmentList_;
     
     static std::string loggerCat_;
 };
