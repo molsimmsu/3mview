@@ -1,17 +1,23 @@
 #include "alignbymoments.h"
 
-#define    SCALE              30
-#define    SOLVE_ITER  	      52
-#define    PI_2    1.57079632679
-#define    MAX_SIZE	      5
+#define    SCALE          30
+#define    SOLVE_ITER  	 52
+#define    PI_2           1.57079632679
+#define    MAX_SIZE	      1.5    // range of the first harmonic
 
 
 AlignByMoments :: AlignByMoments()
   : Processor(),
-    inport_(Port::INPORT,   "pointCloud",    "Weighted Point Cloud Input"),
-    outport_(Port::OUTPORT, "Matrix4double", "New coordinates system output")
+    sourceselection_("sourcetype", "Select Source", Processor::INVALID_PROGRAM),
+    volinport_(Port::INPORT,   "volume",   "Electon density map"),
+    molinport_(Port::INPORT,   "molecule", "Molecule structure"),
+    outport_(Port::OUTPORT, "Matrix4double", "New coordinate system output")
 {
-    addPort(inport_);
+    sourceselection_.addOption("mol", "Molecule[Atoms set]");
+    sourceselection_.addOption("vol", "Volume  [Electrun density]");
+    addProperty(sourceselection_);
+    addPort(molinport_);
+    addPort(volinport_);
     addPort(outport_);
 }
 
@@ -20,23 +26,42 @@ void AlignByMoments :: process()
 	O[0] = 0;
 	O[1] = 0;
 	O[2] = 0;
-    total_weight = 0;
-	entries = inport_.getData()->size();
-
-	for (int i=0; i<entries; ++i)
+     total_weight = 0;
+	if (sourceselection_.isSelected("mol"))
 	{
-		O[0] += inport_.getData()->get(i)[0] * inport_.getData()->get(i)[3];
-		O[1] += inport_.getData()->get(i)[1] * inport_.getData()->get(i)[3];
-		O[2] += inport_.getData()->get(i)[2] * inport_.getData()->get(i)[3];
-		total_weight += inport_.getData()->get(i)[3];
+		entries = (molinport_.getData()->getOBMol()).NumAtoms();
+		coords = new double[4*entries];
+		for (int i=0; i<entries; ++i)
+		{	
+			coords[4*i]   = (molinport_.getData()->getOBMol()).GetAtomById(i)->x();
+			coords[4*i+1] = (molinport_.getData()->getOBMol()).GetAtomById(i)->y();
+			coords[4*i+2] = (molinport_.getData()->getOBMol()).GetAtomById(i)->z();
+			coords[4*i+3] = (molinport_.getData()->getOBMol()).GetAtomById(i)->GetFormalCharge(); // TODO !!
+
+			O[0] += coords[4*i]   * coords[4*i+3];
+			O[1] += coords[4*i+1] * coords[4*i+3];
+			O[2] += coords[4*i+2] * coords[4*i+3];
+			total_weight += coords[4*i+3];
+		}
+
+		O[0] /= total_weight;
+		O[1] /= total_weight;
+		O[2] /= total_weight;
+
+		for (int i=0; i<entries; ++i)
+		{	
+			coords[4*i]   -= O[0];
+			coords[4*i+1] -= O[1];
+			coords[4*i+2] -= O[2];
+		}
+
+		PDBFindAxes();
+		PDBFillOutport();
+		delete[] coords;
 	}
-
-	O[0] /= total_weight;
-	O[1] /= total_weight;
-	O[2] /= total_weight;
-
-	FindAxes();
-	FillOutport();
+	if (sourceselection_.isSelected("vol"))
+	{
+	}
 }
 
 double AlignByMoments :: CalculateMoment(int degX, int degY, int degZ)
@@ -45,20 +70,20 @@ double AlignByMoments :: CalculateMoment(int degX, int degY, int degZ)
 	double temp;
 	for (int i=0; i<entries; ++i)
 	{
-		temp = inport_.getData()->get(i)[3];
+		temp = coords[4*i+3];
 		for (int j = 0; j < degX; ++j)
 		{
-			temp *= (inport_.getData()->get(i)[0] - O[0])/SCALE;
+			temp *= coords[4*i]/SCALE;
 		}
 		
 		for (int j = 0; j < degY; ++j)
 		{
-			temp *= (inport_.getData()->get(i)[1] - O[1])/SCALE;
+			temp *= coords[4*i+1]/SCALE;
 		}
 		
 		for (int j = 0; j < degZ; ++j)
 		{
-			temp *= (inport_.getData()->get(i)[2] - O[2])/SCALE;
+			temp *= coords[4*i+2]/SCALE;
 		}
 
 		res += temp/total_weight;
@@ -72,19 +97,19 @@ double AlignByMoments :: CalculateFourrier(int degX, int degY, int degZ)
 	double temp;
 	for (int i=0; i<entries; ++i)
 	{
-		temp = inport_.getData()->get(i)[3];
-		if (degX<0) temp *= cos(degX*(inport_.getData()->get(i)[0] - O[0])/SCALE/MAX_SIZE*PI_2);
-		if (degX>0) temp *= sin(degX*(inport_.getData()->get(i)[0] - O[0])/SCALE/MAX_SIZE*PI_2);
-		if (degY<0) temp *= cos(degY*(inport_.getData()->get(i)[1] - O[1])/SCALE/MAX_SIZE*PI_2);
-		if (degY>0) temp *= sin(degY*(inport_.getData()->get(i)[1] - O[1])/SCALE/MAX_SIZE*PI_2);
-		if (degZ<0) temp *= cos(degZ*(inport_.getData()->get(i)[2] - O[2])/SCALE/MAX_SIZE*PI_2);
-		if (degZ>0) temp *= sin(degZ*(inport_.getData()->get(i)[2] - O[2])/SCALE/MAX_SIZE*PI_2);
+		temp = coords[4*i+3];
+		if (degX<0) temp *= cos(degX*coords[4*i]  /SCALE/MAX_SIZE*PI_2);
+		if (degX>0) temp *= sin(degX*coords[4*i]  /SCALE/MAX_SIZE*PI_2);
+		if (degY<0) temp *= cos(degY*coords[4*i+1]/SCALE/MAX_SIZE*PI_2);
+		if (degY>0) temp *= sin(degY*coords[4*i+1]/SCALE/MAX_SIZE*PI_2);
+		if (degZ<0) temp *= cos(degZ*coords[4*i+2]/SCALE/MAX_SIZE*PI_2);
+		if (degZ>0) temp *= sin(degZ*coords[4*i+2]/SCALE/MAX_SIZE*PI_2);
 		res += temp;
 	}
 	return res;
 }
 
-void AlignByMoments :: FillOutport()
+void AlignByMoments :: PDBFillOutport()
 {
 		tgt::Matrix4<double>* out_data = new tgt::Matrix4<double>(); // Must be a pointer
 		
@@ -109,10 +134,11 @@ void AlignByMoments :: FillOutport()
 		out_data->t32 = 0;
 		out_data->t33 = 1;
 
+
 		outport_.setData(out_data);
 }
 
-void AlignByMoments :: FindAxes()
+void AlignByMoments :: PDBFindAxes()
 {
 	double disc;
 	double I[3][3];
@@ -270,4 +296,3 @@ double AlignByMoments :: PolynomVal(double x)
 {
 	return polynom[3]*x*x*x + polynom[2]*x*x + polynom[1]*x + polynom[0];
 }
-
