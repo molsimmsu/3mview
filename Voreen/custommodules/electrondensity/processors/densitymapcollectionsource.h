@@ -1,6 +1,8 @@
 #ifndef VRN_DENSITYMAPCOLLECTIONSOURCE_H
 #define VRN_DENSITYMAPCOLLECTIONSOURCE_H
 
+#include "../../geometry/processors/manipulationbase.h"
+
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/processors/processorwidgetfactory.h"
 #include "voreen/core/ports/allports.h"
@@ -17,7 +19,7 @@ class Volume;
  * Loads multiple volumes and provides them
  * as VolumeCollection through its outport.
  */
-class VRN_CORE_API DensityMapCollectionSource : public Processor {
+class VRN_CORE_API DensityMapCollectionSource : virtual public Processor, virtual public ManipulationBase {
 
 public:
     DensityMapCollectionSource();
@@ -46,6 +48,8 @@ public:
      * Returns the currently selected volume collection.
      */
     VolumeCollection* getSelectedVolumeCollection() const;
+    
+    virtual void applyTransformation(tgt::vec3 offset, tgt::mat4 matrix);
 
 protected:
     virtual void setDescriptions() {

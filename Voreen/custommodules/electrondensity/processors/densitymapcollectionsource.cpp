@@ -1,28 +1,3 @@
-/***********************************************************************************
- *                                                                                 *
- * Voreen - The Volume Rendering Engine                                            *
- *                                                                                 *
- * Copyright (C) 2005-2012 University of Muenster, Germany.                        *
- * Visualization and Computer Graphics Group <http://viscg.uni-muenster.de>        *
- * For a list of authors please refer to the file "CREDITS.txt".                   *
- *                                                                                 *
- * This file is part of the Voreen software package. Voreen is free software:      *
- * you can redistribute it and/or modify it under the terms of the GNU General     *
- * Public License version 2 as published by the Free Software Foundation.          *
- *                                                                                 *
- * Voreen is distributed in the hope that it will be useful, but WITHOUT ANY       *
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR   *
- * A PARTICULAR PURPOSE. See the GNU General Public License for more details.      *
- *                                                                                 *
- * You should have received a copy of the GNU General Public License in the file   *
- * "LICENSE.txt" along with this file. If not, see <http://www.gnu.org/licenses/>. *
- *                                                                                 *
- * For non-commercial academic use see the license exception specified in the file *
- * "LICENSE-academic.txt". To get information about commercial licensing please    *
- * contact the authors.                                                            *
- *                                                                                 *
- ***********************************************************************************/
-
 #include "densitymapcollectionsource.h"
 
 #include "voreen/core/processors/processorwidget.h"
@@ -59,6 +34,29 @@ Processor* DensityMapCollectionSource::create() const {
 
 void DensityMapCollectionSource::process() {
     // nothing
+}
+
+void DensityMapCollectionSource::applyTransformation(tgt::vec3 offset, tgt::mat4 matrix) {
+        const VolumeCollection* collection = getSelectedVolumeCollection();
+        if (collection == 0 || collection->size() == 0) return;
+        
+        for (size_t i = 0; i < collection->size(); i++) {
+            VolumeBase* volume = collection->at(i);
+            
+            if (typeid(*volume) != typeid(Volume)) {
+                LWARNING("Base class is not an instance of Volume");
+                continue;
+            }
+            
+            tgt::vec3 volumeOffset = volume->getOffset() + offset;
+            static_cast<Volume*>(volume)->setOffset(volumeOffset);
+            
+            tgt::mat4 transform = volume->getPhysicalToWorldMatrix();
+            static_cast<Volume*>(volume)->setPhysicalToWorldMatrix(transform * matrix);
+        }
+        
+
+        getPort("volumecollection")->invalidatePort();
 }
 
 void DensityMapCollectionSource::initialize() throw (tgt::Exception) {

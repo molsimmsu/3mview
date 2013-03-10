@@ -32,7 +32,7 @@ DensityMapCollectionSource* DensityMapCoProcessor::getSourceProcessor() const {
         return 0;
     }
     
-    return static_cast<DensityMapCollectionSource*>(processor);
+    return dynamic_cast<DensityMapCollectionSource*>(processor);
 }
 
 const VolumeCollection* DensityMapCoProcessor::getInputVolumeCollection() const {
