@@ -1,7 +1,6 @@
 #ifndef VRN_DATABASEMATCH_H
 #define VRN_DATABASEMATCH_H
 
-#include "../ports/weightedpointcloudport.h"
 #include "../../molecule/ports/moleculeport.h"
 #include "../ports/matrix4doubleport.h"
 
