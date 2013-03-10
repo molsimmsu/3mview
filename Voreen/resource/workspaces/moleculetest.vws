@@ -3,11 +3,6 @@
     <Workspace version="2" GlobalDescription="">
         <ProcessorNetwork version="13">
             <MetaData>
-                <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
-                    <values>
-                        <item type="MoleculeCollectionSource" ref="ref12" />
-                    </values>
-                </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
                     <value x="-270.44213867" y="-496.56814575" />
                 </MetaItem>
@@ -167,9 +162,16 @@
                                 </Property>
                             </Properties>
                         </Port>
-                        <Port name="image.input1">
+                        <Port name="image.inputLeft">
                             <Properties>
-                                <Property name="image.input1.renderSizeOrigin">
+                                <Property name="image.inputLeft.renderSizeOrigin">
+                                    <value x="317" y="271" />
+                                </Property>
+                            </Properties>
+                        </Port>
+                        <Port name="image.inputRight">
+                            <Properties>
+                                <Property name="image.inputRight.renderSizeOrigin">
                                     <value x="128" y="128" />
                                 </Property>
                             </Properties>
@@ -4866,6 +4868,19 @@
                             <Properties />
                         </Port>
                     </Inports>
+                    <Outports />
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="MultipleSequenceFinder" name="MultipleSequenceFinder">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-497" y="-719" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="findDomains" />
+                        <Property name="loadSequence" noPathSet="true" value="" />
+                        <Property name="sequenceText" value="KPFQCRICMRNFSRSDHLTTHIRTHTGARPYACPVESCDRRFSRSADLTRHIRIHTGQA" />
+                    </Properties>
+                    <Inports />
                     <Outports />
                     <InteractionHandlers />
                 </Processor>
