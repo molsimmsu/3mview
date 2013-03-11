@@ -6,6 +6,7 @@ SET(MOD_CORE_MODULECLASS GeometryModule)
 SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/primitivegeometrysource.cpp
     ${MOD_DIR}/processors/geometrycollectionrenderer.cpp
+    ${MOD_DIR}/processors/collectionboundingboxesbuilder.cpp
     ${MOD_DIR}/ports/geometrycollectionport.cpp
     ${MOD_DIR}/utils/primitivegeometrybuilder.cpp
     ${MOD_DIR}/datastructures/polyline.cpp
@@ -15,6 +16,7 @@ SET(MOD_CORE_SOURCES
 SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/primitivegeometrysource.h
     ${MOD_DIR}/processors/geometrycollectionrenderer.h
+    ${MOD_DIR}/processors/collectionboundingboxesbuilder.h
     ${MOD_DIR}/ports/geometrycollectionport.h
     ${MOD_DIR}/utils/primitivegeometrybuilder.h
     ${MOD_DIR}/datastructures/polyline.h

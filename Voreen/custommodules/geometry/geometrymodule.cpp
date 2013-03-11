@@ -33,6 +33,7 @@
 #include "processors/primitivegeometrysource.h"
 #include "processors/manipulationbase.h"
 #include "processors/geometrycollectionrenderer.h"
+#include "processors/collectionboundingboxesbuilder.h"
 
 namespace voreen {
 
@@ -46,6 +47,7 @@ GeometryModule::GeometryModule(const std::string& modulePath)
     registerProcessor(new PrimitiveGeometrySource());
     registerProcessor(new ManipulationBase());
     registerProcessor(new GeometryCollectionRenderer());
+    registerProcessor(new CollectionBoundingBoxesBuilder());
 }
 
 } // namespace
