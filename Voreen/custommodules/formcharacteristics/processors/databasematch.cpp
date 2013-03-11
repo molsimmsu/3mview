@@ -1,21 +1,26 @@
 #include "databasematch.h"
 
-#define SCALE		    	30
+#define 	SCALE		    	30
 #define	SOLVE_ITER		52
 #define	PI_2	  			1.57079632679
-#define	MAX_SIZE			5
+#define	MAX_SIZE			1.5
 #define	DB_FILENAME		"database.dat"
 #define	NAMELEN			  8
-#define MAX_ORDER			8
-#define NUM_TO_OUT		100
+#define	MAX_ORDER			8
+#define	NUM_TO_OUT		100
 
 DatabaseMatch :: DatabaseMatch()
   : Processor(),
-     inport_(Port::INPORT,  "pointCloud", "Weighted Point Cloud Input")
-  //  outport_(Port::OUTPORT, "pointCloud2", "Weighted Point Cloud Output")
+    sourceselection_("sourcetype", "Select Source", Processor::INVALID_PROGRAM),
+    volinport_(Port::INPORT,   "volume",   "Electon density map"),
+    molinport_(Port::INPORT,   "molecule", "Molecule structure")
+
 {
-    addPort(inport_);
-  //  addPort(outport_);
+    sourceselection_.addOption("mol", "Molecule[coords set]");
+    sourceselection_.addOption("vol", "Volume  [Electrun density]");
+    addProperty(sourceselection_);
+    addPort(molinport_);
+    addPort(volinport_);
 }
 
 void DatabaseMatch :: process()
@@ -23,43 +28,59 @@ void DatabaseMatch :: process()
 	O[0] = 0;
 	O[1] = 0;
 	O[2] = 0;
-  total_weight = 0;
-	mom_total = 0;
+     total_weight = 0;
+	if (sourceselection_.isSelected("mol"))
+	{
+		entries = (molinport_.getData()->getOBMol()).NumAtoms();
+		coords = new double[4*entries];
+		for (int i=0; i<entries; ++i)
+		{	
+			coords[4*i]   = (molinport_.getData()->getOBMol()).GetAtomById(i)->x();
+			coords[4*i+1] = (molinport_.getData()->getOBMol()).GetAtomById(i)->y();
+			coords[4*i+2] = (molinport_.getData()->getOBMol()).GetAtomById(i)->z();
+			coords[4*i+3] = (molinport_.getData()->getOBMol()).GetAtomById(i)->GetFormalCharge(); // TODO !!
 
-	entries = inport_.getData()->size();
-	atoms = new double[4*entries];
+			O[0] += coords[4*i]   * coords[4*i+3];
+			O[1] += coords[4*i+1] * coords[4*i+3];
+			O[2] += coords[4*i+2] * coords[4*i+3];
+			total_weight += coords[4*i+3];
+		}
 
-	for (int i=0; i<entries; ++i)
-	{	
-		atoms[4*i]   = inport_.getData()->get(i)[0]; 
-		atoms[4*i+1] = inport_.getData()->get(i)[1];
-		atoms[4*i+2] = inport_.getData()->get(i)[2];
-		atoms[4*i+3] = inport_.getData()->get(i)[3];
+		O[0] /= total_weight;
+		O[1] /= total_weight;
+		O[2] /= total_weight;
 
-		O[0] += atoms[4*i]   * atoms[4*i+3];
-		O[1] += atoms[4*i+1] * atoms[4*i+3];
-		O[2] += atoms[4*i+2] * atoms[4*i+3];
+		for (int i=0; i<entries; ++i)
+		{	
+			coords[4*i]   -= O[0];
+			coords[4*i+1] -= O[1];
+			coords[4*i+2] -= O[2];
+		}
 
-		total_weight += atoms[4*i+3];
+		PDBFindAxes();
+//		FillOutport();
+		delete[] coords;
 	}
+	if (sourceselection_.isSelected("vol"))
+	{
+		tgt::svec3 dims   = volinport_.getData()->getDimensions();
+		size_t     voxels = volinport_.getData()->getNumVoxels();
+		tgt::vec3  space  = volinport_.getData()->getSpacing();
+		coords = new double[4*voxels];
 
-	O[0] /= total_weight;
-	O[1] /= total_weight;
-	O[2] /= total_weight;
-
-	for (int i=0; i<entries; ++i)
-	{	
-		atoms[4*i]   -= O[0];
-		atoms[4*i+1] -= O[1];
-		atoms[4*i+2] -= O[2];
-
-		atoms[4*i]   /= SCALE;
-		atoms[4*i+1] /= SCALE;
-		atoms[4*i+2] /= SCALE;
-	}
-
-	FindAxes();
-	GetMoments();
+		for (int i=0; i<dims.x; ++i)
+			for (int j=0; j<dims.y; ++j)
+				for (int k=0; k<dims.z; ++k)
+				{
+					coords[4*(i+j*dims.x+k*dims.x*dims.y)]   = i*space.x;
+					coords[4*(i+j*dims.x+k*dims.x*dims.y)+1] = j*space.y;
+					coords[4*(i+j*dims.x+k*dims.x*dims.y)+2] = k*space.z;
+					coords[4*(i+j*dims.x+k*dims.x*dims.y)+3] = ((VolumeRAM*)volinport_.getData())->getVoxelNormalized(i, j, k);
+				}
+		PDBFindAxes();
+//		PDBFillOutport();
+		delete[] coords;
+	}		
 
 //   READ THE DATABASE FILE
 
@@ -154,7 +175,7 @@ void DatabaseMatch :: process()
 	delete[] name;
 	delete[] disp;
 	delete[] db_moments;
-	delete[] atoms; 
+	delete[] coords; 
 }
 
 double DatabaseMatch :: CalculateMoment(int degX, int degY, int degZ)
@@ -163,20 +184,20 @@ double DatabaseMatch :: CalculateMoment(int degX, int degY, int degZ)
 	double temp;
 	for (int i=0; i<entries; ++i)
 	{
-		temp = atoms[4*i+3];
+		temp = coords[4*i+3];
 		for (int j = 0; j < degX; ++j)
 		{
-			temp *= atoms[4*i];
+			temp *= coords[4*i];
 		}
 		
 		for (int j = 0; j < degY; ++j)
 		{
-			temp *= atoms[4*i+1];
+			temp *= coords[4*i+1];
 		}
 		
 		for (int j = 0; j < degZ; ++j)
 		{
-			temp *= atoms[4*i+2];
+			temp *= coords[4*i+2];
 		}
 		res += temp/total_weight;
 	}
@@ -189,13 +210,13 @@ double DatabaseMatch :: CalculateFourrier(int degX, int degY, int degZ)
 	double temp;
 	for (int i=0; i<entries; ++i)
 	{
-		temp = atoms[4*i+3];
-		if (degX<0) temp *= cos(degX*atoms[4*i]  /MAX_SIZE*PI_2);
-		if (degX>0) temp *= sin(degX*atoms[4*i]  /MAX_SIZE*PI_2);
-		if (degY<0) temp *= cos(degY*atoms[4*i+1]/MAX_SIZE*PI_2);
-		if (degY>0) temp *= sin(degY*atoms[4*i+1]/MAX_SIZE*PI_2);
-		if (degZ<0) temp *= cos(degZ*atoms[4*i+2]/MAX_SIZE*PI_2);
-		if (degZ>0) temp *= sin(degZ*atoms[4*i+2]/MAX_SIZE*PI_2);
+		temp = coords[4*i+3];
+		if (degX<0) temp *= cos(degX*coords[4*i]  /MAX_SIZE*PI_2);
+		if (degX>0) temp *= sin(degX*coords[4*i]  /MAX_SIZE*PI_2);
+		if (degY<0) temp *= cos(degY*coords[4*i+1]/MAX_SIZE*PI_2);
+		if (degY>0) temp *= sin(degY*coords[4*i+1]/MAX_SIZE*PI_2);
+		if (degZ<0) temp *= cos(degZ*coords[4*i+2]/MAX_SIZE*PI_2);
+		if (degZ>0) temp *= sin(degZ*coords[4*i+2]/MAX_SIZE*PI_2);
 		res += temp;
 	}
 	return res;
@@ -214,7 +235,7 @@ double DatabaseMatch :: CalculateFourrier(int degX, int degY, int degZ)
 }
 */
 
-void DatabaseMatch :: FindAxes()
+void DatabaseMatch :: PDBFindAxes()
 {
 	double disc;
 	double I[3][3];
@@ -370,13 +391,13 @@ void DatabaseMatch :: FindAxes()
 
 	for (int i=0; i<entries; ++i)
 	{
-		V1[0] = atoms[4*i];
-		V1[1] = atoms[4*i+1];
-		V1[2] = atoms[4*i+2];
+		V1[0] = coords[4*i];
+		V1[1] = coords[4*i+1];
+		V1[2] = coords[4*i+2];
 		
-		atoms[4*i]   = Ox[0]*V1[0] + Ox[1]*V1[1] + Ox[2]*V1[2];
-		atoms[4*i+1] = Oy[0]*V1[0] + Oy[1]*V1[1] + Oy[2]*V1[2];		
-		atoms[4*i+2] = Oz[0]*V1[0] + Oz[1]*V1[1] + Oz[2]*V1[2];
+		coords[4*i]   = Ox[0]*V1[0] + Ox[1]*V1[1] + Ox[2]*V1[2];
+		coords[4*i+1] = Oy[0]*V1[0] + Oy[1]*V1[1] + Oy[2]*V1[2];		
+		coords[4*i+2] = Oz[0]*V1[0] + Oz[1]*V1[1] + Oz[2]*V1[2];
 	}
 }
 
@@ -405,4 +426,3 @@ void DatabaseMatch :: GetMoments()
 	}	
 	mom_total = l;
 }
-

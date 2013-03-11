@@ -1,8 +1,11 @@
 #ifndef VRN_ALIGNBYMOMENTS_H
 #define VRN_ALIGNBYMOMENTS_H
 
-#include "../ports/weightedpointcloudport.h"
+#include "../../molecule/ports/moleculeport.h"
 #include "../ports/matrix4doubleport.h"
+
+#include "voreen/core/properties/optionproperty.h"
+#include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
 using namespace voreen;
 
@@ -33,14 +36,18 @@ private:
     double polynom[3];
     double total_weight;
     int    entries;
+    double *coords;
 
-    WeightedPointCloudPort inport_;
-    Matrix4doublePort      outport_;   
+    VolumePort    		  volinport_;
+    MoleculePort           molinport_;
+    Matrix4doublePort 	  outport_;   
+    StringOptionProperty   sourceselection_;  
+
 
     double CalculateMoment(int, int, int);
     double CalculateFourrier(int, int, int);
-    void   FillOutport();  			
-    void   FindAxes();
+    void   PDBFillOutport();  		
+    void   PDBFindAxes();
     double PolynomVal(double);
    
 };
