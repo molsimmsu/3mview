@@ -15,7 +15,7 @@ using tgt::svec3;
 
 #include <vector>
 
-typedef seg_t uint8_t;
+typedef uint8_t seg_t;
 typedef VolumeAtomic<seg_t> SegVolumeRAM;
 
 #define FOR_EACH_VOXEL(VOXEL, MIN, MAX) \
@@ -39,22 +39,25 @@ public:
 class SegmentationProcessor : public Processor {
 public:
 	SegmentationProcessor();
+	virtual ~SegmentationProcessor() {}
     virtual Processor* create() const;
 
     virtual std::string getClassName() const { return "SegmentationProcessor";   }
     virtual std::string getCategory() const  { return "Input";            }
     virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL;  }
+    
+    virtual void process() {}
 
 protected:
     virtual void setDescriptions() {
         setDescription("Performs a simple volume segmntation algorithm by Shaytan, Shurov, Armeev");
     }
 
-    virtual void process() {}
+    
 private:
 	bool emptyVoxel(Segmentation& seg, svec3 voxel);
-	Volume* segmentVolume(const Volume* volume, float threshold);
-	void fillSegment(Segmentation& seg, svec3 voxel, int segID);
+	Volume* segmentVolume(const VolumeBase* volume, float threshold);
+	void fillSegment(Segmentation& seg, svec3 voxel, seg_t segID);
 	
 	void runSegmentation();
 	

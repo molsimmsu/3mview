@@ -31,6 +31,7 @@
 
 // include classes to be registered
 #include "processors/segmentationbase.h"
+#include "processors/segmentationprocessor.h"
 #include "processors/densitymapmanipulation.h"
 #include "processors/densitymapcollectionsource.h"
 #include "io/mrcvolumereader.h"
@@ -44,6 +45,7 @@ ElectronDensityModule::ElectronDensityModule(const std::string& modulePath)
     setName("Electron Density Maps");
     
     registerProcessor(new SegmentationBase());
+    registerProcessor(new SegmentationProcessor());
     registerProcessor(new DensityMapManipulation());
     registerProcessor(new DensityMapCollectionSource());
     

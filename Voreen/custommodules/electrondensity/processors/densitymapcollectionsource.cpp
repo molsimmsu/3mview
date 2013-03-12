@@ -52,7 +52,7 @@ void DensityMapCollectionSource::applyTransformation(tgt::vec3 offset, tgt::mat4
             static_cast<Volume*>(volume)->setOffset(volumeOffset);
             
             tgt::mat4 transform = volume->getPhysicalToWorldMatrix();
-            static_cast<Volume*>(volume)->setPhysicalToWorldMatrix(transform * matrix);
+            static_cast<Volume*>(volume)->setPhysicalToWorldMatrix(matrix * transform);
         }
         
 
