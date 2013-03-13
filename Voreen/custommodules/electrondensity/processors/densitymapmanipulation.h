@@ -3,17 +3,16 @@
 
 #include "densitymapcollectionsource.h"
 #include "densitymapcoprocessor.h"
-
 #include "../../geometry/processors/manipulationbase.h"
-#include "../properties/volumeselectionproperty.h"
 
-namespace voreen {
+#include "voreen/core/properties/volumeurllistproperty.h"
+using namespace voreen;
  
 class DensityMapManipulation : virtual public ManipulationBase, virtual public DensityMapCoProcessor {
 public:
     DensityMapManipulation();
-    virtual ~DensityMapManipulation();
-    virtual Processor* create() const;
+    virtual ~DensityMapManipulation() {}
+    virtual Processor* create() const { return new DensityMapManipulation(); }
 
     virtual std::string getClassName() const { return "DensityMapManipulation";       }
     virtual std::string getCategory() const  { return "Density Map Manipulation";      }
@@ -33,9 +32,8 @@ private:
     
     virtual void applyTransformation(tgt::vec3 offset, tgt::mat4 matrix);
     
-    VolumeSelectionProperty volumeSelection_;
+    VolumeURLListProperty volumeURLList_;
+    bool allowInvalidation_;
 };
-
-} // namespace
 
 #endif // VRN_DENSITYMAPMANIPULATION_H

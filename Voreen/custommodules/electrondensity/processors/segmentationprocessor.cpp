@@ -73,7 +73,7 @@ void SegmentationProcessor::fillSegment(Segmentation& seg, svec3 voxel, seg_t se
 				if (emptyVoxel(seg, neighbour)) {
 					newFront->push_back(neighbour);
 					seg.segmentation->voxel(neighbour) = segID;
-					std::cout << "Setting segment ID " << (int)segID << " to voxel" << neighbour << std::endl;
+					//std::cout << "Setting segment ID " << (int)segID << " to voxel" << neighbour << std::endl;
 				}
 			}
 		}
@@ -87,7 +87,7 @@ void SegmentationProcessor::fillSegment(Segmentation& seg, svec3 voxel, seg_t se
 SegmentationProcessor::SegmentationProcessor()
   : inport_(Port::INPORT, "inport", "Volume Inport")
   , outport_(Port::OUTPORT, "outport", "Segmentation Outport")
-  , threshold_("threshold", "Normalized Threshold", 0.5, 0.0, 1.0)
+  , threshold_("threshold", "Normalized Threshold", 0.0, -10.0, 10.0)
   , startButton_("segStart", "Start Segmentation")
 {
 	addPort(inport_);
