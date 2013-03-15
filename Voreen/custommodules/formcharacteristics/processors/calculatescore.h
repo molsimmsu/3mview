@@ -31,7 +31,7 @@ private:
     VolumePort  		  volinport_;
     StringProperty         output_;  
     
-    const std::string loggerCat_;
+    static const std::string loggerCat_;
  
 };
 

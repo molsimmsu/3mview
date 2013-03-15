@@ -8,7 +8,7 @@ DensityMapManipulation::DensityMapManipulation()
 	allowInvalidation_ = true;
 }
 
-void DensityMapManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 matrix) {
+void DensityMapManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 transform) {
         const VolumeCollection* collection = volumeURLList_.getVolumes(false);
         if (collection == 0 || collection->size() == 0) return;
         
@@ -23,8 +23,8 @@ void DensityMapManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 mat
             tgt::vec3 volumeOffset = volume->getOffset() + offset;
             static_cast<Volume*>(volume)->setOffset(volumeOffset);
             
-            tgt::mat4 transform = volume->getPhysicalToWorldMatrix();
-            static_cast<Volume*>(volume)->setPhysicalToWorldMatrix(matrix * transform);
+            tgt::mat4 matrix = volume->getPhysicalToWorldMatrix();
+            static_cast<Volume*>(volume)->setPhysicalToWorldMatrix(transform * matrix);
         }
         
         DensityMapCollectionSource* source = getSourceProcessor();

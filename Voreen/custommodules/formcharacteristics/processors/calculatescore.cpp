@@ -1,6 +1,6 @@
 #include "calculatescore.h"
 
-const std::string CalculateScore::loggerCat_("voreen.Processor");
+const std::string CalculateScore::loggerCat_("3mview.CalculateScore");
 
 CalculateScore :: CalculateScore()
   : Processor(),
@@ -17,6 +17,7 @@ void CalculateScore :: process()
     LINFO("Running module CalculateScore");
 	tgt::svec3 dims   = volinport_.getData()->getDimensions();
 	tgt::vec3  space  = volinport_.getData()->getSpacing();
+	clock_t time = clock();
      double result_d = 0;
 	const VolumeRAM* vr = (volinport_.getData())->getRepresentation<VolumeRAM>();
 
@@ -33,5 +34,7 @@ void CalculateScore :: process()
 	result << result_d;
 	const std::string out = result.str();
 	output_.set(out);
-	LINFO("Module CalculateScore successfully finished in ... seconds");
+	std::ostringstream message;
+	message << "Module CalculateScore successfully finished in " <<  ((double)clock() - time)/CLOCKS_PER_SEC << " seconds";
+	LINFO(message.str().c_str());
 }
