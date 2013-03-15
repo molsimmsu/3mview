@@ -1,6 +1,6 @@
 #include "electrondensitymodule.h"
 
-#include "processors/segmentationprocessor.h"
+#include "processors/segmentation.h"
 #include "processors/densitymapmanipulation.h"
 #include "processors/densitymapcollectionsource.h"
 #include "io/mrcvolumereader.h"

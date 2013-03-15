@@ -1,4 +1,4 @@
-#include "segmentationprocessor.h"
+#include "segmentation.h"
 
 SegmentationProcessor::SegmentationProcessor()
   : inport_(Port::INPORT, "inport", "Volume Inport")
@@ -37,8 +37,7 @@ Volume* SegmentationProcessor::findSeeds(const VolumeBase* volume, float thresho
 	SegVolumeRAM* segData = new SegVolumeRAM(dim);
 	Segmentation* seg = new Segmentation(volData, segData, threshold);
 	
-	svec3 v; // position of a voxel
-	
+	svec3 v;
 	FOR_EACH_VOXEL(v, svec3(0,0,0), dim)
 		seg->segmentation->voxel(v) = 0;
 	
@@ -47,8 +46,6 @@ Volume* SegmentationProcessor::findSeeds(const VolumeBase* volume, float thresho
 	uint32_t numProcessedVoxels = 0, numTotalVoxels = dim[0] * dim[1] * dim[2];
 	
 	seeds.clear();
-	
-	
 	
 	for (v[0] = 0; v[0] < dim[0]; v[0]++) {
 	for (v[1] = 0; v[1] < dim[1]; v[1]++)
@@ -97,11 +94,14 @@ Volume* SegmentationProcessor::growSeeds(const VolumeBase* volume, float thresho
 		    Front* newFront = expandFront(seg, fronts[i], i+1);
 		    delete fronts[i];
 		    fronts[i] = newFront;
-		    
-		    if (newFront->size() == 0)
-		        fronts.erase(fronts.begin() + i);
 	    }
 	    
+	    // stop when there is not a single front expanded on this iteration
+	    size_t numActiveFronts = 0;
+	    for (size_t i = 0; i < fronts.size(); i++) 
+	        if (fronts[i]->size() > 0) numActiveFronts++;
+	        
+	    if (numActiveFronts == 0) break;
 	}
 	
 	std::stringstream statusText;
@@ -113,25 +113,25 @@ Volume* SegmentationProcessor::growSeeds(const VolumeBase* volume, float thresho
 }
 
 Front* SegmentationProcessor::expandFront(Segmentation* seg, const Front* front, seg_t segID) {
-		Front* newFront = new Front();
-		
-		svec3 dim = seg->volume->getDimensions();
-		
-		for (size_t i = 0; i < front->size(); i++) {
-			svec3 rel;
-			FOR_EACH_VOXEL(rel, svec3(0,0,0), svec3(3,3,3)) {
-				svec3 neighbour = front->at(i) + rel - svec3(1,1,1);
-				if (neighbour[0] < 0 || neighbour[1] < 0 || neighbour[2] < 0) continue;
-				if (neighbour[0] >= dim[0] || neighbour[1] >= dim[1] || neighbour[2] >= dim[2]) continue;
-				
-				if (emptyVoxel(seg, neighbour)) {
-					newFront->push_back(neighbour);
-					seg->segmentation->voxel(neighbour) = segID;
-				}
+	Front* newFront = new Front();
+	
+	svec3 dim = seg->volume->getDimensions();
+	
+	for (size_t i = 0; i < front->size(); i++) {
+		svec3 rel;
+		FOR_EACH_VOXEL(rel, svec3(0,0,0), svec3(3,3,3)) {
+			svec3 neighbour = front->at(i) + rel - svec3(1,1,1);
+			if (neighbour[0] < 0 || neighbour[1] < 0 || neighbour[2] < 0) continue;
+			if (neighbour[0] >= dim[0] || neighbour[1] >= dim[1] || neighbour[2] >= dim[2]) continue;
+			
+			if (emptyVoxel(seg, neighbour)) {
+				newFront->push_back(neighbour);
+				seg->segmentation->voxel(neighbour) = segID;
 			}
 		}
-		
-		return newFront;
+	}
+	
+	return newFront;
 }
 
 void SegmentationProcessor::fillSegment(Segmentation* seg, svec3 voxel, seg_t segID) {
