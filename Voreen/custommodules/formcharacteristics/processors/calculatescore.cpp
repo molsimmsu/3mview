@@ -1,5 +1,7 @@
 #include "calculatescore.h"
 
+const std::string CalculateScore::loggerCat_("voreen.Processor");
+
 CalculateScore :: CalculateScore()
   : Processor(),
     output_("scoretext", "Current Score", ""),
@@ -11,7 +13,8 @@ CalculateScore :: CalculateScore()
 }
 
 void CalculateScore :: process()
-{  
+{
+    LINFO("Running module CalculateScore");
 	tgt::svec3 dims   = volinport_.getData()->getDimensions();
 	tgt::vec3  space  = volinport_.getData()->getSpacing();
      double result_d = 0;
@@ -24,8 +27,11 @@ void CalculateScore :: process()
 					result_d += (vr->getVoxelNormalized(i, j, k))*(vr->getVoxelNormalized(i, j, k));
 				}
 	result_d *= space[0]*space[1]*space[2];
-     std::ostringstream result;
+	result_d = sqrt(result_d);    
+ // result_d /= dims[0]*dims[1]*dims[2];
+    std::ostringstream result;
 	result << result_d;
 	const std::string out = result.str();
 	output_.set(out);
+	LINFO("Module CalculateScore successfully finished in ... seconds");
 }
