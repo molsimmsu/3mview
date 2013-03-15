@@ -5,21 +5,22 @@
             <MetaData>
                 <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
                     <values>
-                        <item type="SegmentationRaycaster" ref="ref4" />
+                        <item type="SegmentationProcessor" ref="ref4" />
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
-                    <value x="-378.390625" y="-12" />
+                    <value x="-427.18841553" y="-50.7550621" />
                 </MetaItem>
+                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.7092889" />
             </MetaData>
             <Processors>
                 <Processor type="Canvas" name="Canvas" id="ref1">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-473" y="198" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="445" y="333" width="321" height="319" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="633" y="315" width="321" height="319" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="445" y="333" />
+                            <value x="633" y="315" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="321" y="319" />
@@ -37,7 +38,7 @@
                     <Inports>
                         <Port name="image.input">
                             <Properties>
-                                <Property name="image.input.renderSizeOrigin" id="ref9">
+                                <Property name="image.input.renderSizeOrigin" id="ref13">
                                     <value x="321" y="319" />
                                 </Property>
                             </Properties>
@@ -100,7 +101,7 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-478" y="-282" />
                     </MetaData>
                     <Properties>
-                        <Property name="volumeURL" url="../../../Tests/1aph.ccp4?preferredReader=MRCVolumeReader" />
+                        <Property name="volumeURL" url="../../../Tests/EMD-2013.ccp4?preferredReader=MRCVolumeReader" />
                     </Properties>
                     <Inports />
                     <Outports>
@@ -117,13 +118,13 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-401" y="-90" />
                     </MetaData>
                     <Properties>
-                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="10397.05078125" fovy="45.00000381" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref7">
+                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="113411.921875" fovy="45.00000381" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref7">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="721" y="372" />
                             </MetaData>
-                            <position x="-33.60149384" y="-5.3432622" z="-9.27345276" />
-                            <focus x="23.3456192" y="38.34325409" z="30.85879707" />
-                            <upVector x="0.19700742" y="-0.79007286" z="0.58049381" />
+                            <position x="-364.71878052" y="-52.15955353" z="228.17001343" />
+                            <focus x="0" y="0" z="0" />
+                            <upVector x="0.52561897" y="0.04162804" z="0.84970111" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -140,7 +141,7 @@
                         <Port name="image.entrypoints">
                             <Properties>
                                 <Property name="blockEvents" value="false" />
-                                <Property name="image.entrypoints.renderSizeReceive" id="ref12">
+                                <Property name="image.entrypoints.renderSizeReceive" id="ref10">
                                     <value x="321" y="319" />
                                 </Property>
                             </Properties>
@@ -148,7 +149,7 @@
                         <Port name="image.exitpoints">
                             <Properties>
                                 <Property name="blockEvents" value="false" />
-                                <Property name="image.exitpoints.renderSizeReceive" id="ref14">
+                                <Property name="image.exitpoints.renderSizeReceive" id="ref12">
                                     <value x="321" y="319" />
                                 </Property>
                             </Properties>
@@ -180,13 +181,13 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-400" y="-181" />
                     </MetaData>
                     <Properties>
-                        <Property name="backClippingPlane" value="62" />
+                        <Property name="backClippingPlane" value="127" />
                         <Property name="bottomClippingPlane" value="0" />
                         <Property name="frontClippingPlane" value="0" />
-                        <Property name="leftClippingPlane" value="53" />
+                        <Property name="leftClippingPlane" value="127" />
                         <Property name="resetClipPlanes" />
                         <Property name="rightClippingPlane" value="0" />
-                        <Property name="topClippingPlane" value="52" />
+                        <Property name="topClippingPlane" value="127" />
                         <Property name="useClipping" value="true" />
                     </Properties>
                     <Inports>
@@ -207,13 +208,21 @@
                     </Outports>
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="SegmentationProcessor" name="SegmentationProcessor" id="ref5">
+                <Processor type="SegmentationProcessor" name="SegmentationProcessor" id="ref4">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-564" y="-154" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-550" y="-97" />
                     </MetaData>
                     <Properties>
-                        <Property name="segStart" />
-                        <Property name="threshold" value="0.38999999" />
+                        <Property name="growButton" />
+                        <Property name="growThreshold" value="4.4000001" />
+                        <Property name="seedButton" />
+                        <Property name="seedThreshold" value="7.4000001" />
+                        <Property name="status">
+                            <value>
+                                <![CDATA[Growth finished
+]]>
+                            </value>
+                        </Property>
                     </Properties>
                     <Inports>
                         <Port name="inport">
@@ -233,16 +242,16 @@
                     </Outports>
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="SegmentationRaycaster" name="SegmentationRaycaster" id="ref4">
+                <Processor type="SegmentationRaycaster" name="SegmentationRaycaster" id="ref5">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-515" y="-9" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-492" y="10" />
                     </MetaData>
                     <Properties>
                         <Property name="SegmentationRaycaster.SegmentTransFuncs">
                             <ElementProperties>
                                 <Property name="SegmentationRaycaster.SegmentTransFunc0" AlwaysFitDomain="false">
                                     <MetaData>
-                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" width="598" height="294" />
+                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                                     </MetaData>
                                     <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                         <Keys>
@@ -2042,7 +2051,7 @@
                                                 <colorL r="0" g="0" b="0" a="0" />
                                             </key>
                                             <key type="TransFuncMappingKey" intensity="1" split="false">
-                                                <colorL r="145" g="255" b="0" a="255" />
+                                                <colorL r="255" g="162" b="0" a="255" />
                                             </key>
                                         </Keys>
                                         <domain x="0" y="1" />
@@ -3114,7 +3123,7 @@
                                                 <colorL r="0" g="0" b="0" a="0" />
                                             </key>
                                             <key type="TransFuncMappingKey" intensity="1" split="false">
-                                                <colorL r="0" g="200" b="255" a="255" />
+                                                <colorL r="255" g="255" b="0" a="255" />
                                             </key>
                                         </Keys>
                                         <domain x="0" y="1" />
@@ -3290,7 +3299,7 @@
                                                 <colorL r="0" g="0" b="0" a="0" />
                                             </key>
                                             <key type="TransFuncMappingKey" intensity="1" split="false">
-                                                <colorL r="8" g="0" b="255" a="255" />
+                                                <colorL r="17" g="255" b="0" a="255" />
                                             </key>
                                         </Keys>
                                         <domain x="0" y="1" />
@@ -3458,7 +3467,7 @@
                                 </Property>
                                 <Property name="SegmentationRaycaster.SegmentTransFunc5" AlwaysFitDomain="false">
                                     <MetaData>
-                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
+                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" width="598" height="294" />
                                     </MetaData>
                                     <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                         <Keys>
@@ -3466,7 +3475,7 @@
                                                 <colorL r="0" g="0" b="0" a="0" />
                                             </key>
                                             <key type="TransFuncMappingKey" intensity="1" split="false">
-                                                <colorL r="255" g="255" b="255" a="255" />
+                                                <colorL r="0" g="247" b="255" a="255" />
                                             </key>
                                         </Keys>
                                         <domain x="0" y="1" />
@@ -3634,7 +3643,7 @@
                                 </Property>
                                 <Property name="SegmentationRaycaster.SegmentTransFunc6" AlwaysFitDomain="false">
                                     <MetaData>
-                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
+                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" width="598" height="294" />
                                     </MetaData>
                                     <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                         <Keys>
@@ -3642,7 +3651,7 @@
                                                 <colorL r="0" g="0" b="0" a="0" />
                                             </key>
                                             <key type="TransFuncMappingKey" intensity="1" split="false">
-                                                <colorL r="255" g="255" b="255" a="255" />
+                                                <colorL r="0" g="8" b="255" a="255" />
                                             </key>
                                         </Keys>
                                         <domain x="0" y="1" />
@@ -3810,7 +3819,7 @@
                                 </Property>
                                 <Property name="SegmentationRaycaster.SegmentTransFunc7" AlwaysFitDomain="false">
                                     <MetaData>
-                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
+                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" width="598" height="294" />
                                     </MetaData>
                                     <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                         <Keys>
@@ -3818,7 +3827,7 @@
                                                 <colorL r="0" g="0" b="0" a="0" />
                                             </key>
                                             <key type="TransFuncMappingKey" intensity="1" split="false">
-                                                <colorL r="255" g="255" b="255" a="255" />
+                                                <colorL r="230" g="0" b="255" a="255" />
                                             </key>
                                         </Keys>
                                         <domain x="0" y="1" />
@@ -4338,7 +4347,7 @@
                                 </Property>
                             </ElementProperties>
                         </Property>
-                        <Property name="SegmentationRaycaster.TransFunc" AlwaysFitDomain="false">
+                        <Property name="SegmentationRaycaster.TransFunc" AlwaysFitDomain="true">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                             </MetaData>
@@ -4347,21 +4356,24 @@
                                     <key type="TransFuncMappingKey" intensity="0" split="false">
                                         <colorL r="0" g="0" b="0" a="0" />
                                     </key>
-                                    <key type="TransFuncMappingKey" intensity="1" split="false">
-                                        <colorL r="255" g="255" b="255" a="255" />
+                                    <key type="TransFuncMappingKey" intensity="0.67206478" split="false">
+                                        <colorL r="142" g="142" b="142" a="0" />
+                                    </key>
+                                    <key type="TransFuncMappingKey" intensity="0.67206478" split="false">
+                                        <colorL r="0" g="157" b="26" a="255" />
                                     </key>
                                 </Keys>
-                                <domain x="0" y="1" />
+                                <domain x="-1.68775153" y="13.48355961" />
                             </TransferFunction>
                         </Property>
                         <Property name="SegmentationRaycatser.applySegmentation" value="true" />
-                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="10397.05078125" fovy="45.00000381" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref8">
+                        <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="113411.921875" fovy="45.00000381" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref8">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-33.60149384" y="-5.3432622" z="-9.27345276" />
-                            <focus x="23.3456192" y="38.34325409" z="30.85879707" />
-                            <upVector x="0.19700742" y="-0.79007286" z="0.58049381" />
+                            <position x="-364.71878052" y="-52.15955353" z="228.17001343" />
+                            <focus x="0" y="0" z="0" />
+                            <upVector x="0.52561897" y="0.04162804" z="0.84970111" />
                         </Property>
                         <Property name="compositing" value="dvr" />
                         <Property name="compositing1" value="dvr" />
@@ -4390,21 +4402,21 @@
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                             </MetaData>
                         </Property>
-                        <Property name="samplingRate" value="2" />
-                        <Property name="segmentationRaycaster.transFuncResolution" value="128" />
+                        <Property name="samplingRate" value="2.18000007" />
+                        <Property name="segmentationRaycaster.transFuncResolution" value="256" />
                         <Property name="shading" value="phong" />
                     </Properties>
                     <Inports>
                         <Port name="image.entrypoints">
                             <Properties>
-                                <Property name="image.entrypoints.renderSizeOrigin" id="ref11">
+                                <Property name="image.entrypoints.renderSizeOrigin" id="ref9">
                                     <value x="321" y="319" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.exitpoints">
                             <Properties>
-                                <Property name="image.exitpoints.renderSizeOrigin" id="ref13">
+                                <Property name="image.exitpoints.renderSizeOrigin" id="ref11">
                                     <value x="321" y="319" />
                                 </Property>
                             </Properties>
@@ -4428,7 +4440,7 @@
                         <Port name="image.outport1">
                             <Properties>
                                 <Property name="blockEvents" value="false" />
-                                <Property name="image.outport1.renderSizeReceive" id="ref10">
+                                <Property name="image.outport1.renderSizeReceive" id="ref14">
                                     <value x="321" y="319" />
                                 </Property>
                             </Properties>
@@ -4474,16 +4486,16 @@
                     <Outport name="volumehandle.volumehandle">
                         <Processor type="VolumeSource" ref="ref2" />
                     </Outport>
-                    <Inport name="volumehandle.volumehandle">
-                        <Processor type="SegmentationRaycaster" ref="ref4" />
+                    <Inport name="inport">
+                        <Processor type="SegmentationProcessor" ref="ref4" />
                     </Inport>
                 </Connection>
                 <Connection>
                     <Outport name="volumehandle.volumehandle">
                         <Processor type="VolumeSource" ref="ref2" />
                     </Outport>
-                    <Inport name="inport">
-                        <Processor type="SegmentationProcessor" ref="ref5" />
+                    <Inport name="volumehandle.volumehandle">
+                        <Processor type="SegmentationRaycaster" ref="ref5" />
                     </Inport>
                 </Connection>
                 <Connection>
@@ -4491,7 +4503,7 @@
                         <Processor type="MeshEntryExitPoints" ref="ref6" />
                     </Outport>
                     <Inport name="image.entrypoints">
-                        <Processor type="SegmentationRaycaster" ref="ref4" />
+                        <Processor type="SegmentationRaycaster" ref="ref5" />
                     </Inport>
                 </Connection>
                 <Connection>
@@ -4499,7 +4511,7 @@
                         <Processor type="MeshEntryExitPoints" ref="ref6" />
                     </Outport>
                     <Inport name="image.exitpoints">
-                        <Processor type="SegmentationRaycaster" ref="ref4" />
+                        <Processor type="SegmentationRaycaster" ref="ref5" />
                     </Inport>
                 </Connection>
                 <Connection>
@@ -4512,15 +4524,15 @@
                 </Connection>
                 <Connection>
                     <Outport name="outport">
-                        <Processor type="SegmentationProcessor" ref="ref5" />
+                        <Processor type="SegmentationProcessor" ref="ref4" />
                     </Outport>
                     <Inport name="volumehandle.segmentation">
-                        <Processor type="SegmentationRaycaster" ref="ref4" />
+                        <Processor type="SegmentationRaycaster" ref="ref5" />
                     </Inport>
                 </Connection>
                 <Connection>
                     <Outport name="image.outport1">
-                        <Processor type="SegmentationRaycaster" ref="ref4" />
+                        <Processor type="SegmentationRaycaster" ref="ref5" />
                     </Outport>
                     <Inport name="image.input">
                         <Processor type="Background" ref="ref0" />

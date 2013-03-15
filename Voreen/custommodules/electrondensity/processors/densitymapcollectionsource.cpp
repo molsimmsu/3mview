@@ -35,6 +35,14 @@ void DensityMapCollectionSource::initialize() throw (tgt::Exception) {
 
 void DensityMapCollectionSource::invalidate(int inv) {
     outport_.setData(volumeURLList_.getVolumes(true), true);
+    
+    /*const std::vector<CoProcessorPort*>& coProcessorOutports =  getCoProcessorOutports();
+    
+    for (size_t i=0; i<coProcessorOutports.size(); ++i) {
+        const std::vector<const Port*> getConnected() const;
+        std::vector<Processor*> processors = coProcessorOutports[i]->getConnectedProcessors();
+    }*/
+    
     Processor::invalidate(inv);
 }
 

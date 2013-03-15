@@ -1,0 +1,386 @@
+<?xml version="1.0" ?>
+<VoreenData version="1">
+    <Workspace version="2" GlobalDescription="">
+        <ProcessorNetwork version="13">
+            <MetaData>
+                <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
+                    <values>
+                        <item type="PrimitiveGeometrySource" ref="ref3" />
+                    </values>
+                </MetaItem>
+                <MetaItem name="ZoomCenter" type="Vec2MetaData">
+                    <value x="-34.27183533" y="-294.01626587" />
+                </MetaItem>
+                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.55439109" />
+                <MetaItem name="autoLinkCameras" type="BoolMetaData" value="true" />
+                <MetaItem name="autoLinkPortSize" type="BoolMetaData" value="true" />
+            </MetaData>
+            <Processors>
+                <Processor type="Canvas" name="Canvas" id="ref1">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="79" y="-51" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="278" y="318" width="403" height="347" />
+                        <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
+                        <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
+                            <value x="278" y="318" />
+                        </MetaItem>
+                        <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
+                            <value x="403" y="347" />
+                        </MetaItem>
+                    </MetaData>
+                    <Properties>
+                        <Property name="canvasSize" lod="1">
+                            <value x="403" y="347" />
+                        </Property>
+                        <Property name="saveScreenshot" lod="1" />
+                        <Property name="screenshotFilename" lod="1" noPathSet="true" value="" />
+                        <Property name="showCursor" lod="1" value="true" />
+                        <Property name="showFullScreen" lod="1" value="false" />
+                    </Properties>
+                    <Inports>
+                        <Port name="image.input">
+                            <Properties>
+                                <Property name="image.input.renderSizeOrigin" lod="1" id="ref9">
+                                    <value x="403" y="347" />
+                                </Property>
+                            </Properties>
+                        </Port>
+                        <Port name="image.inputLeft">
+                            <Properties>
+                                <Property name="image.inputLeft.renderSizeOrigin" lod="1">
+                                    <value x="403" y="347" />
+                                </Property>
+                            </Properties>
+                        </Port>
+                        <Port name="image.inputRight">
+                            <Properties>
+                                <Property name="image.inputRight.renderSizeOrigin" lod="1">
+                                    <value x="403" y="347" />
+                                </Property>
+                            </Properties>
+                        </Port>
+                    </Inports>
+                    <Outports />
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="Background" name="Background" id="ref0">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="67" y="-151" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="angle" lod="1" value="60" />
+                        <Property name="backgroundModeAsString" lod="1" value="gradient" />
+                        <Property name="color1" lod="1">
+                            <value x="1" y="1" z="1" w="1" />
+                        </Property>
+                        <Property name="color2" lod="1">
+                            <value x="0.39215687" y="0.14509805" z="0.34509805" w="1" />
+                        </Property>
+                        <Property name="repeat" lod="1" value="1" />
+                        <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
+                            <MetaData>
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
+                            </MetaData>
+                        </Property>
+                        <Property name="texture" lod="1" noPathSet="false" value="../../../Desktop/ubuntu-13.04-wallpaper-oficial.jpg" />
+                    </Properties>
+                    <Inports>
+                        <Port name="image.input">
+                            <Properties />
+                        </Port>
+                    </Inports>
+                    <Outports>
+                        <Port name="image.output">
+                            <Properties>
+                                <Property name="blockEvents" lod="1" value="false" />
+                            </Properties>
+                        </Port>
+                    </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="GeometryProcessor" name="GeometryProcessor" id="ref2">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="89" y="-308" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0">
+                            <MetaData>
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
+                            </MetaData>
+                            <position x="-96.28540802" y="-249.43966675" z="33.0032959" />
+                            <focus x="-0.62452185" y="-45.41930008" z="21.34880257" />
+                            <upVector x="0.53139615" y="-0.09003531" z="-0.84232521" />
+                        </Property>
+                        <Property name="renderGeometries" lod="1" value="true" />
+                    </Properties>
+                    <Inports>
+                        <Port name="image.input">
+                            <Properties>
+                                <Property name="image.input.renderSizeOrigin" lod="1">
+                                    <value x="403" y="347" />
+                                </Property>
+                            </Properties>
+                        </Port>
+                    </Inports>
+                    <Outports>
+                        <Port name="image.output">
+                            <Properties>
+                                <Property name="blockEvents" lod="1" value="false" />
+                                <Property name="image.output.renderSizeReceive" lod="1" id="ref10">
+                                    <value x="403" y="347" />
+                                </Property>
+                            </Properties>
+                        </Port>
+                    </Outports>
+                    <InteractionHandlers>
+                        <Handler name="cameraHandler">
+                            <Properties>
+                                <Property name="cameraHandler.adjustCamera" value="bigsizechange" />
+                                <Property name="cameraHandler.interactionMetaphor" value="trackball" />
+                                <Property name="cameraHandler.moveBackward" lod="1" enabled="false" mouseAction="0" mouseButtons="0" keyCode="115" modifier="0" shareEvents="false" />
+                                <Property name="cameraHandler.moveDown" lod="1" enabled="false" mouseAction="0" mouseButtons="0" keyCode="102" modifier="0" shareEvents="false" />
+                                <Property name="cameraHandler.moveForward" lod="1" enabled="false" mouseAction="0" mouseButtons="0" keyCode="119" modifier="0" shareEvents="false" />
+                                <Property name="cameraHandler.moveLeft" lod="1" enabled="false" mouseAction="0" mouseButtons="0" keyCode="97" modifier="0" shareEvents="false" />
+                                <Property name="cameraHandler.moveRight" lod="1" enabled="false" mouseAction="0" mouseButtons="0" keyCode="100" modifier="0" shareEvents="false" />
+                                <Property name="cameraHandler.moveUp" lod="1" enabled="false" mouseAction="0" mouseButtons="0" keyCode="114" modifier="0" shareEvents="false" />
+                                <Property name="cameraHandler.resetTrackballCenter" />
+                                <Property name="cameraHandler.rotate" lod="1" enabled="false" mouseAction="127" mouseButtons="1" keyCode="0" modifier="0" shareEvents="false" />
+                                <Property name="cameraHandler.shift" lod="1" enabled="false" mouseAction="127" mouseButtons="1" keyCode="0" modifier="1" shareEvents="false" />
+                                <Property name="cameraHandler.shiftTrackballCenter" value="scenecenter" />
+                                <Property name="cameraHandler.wheelZoom" lod="1" enabled="false" mouseAction="16" mouseButtons="96" keyCode="0" modifier="0" shareEvents="false" />
+                                <Property name="cameraHandler.zoom" lod="1" enabled="false" mouseAction="127" mouseButtons="4" keyCode="0" modifier="0" shareEvents="false" />
+                            </Properties>
+                        </Handler>
+                    </InteractionHandlers>
+                </Processor>
+                <Processor type="GeometryRenderer" name="Axes Renderer" id="ref4">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-8" y="-450" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="enableLighting" lod="1" value="false" />
+                        <Property name="lightAmbient" lod="1">
+                            <value x="0.40000001" y="0.40000001" z="0.40000001" w="1" />
+                        </Property>
+                        <Property name="lightDiffuse" lod="1">
+                            <value x="0.80000001" y="0.80000001" z="0.80000001" w="1" />
+                        </Property>
+                        <Property name="lightPosition" lod="1">
+                            <value x="2.29999995" y="1.5" z="1.5" w="1" />
+                        </Property>
+                        <Property name="lightSpecular" lod="1">
+                            <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
+                        </Property>
+                        <Property name="mapTexture" lod="1" value="false" />
+                        <Property name="materialShininess" lod="1" value="60" />
+                        <Property name="polygonMode" lod="1" value="fill" />
+                        <Property name="textureMode" lod="1" value="replace" />
+                    </Properties>
+                    <Inports>
+                        <Port name="inport.geometry">
+                            <Properties />
+                        </Port>
+                        <Port name="inport.texture">
+                            <Properties />
+                        </Port>
+                    </Inports>
+                    <Outports />
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="PrimitiveGeometrySource" name="AxesGeometry" id="ref3">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="35" y="-624" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="clearGeometry" lod="1" />
+                        <Property name="geometryType" lod="1" value="axes" />
+                        <Property name="inputFile" lod="1" noPathSet="true" value="" />
+                        <Property name="loadGeometry" lod="1" />
+                        <Property name="polylineTangent" lod="1" value="1" />
+                    </Properties>
+                    <Inports />
+                    <Outports>
+                        <Port name="geometry.pointlist">
+                            <Properties>
+                                <Property name="blockEvents" lod="1" value="false" />
+                            </Properties>
+                        </Port>
+                    </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="MoleculeCollectionSource" name="Molecule Collection Source" id="ref5">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-282" y="-650" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="inputFile" noPathSet="false" value="../../../../Tests/4e7v.pdb" />
+                        <Property name="invertDirection" value="false" />
+                        <Property name="loadMolecule" />
+                        <Property name="manipulationAxis" value="y" />
+                        <Property name="manipulationSlider" value="0.51999998" />
+                        <Property name="manipulationType" value="rotate" />
+                    </Properties>
+                    <Inports />
+                    <Outports>
+                        <Port name="moleculecollection">
+                            <Properties>
+                                <Property name="blockEvents" value="false" />
+                            </Properties>
+                        </Port>
+                    </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="MoleculeCollectionGeometryBuilder" name="Molecule Representation" id="ref6">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-235" y="-455" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="repType" value="atomsAndBonds" />
+                        <Property name="showCoords" value="false" />
+                        <Property name="traceCylinderRadius" value="0.1" />
+                        <Property name="traceNumCylinderSides" value="5" />
+                        <Property name="traceNumSteps" value="4" />
+                        <Property name="traceTangentLength" value="1.5" />
+                    </Properties>
+                    <Inports>
+                        <Port name="molecule">
+                            <Properties />
+                        </Port>
+                    </Inports>
+                    <Outports>
+                        <Port name="geometry">
+                            <Properties>
+                                <Property name="blockEvents" value="false" />
+                            </Properties>
+                        </Port>
+                    </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="GeometryCollectionRenderer" name="Molecule Renderer" id="ref7">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-147" y="-306" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="enableLighting" value="false" />
+                        <Property name="lightAmbient">
+                            <value x="0.40000001" y="0.40000001" z="0.40000001" w="1" />
+                        </Property>
+                        <Property name="lightDiffuse">
+                            <value x="0.80000001" y="0.80000001" z="0.80000001" w="1" />
+                        </Property>
+                        <Property name="lightPosition">
+                            <value x="2.29999995" y="1.5" z="1.5" w="1" />
+                        </Property>
+                        <Property name="lightSpecular">
+                            <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
+                        </Property>
+                        <Property name="mapTexture" value="false" />
+                        <Property name="materialShininess" value="60" />
+                        <Property name="polygonMode" value="fill" />
+                        <Property name="textureMode" value="replace" />
+                    </Properties>
+                    <Inports>
+                        <Port name="inport.geometry">
+                            <Properties />
+                        </Port>
+                        <Port name="inport.texture">
+                            <Properties />
+                        </Port>
+                    </Inports>
+                    <Outports />
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="MultipleSequenceFinder" name="Homology Finder" id="ref8">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-69" y="-716" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="findDomains" />
+                        <Property name="loadSequence" noPathSet="true" value="" />
+                        <Property name="maxDomainsToLoad" value="3" />
+                        <Property name="sequenceText" value="KPFQCRICMRNFSRSDHLTTHIRTHTGARPYACPVESCDRRFSRSADLTRHIRIHTGQA" />
+                    </Properties>
+                    <Inports />
+                    <Outports />
+                    <InteractionHandlers />
+                </Processor>
+            </Processors>
+            <Connections>
+                <Connection>
+                    <Outport name="image.output">
+                        <Processor type="Background" ref="ref0" />
+                    </Outport>
+                    <Inport name="image.input">
+                        <Processor type="Canvas" ref="ref1" />
+                    </Inport>
+                </Connection>
+                <Connection>
+                    <Outport name="image.output">
+                        <Processor type="GeometryProcessor" ref="ref2" />
+                    </Outport>
+                    <Inport name="image.input">
+                        <Processor type="Background" ref="ref0" />
+                    </Inport>
+                </Connection>
+                <Connection>
+                    <Outport name="geometry.pointlist">
+                        <Processor type="PrimitiveGeometrySource" ref="ref3" />
+                    </Outport>
+                    <Inport name="inport.geometry">
+                        <Processor type="GeometryRenderer" ref="ref4" />
+                    </Inport>
+                </Connection>
+                <Connection>
+                    <Outport name="moleculecollection">
+                        <Processor type="MoleculeCollectionSource" ref="ref5" />
+                    </Outport>
+                    <Inport name="molecule">
+                        <Processor type="MoleculeCollectionGeometryBuilder" ref="ref6" />
+                    </Inport>
+                </Connection>
+                <Connection>
+                    <Outport name="geometry">
+                        <Processor type="MoleculeCollectionGeometryBuilder" ref="ref6" />
+                    </Outport>
+                    <Inport name="inport.geometry">
+                        <Processor type="GeometryCollectionRenderer" ref="ref7" />
+                    </Inport>
+                </Connection>
+            </Connections>
+            <CoProcessorConnections>
+                <CoProcessorConnection>
+                    <Outport name="coprocessor.geometryrenderer">
+                        <Processor type="GeometryRenderer" ref="ref4" />
+                    </Outport>
+                    <Inport name="coprocessor.geometryrenderers">
+                        <Processor type="GeometryProcessor" ref="ref2" />
+                    </Inport>
+                </CoProcessorConnection>
+                <CoProcessorConnection>
+                    <Outport name="coProcessor">
+                        <Processor type="MoleculeCollectionSource" ref="ref5" />
+                    </Outport>
+                    <Inport name="MoleculeSource">
+                        <Processor type="MultipleSequenceFinder" ref="ref8" />
+                    </Inport>
+                </CoProcessorConnection>
+                <CoProcessorConnection>
+                    <Outport name="coprocessor.geometryrenderer">
+                        <Processor type="GeometryCollectionRenderer" ref="ref7" />
+                    </Outport>
+                    <Inport name="coprocessor.geometryrenderers">
+                        <Processor type="GeometryProcessor" ref="ref2" />
+                    </Inport>
+                </CoProcessorConnection>
+            </CoProcessorConnections>
+            <PropertyLinks>
+                <PropertyLink>
+                    <SourceProperty ref="ref9" />
+                    <DestinationProperty ref="ref10" />
+                    <Evaluator type="LinkEvaluatorRenderSize" />
+                </PropertyLink>
+            </PropertyLinks>
+        </ProcessorNetwork>
+        <Animation />
+    </Workspace>
+</VoreenData>

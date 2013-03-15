@@ -5,13 +5,13 @@
             <MetaData>
                 <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
                     <values>
-                        <item type="Canvas" ref="ref3" />
+                        <item type="DensityMapManipulation" ref="ref17" />
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
-                    <value x="-283.19366455" y="-34.27184677" />
+                    <value x="-389.75460815" y="-589.74530029" />
                 </MetaItem>
-                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.55439091" />
+                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.88004094" />
             </MetaData>
             <Processors>
                 <Processor type="SingleVolumeRaycaster" name="SingleVolumeRaycaster" id="ref0">
@@ -24,9 +24,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="211" y="156" />
                             </MetaData>
-                            <position x="210.6063385" y="382.43328857" z="216.31217957" />
-                            <focus x="44.61940002" y="6.56207132" z="22.02553368" />
-                            <upVector x="0.46004367" y="-0.70723492" z="0.5368228" />
+                            <position x="15.68851757" y="-266.97998047" z="153.80142212" />
+                            <focus x="20.87802505" y="-31.03704071" z="33.46468353" />
+                            <upVector x="0.37316468" y="-0.25305384" z="-0.89258724" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -91,14 +91,14 @@
                         <Port name="image.entrypoints">
                             <Properties>
                                 <Property name="image.entrypoints.renderSizeOrigin" id="ref23">
-                                    <value x="479" y="434" />
+                                    <value x="343" y="416" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.exitpoints">
                             <Properties>
                                 <Property name="image.exitpoints.renderSizeOrigin">
-                                    <value x="479" y="434" />
+                                    <value x="343" y="416" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -115,7 +115,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.output.renderSizeReceive" id="ref28">
-                                    <value x="479" y="434" />
+                                    <value x="343" y="416" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -141,18 +141,18 @@
                 <Processor type="Canvas" name="Canvas" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-432" y="234" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="false" x="525" y="243" width="479" height="434" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="679" y="301" width="343" height="416" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="525" y="243" />
+                            <value x="679" y="301" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
-                            <value x="479" y="434" />
+                            <value x="343" y="416" />
                         </MetaItem>
                     </MetaData>
                     <Properties>
                         <Property name="canvasSize">
-                            <value x="479" y="434" />
+                            <value x="343" y="416" />
                         </Property>
                         <Property name="saveScreenshot" />
                         <Property name="screenshotFilename" noPathSet="true" value="" />
@@ -163,21 +163,21 @@
                         <Port name="image.input">
                             <Properties>
                                 <Property name="image.input.renderSizeOrigin" id="ref27">
-                                    <value x="479" y="434" />
+                                    <value x="343" y="416" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.inputLeft">
                             <Properties>
                                 <Property name="image.inputLeft.renderSizeOrigin">
-                                    <value x="479" y="434" />
+                                    <value x="343" y="416" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.inputRight">
                             <Properties>
                                 <Property name="image.inputRight.renderSizeOrigin">
-                                    <value x="479" y="434" />
+                                    <value x="343" y="416" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -229,9 +229,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="577" y="149" />
                             </MetaData>
-                            <position x="210.6063385" y="382.43328857" z="216.31217957" />
-                            <focus x="44.61940002" y="6.56207132" z="22.02553368" />
-                            <upVector x="0.46004367" y="-0.70723492" z="0.5368228" />
+                            <position x="15.68851757" y="-266.97998047" z="153.80142212" />
+                            <focus x="20.87802505" y="-31.03704071" z="33.46468353" />
+                            <upVector x="0.37316468" y="-0.25305384" z="-0.89258724" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -249,7 +249,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.entrypoints.renderSizeReceive" id="ref24">
-                                    <value x="479" y="434" />
+                                    <value x="343" y="416" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -257,7 +257,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.exitpoints.renderSizeReceive" id="ref25">
-                                    <value x="479" y="434" />
+                                    <value x="343" y="416" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -292,9 +292,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="210.6063385" y="382.43328857" z="216.31217957" />
-                            <focus x="44.61940002" y="6.56207132" z="22.02553368" />
-                            <upVector x="0.46004367" y="-0.70723492" z="0.5368228" />
+                            <position x="15.68851757" y="-266.97998047" z="153.80142212" />
+                            <focus x="20.87802505" y="-31.03704071" z="33.46468353" />
+                            <upVector x="0.37316468" y="-0.25305384" z="-0.89258724" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -344,9 +344,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="210.6063385" y="382.43328857" z="216.31217957" />
-                            <focus x="44.61940002" y="6.56207132" z="22.02553368" />
-                            <upVector x="0.46004367" y="-0.70723492" z="0.5368228" />
+                            <position x="15.68851757" y="-266.97998047" z="153.80142212" />
+                            <focus x="20.87802505" y="-31.03704071" z="33.46468353" />
+                            <upVector x="0.37316468" y="-0.25305384" z="-0.89258724" />
                         </Property>
                         <Property name="renderGeometries" value="true" />
                     </Properties>
@@ -354,7 +354,7 @@
                         <Port name="image.input">
                             <Properties>
                                 <Property name="image.input.renderSizeOrigin">
-                                    <value x="479" y="434" />
+                                    <value x="343" y="416" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -364,7 +364,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.output.renderSizeReceive" id="ref26">
-                                    <value x="479" y="434" />
+                                    <value x="343" y="416" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -397,7 +397,7 @@
                     <Properties>
                         <Property name="addDepth" value="false" />
                         <Property name="blendMode" value="alpha-compositing" />
-                        <Property name="pipethrough" value="false" />
+                        <Property name="pipethrough" value="true" />
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
@@ -505,13 +505,13 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-433" y="-399" />
                     </MetaData>
                     <Properties>
-                        <Property name="backClippingPlane" value="62" />
+                        <Property name="backClippingPlane" value="120" />
                         <Property name="bottomClippingPlane" value="0" />
                         <Property name="frontClippingPlane" value="0" />
-                        <Property name="leftClippingPlane" value="53" />
+                        <Property name="leftClippingPlane" value="188" />
                         <Property name="resetClipPlanes" />
                         <Property name="rightClippingPlane" value="0" />
-                        <Property name="topClippingPlane" value="52" />
+                        <Property name="topClippingPlane" value="184" />
                         <Property name="useClipping" value="false" />
                     </Properties>
                     <Inports>
@@ -548,7 +548,7 @@
                                 <url value="../../../Tests/6ins.ccp4" />
                             </VolumeURLs>
                             <Selection>
-                                <entry url="../../../Tests/1aph.ccp4" value="true" />
+                                <entry url="../../../Tests/1aph.ccp4" value="false" />
                                 <entry url="../../../Tests/4e7v.ccp4" value="true" />
                                 <entry url="../../../Tests/6ins.ccp4" value="true" />
                             </Selection>
@@ -584,21 +584,6 @@
                             </Properties>
                         </Port>
                     </Outports>
-                    <InteractionHandlers />
-                </Processor>
-                <Processor type="MoleculeManipulation" name="MoleculeManipulation" id="ref17">
-                    <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="24" y="-753" />
-                    </MetaData>
-                    <Properties>
-                        <Property name="invertDirection" value="false" />
-                        <Property name="manipulationAxis" value="x" />
-                        <Property name="manipulationSlider" value="0.38999999" />
-                        <Property name="manipulationType" value="rotate" />
-                        <Property name="moleculeSelection" />
-                    </Properties>
-                    <Inports />
-                    <Outports />
                     <InteractionHandlers />
                 </Processor>
                 <Processor type="MoleculeCollectionGeometryBuilder" name="MoleculeCollectionGeometryBuilder" id="ref14">
@@ -663,7 +648,7 @@
                 </Processor>
                 <Processor type="MultipleSequenceFinder" name="HomologyFinder" id="ref18">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="35" y="-851" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-14" y="-794" />
                     </MetaData>
                     <Properties>
                         <Property name="findDomains" />
@@ -697,9 +682,9 @@
                     </Outports>
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="GeometryRenderer" name="GeometryRenderer" id="ref16">
+                <Processor type="GeometryRenderer" name="VolumeBoundingBoxesRenderer" id="ref16">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-111" y="-145" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-171" y="-201" />
                     </MetaData>
                     <Properties>
                         <Property name="enableLighting" value="false" />
@@ -743,13 +728,27 @@
                     <Outports />
                     <InteractionHandlers />
                 </Processor>
+                <Processor type="DensityMapManipulation" name="DensityMapManipulation" id="ref17">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-349" y="-669" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="invertDirection" value="false" />
+                        <Property name="manipulationAxis" value="x" />
+                        <Property name="manipulationSlider" value="0.16" />
+                        <Property name="manipulationType" value="rotate" />
+                    </Properties>
+                    <Inports />
+                    <Outports />
+                    <InteractionHandlers />
+                </Processor>
             </Processors>
             <Connections>
                 <Connection>
                     <Outport name="image.output">
                         <Processor type="SingleVolumeRaycaster" ref="ref0" />
                     </Outport>
-                    <Inport name="image.inport0">
+                    <Inport name="image.inport1">
                         <Processor type="Compositor" ref="ref1" />
                     </Inport>
                 </Connection>
@@ -805,7 +804,7 @@
                     <Outport name="image.output">
                         <Processor type="GeometryProcessor" ref="ref6" />
                     </Outport>
-                    <Inport name="image.inport1">
+                    <Inport name="image.inport0">
                         <Processor type="Compositor" ref="ref1" />
                     </Inport>
                 </Connection>
@@ -909,10 +908,10 @@
                 </CoProcessorConnection>
                 <CoProcessorConnection>
                     <Outport name="coProcessor">
-                        <Processor type="MoleculeCollectionSource" ref="ref13" />
+                        <Processor type="DensityMapCollectionSource" ref="ref11" />
                     </Outport>
-                    <Inport name="MoleculeSource">
-                        <Processor type="MoleculeManipulation" ref="ref17" />
+                    <Inport name="DensityMapSource">
+                        <Processor type="DensityMapManipulation" ref="ref17" />
                     </Inport>
                 </CoProcessorConnection>
                 <CoProcessorConnection>
