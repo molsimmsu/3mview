@@ -9,9 +9,9 @@
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
-                    <value x="-226.2026062" y="-337.87225342" />
+                    <value x="-661.33288574" y="-665.87817383" />
                 </MetaItem>
-                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.34924445" />
+                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.44002044" />
             </MetaData>
             <Processors>
                 <Processor type="SingleVolumeRaycaster" name="SingleVolumeRaycaster" id="ref0">
@@ -22,11 +22,11 @@
                         <Property name="applyLightAttenuation" value="false" />
                         <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref16">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="211" y="156" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="830" y="156" />
                             </MetaData>
-                            <position x="-102.93035126" y="459.24441528" z="126.09960175" />
-                            <focus x="25.26856613" y="34.89479828" z="25.74736214" />
-                            <upVector x="0.58723783" y="-0.20826885" z="0.78216112" />
+                            <position x="-34.13589859" y="77.46929932" z="-50.94367599" />
+                            <focus x="7.69843578" y="-10.23034573" z="-1.638533" />
+                            <upVector x="0.88283104" y="0.35874897" z="0.30316451" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -76,14 +76,11 @@
                                     <key type="TransFuncMappingKey" intensity="0" split="false">
                                         <colorL r="132" g="0" b="255" a="0" />
                                     </key>
-                                    <key type="TransFuncMappingKey" intensity="0.64393938" split="false">
-                                        <colorL r="85" g="255" b="127" a="0" />
-                                    </key>
-                                    <key type="TransFuncMappingKey" intensity="1" split="false">
-                                        <colorL r="255" g="0" b="0" a="255" />
+                                    <key type="TransFuncMappingKey" intensity="0.0719697" split="false">
+                                        <colorL r="85" g="255" b="127" a="217" />
                                     </key>
                                 </Keys>
-                                <domain x="0" y="1" />
+                                <domain x="0" y="2" />
                             </TransferFunction>
                         </Property>
                     </Properties>
@@ -141,10 +138,10 @@
                 <Processor type="Canvas" name="Canvas" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-432" y="234" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="473" y="401" width="479" height="434" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="118" y="286" width="479" height="434" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="473" y="401" />
+                            <value x="118" y="286" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="479" y="434" />
@@ -227,11 +224,11 @@
                     <Properties>
                         <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref15">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="577" y="149" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="1196" y="149" />
                             </MetaData>
-                            <position x="-102.93035126" y="459.24441528" z="126.09960175" />
-                            <focus x="25.26856613" y="34.89479828" z="25.74736214" />
-                            <upVector x="0.58723783" y="-0.20826885" z="0.78216112" />
+                            <position x="-34.13589859" y="77.46929932" z="-50.94367599" />
+                            <focus x="7.69843578" y="-10.23034573" z="-1.638533" />
+                            <upVector x="0.88283104" y="0.35874897" z="0.30316451" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -290,11 +287,11 @@
                     <Properties>
                         <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref17">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="619" y="0" />
                             </MetaData>
-                            <position x="-102.93035126" y="459.24441528" z="126.09960175" />
-                            <focus x="25.26856613" y="34.89479828" z="25.74736214" />
-                            <upVector x="0.58723778" y="-0.20826882" z="0.782161" />
+                            <position x="-34.13589859" y="77.46929932" z="-50.94367599" />
+                            <focus x="7.69843578" y="-10.23034573" z="-1.638533" />
+                            <upVector x="0.88283104" y="0.35874897" z="0.30316451" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -342,11 +339,11 @@
                     <Properties>
                         <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref18">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="619" y="0" />
                             </MetaData>
-                            <position x="-102.93035126" y="459.24441528" z="126.09960175" />
-                            <focus x="25.26856613" y="34.89479828" z="25.74736214" />
-                            <upVector x="0.58723783" y="-0.20826885" z="0.78216112" />
+                            <position x="-34.13589859" y="77.46929932" z="-50.94367599" />
+                            <focus x="7.69843578" y="-10.23034573" z="-1.638533" />
+                            <upVector x="0.88283104" y="0.35874897" z="0.30316451" />
                         </Property>
                         <Property name="renderGeometries" value="true" />
                     </Properties>
@@ -484,13 +481,13 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-433" y="-399" />
                     </MetaData>
                     <Properties>
-                        <Property name="backClippingPlane" value="62" />
+                        <Property name="backClippingPlane" value="202.41181946" />
                         <Property name="bottomClippingPlane" value="0" />
                         <Property name="frontClippingPlane" value="0" />
-                        <Property name="leftClippingPlane" value="53" />
+                        <Property name="leftClippingPlane" value="125.17021179" />
                         <Property name="resetClipPlanes" />
                         <Property name="rightClippingPlane" value="0" />
-                        <Property name="topClippingPlane" value="52" />
+                        <Property name="topClippingPlane" value="113.17647552" />
                         <Property name="useClipping" value="false" />
                     </Properties>
                     <Inports>
@@ -577,7 +574,7 @@
                     </MetaData>
                     <Properties>
                         <Property name="clearMolecule" />
-                        <Property name="inputFile" noPathSet="false" value="../../../Tests/1APH.pdb" />
+                        <Property name="inputFile" noPathSet="false" value="../../../Tests/6ins.pdb" />
                         <Property name="loadMolecule" />
                     </Properties>
                     <Inports />
@@ -590,7 +587,7 @@
                     </Outports>
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="VolumeTransformation" name="VolumeTransformation" id="ref13">
+                <Processor type="VolumeTransformation" name="VolumeTransformation" id="ref14">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-589" y="-517" />
                     </MetaData>
@@ -623,14 +620,38 @@
                     </Outports>
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="VolumeSource" name="VolumeSource" id="ref14">
+                <Processor type="VolumeSource" name="VolumeSource">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-551" y="-683" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-699" y="-764" />
                     </MetaData>
                     <Properties>
-                        <Property name="volumeURL" url="../../../Tests/1aph.ccp4?preferredReader=MRCVolumeReader" />
+                        <Property name="volumeURL" url="" />
                     </Properties>
                     <Inports />
+                    <Outports>
+                        <Port name="volumehandle.volumehandle">
+                            <Properties>
+                                <Property name="blockEvents" value="false" />
+                            </Properties>
+                        </Port>
+                    </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="PDBtoEDM" name="PDBtoEDM" id="ref13">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-480" y="-683" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="atoomr" value="2" />
+                        <Property name="deltaatoomr" value="3" />
+                        <Property name="generategrid" />
+                        <Property name="gridsize" value="67" />
+                    </Properties>
+                    <Inports>
+                        <Port name="molecule">
+                            <Properties />
+                        </Port>
+                    </Inports>
                     <Outports>
                         <Port name="volumehandle.volumehandle">
                             <Properties>
@@ -747,8 +768,16 @@
                     </Inport>
                 </Connection>
                 <Connection>
+                    <Outport name="molecule">
+                        <Processor type="MoleculeSource" ref="ref12" />
+                    </Outport>
+                    <Inport name="molecule">
+                        <Processor type="PDBtoEDM" ref="ref13" />
+                    </Inport>
+                </Connection>
+                <Connection>
                     <Outport name="volumehandle.output">
-                        <Processor type="VolumeTransformation" ref="ref13" />
+                        <Processor type="VolumeTransformation" ref="ref14" />
                     </Outport>
                     <Inport name="volumehandle.volumehandle">
                         <Processor type="CubeProxyGeometry" ref="ref9" />
@@ -756,7 +785,7 @@
                 </Connection>
                 <Connection>
                     <Outport name="volumehandle.output">
-                        <Processor type="VolumeTransformation" ref="ref13" />
+                        <Processor type="VolumeTransformation" ref="ref14" />
                     </Outport>
                     <Inport name="volumehandle.volumehandle">
                         <Processor type="EEPGeometryIntegrator" ref="ref5" />
@@ -764,7 +793,7 @@
                 </Connection>
                 <Connection>
                     <Outport name="volumehandle.output">
-                        <Processor type="VolumeTransformation" ref="ref13" />
+                        <Processor type="VolumeTransformation" ref="ref14" />
                     </Outport>
                     <Inport name="volumehandle.volumehandle">
                         <Processor type="SingleVolumeRaycaster" ref="ref0" />
@@ -772,10 +801,10 @@
                 </Connection>
                 <Connection>
                     <Outport name="volumehandle.volumehandle">
-                        <Processor type="VolumeSource" ref="ref14" />
+                        <Processor type="PDBtoEDM" ref="ref13" />
                     </Outport>
                     <Inport name="volumehandle.input">
-                        <Processor type="VolumeTransformation" ref="ref13" />
+                        <Processor type="VolumeTransformation" ref="ref14" />
                     </Inport>
                 </Connection>
             </Connections>
