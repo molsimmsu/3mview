@@ -27,11 +27,8 @@
 1. В верхнем меню выбираем File -> Open Workspace
 2. В открывшемся окне переходим в каталог Test, находящийся в каталоге Voreen/resource/workspaces
 3. Выбираем файл segmentation.vws и жмем кнопку Open
-4. В верхнем меню выбираем View -> Development Mode
 
-Если в центре окна программы появилась рабочая область, содержащая семь процессоров, среди которых есть процессоры VolumeSource, SegmentationProcessor и SegmentationRaycaster, переходим к следующему пункту.
-
-5. В верхнем меню выбираем View -> Application Mode
+Если в центре окна программы появилась пустая область, а меню справа сожержит три пункта: VolumeSource, SegmentationProcessor и SegmentationRaycaster, переходим к следующему пункту.
 
 #### 3. Загрузка тестовой карты электронной плотности
 
