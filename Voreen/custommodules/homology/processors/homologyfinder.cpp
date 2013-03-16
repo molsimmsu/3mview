@@ -1,10 +1,10 @@
-#include "multiplesequencefinder.h"
+#include "homologyfinder.h"
 
 #include <cmath>
 
-std::string MultipleSequenceFinder::loggerCat_ = "homology.MultipleSequenceFinder";
+std::string HomologyFinder::loggerCat_ = "homology.HomologyFinder";
 
-MultipleSequenceFinder::MultipleSequenceFinder()
+HomologyFinder::HomologyFinder()
     : loadSequence_("loadSequence", "Load Sequence", "Load Sequence", VoreenApplication::app()->getUserDataPath(), "*.pdb, *.fa")
     , sequenceText_("sequenceText", "Sequence", "")
     , findDomains_("findDomains", "Find Domains")
@@ -16,10 +16,10 @@ MultipleSequenceFinder::MultipleSequenceFinder()
     addProperty(findDomains_);
     addProperty(maxDomainsToLoad_);
     
-    findDomains_.onChange(CallMemberAction<MultipleSequenceFinder>(this, &MultipleSequenceFinder::findDomains));
+    findDomains_.onChange(CallMemberAction<HomologyFinder>(this, &HomologyFinder::findDomains));
 }
 
-void MultipleSequenceFinder::findDomains() {
+void HomologyFinder::findDomains() {
     std::string seq = sequenceText_.get();
     LINFO("Finding domains with sequence:");
     LINFO(seq.c_str());
@@ -34,7 +34,7 @@ void MultipleSequenceFinder::findDomains() {
     loadDomains();
 }
 
-void MultipleSequenceFinder::loadDomains() {
+void HomologyFinder::loadDomains() {
     MoleculeCollectionSource* molCollection = getSourceProcessor();
     if (molCollection == 0) return;
 

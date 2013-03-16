@@ -16,7 +16,7 @@ public:
     // documentary functions
     virtual std::string getClassName() const { return "CalculateScore";         }
     virtual std::string getCategory()  const { return "Form Analysis";         }
-    virtual CodeState getCodeState()   const { return CODE_STATE_EXPERIMENTAL; }
+    virtual CodeState getCodeState()   const { return CODE_STATE_STABLE; }
 
 
 

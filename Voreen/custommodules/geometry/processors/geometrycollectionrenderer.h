@@ -23,7 +23,7 @@ public:
 
     virtual std::string getCategory() const   { return "Geometry";         }
     virtual std::string getClassName() const  { return "GeometryCollectionRenderer"; }
-    virtual CodeState getCodeState() const    { return CODE_STATE_STABLE;  }
+    virtual CodeState getCodeState() const    { return CODE_STATE_TESTING;  }
 
     virtual bool isReady() const;
 

@@ -45,7 +45,7 @@ public:
 
     virtual std::string getClassName() const { return "PrimitiveGeometrySource";   }
     virtual std::string getCategory() const  { return "Input";            }
-    virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL;  }
+    virtual CodeState getCodeState() const   { return CODE_STATE_STABLE;  }
 
 protected:
     virtual void setDescriptions() {

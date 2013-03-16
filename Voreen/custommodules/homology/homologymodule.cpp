@@ -1,7 +1,7 @@
 #include "homologymodule.h"
 
 #include "processors/domaindatabaseadministration.h"
-#include "processors/multiplesequencefinder.h"
+#include "processors/homologyfinder.h"
 
 namespace voreen {
 
@@ -11,7 +11,7 @@ HomologyModule::HomologyModule(const std::string& modulePath)
     setName("Homology");
     
     registerProcessor(new DomainDatabaseAdministration());
-    registerProcessor(new MultipleSequenceFinder());
+    registerProcessor(new HomologyFinder());
 }
 
 } // namespace

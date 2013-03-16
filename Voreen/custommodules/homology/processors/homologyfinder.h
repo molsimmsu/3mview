@@ -1,5 +1,5 @@
-#ifndef VRN_MultipleSequenceFinder_H
-#define VRN_MultipleSequenceFinder_H
+#ifndef VRN_HOMOLOGYFINDER_H
+#define VRN_HOMOLOGYFINDER_H
 
 #include "../../molecule/processors/moleculecoprocessor.h"
 #include "../properties/alignmentlistproperty.h"
@@ -15,15 +15,15 @@ using namespace voreen;
 
 #include <string>
 
-class MultipleSequenceFinder : public MoleculeCoProcessor {
+class HomologyFinder : public MoleculeCoProcessor {
 public:
-    MultipleSequenceFinder();
+    HomologyFinder();
     
-    virtual std::string getClassName() const { return "MultipleSequenceFinder"; }
+    virtual std::string getClassName() const { return "HomologyFinder"; }
     virtual std::string getCategory() const  { return "Database"; }
-    virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL; }
+    virtual CodeState getCodeState() const   { return CODE_STATE_TESTING; }
     
-    virtual Processor* create() const { return new MultipleSequenceFinder(); }
+    virtual Processor* create() const { return new HomologyFinder(); }
     
     virtual void process() {}
     

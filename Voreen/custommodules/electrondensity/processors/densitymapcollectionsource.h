@@ -18,7 +18,7 @@ public:
 
     virtual std::string getClassName() const  { return "DensityMapCollectionSource"; }
     virtual std::string getCategory() const   { return "Input";                  }
-    virtual CodeState getCodeState() const    { return CODE_STATE_STABLE;        }
+    virtual CodeState getCodeState() const    { return CODE_STATE_TESTING;        }
 
     virtual void invalidate(int inv = INVALID_RESULT);
 

@@ -15,7 +15,7 @@ public:
 
     virtual std::string getClassName() const { return "DensityMapCoProcessor";       }
     virtual std::string getCategory() const  { return "Density Map Co-Processor";      }
-    virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL; }
+    virtual CodeState getCodeState() const   { return CODE_STATE_TESTING; }
     
     virtual void process() {}
     
