@@ -21,18 +21,3 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/io/mrcvolumereader.h
     ${MOD_DIR}/properties/volumeselectionproperty.h
 )
-
-SET(MOD_QT_MODULECLASS ElectronDensityModuleQt)
-
-SET(MOD_QT_SOURCES
-    ${MOD_DIR}/qt/electrondensitypropertywidgetfactory.cpp
-    ${MOD_DIR}/qt/volumeselectionpropertywidget.cpp
-)
-    
-SET(MOD_QT_HEADERS
-    ${MOD_DIR}/qt/volumeselectionpropertywidget.h
-)
-
-SET(MOD_QT_HEADERS_NONMOC
-    ${MOD_DIR}/qt/electrondensitypropertywidgetfactory.h
-)
