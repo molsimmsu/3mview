@@ -1,4 +1,5 @@
 #include "densitymapcollectionsource.h"
+#include "densitymapcoprocessor.h"
 
 #include "voreen/core/processors/processorwidget.h"
 #include "voreen/core/processors/processorwidgetfactory.h"
@@ -10,7 +11,7 @@
 #include "voreen/core/io/progressbar.h"
 #include "voreen/core/voreenapplication.h"
 
-const std::string DensityMapCollectionSource::loggerCat_("voreen.core.DensityMapCollectionSource");
+const std::string DensityMapCollectionSource::loggerCat_("3mview.densitymap.DensityMapCollectionSource");
 
 DensityMapCollectionSource::DensityMapCollectionSource()
     : Processor()
@@ -34,14 +35,23 @@ void DensityMapCollectionSource::initialize() throw (tgt::Exception) {
 }
 
 void DensityMapCollectionSource::invalidate(int inv) {
+    LWARNING("DensityMapCollectionSource::invalidate()");
     outport_.setData(volumeURLList_.getVolumes(true), true);
     
-    /*const std::vector<CoProcessorPort*>& coProcessorOutports =  getCoProcessorOutports();
+    const std::vector<CoProcessorPort*>& coProcessorOutports =  getCoProcessorOutports();
     
-    for (size_t i=0; i<coProcessorOutports.size(); ++i) {
-        const std::vector<const Port*> getConnected() const;
-        std::vector<Processor*> processors = coProcessorOutports[i]->getConnectedProcessors();
-    }*/
+    for (size_t i = 0; i < coProcessorOutports.size(); ++i) {
+        const std::vector<const Port*> connectedPorts = coProcessorOutports[i]->getConnected();
+        
+        for (size_t j = 0; j < connectedPorts.size(); ++j) {
+            LWARNING("Port");
+            Processor* processor = connectedPorts[i]->getProcessor();
+            try {
+                dynamic_cast<DensityMapCoProcessor*>(processor)->updateSelection();
+            }
+            catch (...) {}
+        }
+    }
     
     Processor::invalidate(inv);
 }

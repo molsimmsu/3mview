@@ -1,6 +1,6 @@
 #include "densitymapcoprocessor.h"
 
-namespace voreen {
+const std::string DensityMapCoProcessor::loggerCat_("3mview.densitymap.DensityMapCoProcessor");
 
 DensityMapCoProcessor::DensityMapCoProcessor()
     : Processor()
@@ -44,5 +44,3 @@ const VolumeCollection* DensityMapCoProcessor::getInputVolumeCollection() const 
     
     return source->getSelectedVolumeCollection();
 }
-
-} // namespace

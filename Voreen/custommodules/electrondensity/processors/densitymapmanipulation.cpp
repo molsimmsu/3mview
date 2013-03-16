@@ -9,7 +9,7 @@ DensityMapManipulation::DensityMapManipulation()
 }
 
 void DensityMapManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 transform) {
-        const VolumeCollection* collection = volumeURLList_.getVolumes(false);
+        const VolumeCollection* collection = volumeURLList_.getVolumes(true);
         if (collection == 0 || collection->size() == 0) return;
         
         for (size_t i = 0; i < collection->size(); i++) {
@@ -32,17 +32,10 @@ void DensityMapManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 tra
         source->getPort("volumecollection")->invalidatePort();
 }
 
-void DensityMapManipulation::invalidate(int inv) {
-    if (!getSourceProcessor() || !allowInvalidation_) return;
-    allowInvalidation_ = false;
-    updateSelection();
-    Processor::invalidate(inv);
-    allowInvalidation_ = true;
-}
-
 // private methods
 //
 void DensityMapManipulation::updateSelection() {
+    DensityMapCoProcessor::updateSelection();
     const VolumeCollection* collection = getInputVolumeCollection();
     if (collection == 0) {
         LERROR("Collection is NULL at DensityMapManipulation::updateSelection()");

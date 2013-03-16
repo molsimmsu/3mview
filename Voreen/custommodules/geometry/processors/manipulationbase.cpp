@@ -58,8 +58,8 @@ Processor* ManipulationBase::create() const {
 }
 
 void ManipulationBase::applyTransformation(tgt::vec3 offset, tgt::mat4 matrix) {
-    //std::cout << offset << std::endl;
-    //std::cout << matrix << std::endl;
+    std::cout << offset << std::endl;
+    std::cout << matrix << std::endl;
 }
 
 // private methods

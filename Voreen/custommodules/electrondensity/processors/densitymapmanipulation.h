@@ -18,9 +18,9 @@ public:
     virtual std::string getCategory() const  { return "Density Map Manipulation";      }
     virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL; }
     
-    virtual void invalidate(int inv = INVALID_RESULT);
-    
     void process() {}
+    
+    virtual void updateSelection();
     
 protected:
     virtual void setDescriptions() {
@@ -28,8 +28,6 @@ protected:
     }
 
 private:
-    void updateSelection();
-    
     virtual void applyTransformation(tgt::vec3 offset, tgt::mat4 matrix);
     
     VolumeURLListProperty volumeURLList_;

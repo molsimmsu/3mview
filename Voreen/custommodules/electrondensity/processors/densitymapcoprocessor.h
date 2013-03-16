@@ -3,7 +3,7 @@
 
 #include "densitymapcollectionsource.h"
 
-namespace voreen {
+using namespace voreen;
 /*
  * Base co-processor for handling density maps
  */
@@ -28,11 +28,11 @@ protected:
 
 	const VolumeCollection* getInputVolumeCollection() const;
 	DensityMapCollectionSource* getSourceProcessor() const;
+	
+	static const std::string loggerCat_;
 
 private:
 	CoProcessorPort inport_;
 };
-
-} // namespace
 
 #endif // VRN_DENSITYMAPCOPROCESSOR_H

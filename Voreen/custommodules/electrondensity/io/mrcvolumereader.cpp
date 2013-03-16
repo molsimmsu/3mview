@@ -54,6 +54,7 @@ MRCVolumeReader::MRCVolumeReader(ProgressBar* progress) : VolumeReader(progress)
 {
     extensions_.push_back("mrc");
     extensions_.push_back("ccp4");
+    extensions_.push_back("map");
 }
 
 VolumeCollection* MRCVolumeReader::read(const std::string &url)
