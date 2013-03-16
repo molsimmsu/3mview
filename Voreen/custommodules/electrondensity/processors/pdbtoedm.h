@@ -21,10 +21,6 @@ namespace voreen {
 
 class Volume;
 
-/**
- * Loads multiple volumes and provides them
- * as VolumeCollection through its outport.
- */
 class PDBtoEDM : virtual public Processor{
 
 public:
@@ -33,28 +29,25 @@ public:
     static const int MaxOfTypes=20;
 
 
-
     PDBtoEDM();
     virtual ~PDBtoEDM();
     virtual Processor* create() const;
-
     virtual std::string getClassName() const  { return "PDBtoEDM"; }
     virtual std::string getCategory() const   { return "Input";                  }
     virtual CodeState getCodeState() const    { return CODE_STATE_STABLE;        }
-
-
-
-
-
-
 protected:
 
+//record of atom types in input PDB with radial electron density distribution
+    struct AtomicED
+    {
+        std::string AtomName[MaxOfTypes];
+        float AtomED[MaxOfTypes][MaxOfTypes];
+        int NumberTypes;
+    };
 
-    virtual void setDescriptions() {
-        setDescription("Loads multiple electron density maps and provides them as VolumeCollection.");
-    }
-
+    virtual void setDescriptions() {setDescription("Loads multiple electron density maps and provides them as VolumeCollection.");}
     virtual void process();
+    virtual void ShowGrid();
     void GenerateEDMGrid(const Molecule* InputMoll);
 
     /// The volume port the loaded data set is written to.
@@ -62,14 +55,10 @@ protected:
     VolumePort outport_;
 
 
-    IntProperty atoomr_; //на каком расстоянии обрывать расчет плотности
-    IntProperty deltaatoomr_; //шаг, с которым считается плотность (в А)
-    IntProperty gridsize_; //размер системы, для которой считается плотность (в А)
-    ButtonProperty generategrid_;
-
-
-
-
+    IntProperty atoomr_; //calculated distance (A)
+    IntProperty deltaatoomr_; //step of calculate (0.1 A)
+    IntProperty gridsize_; //size of sustem (A)
+    ButtonProperty generategrid_; //click this button to generate volume
 };
 
 } // namespace

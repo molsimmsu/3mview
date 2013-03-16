@@ -17,23 +17,26 @@
 #include <assert.h>
 #include <cmath>
 
-#define PI 3.141592
-
 #include "tgt/exception.h"
 #include "tgt/vector.h"
 #include "tgt/texturemanager.h"
 
 #include "voreen/core/datastructures/volume/volumeatomic.h"
 
-#define REBUILD_EDM_GRID CallMemberAction<PDBtoEDM>(this, &PDBtoEDM::process)
-
+#define PI 3.141592
+#define REBUILD_EDM_GRID CallMemberAction<PDBtoEDM>(this, &PDBtoEDM::ShowGrid)
 
 using std::string;
 using tgt::vec3;
 using tgt::ivec3;
 using tgt::Texture;
 using namespace OpenBabel;
+
 namespace voreen {
+
+
+
+
 
 const std::string PDBtoEDM::loggerCat_("voreen.core.PDBtoEDM");
 
@@ -41,7 +44,7 @@ PDBtoEDM::PDBtoEDM()
     : Processor()
 , inport_(Port::INPORT, "molecule", "Molecule Input")
 , outport_(Port::OUTPORT, "volumehandle.volumehandle", "Volume Output")
-, atoomr_("atoomr", "Length of calc (A)", 2, 1, 5)
+, atoomr_("atoomr", "Length of calc (A)", 2, 1, 3)
 , deltaatoomr_("deltaatoomr", "Step (*0.1 A)", 2, 1, 10)
 , gridsize_("gridsize", "Size of system (A)", 20, 10, 100)
 , generategrid_("generategrid","Generate EDM grid")
@@ -72,28 +75,15 @@ int Nsmall=atoomr_.get()/dr; //lenght of atom array dens
 float VoxelPerAngstrem=1.0/dr; //number of voxels per angstrem
 int NumberVoxels=gridsize_.get()/dr;
 float scale=1.0/VoxelPerAngstrem;
-
-  struct AtomicED {
-        std::string AtomName[MaxOfTypes];
-        float AtomED[MaxOfTypes][MaxOfTypes];
-        int NumberTypes;
-    };
-
 struct AtomicED sAtomED;
 
-//Определим, какие атомы входят в PDB
-
-
+//-----------------------------------------
+//--------find atom types in pdb-----------
+//-----------------------------------------
 const OBMol& mol = InputMoll->getOBMol();
-int NumberAtom;
-int Flag;
-float cx,cy,cz;
-cx=0;
-cy=0;
-cz=0;
+int NumberAtom=0;
+float cx=0,cy=0,cz=0;
 std::string src,dst;
-NumberAtom=0;
-
     for (int i = 1; i <= mol.NumAtoms(); i++)
     {
         OBAtom* a = mol.GetAtom(i);
@@ -106,31 +96,18 @@ NumberAtom=0;
         cy=cy+atomy;
         cz=cz+atomz;
 
-
-
         ttab.SetFromType("INT");
         ttab.SetToType("XYZ");
         ttab.Translate(dst,src);
 
-        Flag=1;
-
+        int Flag=1;
 
          for (int k = 0; k<NumberAtom;  k++)
-         {
-
-              if (dst==sAtomED.AtomName[k]) {
-                    Flag=0;
-
-              }
-
-         }
-
+           if (dst==sAtomED.AtomName[k]) Flag=0;
            if (Flag!=0)
            {
                sAtomED.AtomName[NumberAtom]=dst;
                NumberAtom=NumberAtom+1;
-
-
            }
 
     }
@@ -138,19 +115,22 @@ NumberAtom=0;
 cx=cx/mol.NumAtoms();
 cy=cy/mol.NumAtoms();
 cz=cz/mol.NumAtoms();
- std::cout << "Number of atoms in input PDB: "<< mol.NumAtoms() << std::endl;
- std::cout << "Number of atom types in input PDB: "<< NumberAtom << std::endl;
-  std::cout << "Center: "<< cx << "; "<< cy << "; "<<cz<< std::endl;
 sAtomED.NumberTypes=NumberAtom;
-
+std::cout << "Number of atoms in input PDB: "<< mol.NumAtoms() << std::endl;
+std::cout << "Number of atom types in input PDB: "<< NumberAtom << std::endl;
+std::cout << "Center: "<< cx << "; "<< cy << "; "<<cz<< std::endl;
+//-----------------------------------------
 //-----------------------------------------
 
 
+//-----------------------------------------
+//--------calc radial ED for atoms---------
+//-----------------------------------------
 
-
-//теперь для этих атомов расчитаем электронные плотности
-std::string element[213];
-float a1[213],b1[213],a2[213],b2[213],a3[213],b3[213],a4[213],b4[213],c[213];
+//hardcoded constant for atomic factors. See PDBtoEDM.pdf
+int AFconst=213;
+std::string element[AFconst];
+float a1[AFconst],b1[AFconst],a2[AFconst],b2[AFconst],a3[AFconst],b3[AFconst],a4[AFconst],b4[AFconst],c[AFconst];
 element[0]="HT"; a1[1]=0.493002; b1[1]=10.5109; a2[1]=0.322912; b2[1]=26.1257; a3[1]=0.140191; b3[1]=3.14236; a4[1]=0.04081; b4[1]=57.7997; c[1]=0.003038;
 element[1]="H"; a1[1]=0.493002; b1[1]=10.5109; a2[1]=0.322912; b2[1]=26.1257; a3[1]=0.140191; b3[1]=3.14236; a4[1]=0.04081; b4[1]=57.7997; c[1]=0.003038;
 element[2]="H"; a1[2]=0.489918; b1[2]=20.6593; a2[2]=0.262003; b2[2]=7.74039; a3[2]=0.196767; b3[2]=49.5519; a4[2]=0.049879; b4[2]=2.20159; c[2]=0.001305;
@@ -365,14 +345,16 @@ element[210]="Cm"; a1[210]=36.6488; b1[210]=0.465154; a2[210]=24.4096; b2[210]=3
 element[211]="Bk"; a1[211]=36.7881; b1[211]=0.451018; a2[211]=24.7736; b2[211]=3.04619; a3[211]=17.8919; b3[211]=12.8946; a4[211]=4.23284; b4[211]=86.003; c[211]=13.2754;
 element[212]="Cf"; a1[212]=36.9185; b1[212]=0.437533; a2[212]=25.1995; b2[212]=3.00775; a3[212]=18.3317; b3[212]=12.4044; a4[212]=4.24391; b4[212]=83.7881; c[212]=13.2674;
 
-
-
 for (int k=0; k<NumberAtom; k++)
 
 {
 int i=1;
-while (sAtomED.AtomName[k]!=element[i]) i=i+1;
-  std::cout << "Find Atom!: "<< sAtomED.AtomName[k]<<" = " <<element[i]<<std::endl;
+while ((sAtomED.AtomName[k]!=element[i])&(i<AFconst)) {
+    i=i+1;
+    if (i==AFconst) LWARNING("Do not find atom factor constant for: " + sAtomED.AtomName[k]);
+}
+
+//calc radial distr. from FT of atomic structure. DWF not include
   for (int j=0; j<Nsmall; j++ )
   {
     sAtomED.AtomED[k][j]=a1[i]*exp(-4*PI*PI*pow(dr*j,2)/b1[i])/pow(b1[i]/(4*PI),1.5)
@@ -381,15 +363,17 @@ while (sAtomED.AtomName[k]!=element[i]) i=i+1;
     +a4[i]*exp(-4*PI*PI*pow(dr*(j),2)/b4[i])/pow(b4[i]/(4*PI),1.5);
   }
 }
+//-----------------------------------------
+//-----------------------------------------
 
 std::cout << "Delta_r: "<< dr<<std::endl;
-std::cout << "Length of atom array density: "<< Nsmall<<std::endl;
 std::cout << "Voxel per angstrem: "<< VoxelPerAngstrem<<std::endl;
-std::cout << "Number of Voxel: "<< NumberVoxels<<std::endl;
-std::cout << "Size of system: "<< NumberVoxels*dr<<std::endl;
-
 VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxels,NumberVoxels,NumberVoxels));
 
+
+//-----------------------------------------
+//----------create out volume--------------
+//-----------------------------------------
 for (int i=0; i<NumberVoxels; i++)
 for (int j=0; j<NumberVoxels; j++)
 for (int k=0; k<NumberVoxels; k++)
@@ -446,17 +430,23 @@ tgt::Matrix4<int> transform
 
 
 Volume* volumeHandle = new Volume(
-            targetDataset,                                                 // data
-            vec3(scale,scale,scale),                     // scale
+            targetDataset,                                                           // data
+            vec3(scale,scale,scale),                                                 // scale
             vec3(-gridsize_.get()/2+cx,-gridsize_.get()/2+cy,-gridsize_.get()/2+cz), // offset
-            transform                                                      // transform
+            transform                                                                // transform
         );
 
 
 outport_.setData(volumeHandle);
+
+//-----------------------------------------
+//-----------------------------------------
 }
 
 void PDBtoEDM::process() {
+}
+
+void PDBtoEDM::ShowGrid() {
 
 const Molecule* InputMoll = inport_.getData();
 const OBMol& mol = InputMoll->getOBMol();
@@ -467,4 +457,6 @@ LWARNING("Density map calculated!");
 }
 else LWARNING("Download a PDB structure!");
 }
+
+
 } // namespace
