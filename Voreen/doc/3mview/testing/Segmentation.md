@@ -26,7 +26,7 @@
 
 1. В верхнем меню выбираем File -> Open Workspace
 2. В открывшемся окне переходим в каталог Test, находящийся в каталоге Voreen/resource/workspaces
-3. Выбираем файл segmentation.vws и жмем кнопку Open
+3. Выбираем файл segmentation.vws и жмем кнопку Open (на данном этапе ничего не отобразится)
 
 Если в центре окна программы появилась пустая область, а меню справа сожержит три пункта: VolumeSource, SegmentationProcessor и SegmentationRaycaster, переходим к следующему пункту.
 
