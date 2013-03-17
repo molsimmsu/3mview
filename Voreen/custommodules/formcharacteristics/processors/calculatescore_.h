@@ -14,7 +14,7 @@ public:
     virtual Processor* create() const;
 
     virtual std::string getClassName() const      { return "CalculateScore";     }
-    virtual std::string getCategory() const       { return "From Characteristics"; }
+    virtual std::string getCategory() const       { return "Form Analysis"; }
     virtual CodeState getCodeState() const        { return CODE_STATE_EXPERIMENTAL;   }
     virtual bool usesExpensiveComputation() const { return true; }
 
