@@ -57,7 +57,6 @@ protected:
 
     IntProperty atoomr_; //calculated distance (A)
     IntProperty deltaatoomr_; //step of calculate (0.1 A)
-    IntProperty gridsize_; //size of sustem (A)
     ButtonProperty generategrid_; //click this button to generate volume
 };
 

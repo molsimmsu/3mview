@@ -46,15 +46,13 @@ PDBtoEDM::PDBtoEDM()
 , outport_(Port::OUTPORT, "volumehandle.volumehandle", "Volume Output")
 , atoomr_("atoomr", "Length of calc (A)", 2, 1, 3)
 , deltaatoomr_("deltaatoomr", "Step (*0.1 A)", 2, 1, 10)
-, gridsize_("gridsize", "Size of system (A)", 20, 10, 100)
-, generategrid_("generategrid","Generate EDM grid")
+, generategrid_("generategrid", "Generate grid")
 
 {
 addPort(outport_);
 addPort(inport_);
 addProperty(atoomr_);
 addProperty(deltaatoomr_);
-addProperty(gridsize_);
 addProperty(generategrid_);
 
 generategrid_.onClick(REBUILD_EDM_GRID);
@@ -73,7 +71,6 @@ void PDBtoEDM::GenerateEDMGrid(const Molecule* InputMoll) {
 float dr=deltaatoomr_.get()/10.0; //step of grid
 int Nsmall=atoomr_.get()/dr; //lenght of atom array dens
 float VoxelPerAngstrem=1.0/dr; //number of voxels per angstrem
-int NumberVoxels=gridsize_.get()/dr;
 float scale=1.0/VoxelPerAngstrem;
 struct AtomicED sAtomED;
 
@@ -366,17 +363,48 @@ while ((sAtomED.AtomName[k]!=element[i])&(i<AFconst)) {
 //-----------------------------------------
 //-----------------------------------------
 
+//-----------------------------------------
+//----------find bounding box--------------
+//-----------------------------------------
+std::cout << "Searching size of bounding geometry..."<< std::endl;
+float size_x=0,size_y=0,size_z=0;
+for (int i = 1; i <= mol.NumAtoms(); i++)
+    {
+        OBAtom* a = mol.GetAtom(i);
+
+        float atomx=a->x();
+        float atomy=a->y();
+        float atomz=a->z();
+        float temp1=sqrt(pow(atomx-cx,2));
+        float temp2=sqrt(pow(atomy-cy,2));
+        float temp3=sqrt(pow(atomz-cz,2));
+        if (size_x<temp1) size_x=temp1;
+        if (size_y<temp2) size_y=temp2;
+        if (size_z<temp3) size_z=temp3;
+
+    }
+
+int rr=atoomr_.get();
+int NumberVoxels_x=2*(size_x+rr)/dr;
+int NumberVoxels_y=2*(size_y+rr)/dr;
+int NumberVoxels_z=2*(size_z+rr)/dr;
+
+std::cout << "Size of bounding geometry: "<< 2*size_x<<";"<<2*size_y<<";"<<2*size_z<<std::endl;
 std::cout << "Delta_r: "<< dr<<std::endl;
 std::cout << "Voxel per angstrem: "<< VoxelPerAngstrem<<std::endl;
-VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxels,NumberVoxels,NumberVoxels));
+
+VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxels_x,NumberVoxels_y,NumberVoxels_z));
+
+//-----------------------------------------
+//-----------------------------------------
 
 
 //-----------------------------------------
 //----------create out volume--------------
 //-----------------------------------------
-for (int i=0; i<NumberVoxels; i++)
-for (int j=0; j<NumberVoxels; j++)
-for (int k=0; k<NumberVoxels; k++)
+for (int i=0; i<NumberVoxels_x; i++)
+for (int j=0; j<NumberVoxels_y; j++)
+for (int k=0; k<NumberVoxels_z; k++)
 {
      ((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)=0;
 }
@@ -392,9 +420,9 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
         int p=0;
         while (dst!=sAtomED.AtomName[p]) p=p+1;
 
-        float atomx=a->x()+gridsize_.get()/2-cx;
-        float atomy=a->y()+gridsize_.get()/2-cy;
-        float atomz=a->z()+gridsize_.get()/2-cz;
+        float atomx=a->x()+(size_x+rr)-cx;
+        float atomy=a->y()+(size_y+rr)-cy;
+        float atomz=a->z()+(size_z+rr)-cz;
         int Voxx=atomx/dr;
         int Voxy=atomy/dr;
         int Voxz=atomz/dr;
@@ -407,7 +435,7 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
             int tempVoxy=Voxy+jj;
             int tempVoxz=Voxz+kk;
             int temp1=ii*ii+jj*jj+kk*kk;
-            if ((tempVoxx>=0)&(tempVoxy>=0)&(tempVoxz>=0)&(tempVoxx<NumberVoxels)&(tempVoxy<NumberVoxels)&(tempVoxz<NumberVoxels)&(temp1<Nsmall*Nsmall))
+            if ((tempVoxx>=0)&(tempVoxy>=0)&(tempVoxz>=0)&(tempVoxx<NumberVoxels_x)&(tempVoxy<NumberVoxels_y)&(tempVoxz<NumberVoxels_z)&(temp1<Nsmall*Nsmall))
             {
                 int pos=sqrt(temp1);
                 float temp=((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz);
@@ -417,7 +445,7 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
         }
 
 
-std::cout << i*100/mol.NumAtoms()<< "%" <<std::endl;
+std::cout << "Calculate density map: "<<i*100/mol.NumAtoms()<< "%"<<"\r";
     }
 
 tgt::Matrix4<int> transform
@@ -430,10 +458,10 @@ tgt::Matrix4<int> transform
 
 
 Volume* volumeHandle = new Volume(
-            targetDataset,                                                           // data
-            vec3(scale,scale,scale),                                                 // scale
-            vec3(-gridsize_.get()/2+cx,-gridsize_.get()/2+cy,-gridsize_.get()/2+cz), // offset
-            transform                                                                // transform
+            targetDataset,                                                                                // data
+            vec3(scale,scale,scale),                                                                      // scale
+            vec3(-(size_x+rr)+cx,-(size_y+rr)+cy,-(size_z+rr)+cz), // offset
+            transform                                                                                     // transform
         );
 
 
