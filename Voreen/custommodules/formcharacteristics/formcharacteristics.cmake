@@ -6,7 +6,7 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/ports/matrix4doubleport.cpp
     ${MOD_DIR}/processors/alignbymoments.cpp
     ${MOD_DIR}/processors/databasematch.cpp
-    ${MOD_DIR}/processors/calculatescore.cpp
+    ${MOD_DIR}/processors/calculatescore_.cpp
 )
 
 # module's core header files, path relative to module dir
@@ -14,5 +14,5 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/ports/matrix4doubleport.h
     ${MOD_DIR}/processors/alignbymoments.h
     ${MOD_DIR}/processors/databasematch.h
-    ${MOD_DIR}/processors/calculatescore.h
+    ${MOD_DIR}/processors/calculatescore_.h
 )   
