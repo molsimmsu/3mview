@@ -1,4 +1,4 @@
-#include "calculatescore.h"
+#include "calculatescore_.h"
 
 #include "voreen/core/datastructures/volume/volumeatomic.h"
 #include "voreen/core/datastructures/volume/operators/volumeoperatorresize.h"
