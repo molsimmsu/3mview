@@ -1,8 +1,7 @@
-
 #include "formcharacteristicsmodule.h"
 #include "processors/alignbymoments.h"
 #include "processors/databasematch.h"
-#include "processors/calculatescore.h"
+#include "processors/calculatescore_.h"
 
 namespace voreen {
 
