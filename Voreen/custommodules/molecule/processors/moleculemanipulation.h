@@ -23,6 +23,8 @@ public:
     
     void process() {}
     
+    void updateSelection();
+    
 protected:
     virtual void setDescriptions() {
         setDescription("Processor for molecule manipulation");

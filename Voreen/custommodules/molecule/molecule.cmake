@@ -16,7 +16,9 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/moleculecoprocessor.cpp
     ${MOD_DIR}/processors/moleculemanipulation.cpp
     ${MOD_DIR}/properties/moleculeselectionproperty.cpp
+    ${MOD_DIR}/properties/moleculeurllistproperty.cpp
     ${MOD_DIR}/utils/stridereader.cpp
+    ${MOD_DIR}/utils/moleculereader.cpp
 )
 
 # module's core header files, path relative to module dir
@@ -33,5 +35,22 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/moleculecoprocessor.h
     ${MOD_DIR}/processors/moleculemanipulation.h
     ${MOD_DIR}/properties/moleculeselectionproperty.h
+    ${MOD_DIR}/properties/moleculeurllistproperty.h
     ${MOD_DIR}/utils/stridereader.h
-)   
+    ${MOD_DIR}/utils/moleculereader.h
+)
+
+SET(MOD_QT_MODULECLASS MoleculeModuleQt)
+
+SET(MOD_QT_SOURCES
+    ${MOD_DIR}/qt/moleculepropertywidgetfactory.cpp
+    ${MOD_DIR}/qt/moleculeurllistpropertywidget.cpp
+)
+    
+SET(MOD_QT_HEADERS
+    ${MOD_DIR}/qt/moleculeurllistpropertywidget.h
+)
+
+SET(MOD_QT_HEADERS_NONMOC
+    ${MOD_DIR}/qt/moleculepropertywidgetfactory.h
+)

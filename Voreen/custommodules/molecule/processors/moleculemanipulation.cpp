@@ -22,6 +22,10 @@ Processor* MoleculeManipulation::create() const {
     return new MoleculeManipulation();
 }
 
+void MoleculeManipulation::updateSelection() {
+  
+}
+
 void MoleculeManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 matrix) {
     //LINFO("Enter MoleculeManipulation::applyTransformation()");
     ManipulationBase::applyTransformation(offset, matrix);

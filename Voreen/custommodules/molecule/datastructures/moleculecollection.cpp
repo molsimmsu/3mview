@@ -75,6 +75,16 @@ void MoleculeCollection::clear() {
         remove(first());
 }
 
+MoleculeCollection* MoleculeCollection::selectOrigin(const VolumeURL& origin) const {
+    MoleculeCollection* collection = new MoleculeCollection();
+    for (size_t i=0; i<moleculeHandles_.size(); ++i) {
+        Molecule* mol = moleculeHandles_[i];
+        if (mol && mol->getOrigin() == origin)
+            collection->add(mol);
+    }
+    return collection;
+}
+
 MoleculeCollection* MoleculeCollection::subCollection(size_t start, size_t end) const {
     MoleculeCollection* subCollection = new MoleculeCollection();
     tgtAssert(start <= end, "invalid indices");

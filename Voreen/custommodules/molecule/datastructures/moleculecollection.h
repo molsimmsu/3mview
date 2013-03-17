@@ -133,6 +133,12 @@ public:
      * Clears the collection without deleting the MoleculeHandles.
      */
     virtual void clear();
+    
+    /**
+     * Returns a collection containing all Molecules with the
+     * specified origin.
+     */
+    virtual MoleculeCollection* selectOrigin(const VolumeURL& origin) const;
 
     /**
      * Returns a new collection containing the molecules between the passed start and end indices (inclusive).

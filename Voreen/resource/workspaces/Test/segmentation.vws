@@ -5,7 +5,7 @@
             <MetaData>
                 <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
                     <values>
-                        <item type="SegmentationProcessor" ref="ref4" />
+                        <item type="VolumeSource" ref="ref2" />
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
@@ -17,10 +17,10 @@
                 <Processor type="Canvas" name="Canvas" id="ref1">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-473" y="198" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="false" x="545" y="159" width="600" height="600" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="0" y="-51" width="1318" height="916" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="545" y="159" />
+                            <value x="546" y="186" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="600" y="600" />
@@ -34,7 +34,7 @@
                     </MetaData>
                     <Properties>
                         <Property name="canvasSize" lod="1">
-                            <value x="600" y="600" />
+                            <value x="1318" y="916" />
                         </Property>
                         <Property name="saveScreenshot" lod="1" />
                         <Property name="screenshotFilename" lod="1" noPathSet="true" value="" />
@@ -45,14 +45,14 @@
                         <Port name="image.input">
                             <Properties>
                                 <Property name="image.input.renderSizeOrigin" lod="1" id="ref13">
-                                    <value x="600" y="600" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.inputLeft">
                             <Properties>
                                 <Property name="image.inputLeft.renderSizeOrigin" lod="1">
-                                    <value x="600" y="600" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -107,7 +107,7 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-478" y="-282" />
                     </MetaData>
                     <Properties>
-                        <Property name="volumeURL" url="../../../Tests/EMD-2013.map?preferredReader=MRCVolumeReader" />
+                        <Property name="volumeURL" url="../../../../Tests/EMD-2013.map?preferredReader=MRCVolumeReader" />
                     </Properties>
                     <Inports />
                     <Outports>
@@ -126,7 +126,7 @@
                     <Properties>
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="113411.921875" fovy="45.00000381" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref7">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="721" y="372" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="801" y="149" />
                             </MetaData>
                             <position x="126.00135803" y="322.86071777" z="114.89169312" />
                             <focus x="21.08954239" y="-12.96348381" z="23.39954185" />
@@ -148,7 +148,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.entrypoints.renderSizeReceive" lod="1" id="ref10">
-                                    <value x="600" y="600" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -156,7 +156,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.exitpoints.renderSizeReceive" lod="1" id="ref12">
-                                    <value x="600" y="600" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -257,7 +257,7 @@
                             <ElementProperties>
                                 <Property name="SegmentationRaycaster.SegmentTransFunc0" AlwaysFitDomain="false">
                                     <MetaData>
-                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" width="620" height="308" />
+                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                                     </MetaData>
                                     <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                         <Keys>
@@ -273,7 +273,7 @@
                                 </Property>
                                 <Property name="SegmentationRaycaster.SegmentTransFunc1" AlwaysFitDomain="false">
                                     <MetaData>
-                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" width="620" height="308" />
+                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                                     </MetaData>
                                     <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                         <Keys>
@@ -2049,7 +2049,7 @@
                                 </Property>
                                 <Property name="SegmentationRaycaster.SegmentTransFunc2" AlwaysFitDomain="false">
                                     <MetaData>
-                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" width="620" height="308" />
+                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                                     </MetaData>
                                     <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                         <Keys>
@@ -3121,7 +3121,7 @@
                                 </Property>
                                 <Property name="SegmentationRaycaster.SegmentTransFunc3" AlwaysFitDomain="false">
                                     <MetaData>
-                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" width="620" height="308" />
+                                        <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                                     </MetaData>
                                     <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                         <Keys>
@@ -4355,7 +4355,7 @@
                         </Property>
                         <Property name="SegmentationRaycaster.TransFunc" AlwaysFitDomain="true">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" width="515" height="308" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                             </MetaData>
                             <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                 <Keys>
@@ -4384,7 +4384,7 @@
                         <Property name="SegmentationRaycatser.applySegmentation" value="true" />
                         <Property name="camera" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="113411.921875" fovy="45.00000381" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref8">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="20" y="-31" />
                             </MetaData>
                             <position x="126.00135803" y="322.86071777" z="114.89169312" />
                             <focus x="21.08954239" y="-12.96348381" z="23.39954185" />
@@ -4407,7 +4407,7 @@
                             <MetaData>
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="46.72351074" y="179.20787048" z="129.38821411" w="0" />
+                            <value x="0.07045338" y="0.04594786" z="0.04594786" w="0.03063191" />
                         </Property>
                         <Property name="lightSpecular">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -4425,14 +4425,14 @@
                         <Port name="image.entrypoints">
                             <Properties>
                                 <Property name="image.entrypoints.renderSizeOrigin" id="ref9">
-                                    <value x="600" y="600" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.exitpoints">
                             <Properties>
                                 <Property name="image.exitpoints.renderSizeOrigin" id="ref11">
-                                    <value x="600" y="600" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -4456,7 +4456,7 @@
                             <Properties>
                                 <Property name="blockEvents" value="false" />
                                 <Property name="image.outport1.renderSizeReceive" id="ref14">
-                                    <value x="600" y="600" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>

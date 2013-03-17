@@ -2,6 +2,7 @@
 #define VRN_MOLECULE_H
 
 #include "voreen/core/utils/observer.h"
+#include "voreen/core/datastructures/volume/volume.h"
 
 
 #include "tgt/vector.h"
@@ -10,13 +11,14 @@
 using namespace OpenBabel;
 
 namespace voreen {
-
+  
+typedef VolumeURL MoleculeURL;
 typedef std::vector< std::vector<char> > SecStructure;
 
 class Molecule;
 
 /**
- * Interface for volume handle observers.
+ * Interface for molecule handle observers.
  */
 class MoleculeObserver : public Observer {
 public:
@@ -86,13 +88,40 @@ public:
      void transform(const tgt::mat4& matrix);
      
     /**
+     * Returns the origin the volume has been loaded from,
+     * usually a file path.
+     */
+    const VolumeURL& getOrigin() const;
+
+    /// @overload
+    VolumeURL& getOrigin();
+
+    /**
+     * Sets the origin the volume has been loaded from,
+     * usually a file path.
+     */
+    void setOrigin(const VolumeURL& origin);
+
+    /**
+     * Notifies the registered VolumeHandleObservers about the pending
+     * deletion of the Volume.
+     */
+    void notifyDelete();
+
+    /**
+     * Notifies the registered VolumeHandleObservers that a reload
+     * of the volume was done.
+     */
+    void notifyReload();
+     
+    /**
      * Tells if the transformation matrix has changed
      */
      void notifyTransformationChange(const tgt::mat4& matrix);
     
-    
 private:
     OBMol mol_;  ///< OpenBabel molecule data structure
+    VolumeURL origin_;
     SecStructure secStructure_;
     tgt::mat4 transformationMatrix_;
     
@@ -100,4 +129,5 @@ private:
 };
 
 } // namespace voreen
+
 #endif // VRN_MOLECULE_H

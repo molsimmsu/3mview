@@ -20,6 +20,8 @@ public:
     
     virtual void process() {}
     
+    virtual void updateSelection();
+    
 protected:
     virtual void setDescriptions() {
         setDescription("Base co-processor for molecules operating");

@@ -33,9 +33,6 @@ private:
      * Reads molecule from file and assigns the returned molecule to the outport.
      */
     void readMolecule();
-    
-    Molecule* loadMoleculeFromFile(const std::string& filename)
-        throw (VoreenException);
 
     // ports and properties
     MoleculePort outport_; ///< This outport must always contain valid data
