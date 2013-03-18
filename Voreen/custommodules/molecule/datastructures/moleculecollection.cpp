@@ -157,7 +157,7 @@ void MoleculeCollection::moleculeDelete(const Molecule* handle) {
 
 // implementation of MoleculeObserver interface
 void MoleculeCollection::moleculeTransform(const Molecule* handle, const tgt::mat4& matrix) {
-    LINFO("MoleculeCollection::moleculeTransform()");
+    //LINFO("MoleculeCollection::moleculeTransform()");
     if (contains(handle))
         notifyMoleculeTransformed(handle, matrix);
 }

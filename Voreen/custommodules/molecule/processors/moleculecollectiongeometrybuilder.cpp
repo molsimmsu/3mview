@@ -98,18 +98,18 @@ MoleculeGeometry* MoleculeCollectionGeometryBuilder::getMoleculeGeometry(const M
 }
 
 void MoleculeCollectionGeometryBuilder::moleculeAdded(const MoleculeCollection* mc, const Molecule* mol) {
-    LINFO("Molecule added");
+    LINFO("MoleculeCollectionGeometryBuilder::moleculeAdded()");
     buildBackboneTraceGeometry(mol);
     outport_.invalidatePort();
 }
 
 
 void MoleculeCollectionGeometryBuilder::moleculeRemoved(const MoleculeCollection* mc, const Molecule* mol) {
-    LINFO("Molecule removed");
+    LINFO("MoleculeCollectionGeometryBuilder::moleculeRemoved()");
 }
 
 void MoleculeCollectionGeometryBuilder::moleculeTransformed(const MoleculeCollection* mc, const Molecule* mol, const tgt::mat4& matrix) {
-    LINFO("Molecule transformed");
+    //LINFO("MoleculeCollectionGeometryBuilder::moleculeTransformed()");
     
     MoleculeGeometry* moleculeGeometry = getMoleculeGeometry(mol);
     moleculeGeometry->transform(matrix);

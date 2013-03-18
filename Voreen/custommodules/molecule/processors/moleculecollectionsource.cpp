@@ -1,4 +1,5 @@
 #include "moleculecollectionsource.h"
+#include "moleculecoprocessor.h"
 
 #include "voreen/core/processors/processorwidget.h"
 
@@ -37,7 +38,6 @@ MoleculeCollectionSource::MoleculeCollectionSource()
 }
 
 void MoleculeCollectionSource::initialize() throw (tgt::Exception) {
-    LWARNING("MoleculeCollectionSource::initialize()");
     Processor::initialize();
     /*
     moleculeURLlist_.loadMolecules(false, true);
@@ -49,7 +49,24 @@ void MoleculeCollectionSource::initialize() throw (tgt::Exception) {
 
 void MoleculeCollectionSource::invalidate(int inv) {
     LWARNING("MoleculeCollectionSource::invalidate()");
-    /*outport_.setData(moleculeURLlist_.getMolecules(true), true);
+    //outport_.setData(moleculeURLlist_.getMolecules(true), true);
+    
+    MoleculeCollection* outCol = outport_.getWritableData();
+    MoleculeCollection* selCol = moleculeURLlist_.getMolecules(true);
+    
+    // Remove old
+    for (size_t i = 0; i < outCol->size(); i++) {
+        Molecule* mol = outCol->at(i);
+        if (!selCol->contains(mol))
+            outCol->remove(mol);
+    }
+    
+    // Add new
+    for (size_t i = 0; i < selCol->size(); i++) {
+        Molecule* mol = selCol->at(i);
+        if (!outCol->contains(mol))
+            outCol->add(mol);
+    }
     
     const std::vector<CoProcessorPort*>& coProcessorOutports =  getCoProcessorOutports();
     
@@ -57,15 +74,16 @@ void MoleculeCollectionSource::invalidate(int inv) {
         const std::vector<const Port*> connectedPorts = coProcessorOutports[i]->getConnected();
         
         for (size_t j = 0; j < connectedPorts.size(); ++j) {
-            LWARNING("Port");
-            Processor* processor = connectedPorts[i]->getProcessor();
+            LWARNING("MoleculeCollectionSource::Found Port");
+            Processor* processor = connectedPorts[j]->getProcessor();
             try {
-                //dynamic_cast<DensityMapCoProcessor*>(processor)->updateSelection();
+                LWARNING("MoleculeCollectionSource::Trying Port");
+                dynamic_cast<MoleculeCoProcessor*>(processor)->updateSelection();
             }
-            catch (...) {}
+            catch (...) { LWARNING("MoleculeCollectionSource::Error Port"); }
         }
     }
-    */
+    
     Processor::invalidate(inv);
 }
 
@@ -89,7 +107,7 @@ void MoleculeCollectionSource::load(const std::string& path) {
 
 
 MoleculeCollection* MoleculeCollectionSource::getMoleculeCollection() {
-    return outport_.getWritableData(); //moleculeURLlist_.getMolecules(false);
+    return moleculeURLlist_.getMolecules(false);
 }
 
 MoleculeCollection* MoleculeCollectionSource::getSelectedMoleculeCollection() {

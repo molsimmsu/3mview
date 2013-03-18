@@ -20,7 +20,7 @@ public:
     
     virtual void process() {}
     
-    virtual void updateSelection();
+    virtual void updateSelection() { LWARNING("MoleculeCoProcessor::updateSelection()"); }
     
 protected:
     virtual void setDescriptions() {

@@ -5,7 +5,7 @@
 #include "moleculecoprocessor.h"
 
 #include "../../geometry/processors/manipulationbase.h"
-#include "../properties/moleculeselectionproperty.h"
+#include "../properties/moleculeurllistproperty.h"
 
 namespace voreen {
  
@@ -19,11 +19,9 @@ public:
     virtual std::string getCategory() const  { return "Molecule Manipulation";      }
     virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL; }
     
-    virtual void invalidate(int inv = INVALID_RESULT);
-    
     void process() {}
     
-    void updateSelection();
+    virtual void updateSelection();
     
 protected:
     virtual void setDescriptions() {
@@ -31,11 +29,11 @@ protected:
     }
 
 private:
-    void updateSelection();
+    //void updateSelection();
     
     virtual void applyTransformation(tgt::vec3 offset, tgt::mat4 matrix);
     
-    MoleculeSelectionProperty moleculeSelection_;
+    MoleculeURLListProperty moleculeURLlist_;
 };
 
 } // namespace

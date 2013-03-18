@@ -35,7 +35,7 @@ void DensityMapCollectionSource::initialize() throw (tgt::Exception) {
 }
 
 void DensityMapCollectionSource::invalidate(int inv) {
-    LWARNING("DensityMapCollectionSource::invalidate()");
+    //LWARNING("DensityMapCollectionSource::invalidate()");
     outport_.setData(volumeURLList_.getVolumes(true), true);
     
     const std::vector<CoProcessorPort*>& coProcessorOutports =  getCoProcessorOutports();
@@ -44,8 +44,8 @@ void DensityMapCollectionSource::invalidate(int inv) {
         const std::vector<const Port*> connectedPorts = coProcessorOutports[i]->getConnected();
         
         for (size_t j = 0; j < connectedPorts.size(); ++j) {
-            LWARNING("Port");
-            Processor* processor = connectedPorts[i]->getProcessor();
+            //LWARNING("Port");
+            Processor* processor = connectedPorts[j]->getProcessor();
             try {
                 dynamic_cast<DensityMapCoProcessor*>(processor)->updateSelection();
             }
