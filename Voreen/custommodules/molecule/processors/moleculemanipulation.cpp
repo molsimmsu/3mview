@@ -22,7 +22,7 @@ Processor* MoleculeManipulation::create() const {
 }
 
 void MoleculeManipulation::updateSelection() {
-    LWARNING("MoleculeManipulation::updateSelection()");
+    //LWARNING("MoleculeManipulation::updateSelection()");
     MoleculeCoProcessor::updateSelection();
     const MoleculeCollection* collection = getInputMoleculeCollection();
     if (collection == 0) {
@@ -32,7 +32,7 @@ void MoleculeManipulation::updateSelection() {
     moleculeURLlist_.clear();
     for (size_t i = 0; i < collection->size(); i++) {
         moleculeURLlist_.addMolecule(collection->at(i));
-        LWARNING("MoleculeManipulation::updateSelection() added Molecule");
+        //LWARNING("MoleculeManipulation::updateSelection() added Molecule");
     }
 }
 
@@ -44,14 +44,14 @@ void MoleculeManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 matri
     
         const MoleculeCollection* collection = moleculeURLlist_.getMolecules(true);
         if (collection == 0 || collection->size() == 0) {
-            LINFO("Exit MoleculeManipulation::applyTransformation() at return");
+            //LINFO("Exit MoleculeManipulation::applyTransformation() at return");
             return;
         }
         
         for (size_t i = 0; i < collection->size(); i++) {
             Molecule* molecule = collection->at(i);
             if (!molecule) {
-                LWARNING("Molecule is 0 at MoleculeManipulation::applyTransformation()");
+                //LWARNING("Molecule is 0 at MoleculeManipulation::applyTransformation()");
                 continue;
             }
 

@@ -103,8 +103,8 @@ protected:
      * @param geometry Geometry to which the crated geometry is appended
      * @param molecule Molecule which should be constructed
      */
-    void buildAtomsAndBondsGeometry(const Molecule* molecule);
-    void buildBackboneTraceGeometry(const Molecule* molecule);
+    MoleculeGeometry* buildAtomsAndBondsGeometry(const Molecule* molecule);
+    MoleculeGeometry* buildBackboneTraceGeometry(const Molecule* molecule);
 
 private:
     // ports and properties

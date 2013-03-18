@@ -99,13 +99,26 @@ MoleculeGeometry* MoleculeCollectionGeometryBuilder::getMoleculeGeometry(const M
 
 void MoleculeCollectionGeometryBuilder::moleculeAdded(const MoleculeCollection* mc, const Molecule* mol) {
     LINFO("MoleculeCollectionGeometryBuilder::moleculeAdded()");
-    buildBackboneTraceGeometry(mol);
+    // TODO Check if there can be more than one instances
+    MoleculeGeometry* molGeom = buildBackboneTraceGeometry(mol);
+    getOutputGeometry()->push_back(molGeom);
     outport_.invalidatePort();
 }
 
 
 void MoleculeCollectionGeometryBuilder::moleculeRemoved(const MoleculeCollection* mc, const Molecule* mol) {
     LINFO("MoleculeCollectionGeometryBuilder::moleculeRemoved()");
+    
+    GeometryCollection* gc = getOutputGeometry();
+    
+    for (size_t i = 0; i < gc->size(); i++) {
+        MoleculeGeometry* molGeom = dynamic_cast<MoleculeGeometry*>(gc->at(i));
+        // TODO Check if there can be more than one instances
+        if (molGeom->getMolecule() == mol)
+            getOutputGeometry()->erase(getOutputGeometry()->begin() + i);
+    }
+    
+    outport_.invalidatePort();
 }
 
 void MoleculeCollectionGeometryBuilder::moleculeTransformed(const MoleculeCollection* mc, const Molecule* mol, const tgt::mat4& matrix) {
@@ -138,7 +151,7 @@ void MoleculeCollectionGeometryBuilder::rebuildMolecule() {
     }*/
 }
 
-void MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(const Molecule* molecule) {
+MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(const Molecule* molecule) {
     tgtAssert(molecule, "molecule parameter is NULL at MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry()");
     const OBMol& mol = molecule->getOBMol();
     
@@ -175,10 +188,12 @@ void MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(const Molecul
         moleculeGeometry->addMesh(cyl);
     }
     
-    getOutputGeometry()->push_back(moleculeGeometry);
+    return moleculeGeometry;
 }
 
-void MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry(const Molecule* molecule) {
+MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry(const Molecule* molecule) {
+    MoleculeGeometry* moleculeGeometry = new MoleculeGeometry(molecule);
+  
     tgtAssert(molecule, "molecule parameter is NULL at MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry()");
     std::vector<PolyLine> backbone;
     
@@ -192,7 +207,7 @@ void MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry(const Molecul
 
     const OBMol& mol = molecule->getOBMol();
  
-    if (mol.NumResidues() < 2) return;
+    if (mol.NumResidues() < 2) return moleculeGeometry;
     
     
     //OBResidueIterator res = mol.BeginResidues();
@@ -228,7 +243,7 @@ void MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry(const Molecul
         
     }
     
-    MoleculeGeometry* moleculeGeometry = new MoleculeGeometry(molecule);
+    
     
 	// For each backbone PolyLine
     for (size_t i = 0; i < backbone.size(); i++) {
@@ -248,5 +263,5 @@ void MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry(const Molecul
         }
     }
     
-    getOutputGeometry()->push_back(moleculeGeometry);
+    return moleculeGeometry;
 }
