@@ -2,6 +2,7 @@
 #include "processors/alignbymoments.h"
 #include "processors/databasematch.h"
 #include "processors/calculatescore_.h"
+#include "processors/volvolalign.h"
 
 namespace voreen {
 
@@ -14,6 +15,7 @@ FormCharacteristicsModule::FormCharacteristicsModule(const std::string& modulePa
     registerProcessor(new AlignByMoments());
     registerProcessor(new DatabaseMatch());
     registerProcessor(new CalculateScore());
+    registerProcessor(new VolVolAlign());
 }
 
 } // namespace
