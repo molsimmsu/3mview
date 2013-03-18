@@ -34,16 +34,25 @@ void VolVolAlign :: process()
 
 	    LINFO("Getting transformation matrix for object #1..");
 		tgt::mat4 norm1 = GetTransformation(firstVolume);	
-         LINFO("Getting transformation matrix for object #2..");
+        LINFO("Getting transformation matrix for object #2..");
 		tgt::mat4 norm2 = GetTransformation(secondVolume);
 		tgt::mat4 nvrt2;
 		norm2.invert(nvrt2);
  
-	    	Volume* combinedVolume = firstVolume->clone();
+	    Volume* combinedVolume = firstVolume->clone();
 
 		tgt::mat4 wrld1 =  firstVolume->getPhysicalToWorldMatrix();
 		tgt::mat4 wrld2 =  secondVolume->getPhysicalToWorldMatrix();
-
+        
+        wrld1.t03 -= norm1.t03;
+	    wrld1.t13 -= norm1.t13;
+    	wrld1.t23 -= norm1.t23;
+	    wrld1.t33 = 1;
+       
+        norm1.t03 = 0;
+        norm1.t13 = 0;
+        norm1.t23 = 0;
+        
 		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1);
 		outport_.setData(combinedVolume);
 	}
@@ -54,12 +63,12 @@ void VolVolAlign :: process()
 
 	    LINFO("Getting transformation matrix for object #2..");
 		tgt::mat4 norm1 = GetTransformation(firstVolume);	
-         LINFO("Getting transformation matrix for object #1..");
+        LINFO("Getting transformation matrix for object #1..");
 		tgt::mat4 norm2 = GetTransformation(secondVolume);
 		tgt::mat4 nvrt2;
 		norm2.invert(nvrt2);
  
-	    	Volume* combinedVolume = firstVolume->clone();
+	    Volume* combinedVolume = firstVolume->clone();
 
 		tgt::mat4 wrld1 =  firstVolume->getPhysicalToWorldMatrix();
 		tgt::mat4 wrld2 =  secondVolume->getPhysicalToWorldMatrix();
@@ -75,16 +84,16 @@ tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
 	O[0] = 0;
 	O[1] = 0;
 	O[2] = 0;
-     total_weight = 0;
+    total_weight = 0;
 
 	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
 
 	tgt::svec3 dims   = vol->getDimensions();
-	size_t     voxels = vol->getNumVoxels();
+	size_t    voxels = vol->getNumVoxels();
 	tgt::vec3  space  = vol->getSpacing();
 	entries = voxels;
 
-	tgt::vec3     pWorld;
+	tgt::vec4     pWorld;
 	coords = new float[4*voxels];
 
 	RealWorldMapping rwm = vol->getRealWorldMapping();
@@ -95,20 +104,23 @@ tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
 		for (int j=0; j<dims.y; ++j)
 			for (int k=0; k<dims.z; ++k)
 			{
-				pWorld = vol->getVoxelToWorldMatrix() * (tgt::vec3(0.5+i, 0.5+j, 0.5+k));
+				pWorld = vol->getVoxelToWorldMatrix() * (tgt::vec4(0.5+i, 0.5+j, 0.5+k, 1.0));
 				coords[4*(i+j*dims.x+k*dims.x*dims.y)]   = pWorld.x;
 				coords[4*(i+j*dims.x+k*dims.x*dims.y)+1] = pWorld.y;
 				coords[4*(i+j*dims.x+k*dims.x*dims.y)+2] = pWorld.z;
 				valNorm = volRam->getVoxelNormalizedLinear(tgt::vec3(0.5+i, 0.5+j, 0.5+k));
 				valRW = rwm.normalizedToRealWorld(valNorm);
 				coords[4*(i+j*dims.x+k*dims.x*dims.y)+3] = valRW;
-
-				O[0] += coords[4*i]   * coords[4*i+3];
-				O[1] += coords[4*i+1] * coords[4*i+3];
-				O[2] += coords[4*i+2] * coords[4*i+3];
-				total_weight += coords[4*i+3];
 			}
 
+	for (int i=0; i<entries; ++i)
+	{	
+		O[0] += coords[4*i]   * coords[4*i+3];
+		O[1] += coords[4*i+1] * coords[4*i+3];
+		O[2] += coords[4*i+2] * coords[4*i+3];
+		total_weight += coords[4*i+3];
+    }
+  
 	O[0] /= total_weight;
 	O[1] /= total_weight;
 	O[2] /= total_weight;
@@ -140,19 +152,36 @@ tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
 	out_data.t22 = Oz[2];
 	out_data.t32 = 0;
 	
-	out_data.t03 = O[0];
-	out_data.t13 = O[1];
-	out_data.t23 = O[2];
+	out_data.t03 = 0;
+	out_data.t13 = 0;
+	out_data.t23 = 0;
 	out_data.t33 = 1;
+	
+	
+	tgt::mat4 out_data1;
+	
+	out_data1.t00 = 1;
+	out_data1.t10 = 0;
+	out_data1.t20 = 0;
+	out_data1.t30 = 0;
+		
+	out_data1.t01 = 0;
+	out_data1.t11 = 1;
+	out_data1.t21 = 0;
+	out_data1.t31 = 0;
 
-	std::ostringstream message;
-	message << std::endl << Ox[0] << " " << Oy[0] << " " << Oz[0] << " " << O[0] 
-		   << std::endl << Ox[1] << " " << Oy[1] << " " << Oz[1] << " " << O[1]
-		   << std::endl << Ox[2] << " " << Oy[2] << " " << Oz[2] << " " << O[2]
-		   << std::endl << 0     << " " << 0     << " " << 0     << " " << 1;
-	LINFO(message.str().c_str());
+	out_data1.t02 = 0;
+	out_data1.t12 = 0;
+	out_data1.t22 = 1;
+	out_data1.t32 = 0;
+	
+	out_data1.t03 = -O[0];
+	out_data1.t13 = -O[1];
+	out_data1.t23 = -O[2];
+	out_data1.t33 =  1;	
 
-	return out_data;
+    tgt::mat4 out_data2 = out_data*out_data1;
+	return out_data2;
 }
 
 double VolVolAlign :: CalculateMoment(int degX, int degY, int degZ)
