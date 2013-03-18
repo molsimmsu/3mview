@@ -98,7 +98,7 @@ void CanvasRenderer::process() {
         if (renderToImage_) {
             try {
                 renderInportToImage(renderToImageFilename_);
-                LINFO("Saved rendering with dimensions " << inportLeft_.getSize() << " to file: " << tgt::FileSystem::cleanupPath(renderToImageFilename_));
+                LINFO("Saved rendering with dimensions " << inportMono_.getSize() << " to file: " << tgt::FileSystem::cleanupPath(renderToImageFilename_));
             }
             catch (std::bad_alloc& /*e*/) {
                 LERROR("Exception in CanvasRenderer::renderInportToImage(): bad allocation (" << getName() << ")");
@@ -335,7 +335,7 @@ bool CanvasRenderer::renderToImage(const std::string &filename) {
         return false;
     }
 
-    if (!inportLeft_.hasRenderTarget()) {
+    if (!inportMono_.hasRenderTarget()) {
         LWARNING("CanvasRenderer::renderToImage(): inport has no data");
         renderToImageError_ = "No rendering";
         return false;
@@ -359,31 +359,31 @@ bool CanvasRenderer::renderToImage(const std::string &filename, tgt::ivec2 dimen
         return false;
     }
 
-    if (!inportLeft_.hasRenderTarget()) {
+    if (!inportMono_.hasRenderTarget()) {
         LWARNING("CanvasRenderer::renderToImage(): inport has no data");
         renderToImageError_ = "No rendering";
         return false;
     }
 
-    tgt::ivec2 oldDimensions = inportLeft_.getSize();
+    tgt::ivec2 oldDimensions = inportMono_.getSize();
     // resize texture container to desired image dimensions and propagate change
     canvas_->getGLFocus();
-    inportLeft_.requestSize(dimensions);
+    inportMono_.requestSize(dimensions);
 
     // render with adjusted viewport size
     bool success = renderToImage(filename);
 
     // reset texture container dimensions from canvas size
-    inportLeft_.requestSize(oldDimensions);
+    inportMono_.requestSize(oldDimensions);
 
     return success;
 }
 
 void CanvasRenderer::renderInportToImage(const std::string& filename) throw (VoreenException) {
-    if (!inportLeft_.hasRenderTarget())
+    if (!inportMono_.hasRenderTarget())
         throw VoreenException("No rendering");
 
-    inportLeft_.saveToImage(filename);
+    inportMono_.saveToImage(filename);
 }
 
 const tgt::Texture* CanvasRenderer::getImageColorTexture() const {
