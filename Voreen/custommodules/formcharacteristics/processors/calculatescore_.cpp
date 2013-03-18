@@ -31,7 +31,8 @@ CalculateScore::CalculateScore()
     filteringMode_.addOption("linear",  "Linear ");
     filteringMode_.addOption("cubic",   "Cubic");
     filteringMode_.set("linear");
-
+    addProperty(filteringMode_);
+    
     addProperty(output_);
 }
 
