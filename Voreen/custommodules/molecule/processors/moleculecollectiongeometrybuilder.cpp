@@ -109,13 +109,16 @@ void MoleculeCollectionGeometryBuilder::moleculeAdded(const MoleculeCollection* 
 void MoleculeCollectionGeometryBuilder::moleculeRemoved(const MoleculeCollection* mc, const Molecule* mol) {
     LINFO("MoleculeCollectionGeometryBuilder::moleculeRemoved()");
     
-    GeometryCollection* gc = getOutputGeometry();
+    GeometryCollection* geom = getOutputGeometry();
     
-    for (size_t i = 0; i < gc->size(); i++) {
-        MoleculeGeometry* molGeom = dynamic_cast<MoleculeGeometry*>(gc->at(i));
+    for (size_t i = 0; i < geom->size(); i++) {
+        MoleculeGeometry* molGeom = dynamic_cast<MoleculeGeometry*>(geom->at(i));
+        tgtAssert(molGeom, "Wrong dynamic cast");
         // TODO Check if there can be more than one instances
-        if (molGeom->getMolecule() == mol)
+        if (molGeom->getMolecule() == mol) {
             getOutputGeometry()->erase(getOutputGeometry()->begin() + i);
+            delete molGeom;
+        }
     }
     
     outport_.invalidatePort();
