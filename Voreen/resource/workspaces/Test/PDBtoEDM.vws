@@ -5,13 +5,13 @@
             <MetaData>
                 <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
                     <values>
-                        <item type="PDBtoEDM" ref="ref13" />
+                        <item type="Compositor" ref="ref1" />
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
-                    <value x="-137.43952942" y="-513.96655273" />
+                    <value x="-139.76620483" y="-85.22329712" />
                 </MetaItem>
-                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.69848901" />
+                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.88004106" />
             </MetaData>
             <Processors>
                 <Processor type="SingleVolumeRaycaster" name="SingleVolumeRaycaster" id="ref0">
@@ -138,10 +138,10 @@
                 <Processor type="Canvas" name="Canvas" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-432" y="234" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="620" y="312" width="919" height="675" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="916" y="322" width="919" height="675" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="620" y="312" />
+                            <value x="916" y="322" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="919" y="675" />
@@ -394,7 +394,7 @@
                     <Properties>
                         <Property name="addDepth" lod="1" value="false" />
                         <Property name="blendMode" lod="1" value="alpha-compositing" />
-                        <Property name="pipethrough" lod="1" value="false" />
+                        <Property name="pipethrough" lod="1" value="true" />
                         <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
@@ -700,7 +700,7 @@
                     <Outport name="image.output">
                         <Processor type="SingleVolumeRaycaster" ref="ref0" />
                     </Outport>
-                    <Inport name="image.inport0">
+                    <Inport name="image.inport1">
                         <Processor type="Compositor" ref="ref1" />
                     </Inport>
                 </Connection>
@@ -756,7 +756,7 @@
                     <Outport name="image.output">
                         <Processor type="GeometryProcessor" ref="ref6" />
                     </Outport>
-                    <Inport name="image.inport1">
+                    <Inport name="image.inport0">
                         <Processor type="Compositor" ref="ref1" />
                     </Inport>
                 </Connection>
