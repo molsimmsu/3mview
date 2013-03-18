@@ -20,6 +20,9 @@ public:
     
     virtual void process() {}
     
+    /*
+     * Copy and paste this function in your derived classes to update selection
+     */
     virtual void updateSelection() { LWARNING("MoleculeCoProcessor::updateSelection()"); }
     
 protected:
