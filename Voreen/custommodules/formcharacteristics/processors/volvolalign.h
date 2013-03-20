@@ -1,13 +1,13 @@
 #ifndef VRN_VOLVOLALIGN_H
 #define VRN_VOLVOLALIGN_H
 
-#include "../../molecule/ports/moleculeport.h"
-#include "../ports/mat4port.h"
-
+#include "voreen/core/datastructures/volume/volume.h"
 #include "voreen/core/properties/optionproperty.h"
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
 using namespace voreen;
+
+tgt::vec3 getVolumeMassCenter(Volume*);
 
 class VolVolAlign : public Processor {
 public:
@@ -38,7 +38,7 @@ private:
     size_t entries;
     float  *coords;
 
-    VolumePort      	  volinport1_;
+    VolumePort             volinport1_;
     VolumePort             volinport2_;
     VolumePort             outport_;
     StringOptionProperty   tobealigned_;  
@@ -46,7 +46,7 @@ private:
 
     double CalculateMoment(int, int, int);
     double CalculateFourrier(int, int, int); 		
-    void   PDBFindAxes();
+    void   FindAxes();
     double PolynomVal(double);
 
     tgt::mat4 GetTransformation(const VolumeBase* vol);
