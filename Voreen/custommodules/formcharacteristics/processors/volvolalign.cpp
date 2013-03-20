@@ -1,5 +1,5 @@
 #include "volvolalign.h"
-#include "voreen/core/datastructures/volume/volume.h"
+
 
 #define    SCALE          30
 #define    SOLVE_ITER     52
@@ -8,6 +8,45 @@
 
 
 const std::string VolVolAlign::loggerCat_("3mview.VolVolAlign");
+
+tgt::vec3 getVolumeMassCenter(VolumeBase* vol)
+{
+	tgt::vec3 mass_center;
+	mass_center.x =0.0;
+	mass_center.y =0.0;
+	mass_center.z =0.0;
+	double weight = 0;
+
+	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
+
+	tgt::svec3 dims   = vol->getDimensions();
+	tgt::vec3  space  = vol->getSpacing();
+
+	tgt::vec4     pWorld;
+
+	RealWorldMapping rwm = vol->getRealWorldMapping();
+	float valNorm;
+	float valRW;
+
+	for (int i=0; i<dims.x; ++i)
+		for (int j=0; j<dims.y; ++j)
+			for (int k=0; k<dims.z; ++k)
+			{
+				pWorld = vol->getVoxelToWorldMatrix() * (tgt::vec4(0.5+i, 0.5+j, 0.5+k, 1.0));
+				valNorm = volRam->getVoxelNormalizedLinear(tgt::vec3(0.5+i, 0.5+j, 0.5+k));
+				valRW = rwm.normalizedToRealWorld(valNorm);
+
+				mass_center.x += pWorld.x * valRW;
+				mass_center.y += pWorld.y * valRW;
+				mass_center.z += pWorld.z * valRW;
+				weight  += valRW;
+			}
+     mass_center.x /= weight;
+     mass_center.y /= weight;
+     mass_center.z /= weight;
+     return mass_center;
+}
+
 
 VolVolAlign :: VolVolAlign()
   : Processor(),
@@ -32,26 +71,18 @@ void VolVolAlign :: process()
 		const VolumeBase* firstVolume  = volinport1_.getData();
 		const VolumeBase* secondVolume = volinport2_.getData();
 
-	    LINFO("Getting transformation matrix for object #1..");
+	        LINFO("Getting transformation matrix for object #1..");
 		tgt::mat4 norm1 = GetTransformation(firstVolume);	
-        LINFO("Getting transformation matrix for object #2..");
+                LINFO("Getting transformation matrix for object #2..");
 		tgt::mat4 norm2 = GetTransformation(secondVolume);
 		tgt::mat4 nvrt2;
 		norm2.invert(nvrt2);
  
-	    Volume* combinedVolume = firstVolume->clone();
+	        Volume* combinedVolume = firstVolume->clone();
 
 		tgt::mat4 wrld1 =  firstVolume->getPhysicalToWorldMatrix();
 		tgt::mat4 wrld2 =  secondVolume->getPhysicalToWorldMatrix();
         
-        wrld1.t03 -= norm1.t03;
-	    wrld1.t13 -= norm1.t13;
-    	wrld1.t23 -= norm1.t23;
-	    wrld1.t33 = 1;
-       
-        norm1.t03 = 0;
-        norm1.t13 = 0;
-        norm1.t23 = 0;
         
 		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1);
 		outport_.setData(combinedVolume);
@@ -61,14 +92,14 @@ void VolVolAlign :: process()
 		const VolumeBase* firstVolume  = volinport2_.getData();
 		const VolumeBase* secondVolume = volinport1_.getData();
 
-	    LINFO("Getting transformation matrix for object #2..");
+	        LINFO("Getting transformation matrix for object #2..");
 		tgt::mat4 norm1 = GetTransformation(firstVolume);	
-        LINFO("Getting transformation matrix for object #1..");
+                LINFO("Getting transformation matrix for object #1..");
 		tgt::mat4 norm2 = GetTransformation(secondVolume);
 		tgt::mat4 nvrt2;
 		norm2.invert(nvrt2);
  
-	    Volume* combinedVolume = firstVolume->clone();
+	        Volume* combinedVolume = firstVolume->clone();
 
 		tgt::mat4 wrld1 =  firstVolume->getPhysicalToWorldMatrix();
 		tgt::mat4 wrld2 =  secondVolume->getPhysicalToWorldMatrix();
@@ -84,7 +115,7 @@ tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
 	O[0] = 0;
 	O[1] = 0;
 	O[2] = 0;
-    total_weight = 0;
+     total_weight = 0;
 
 	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
 
@@ -132,7 +163,7 @@ tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
 		coords[4*i+2] -= O[2];
 	}
 
-	PDBFindAxes();
+	FindAxes();
 	delete[] coords;
 
 	tgt::mat4 out_data;
@@ -229,7 +260,7 @@ double VolVolAlign :: CalculateFourrier(int degX, int degY, int degZ)
 	return res;
 }
 
-void VolVolAlign :: PDBFindAxes()
+void VolVolAlign :: FindAxes()
 {
 	double disc;
 	double I[3][3];
@@ -387,4 +418,4 @@ void VolVolAlign :: PDBFindAxes()
 double VolVolAlign :: PolynomVal(double x)
 {
 	return polynom[3]*x*x*x + polynom[2]*x*x + polynom[1]*x + polynom[0];
-}
+} 
