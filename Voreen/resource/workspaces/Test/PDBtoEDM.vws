@@ -3,15 +3,10 @@
     <Workspace version="2" GlobalDescription="">
         <ProcessorNetwork version="13">
             <MetaData>
-                <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
-                    <values>
-                        <item type="Compositor" ref="ref1" />
-                    </values>
-                </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
-                    <value x="-139.76620483" y="-85.22329712" />
+                    <value x="-209.0811615" y="-354.52890015" />
                 </MetaItem>
-                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.88004106" />
+                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.44002053" />
             </MetaData>
             <Processors>
                 <Processor type="SingleVolumeRaycaster" name="SingleVolumeRaycaster" id="ref0">
@@ -24,9 +19,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="830" y="156" />
                             </MetaData>
-                            <position x="70.90548706" y="-18.70734406" z="13.50362778" />
-                            <focus x="-1.49199867" y="12.65799999" z="1.25061417" />
-                            <upVector x="0.21816638" y="0.97583514" z="-0.0122152" />
+                            <position x="39.20687103" y="-70.0745163" z="-23.08194923" />
+                            <focus x="-1.49200058" y="12.70799923" z="1.20061111" />
+                            <upVector x="0.29946744" y="0.58438599" z="-0.75419647" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -138,10 +133,10 @@
                 <Processor type="Canvas" name="Canvas" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-432" y="234" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="916" y="322" width="919" height="675" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="917" y="349" width="919" height="675" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="916" y="322" />
+                            <value x="917" y="349" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="919" y="675" />
@@ -226,9 +221,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="1196" y="149" />
                             </MetaData>
-                            <position x="70.90548706" y="-18.70734406" z="13.50362778" />
-                            <focus x="-1.49199867" y="12.65799999" z="1.25061417" />
-                            <upVector x="0.21816638" y="0.97583514" z="-0.0122152" />
+                            <position x="39.20687103" y="-70.0745163" z="-23.08194923" />
+                            <focus x="-1.49200058" y="12.70799923" z="1.20061111" />
+                            <upVector x="0.29946744" y="0.58438599" z="-0.75419647" />
                         </Property>
                         <Property name="jitterEntryPoints" lod="1" value="false" />
                         <Property name="jitterStepLength" lod="1" value="0.005" />
@@ -289,9 +284,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="619" y="0" />
                             </MetaData>
-                            <position x="70.90548706" y="-18.70734406" z="13.50362778" />
-                            <focus x="-1.49199867" y="12.65799999" z="1.25061417" />
-                            <upVector x="0.21816638" y="0.97583514" z="-0.0122152" />
+                            <position x="39.20687103" y="-70.0745163" z="-23.08194923" />
+                            <focus x="-1.49200058" y="12.70799923" z="1.20061111" />
+                            <upVector x="0.29946744" y="0.58438599" z="-0.75419647" />
                         </Property>
                         <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -341,9 +336,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="619" y="0" />
                             </MetaData>
-                            <position x="70.90548706" y="-18.70734406" z="13.50362778" />
-                            <focus x="-1.49199867" y="12.65799999" z="1.25061417" />
-                            <upVector x="0.21816638" y="0.97583514" z="-0.0122152" />
+                            <position x="39.20687103" y="-70.0745163" z="-23.08194923" />
+                            <focus x="-1.49200058" y="12.70799923" z="1.20061111" />
+                            <upVector x="0.29946744" y="0.58438599" z="-0.75419647" />
                         </Property>
                         <Property name="renderGeometries" lod="1" value="true" />
                     </Properties>
@@ -481,13 +476,13 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-433" y="-399" />
                     </MetaData>
                     <Properties>
-                        <Property name="backClippingPlane" lod="1" value="188" />
+                        <Property name="backClippingPlane" lod="1" value="80.07407379" />
                         <Property name="bottomClippingPlane" lod="1" value="0" />
                         <Property name="frontClippingPlane" lod="1" value="0" />
-                        <Property name="leftClippingPlane" lod="1" value="195.26553345" />
+                        <Property name="leftClippingPlane" lod="1" value="68.60681152" />
                         <Property name="resetClipPlanes" lod="1" />
                         <Property name="rightClippingPlane" lod="1" value="0" />
-                        <Property name="topClippingPlane" lod="1" value="174.72857666" />
+                        <Property name="topClippingPlane" lod="1" value="79.6556778" />
                         <Property name="useClipping" lod="1" value="false" />
                     </Properties>
                     <Inports>
@@ -601,30 +596,13 @@
                     </Outports>
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="VolumeSource" name="VolumeSource">
-                    <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-699" y="-764" />
-                    </MetaData>
-                    <Properties>
-                        <Property name="volumeURL" lod="1" url="" />
-                    </Properties>
-                    <Inports />
-                    <Outports>
-                        <Port name="volumehandle.volumehandle">
-                            <Properties>
-                                <Property name="blockEvents" lod="1" value="false" />
-                            </Properties>
-                        </Port>
-                    </Outports>
-                    <InteractionHandlers />
-                </Processor>
                 <Processor type="PDBtoEDM" name="PDBtoEDM" id="ref13">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-480" y="-683" />
                     </MetaData>
                     <Properties>
-                        <Property name="atoomr" value="3" />
-                        <Property name="deltaatoomr" value="2" />
+                        <Property name="atoomr" value="2" />
+                        <Property name="deltaatoomr" value="3" />
                         <Property name="generategrid" />
                     </Properties>
                     <Inports>
@@ -646,7 +624,7 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-172" y="-882" />
                     </MetaData>
                     <Properties>
-                        <Property name="inputFile" noPathSet="false" value="../../../../Tests/4e7v.pdb" />
+                        <Property name="inputFile" noPathSet="false" value="../../../../Tests/6ins.pdb" />
                         <Property name="invertDirection" value="false" />
                         <Property name="loadMolecule" />
                         <Property name="manipulationAxis" value="x" />
@@ -678,7 +656,7 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-150" y="-778" />
                     </MetaData>
                     <Properties>
-                        <Property name="moleculeID" value="0" />
+                        <Property name="moleculeID" value="1" />
                     </Properties>
                     <Inports>
                         <Port name="moleculecollection">
