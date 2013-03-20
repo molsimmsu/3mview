@@ -7,7 +7,7 @@
 #include "voreen/core/processors/processor.h"
 using namespace voreen;
 
-tgt::vec3 getVolumeMassCenter(Volume*);
+tgt::vec3 getVolumeMassCenter(VolumeBase*);
 
 class VolVolAlign : public Processor {
 public:
