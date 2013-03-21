@@ -15,7 +15,7 @@ FormCharacteristicsModule::FormCharacteristicsModule(const std::string& modulePa
     setName("Form Characteristics");
     
 //    registerProcessor(new AlignByMoments());
-    registerProcessor(new DatabaseMatch());
+    //registerProcessor(new DatabaseMatch());
     registerProcessor(new CalculateScore());
     registerProcessor(new VolVolAlign());
     registerProcessor(new MolMolAlign());
