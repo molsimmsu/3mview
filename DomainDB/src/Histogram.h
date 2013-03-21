@@ -31,7 +31,7 @@ void build(int paramID)
 
 void write(const char* name, double* data)
 {
-	
+	/*
 	double* max = max_element(data, data + v.size());;
 	string xAxis = string("#fr") + name;
 	string title = string("#fr") + name + " distribution";
@@ -39,7 +39,8 @@ void write(const char* name, double* data)
 	string strName("DomainsDB/histograms/");
 	strName += name;
 	strName += ".png";
-	//plsdev("xwin");
+	
+	// plplot required
 	plsdev("pngcairo");
 	plsfnam(strName.c_str());
 	plsetopt("bg", "FFFFFF");
@@ -53,6 +54,7 @@ void write(const char* name, double* data)
 		      title.c_str() );
 
 	plend();
+	*/
 }
 
 
