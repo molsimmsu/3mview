@@ -2,7 +2,7 @@
 
 
 #define    SCALE          30
-#define    SOLVE_ITER     52
+#define    SOLVE_ITER     60
 #define    PI_2           1.57079632679
 #define    MAX_SIZE	      1.5    // range of the first harmonic
 
@@ -86,23 +86,34 @@ void VolVolAlign :: align()
 		    secondVolume = volinport1_.getData();
 		}
 
-	        LINFO("Getting transformation matrix for object #1..");
-		tgt::mat4 norm1 = GetTransformation(firstVolume);	
-                LINFO("Getting transformation matrix for object #2..");
-		tgt::mat4 norm2 = GetTransformation(secondVolume);
-		tgt::mat4 nvrt2;
+
+		tgt::Matrix4d wrld1 =  firstVolume->getVoxelToWorldMatrix();
+		tgt::Matrix4d wrld2 = secondVolume->getVoxelToWorldMatrix();
+
+      	double d1 = wrld1.t00*wrld1.t11*wrld1.t22+wrld1.t01*wrld1.t12*wrld1.t20+wrld1.t10*wrld1.t21*wrld1.t02
+                     -wrld1.t20*wrld1.t11*wrld1.t02-wrld1.t10*wrld1.t01*wrld1.t22-wrld1.t00*wrld1.t12*wrld1.t21;
+
+          LINFO("Getting transformation matrix for object #1..");
+		tgt::Matrix4d norm1 = GetTransformation(firstVolume, d1);	
+
+      	double d2 = wrld2.t00*wrld2.t11*wrld2.t22+wrld2.t01*wrld2.t12*wrld2.t20+wrld2.t10*wrld2.t21*wrld2.t02
+                     -wrld2.t20*wrld2.t11*wrld2.t02-wrld2.t10*wrld2.t01*wrld2.t22-wrld2.t00*wrld2.t12*wrld2.t21;
+
+
+          LINFO("Getting transformation matrix for object #2..");
+		tgt::Matrix4d norm2 = GetTransformation(secondVolume, d2);
+
+		tgt::Matrix4d nvrt2;
 		norm2.invert(nvrt2);
  
-	        Volume* combinedVolume = firstVolume->clone();
+	     Volume* combinedVolume = firstVolume->clone();
 
-		tgt::mat4 wrld1 =  firstVolume->getVoxelToWorldMatrix();
         
-		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1); // Venia
-		//combinedVolume->setPhysicalToWorldMatrix(wrld2*nvrt2*norm1); // Alexey
-		
-		
+		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1);
+
 		combinedVolume->setOffset(tgt::vec3(0,0,0));
 		combinedVolume->setSpacing(tgt::vec3(1,1,1));
+
 		outport_.setData(combinedVolume);
 	}
 
@@ -114,13 +125,19 @@ void VolVolAlign :: align()
 		if (tobealigned_.isSelected("Vol2ToOrigin")) 
 		    volume = volinport2_.getData();
 
-	    LINFO("Getting transformation matrix for object..");
-		tgt::mat4 norm = GetTransformation(volume);	
- 
-	    Volume* combinedVolume = volume->clone();
+
 	    
-		tgt::Matrix4d wrld = volume->getVoxelToWorldMatrix();
-		combinedVolume->setPhysicalToWorldMatrix(norm*wrld);
+		tgt::Matrix4d wrld2 = volume->getVoxelToWorldMatrix();
+      	double d = wrld2.t00*wrld2.t11*wrld2.t22+wrld2.t01*wrld2.t12*wrld2.t20+wrld2.t10*wrld2.t21*wrld2.t02
+                    -wrld2.t20*wrld2.t11*wrld2.t02-wrld2.t10*wrld2.t01*wrld2.t22-wrld2.t00*wrld2.t12*wrld2.t21;
+
+
+ 	     LINFO("Getting transformation matrix for object..");
+		tgt::Matrix4d norm = GetTransformation(volume, d);	
+ 
+	     Volume* combinedVolume = volume->clone();
+
+		combinedVolume->setPhysicalToWorldMatrix(norm*wrld2);
 
 		combinedVolume->setOffset(tgt::vec3(0,0,0));
 		combinedVolume->setSpacing(tgt::vec3(1,1,1));
@@ -129,7 +146,7 @@ void VolVolAlign :: align()
 
 }
 
-tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
+tgt::Matrix4d VolVolAlign :: GetTransformation(const VolumeBase* vol, double d)
 {
 	O[0] = 0;
 	O[1] = 0;
@@ -139,12 +156,11 @@ tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
 	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
 
 	tgt::svec3 dims   = vol->getDimensions();
-	size_t    voxels = vol->getNumVoxels();
-	tgt::vec3  space  = vol->getSpacing();
-	entries = voxels;
+	size_t     voxels = vol->getNumVoxels();
+	entries =  voxels;
 
-	tgt::vec4     pWorld;
-	coords = new float[4*voxels];
+	tgt::dvec4     pWorld;
+	coords = new double[4*voxels];
 
 	RealWorldMapping rwm = vol->getRealWorldMapping();
 	float valNorm;
@@ -154,11 +170,11 @@ tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
 		for (int j=0; j<dims.y; ++j)
 			for (int k=0; k<dims.z; ++k)
 			{
-				pWorld = vol->getVoxelToWorldMatrix() * (tgt::vec4(0.5+i, 0.5+j, 0.5+k, 1.0));
+				pWorld = vol->getVoxelToWorldMatrix() * (tgt::dvec4(0.5+i, 0.5+j, 0.5+k, 1.0));
 				coords[4*(i+j*dims.x+k*dims.x*dims.y)]   = pWorld.x;
 				coords[4*(i+j*dims.x+k*dims.x*dims.y)+1] = pWorld.y;
 				coords[4*(i+j*dims.x+k*dims.x*dims.y)+2] = pWorld.z;
-				valNorm = volRam->getVoxelNormalizedLinear(tgt::vec3(0.5+i, 0.5+j, 0.5+k));
+				valNorm = volRam->getVoxelNormalizedLinear(tgt::dvec3(0.5+i, 0.5+j, 0.5+k));
 				valRW = rwm.normalizedToRealWorld(valNorm);
 				coords[4*(i+j*dims.x+k*dims.x*dims.y)+3] = valRW;
 			}
@@ -182,33 +198,15 @@ tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
 		coords[4*i+2] -= O[2];
 	}
 
-	FindAxes();
+	FindAxes(d);
 	delete[] coords;
 
-	tgt::mat4 out_data;
+	tgt::Matrix4d out_data (Ox[0], Ox[1], Ox[2], 0,
+				   	    Oy[0], Oy[1], Oy[2], 0,
+ 					    Oz[0], Oz[1], Oz[2], 0,
+			     	    0,     0,     0,     1);	
 	
-	out_data.t00 = Ox[0];
-	out_data.t10 = Ox[1];
-	out_data.t20 = Ox[2];
-	out_data.t30 = 0;
-		
-	out_data.t01 = Oy[0];
-	out_data.t11 = Oy[1];
-	out_data.t21 = Oy[2];
-	out_data.t31 = 0;
-
-	out_data.t02 = Oz[0];
-	out_data.t12 = Oz[1];
-	out_data.t22 = Oz[2];
-	out_data.t32 = 0;
-	
-	out_data.t03 = 0;
-	out_data.t13 = 0;
-	out_data.t23 = 0;
-	out_data.t33 = 1;
-	
-	
-	tgt::mat4 out_data1;
+	tgt::Matrix4d out_data1;
 	
 	out_data1.t00 = 1;
 	out_data1.t10 = 0;
@@ -230,7 +228,7 @@ tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
 	out_data1.t23 = -O[2];
 	out_data1.t33 =  1;	
 
-    tgt::mat4 out_data2 = out_data*out_data1;
+    tgt::Matrix4d out_data2 = out_data*out_data1;
 	return out_data2;
 }
 
@@ -279,7 +277,7 @@ double VolVolAlign :: CalculateFourrier(int degX, int degY, int degZ)
 	return res;
 }
 
-void VolVolAlign :: FindAxes()
+void VolVolAlign :: FindAxes(double d)
 {
 	double disc;
 	double I[3][3];
@@ -305,6 +303,12 @@ void VolVolAlign :: FindAxes()
 	polynom[1] = -(I[1][1]*I[2][2]+I[2][2]*I[0][0]+I[0][0]*I[1][1]-I[0][2]*I[0][2]-I[1][2]*I[1][2]-I[0][1]*I[0][1]);
 	polynom[2] = I[0][0] + I[1][1] + I[2][2];
 	polynom[3] = -1;
+
+	std::ostringstream message;
+	message << "\n"
+	        << " " << I[0][0] << " " << I[0][1] << " " << I[0][2] << std::endl 
+		   << " " << I[1][0] << " " << I[1][1] << " " << I[1][2] << std::endl 
+		   << " " << I[2][0] << " " << I[2][1] << " " << I[2][2] << std::endl; 
 
 	while (PolynomVal(a)<0) {a-=1;}
 	while (PolynomVal(b)>0) {b+=1;}
@@ -343,7 +347,7 @@ void VolVolAlign :: FindAxes()
 	{
 		for (int j=i; j<3; ++j)	
 		{
-			if (eigens[i] > eigens[j])
+			if (fabs(eigens[i]) > fabs(eigens[j]))
 			{
 				disc = eigens[i];
 				eigens[i] = eigens[j];
@@ -351,6 +355,9 @@ void VolVolAlign :: FindAxes()
 			}
 		}
 	}	
+	
+	message << "\n " << eigens[0] << " " << eigens[1] << " " << eigens[2] << std::endl;
+
 
 	V1[0] = I[0][0] - eigens[0]; 
 	V1[1] = I[0][1];
@@ -405,7 +412,7 @@ void VolVolAlign :: FindAxes()
 	Oz[2] /= len;
 
 	disc =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
-	if (disc<0)
+	if (disc*d>0)
 	{
 		Oz[0] = -Oz[0];
 		Oz[1] = -Oz[1];
@@ -432,6 +439,12 @@ void VolVolAlign :: FindAxes()
 		Oy[1] = -Oy[1];
 		Oy[2] = -Oy[2];
 	}
+	message << "\n"
+	        << " " << Ox[0] << " " << Ox[1] << " " << Ox[2] << std::endl 
+		   << " " << Oy[0] << " " << Oy[1] << " " << Oy[2] << std::endl 
+		   << " " << Oz[0] << " " << Oz[1] << " " << Oz[2] << std::endl; 
+
+	LINFO(message.str().c_str());
 }
 
 double VolVolAlign :: PolynomVal(double x)
