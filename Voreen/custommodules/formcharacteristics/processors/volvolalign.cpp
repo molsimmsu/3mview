@@ -98,7 +98,8 @@ void VolVolAlign :: align()
 		tgt::mat4 wrld1 =  firstVolume->getPhysicalToWorldMatrix();
 		tgt::mat4 wrld2 =  secondVolume->getPhysicalToWorldMatrix();
         
-		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1);
+		//combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1); // Venia
+		combinedVolume->setPhysicalToWorldMatrix(wrld2*nvrt2*norm1); // Alexey
 		outport_.setData(combinedVolume);
 	}
 
@@ -108,8 +109,7 @@ void VolVolAlign :: align()
 		if (tobealigned_.isSelected("Vol1ToOrigin")) 
 		    volume = volinport1_.getData();
 		if (tobealigned_.isSelected("Vol2ToOrigin")) 
-		    volume = volinport1_.getData();
-		
+		    volume = volinport2_.getData();
 
 	    LINFO("Getting transformation matrix for object..");
 		tgt::mat4 norm = GetTransformation(volume);	
