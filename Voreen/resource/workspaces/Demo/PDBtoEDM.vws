@@ -26,7 +26,7 @@
                             </MetaData>
                             <position x="47.69777679" y="90.28229523" z="90.51101685" />
                             <focus x="-6.49639463" y="-4.06399298" z="-10.31703758" />
-                            <upVector x="-0.00018682" y="0.57775581" z="-0.81620961" />
+                            <upVector x="-0.00018682" y="0.57775587" z="-0.81620973" />
                         </Property>
                         <Property name="classification" lod="1" value="transfer-function" />
                         <Property name="compositing" lod="1" value="dvr" />
@@ -201,7 +201,7 @@
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                             </MetaData>
                         </Property>
-                        <Property name="texture" lod="1" noPathSet="false" value="../../../Desktop/ubuntu-13.04-wallpaper-oficial.jpg" />
+                        <Property name="texture" lod="1" noPathSet="false" value="../Test/../../../Desktop/ubuntu-13.04-wallpaper-oficial.jpg" />
                     </Properties>
                     <Inports>
                         <Port name="image.input">
@@ -228,7 +228,7 @@
                             </MetaData>
                             <position x="47.69777679" y="90.28229523" z="90.51101685" />
                             <focus x="-6.49639463" y="-4.06399298" z="-10.31703758" />
-                            <upVector x="-0.00018682" y="0.57775581" z="-0.81620961" />
+                            <upVector x="-0.00018682" y="0.57775587" z="-0.81620973" />
                         </Property>
                         <Property name="jitterEntryPoints" lod="1" value="false" />
                         <Property name="jitterStepLength" lod="1" value="0.005" />
@@ -291,7 +291,7 @@
                             </MetaData>
                             <position x="47.69777679" y="90.28229523" z="90.51101685" />
                             <focus x="-6.49639463" y="-4.06399298" z="-10.31703758" />
-                            <upVector x="-0.00018682" y="0.57775587" z="-0.81620973" />
+                            <upVector x="-0.00018682" y="0.57775581" z="-0.81620961" />
                         </Property>
                         <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -343,7 +343,7 @@
                             </MetaData>
                             <position x="47.69777679" y="90.28229523" z="90.51101685" />
                             <focus x="-6.49639463" y="-4.06399298" z="-10.31703758" />
-                            <upVector x="-0.00018682" y="0.57775581" z="-0.81620961" />
+                            <upVector x="-0.00018682" y="0.57775587" z="-0.81620973" />
                         </Property>
                         <Property name="renderGeometries" lod="1" value="true" />
                     </Properties>
@@ -663,7 +663,7 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-150" y="-778" />
                     </MetaData>
                     <Properties>
-                        <Property name="moleculeID" value="1" />
+                        <Property name="moleculeID" value="0" />
                     </Properties>
                     <Inports>
                         <Port name="moleculecollection">
@@ -686,7 +686,7 @@
                     <Properties>
                         <Property name="func1" AlwaysFitDomain="false" id="ref26">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" width="504" height="308" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                             </MetaData>
                             <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                 <Keys>

@@ -5,13 +5,13 @@
             <MetaData>
                 <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
                     <values>
-                        <item type="VolumeHalfsample" ref="ref28" />
+                        <item type="VolVolAlign" ref="ref34" />
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
-                    <value x="-502.24911499" y="-618.152771" />
+                    <value x="-128.8494873" y="-246.24568176" />
                 </MetaItem>
-                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.44002068" />
+                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.34924468" />
             </MetaData>
             <Processors>
                 <Processor type="SingleVolumeRaycaster" name="SingleVolumeRaycaster" id="ref0">
@@ -24,9 +24,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="371.62896729" y="591.54064941" z="570.75933838" />
-                            <focus x="58.07383347" y="226.50537109" z="239.54055786" />
-                            <upVector x="-0.49247038" y="-0.51408517" z="0.70227444" />
+                            <position x="533.13195801" y="382.63473511" z="474.93685913" />
+                            <focus x="226.94801331" y="127.76706696" z="172.78762817" />
+                            <upVector x="-0.58357894" y="-0.45993921" z="0.66924697" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -54,7 +54,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="-0" y="-0" z="-0" w="-0" />
+                            <value x="0" y="0" z="0" w="0" />
                         </Property>
                         <Property name="lightSpecular">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -67,23 +67,17 @@
                         </Property>
                         <Property name="samplingRate" value="3.5" />
                         <Property name="shading" value="phong" />
-                        <Property name="transferFunction" AlwaysFitDomain="false">
+                        <Property name="transferFunction" AlwaysFitDomain="false" id="ref76">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                             </MetaData>
                             <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                 <Keys>
-                                    <key type="TransFuncMappingKey" intensity="0" split="false">
-                                        <colorL r="132" g="0" b="255" a="0" />
-                                    </key>
-                                    <key type="TransFuncMappingKey" intensity="0.43560606" split="false">
-                                        <colorL r="118" g="0" b="202" a="8" />
-                                    </key>
-                                    <key type="TransFuncMappingKey" intensity="0.78787881" split="false">
-                                        <colorL r="255" g="110" b="0" a="16" />
+                                    <key type="TransFuncMappingKey" intensity="0.09090909" split="false">
+                                        <colorL r="0" g="230" b="255" a="0" />
                                     </key>
                                     <key type="TransFuncMappingKey" intensity="1" split="false">
-                                        <colorL r="5" g="255" b="205" a="8" />
+                                        <colorL r="0" g="230" b="255" a="24" />
                                     </key>
                                 </Keys>
                                 <domain x="0" y="1" />
@@ -144,10 +138,10 @@
                 <Processor type="Canvas" name="Canvas" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-878" y="416" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="776" y="219" width="834" height="651" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="708" y="242" width="834" height="651" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="776" y="219" />
+                            <value x="708" y="242" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="834" y="651" />
@@ -232,9 +226,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="371.62896729" y="591.54064941" z="570.75933838" />
-                            <focus x="58.07383347" y="226.50537109" z="239.54055786" />
-                            <upVector x="-0.49247038" y="-0.51408517" z="0.70227444" />
+                            <position x="533.13195801" y="382.63473511" z="474.93685913" />
+                            <focus x="226.94801331" y="127.76706696" z="172.78762817" />
+                            <upVector x="-0.58357894" y="-0.45993921" z="0.66924697" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -295,9 +289,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="371.62896729" y="591.54064941" z="570.75933838" />
-                            <focus x="58.07383347" y="226.50537109" z="239.54055786" />
-                            <upVector x="-0.49247038" y="-0.51408517" z="0.70227444" />
+                            <position x="533.13195801" y="382.63473511" z="474.93685913" />
+                            <focus x="226.94801331" y="127.76706696" z="172.78762817" />
+                            <upVector x="-0.58357894" y="-0.45993921" z="0.66924697" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -347,9 +341,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="371.62896729" y="591.54064941" z="570.75933838" />
-                            <focus x="58.07383347" y="226.50537109" z="239.54055786" />
-                            <upVector x="-0.49247038" y="-0.51408517" z="0.70227444" />
+                            <position x="533.13195801" y="382.63473511" z="474.93685913" />
+                            <focus x="226.94801331" y="127.76706696" z="172.78762817" />
+                            <upVector x="-0.58357894" y="-0.45993921" z="0.66924697" />
                         </Property>
                         <Property name="renderGeometries" value="true" />
                     </Properties>
@@ -726,7 +720,7 @@
                     <Properties>
                         <Property name="invertDirection" value="true" />
                         <Property name="manipulationAxis" value="x" />
-                        <Property name="manipulationSlider" value="0.91000003" />
+                        <Property name="manipulationSlider" value="0.41999999" />
                         <Property name="manipulationType" value="move" />
                         <Property name="volumeURLList">
                             <VolumeURLs>
@@ -846,9 +840,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="371.62896729" y="591.54064941" z="570.75933838" />
-                            <focus x="58.07383347" y="226.50537109" z="239.54055786" />
-                            <upVector x="-0.49247038" y="-0.51408517" z="0.70227444" />
+                            <position x="533.13195801" y="382.63473511" z="474.93685913" />
+                            <focus x="226.94801331" y="127.76706696" z="172.78762817" />
+                            <upVector x="-0.58357894" y="-0.45993921" z="0.66924697" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -909,9 +903,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="371.62896729" y="591.54064941" z="570.75933838" />
-                            <focus x="58.07383347" y="226.50537109" z="239.54055786" />
-                            <upVector x="-0.49247038" y="-0.51408517" z="0.70227444" />
+                            <position x="533.13195801" y="382.63473511" z="474.93685913" />
+                            <focus x="226.94801331" y="127.76706696" z="172.78762817" />
+                            <upVector x="-0.58357894" y="-0.45993921" z="0.66924697" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -962,9 +956,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="371.62896729" y="591.54064941" z="570.75933838" />
-                            <focus x="58.07383347" y="226.50537109" z="239.54055786" />
-                            <upVector x="-0.49247038" y="-0.51408517" z="0.70227444" />
+                            <position x="533.13195801" y="382.63473511" z="474.93685913" />
+                            <focus x="226.94801331" y="127.76706696" z="172.78762817" />
+                            <upVector x="-0.58357894" y="-0.45993921" z="0.66924697" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -989,10 +983,10 @@
                         </Property>
                         <Property name="lightPosition" id="ref68">
                             <MetaData>
-                                <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
+                                <MetaItem name="FollowCamera" type="BoolMetaData" value="true" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="-0" y="-0" z="-0" w="-0" />
+                            <value x="0" y="0" z="0" w="0" />
                         </Property>
                         <Property name="lightSpecular">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -1005,23 +999,17 @@
                         </Property>
                         <Property name="samplingRate" value="3.5" />
                         <Property name="shading" value="phong" />
-                        <Property name="transferFunction" AlwaysFitDomain="false">
+                        <Property name="transferFunction" AlwaysFitDomain="false" id="ref74">
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                             </MetaData>
                             <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                 <Keys>
-                                    <key type="TransFuncMappingKey" intensity="0" split="false">
-                                        <colorL r="132" g="0" b="255" a="0" />
-                                    </key>
-                                    <key type="TransFuncMappingKey" intensity="0.43560606" split="false">
-                                        <colorL r="118" g="0" b="202" a="8" />
-                                    </key>
-                                    <key type="TransFuncMappingKey" intensity="0.78787881" split="false">
-                                        <colorL r="255" g="110" b="0" a="16" />
+                                    <key type="TransFuncMappingKey" intensity="0.14624506" split="false">
+                                        <colorL r="243" g="0" b="255" a="0" />
                                     </key>
                                     <key type="TransFuncMappingKey" intensity="1" split="false">
-                                        <colorL r="51" g="255" b="0" a="32" />
+                                        <colorL r="255" g="0" b="217" a="45" />
                                     </key>
                                 </Keys>
                                 <domain x="0" y="1" />
@@ -1112,7 +1100,7 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-821" y="-757" />
                     </MetaData>
                     <Properties>
-                        <Property name="volumeID" value="0" />
+                        <Property name="volumeID" value="1" />
                     </Properties>
                     <Inports>
                         <Port name="volumecollection">
@@ -1203,9 +1191,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="371.62896729" y="591.54064941" z="570.75933838" />
-                            <focus x="58.07383347" y="226.50537109" z="239.54055786" />
-                            <upVector x="-0.49247038" y="-0.51408517" z="0.70227444" />
+                            <position x="533.13195801" y="382.63473511" z="474.93685913" />
+                            <focus x="226.94801331" y="127.76706696" z="172.78762817" />
+                            <upVector x="-0.58357894" y="-0.45993921" z="0.66924697" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -1266,9 +1254,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="371.62896729" y="591.54064941" z="570.75933838" />
-                            <focus x="58.07383347" y="226.50537109" z="239.54055786" />
-                            <upVector x="-0.49247038" y="-0.51408517" z="0.70227444" />
+                            <position x="533.13195801" y="382.63473511" z="474.93685913" />
+                            <focus x="226.94801331" y="127.76706696" z="172.78762817" />
+                            <upVector x="-0.58357894" y="-0.45993921" z="0.66924697" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -1319,9 +1307,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="371.62896729" y="591.54064941" z="570.75933838" />
-                            <focus x="58.07383347" y="226.50537109" z="239.54055786" />
-                            <upVector x="-0.49247038" y="-0.51408517" z="0.70227444" />
+                            <position x="533.13195801" y="382.63473511" z="474.93685913" />
+                            <focus x="226.94801331" y="127.76706696" z="172.78762817" />
+                            <upVector x="-0.58357894" y="-0.45993921" z="0.66924697" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -1349,7 +1337,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="-0" y="-0" z="-0" w="-0" />
+                            <value x="0" y="0" z="0" w="0" />
                         </Property>
                         <Property name="lightSpecular">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -1362,23 +1350,17 @@
                         </Property>
                         <Property name="samplingRate" value="3.5" />
                         <Property name="shading" value="phong" />
-                        <Property name="transferFunction" AlwaysFitDomain="true">
+                        <Property name="transferFunction" AlwaysFitDomain="true" id="ref72">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" width="515" height="308" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                             </MetaData>
-                            <TransferFunction type="TransFuncIntensity" lower="0.00000001" upper="1">
+                            <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                 <Keys>
-                                    <key type="TransFuncMappingKey" intensity="0.22727273" split="false">
-                                        <colorL r="132" g="0" b="255" a="0" />
-                                    </key>
-                                    <key type="TransFuncMappingKey" intensity="0.43560606" split="false">
-                                        <colorL r="118" g="0" b="202" a="8" />
-                                    </key>
-                                    <key type="TransFuncMappingKey" intensity="0.78787881" split="false">
-                                        <colorL r="255" g="110" b="0" a="16" />
+                                    <key type="TransFuncMappingKey" intensity="0.08300395" split="false">
+                                        <colorL r="34" g="255" b="0" a="0" />
                                     </key>
                                     <key type="TransFuncMappingKey" intensity="1" split="false">
-                                        <colorL r="51" g="255" b="0" a="8" />
+                                        <colorL r="68" g="255" b="0" a="32" />
                                     </key>
                                 </Keys>
                                 <domain x="-1.2127291" y="13.22663021" />
@@ -1469,7 +1451,7 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-1092" y="-758" />
                     </MetaData>
                     <Properties>
-                        <Property name="volumeID" value="1" />
+                        <Property name="volumeID" value="0" />
                     </Properties>
                     <Inports>
                         <Port name="volumecollection">
@@ -1523,7 +1505,7 @@
                     </MetaData>
                     <Properties>
                         <Property name="align" />
-                        <Property name="tobealigned" value="Vol1ToOrigin" />
+                        <Property name="tobealigned" value="Vol1ToVol2" />
                     </Properties>
                     <Inports>
                         <Port name="volume1">
@@ -1602,6 +1584,65 @@
                             </Properties>
                         </Port>
                     </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="TransferFunctionEditor" name="TransferFunctionEditor">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-1336" y="-111" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="func1" AlwaysFitDomain="true" id="ref71">
+                            <MetaData>
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
+                            </MetaData>
+                            <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
+                                <Keys>
+                                    <key type="TransFuncMappingKey" intensity="0.08300395" split="false">
+                                        <colorL r="34" g="255" b="0" a="0" />
+                                    </key>
+                                    <key type="TransFuncMappingKey" intensity="1" split="false">
+                                        <colorL r="68" g="255" b="0" a="32" />
+                                    </key>
+                                </Keys>
+                                <domain x="0" y="1" />
+                            </TransferFunction>
+                        </Property>
+                        <Property name="func2" AlwaysFitDomain="true" id="ref73">
+                            <MetaData>
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
+                            </MetaData>
+                            <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
+                                <Keys>
+                                    <key type="TransFuncMappingKey" intensity="0.14624506" split="false">
+                                        <colorL r="243" g="0" b="255" a="0" />
+                                    </key>
+                                    <key type="TransFuncMappingKey" intensity="1" split="false">
+                                        <colorL r="255" g="0" b="217" a="45" />
+                                    </key>
+                                </Keys>
+                                <domain x="0" y="1" />
+                            </TransferFunction>
+                        </Property>
+                        <Property name="func3" AlwaysFitDomain="false" id="ref75">
+                            <MetaData>
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
+                            </MetaData>
+                            <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
+                                <Keys>
+                                    <key type="TransFuncMappingKey" intensity="0.09090909" split="false">
+                                        <colorL r="0" g="230" b="255" a="0" />
+                                    </key>
+                                    <key type="TransFuncMappingKey" intensity="1" split="false">
+                                        <colorL r="0" g="230" b="255" a="24" />
+                                    </key>
+                                </Keys>
+                                <domain x="0" y="1" />
+                            </TransferFunction>
+                        </Property>
+                        <Property name="interactionCoarseness" value="1" id="ref77" />
+                    </Properties>
+                    <Inports />
+                    <Outports />
                     <InteractionHandlers />
                 </Processor>
             </Processors>
@@ -2357,6 +2398,66 @@
                     <SourceProperty type="FloatVec4Property" ref="ref70" />
                     <DestinationProperty type="FloatVec4Property" ref="ref68" />
                     <Evaluator type="LinkEvaluatorVec4Id" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="TransFuncProperty" ref="ref71" />
+                    <DestinationProperty type="TransFuncProperty" ref="ref72" />
+                    <Evaluator type="LinkEvaluatorTransFuncId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="TransFuncProperty" ref="ref72" />
+                    <DestinationProperty type="TransFuncProperty" ref="ref71" />
+                    <Evaluator type="LinkEvaluatorTransFuncId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="TransFuncProperty" ref="ref73" />
+                    <DestinationProperty type="TransFuncProperty" ref="ref74" />
+                    <Evaluator type="LinkEvaluatorTransFuncId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="TransFuncProperty" ref="ref74" />
+                    <DestinationProperty type="TransFuncProperty" ref="ref73" />
+                    <Evaluator type="LinkEvaluatorTransFuncId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="TransFuncProperty" ref="ref75" />
+                    <DestinationProperty type="TransFuncProperty" ref="ref76" />
+                    <Evaluator type="LinkEvaluatorTransFuncId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="TransFuncProperty" ref="ref76" />
+                    <DestinationProperty type="TransFuncProperty" ref="ref75" />
+                    <Evaluator type="LinkEvaluatorTransFuncId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="IntegerProperty" ref="ref77" />
+                    <DestinationProperty type="IntegerProperty" ref="ref65" />
+                    <Evaluator type="LinkEvaluatorIntId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="IntegerProperty" ref="ref65" />
+                    <DestinationProperty type="IntegerProperty" ref="ref77" />
+                    <Evaluator type="LinkEvaluatorIntId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="IntegerProperty" ref="ref77" />
+                    <DestinationProperty type="IntegerProperty" ref="ref66" />
+                    <Evaluator type="LinkEvaluatorIntId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="IntegerProperty" ref="ref66" />
+                    <DestinationProperty type="IntegerProperty" ref="ref77" />
+                    <Evaluator type="LinkEvaluatorIntId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="IntegerProperty" ref="ref77" />
+                    <DestinationProperty type="IntegerProperty" ref="ref69" />
+                    <Evaluator type="LinkEvaluatorIntId" />
+                </PropertyLink>
+                <PropertyLink>
+                    <SourceProperty type="IntegerProperty" ref="ref69" />
+                    <DestinationProperty type="IntegerProperty" ref="ref77" />
+                    <Evaluator type="LinkEvaluatorIntId" />
                 </PropertyLink>
             </PropertyLinks>
         </ProcessorNetwork>
