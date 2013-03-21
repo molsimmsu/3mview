@@ -9,9 +9,9 @@
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
-                    <value x="-67.49994659" y="-219.99983215" />
+                    <value x="232" y="152" />
                 </MetaItem>
-                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.4000003" />
+                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.5" />
                 <MetaItem name="autoLinkCameras" type="BoolMetaData" value="false" />
                 <MetaItem name="autoLinkPortSize" type="BoolMetaData" value="false" />
             </MetaData>
@@ -56,7 +56,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="0.05269197" y="0.06213795" z="0.05048297" w="0" />
+                            <value x="0.00050502" y="0.00059556" z="0.00048385" w="0" />
                         </Property>
                         <Property name="lightSpecular" lod="1">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -173,10 +173,10 @@
                         <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="0" y="-51" width="1318" height="916" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="422" y="153" />
+                            <value x="274" y="151" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
-                            <value x="816" y="677" />
+                            <value x="1318" y="916" />
                         </MetaItem>
                     </MetaData>
                     <Properties>
@@ -545,7 +545,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="0.02598695" y="0.03064557" z="0.0248975" w="0" />
+                            <value x="0.00012284" y="0.00014486" z="0.00011769" w="0" />
                         </Property>
                         <Property name="lightSpecular" lod="1">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -696,7 +696,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="0.02598695" y="0.03064557" z="0.0248975" w="0" />
+                            <value x="0.00012284" y="0.00014486" z="0.00011769" w="0" />
                         </Property>
                         <Property name="lightSpecular" lod="1">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -810,7 +810,7 @@
                 <Processor type="Canvas" name="Canvas 2" id="ref4">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-474" y="613" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="601" y="434" width="456" height="388" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="496" y="328" width="456" height="388" />
                     </MetaData>
                     <Properties>
                         <Property name="canvasSize" lod="1">
@@ -1426,7 +1426,7 @@
                     <Properties>
                         <Property name="func1" AlwaysFitDomain="false" id="ref58">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" width="504" height="308" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" />
                             </MetaData>
                             <TransferFunction type="TransFuncIntensity" lower="0" upper="1">
                                 <Keys>
