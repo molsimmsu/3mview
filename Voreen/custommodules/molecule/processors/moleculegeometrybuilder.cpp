@@ -76,6 +76,11 @@ void MoleculeGeometryBuilder::rebuildMolecule() {
         else if (repType_.get() == "backboneTrace")
             buildBackboneTraceGeometry(geom, mol);
         
+        tgt::mat4 transform = tgt::mat4::createIdentity();
+        transform = mol->getTransformationMatrix();
+        std::cout << transform << std::endl;
+        
+        geom->transform(transform);
         // Delete old data and set new
         outport_.setData(geom);
     }
