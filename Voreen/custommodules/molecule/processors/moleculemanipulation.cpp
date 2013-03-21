@@ -55,7 +55,14 @@ void MoleculeManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 matri
                 continue;
             }
 
-            molecule->transform(matrix);
+            tgt::mat4 offsetMatrix(
+                1, 0, 0, offset[0],
+                0, 1, 0, offset[1],
+                0, 0, 1, offset[2],
+                0, 0, 0, 1
+            );
+            
+            molecule->transform(matrix * offsetMatrix);
         }
         
         Processor* processor = getSourceProcessor();

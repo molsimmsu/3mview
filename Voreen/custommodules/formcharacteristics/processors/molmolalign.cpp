@@ -11,54 +11,42 @@ const std::string MolMolAlign::loggerCat_("3mview.MolMolAlign");
 MolMolAlign :: MolMolAlign()
   : Processor(),
     tobealigned_("tobealigned", "Molecule to reorientate", Processor::INVALID_PROGRAM),
+    align_("align", "Align", Processor::INVALID_PROGRAM),
     molinport1_(Port::INPORT,   "molecule1", "Molecule 1"),
     molinport2_(Port::INPORT,   "molecule2", "Molecule 2"),
     outport_(Port::OUTPORT,   "molecule3", "Molecule")
 {
-    tobealigned_.addOption("mol1", "#1");
-    tobealigned_.addOption("mol2", "#2");
+    tobealigned_.addOption("1to2", "1 to 2");
+    tobealigned_.addOption("2to1", "2 to 1");
+    tobealigned_.addOption("1toOrigin", "1 to Origin");
+    tobealigned_.addOption("2toOrigin", "2 to Origin");
     addProperty(tobealigned_);
+    addProperty(align_);
 
     addPort(molinport1_);
     addPort(molinport2_);
     addPort(outport_);
+    
+    align_.onClick(CallMemberAction<MolMolAlign>(this, &MolMolAlign::align));
 }
 
-void MolMolAlign :: process()
+void MolMolAlign :: align()
 {
-	if (tobealigned_.isSelected("mol1"))
+	if (tobealigned_.isSelected("1to2") || tobealigned_.isSelected("2to1"))
 	{
-		const Molecule* firstMol  = molinport1_.getData();
-		const Molecule* secondMol = molinport2_.getData();
+		const Molecule* firstMol;
+		const Molecule* secondMol;
+		
+		if (tobealigned_.isSelected("1to2")) {
+		    firstMol  = molinport1_.getData();
+		    secondMol = molinport2_.getData();
+		}
+		if (tobealigned_.isSelected("2to1")) {
+		    firstMol  = molinport2_.getData();
+		    secondMol = molinport1_.getData();
+		}
 
-	     Molecule* outMol = firstMol->clone();
-
-		tgt::mat4 fit1;
-		tgt::mat4 fit2;
-		tgt::mat4 invertedfit2;
-		tgt::mat4 wrld1;
-		tgt::mat4 invertedwrld1;
-
-	     LINFO("Getting transformation matrix for molecule #1..");
-		fit1 = GetTransformation(firstMol);	
-
-          LINFO("Getting transformation matrix for molecole #2..");
-		fit2 = GetTransformation(secondMol);
-		fit2.invert(invertedfit2);
-
-		wrld1 =  firstMol ->getTransformationMatrix();
-		wrld1.invert(invertedwrld1);
-
-		const tgt::mat4  _temp = invertedwrld1*invertedfit2*fit1*wrld1;		
-		outMol->transform(_temp);
-		outport_.setData(outMol);
-	}
-	if (tobealigned_.isSelected("mol2"))
-	{
-		const Molecule* firstMol  = molinport2_.getData();
-		const Molecule* secondMol = molinport1_.getData();
-
-	 	Molecule* outMol = firstMol->clone();
+	    Molecule* outMol = firstMol->clone();
 
 		tgt::mat4 fit1;
 		tgt::mat4 fit2;

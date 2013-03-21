@@ -3,6 +3,7 @@
 
 #include "../../molecule/ports/moleculeport.h"
 #include "voreen/core/properties/optionproperty.h"
+#include "voreen/core/properties/buttonproperty.h"
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
 
@@ -25,7 +26,9 @@ protected:
         setDescription("Accepts two molecules as input, fits one of them to another");
     }
 
-    virtual void process();
+    virtual void process() {}
+    
+    void align();
 
 private:
     double O[3]; 
@@ -41,7 +44,7 @@ private:
     MoleculePort           molinport2_;
     MoleculePort           outport_;
     StringOptionProperty   tobealigned_;  
-
+    ButtonProperty         align_;  
 
     double CalculateMoment(int, int, int);
     double CalculateFourrier(int, int, int); 		
