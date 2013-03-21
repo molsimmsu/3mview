@@ -39,7 +39,7 @@ private:
     double polynom[3];
     double total_weight;
     size_t entries;
-    float  *coords;
+    double  *coords;
 
     VolumePort             volinport1_;
     VolumePort             volinport2_;
@@ -49,11 +49,11 @@ private:
 
 
     double CalculateMoment(int, int, int);
-    double CalculateFourrier(int, int, int); 		
-    void   FindAxes();
+    double CalculateFourrier(int, int, int);     	
+    void   FindAxes(double);
     double PolynomVal(double);
 
-    tgt::mat4 GetTransformation(const VolumeBase* vol);
+    tgt::Matrix4d GetTransformation(const VolumeBase* vol, double d);
 
     static const std::string loggerCat_; ///< category used in logging
 };
