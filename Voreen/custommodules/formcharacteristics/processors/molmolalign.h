@@ -3,7 +3,6 @@
 
 #include "../../molecule/ports/moleculeport.h"
 #include "voreen/core/properties/optionproperty.h"
-#include "voreen/core/properties/buttonproperty.h"
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
 
@@ -40,14 +39,15 @@ private:
     size_t entries;
     float  *coords;
 
-    MoleculePort          molinport1_;
+    MoleculePort           molinport1_;
     MoleculePort           molinport2_;
     MoleculePort           outport_;
-    StringOptionProperty   tobealigned_;  
+    StringOptionProperty   tobealigned_;
     ButtonProperty         align_;  
 
+
     double CalculateMoment(int, int, int);
-    double CalculateFourrier(int, int, int); 		
+    double CalculateFourrier(int, int, int);     	
     void   FindAxes();
     double PolynomVal(double);
 
@@ -56,4 +56,4 @@ private:
     static const std::string loggerCat_; ///< category used in logging
 };
 
-#endif // VRN_MOLMOLALIGN_H
+#endif // VRN_VOLVOLALIGN_H
