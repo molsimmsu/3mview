@@ -95,10 +95,14 @@ void VolVolAlign :: align()
  
 	        Volume* combinedVolume = firstVolume->clone();
 
-		tgt::mat4 wrld1 =  firstVolume->getPhysicalToWorldMatrix();
+		tgt::mat4 wrld1 =  firstVolume->getVoxelToWorldMatrix();
         
 		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1); // Venia
 		//combinedVolume->setPhysicalToWorldMatrix(wrld2*nvrt2*norm1); // Alexey
+		
+		
+		combinedVolume->setOffset(tgt::vec3(0,0,0));
+		combinedVolume->setSpacing(tgt::vec3(1,1,1));
 		outport_.setData(combinedVolume);
 	}
 
@@ -115,8 +119,11 @@ void VolVolAlign :: align()
  
 	    Volume* combinedVolume = volume->clone();
 	    
-		tgt::mat4 wrld =  volume->getPhysicalToWorldMatrix();
+		tgt::Matrix4d wrld = volume->getVoxelToWorldMatrix();
 		combinedVolume->setPhysicalToWorldMatrix(norm*wrld);
+
+		combinedVolume->setOffset(tgt::vec3(0,0,0));
+		combinedVolume->setSpacing(tgt::vec3(1,1,1));
 		outport_.setData(combinedVolume);
 	}
 
