@@ -1,7 +1,7 @@
 #include "volvolalign.h"
 
 
-#define    SCALE          300
+#define    SCALE          100
 #define    SOLVE_ITER     60
 #define    PI_2           1.57079632679
 #define    MAX_SIZE	      1.5    // range of the first harmonic
@@ -147,10 +147,8 @@ void VolVolAlign :: align()
 
 tgt::Matrix4d VolVolAlign :: GetTransformation(const VolumeBase* vol)
 {
-	O[0] = 0;
-	O[1] = 0;
-	O[2] = 0;
-     total_weight = 0;
+    O = tgt::vec3(0, 0, 0);
+    total_weight = 0;
 
 	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
 

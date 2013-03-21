@@ -32,11 +32,11 @@ protected:
     void align();
 
 private:
-    double O[3]; 
+    tgt::vec3 O; 
     tgt::vec3 Ox;
     tgt::vec3 Oy;
     tgt::vec3 Oz;
-    double polynom[3];
+    double polynom[4];
     double total_weight;
     size_t entries;
     double  *coords;
