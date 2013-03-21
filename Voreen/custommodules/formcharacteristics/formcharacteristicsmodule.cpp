@@ -1,5 +1,5 @@
 #include "formcharacteristicsmodule.h"
-#include "processors/alignbymoments.h"
+//#include "processors/alignbymoments.h"
 #include "processors/databasematch.h"
 #include "processors/calculatescore_.h"
 #include "processors/volvolalign.h"
@@ -14,7 +14,7 @@ FormCharacteristicsModule::FormCharacteristicsModule(const std::string& modulePa
     // module name to be used in the GUI
     setName("Form Characteristics");
     
-    registerProcessor(new AlignByMoments());
+//    registerProcessor(new AlignByMoments());
     registerProcessor(new DatabaseMatch());
     registerProcessor(new CalculateScore());
     registerProcessor(new VolVolAlign());
