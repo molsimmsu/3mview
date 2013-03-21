@@ -1,25 +1,27 @@
 #include "molmolalign.h"
 
+
 #define    SCALE          30
 #define    SOLVE_ITER     52
 #define    PI_2           1.57079632679
-#define    MAX_SIZE        1.5    // range of the first harmonic
+#define    MAX_SIZE	      1.5    // range of the first harmonic
 
 
 const std::string MolMolAlign::loggerCat_("3mview.MolMolAlign");
 
+
 MolMolAlign :: MolMolAlign()
   : Processor(),
-    tobealigned_("tobealigned", "Molecule to reorientate", Processor::INVALID_PROGRAM),
+    tobealigned_("tobealigned", "Volume to reorientate", Processor::INVALID_PROGRAM),
     align_("align", "Align", Processor::INVALID_PROGRAM),
     molinport1_(Port::INPORT,   "molecule1", "Molecule 1"),
     molinport2_(Port::INPORT,   "molecule2", "Molecule 2"),
     outport_(Port::OUTPORT,   "molecule3", "Molecule")
 {
-    tobealigned_.addOption("1to2", "1 to 2");
-    tobealigned_.addOption("2to1", "2 to 1");
-    tobealigned_.addOption("1toOrigin", "1 to Origin");
-    tobealigned_.addOption("2toOrigin", "2 to Origin");
+    tobealigned_.addOption("Mol1ToMol2", "Molecule 1 to Molecule 2");
+    tobealigned_.addOption("Mol2ToMol1", "Molecule 2 to Molecule 1");
+    tobealigned_.addOption("Mol1ToOrigin", "Molecule 1 to Origin");
+    tobealigned_.addOption("Mol2ToOrigin", "Molecule 2 to Origin");
     addProperty(tobealigned_);
     addProperty(align_);
 
@@ -32,22 +34,20 @@ MolMolAlign :: MolMolAlign()
 
 void MolMolAlign :: align()
 {
-	if (tobealigned_.isSelected("1to2") || tobealigned_.isSelected("2to1"))
+	if (tobealigned_.isSelected("Mol1ToMol2") || tobealigned_.isSelected("Mol2ToMol1"))
 	{
 		const Molecule* firstMol;
 		const Molecule* secondMol;
 		
-		if (tobealigned_.isSelected("1to2")) {
+		if (tobealigned_.isSelected("Mol1ToMol2")) {
 		    firstMol  = molinport1_.getData();
 		    secondMol = molinport2_.getData();
 		}
-		if (tobealigned_.isSelected("2to1")) {
+		if (tobealigned_.isSelected("Mol2ToMol1")) {
 		    firstMol  = molinport2_.getData();
 		    secondMol = molinport1_.getData();
 		}
-
-	    Molecule* outMol = firstMol->clone();
-
+		if  ((firstMol=0) || (secondMol=0)) return;
 		tgt::mat4 fit1;
 		tgt::mat4 fit2;
 		tgt::mat4 invertedfit2;
@@ -64,7 +64,31 @@ void MolMolAlign :: align()
 		wrld1 =  firstMol ->getTransformationMatrix();
 		wrld1.invert(invertedwrld1);
 
+	     Molecule* outMol = firstMol->clone();
+
 		const tgt::mat4  _temp = invertedwrld1*invertedfit2*fit1*wrld1;		
+		outMol->transform(_temp);
+		outport_.setData(outMol);
+	}
+
+	if (tobealigned_.isSelected("Mol1ToOrigin") || tobealigned_.isSelected("Mol2ToOrigin"))
+	{
+		const Molecule* molecula;
+		if (tobealigned_.isSelected("Mol1ToOrigin")) 
+		    molecula = molinport1_.getData();
+		if (tobealigned_.isSelected("Mol2ToOrigin")) 
+		    molecula = molinport2_.getData();
+		
+		if (molecula=0) return;
+	     LINFO("Getting transformation matrix for object..");
+		tgt::mat4 fit  = GetTransformation(molecula);
+ 		tgt::mat4 wrld = molecula->getTransformationMatrix();	;
+		tgt::mat4 invertedwrld;
+		wrld.invert(invertedwrld);
+
+	     Molecule* outMol = molecula->clone(); 
+	    
+		const tgt::mat4  _temp = invertedwrld*fit*wrld;		
 		outMol->transform(_temp);
 		outport_.setData(outMol);
 	}
@@ -79,13 +103,15 @@ tgt::mat4 MolMolAlign :: GetTransformation(const Molecule* mol)
      total_weight = 0;
 
 	entries = (mol->getOBMol()).NumAtoms();
+	if (entries==0) return tgt::mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 	coords = new float[4*entries];
 	for (int i=0; i<entries; ++i)
 	{	
 		coords[4*i]   = (mol->getOBMol()).GetAtomById(i)->x();
 		coords[4*i+1] = (mol->getOBMol()).GetAtomById(i)->y();
 		coords[4*i+2] = (mol->getOBMol()).GetAtomById(i)->z();
-		coords[4*i+3] = (mol->getOBMol()).GetAtomById(i)->GetFormalCharge(); // TODO !!
+		//coords[4*i+3] = (mol->getOBMol()).GetAtomById(i)->GetFormalCharge(); // TODO !!
+		coords[4*i+3] = 1;
 
 		O[0] += coords[4*i]   * coords[4*i+3];
 		O[1] += coords[4*i+1] * coords[4*i+3];
@@ -93,10 +119,11 @@ tgt::mat4 MolMolAlign :: GetTransformation(const Molecule* mol)
 		total_weight += coords[4*i+3];
 	}
 
+	printf("total weight: %lf\n", total_weight);
 	O[0] /= total_weight;
 	O[1] /= total_weight;
 	O[2] /= total_weight;
-
+	printf("center: (%7.2lf; %7.2lf; %7.2lf)\n", O[0], O[1], O[2]);
 	for (int i=0; i<entries; ++i)
 	{	
 		coords[4*i]   -= O[0];
@@ -359,4 +386,4 @@ void MolMolAlign :: FindAxes()
 double MolMolAlign :: PolynomVal(double x)
 {
 	return polynom[3]*x*x*x + polynom[2]*x*x + polynom[1]*x + polynom[0];
-}
+} 
