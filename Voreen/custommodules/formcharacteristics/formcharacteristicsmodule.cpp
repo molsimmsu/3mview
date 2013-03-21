@@ -4,6 +4,7 @@
 #include "processors/calculatescore_.h"
 #include "processors/volvolalign.h"
 #include "processors/molmolalign.h"
+#include "processors/formfinder.h"
 
 namespace voreen {
 
@@ -18,6 +19,7 @@ FormCharacteristicsModule::FormCharacteristicsModule(const std::string& modulePa
     registerProcessor(new CalculateScore());
     registerProcessor(new VolVolAlign());
     registerProcessor(new MolMolAlign());
+    registerProcessor(new FormFinder());
 }
 
 } // namespace
