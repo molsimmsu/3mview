@@ -33,9 +33,9 @@ protected:
 
 private:
     double O[3]; 
-    double Ox[3];
-    double Oy[3];
-    double Oz[3];
+    tgt::vec3 Ox;
+    tgt::vec3 Oy;
+    tgt::vec3 Oz;
     double polynom[3];
     double total_weight;
     size_t entries;
@@ -48,12 +48,11 @@ private:
     ButtonProperty         align_;  
 
 
-    double CalculateMoment(int, int, int);
-    double CalculateFourrier(int, int, int);     	
-    void   FindAxes(double);
+    double CalculateMoment(int, int, int);   	
+    void   FindAxes();
     double PolynomVal(double);
 
-    tgt::Matrix4d GetTransformation(const VolumeBase* vol, double d);
+    tgt::Matrix4d GetTransformation(const VolumeBase* vol);
 
     static const std::string loggerCat_; ///< category used in logging
 };

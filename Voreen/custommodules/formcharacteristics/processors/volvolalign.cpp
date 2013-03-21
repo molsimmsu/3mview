@@ -1,7 +1,7 @@
 #include "volvolalign.h"
 
 
-#define    SCALE          30
+#define    SCALE          300
 #define    SOLVE_ITER     60
 #define    PI_2           1.57079632679
 #define    MAX_SIZE	      1.5    // range of the first harmonic
@@ -87,21 +87,22 @@ void VolVolAlign :: align()
 		}
 
 
-		tgt::Matrix4d wrld1 =  firstVolume->getVoxelToWorldMatrix();
-		tgt::Matrix4d wrld2 = secondVolume->getVoxelToWorldMatrix();
-
-      	double d1 = wrld1.t00*wrld1.t11*wrld1.t22+wrld1.t01*wrld1.t12*wrld1.t20+wrld1.t10*wrld1.t21*wrld1.t02
-                     -wrld1.t20*wrld1.t11*wrld1.t02-wrld1.t10*wrld1.t01*wrld1.t22-wrld1.t00*wrld1.t12*wrld1.t21;
-
-          LINFO("Getting transformation matrix for object #1..");
-		tgt::Matrix4d norm1 = GetTransformation(firstVolume, d1);	
-
-      	double d2 = wrld2.t00*wrld2.t11*wrld2.t22+wrld2.t01*wrld2.t12*wrld2.t20+wrld2.t10*wrld2.t21*wrld2.t02
-                     -wrld2.t20*wrld2.t11*wrld2.t02-wrld2.t10*wrld2.t01*wrld2.t22-wrld2.t00*wrld2.t12*wrld2.t21;
-
-
-          LINFO("Getting transformation matrix for object #2..");
-		tgt::Matrix4d norm2 = GetTransformation(secondVolume, d2);
+		tgt::Matrix4d wrld1 =  firstVolume->getPhysicalToWorldMatrix();
+		tgt::Matrix4d wrld2 = secondVolume->getPhysicalToWorldMatrix();
+		
+         LINFO("Getting transformation matrix for object #1..");
+        Volume* firstVolume1 = firstVolume->clone();
+		tgt::Matrix4d norm1 = GetTransformation(firstVolume1);	
+		firstVolume1->setPhysicalToWorldMatrix(norm1*wrld1);
+		tgt::Matrix4d norm1a = GetTransformation(firstVolume1);
+		norm1=norm1a*norm1;
+		
+         LINFO("Getting transformation matrix for object #2..");
+         Volume* secondVolume2 = secondVolume->clone();
+		tgt::Matrix4d norm2 = GetTransformation(secondVolume2);
+		secondVolume2->setPhysicalToWorldMatrix(norm2*wrld2);
+		tgt::Matrix4d norm2a = GetTransformation(secondVolume2);
+		norm2=norm2a*norm2;
 
 		tgt::Matrix4d nvrt2;
 		norm2.invert(nvrt2);
@@ -111,13 +112,11 @@ void VolVolAlign :: align()
         
 		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1);
 
-		combinedVolume->setOffset(tgt::vec3(0,0,0));
-		combinedVolume->setSpacing(tgt::vec3(1,1,1));
 
 		outport_.setData(combinedVolume);
 	}
 
-	if (tobealigned_.isSelected("Vol1ToOrigin") || tobealigned_.isSelected("Vol2ToOrigin"))
+	/*if (tobealigned_.isSelected("Vol1ToOrigin") || tobealigned_.isSelected("Vol2ToOrigin"))
 	{
 		const VolumeBase* volume;
 		if (tobealigned_.isSelected("Vol1ToOrigin")) 
@@ -127,26 +126,26 @@ void VolVolAlign :: align()
 
 
 	    
-		tgt::Matrix4d wrld2 = volume->getVoxelToWorldMatrix();
-      	double d = wrld2.t00*wrld2.t11*wrld2.t22+wrld2.t01*wrld2.t12*wrld2.t20+wrld2.t10*wrld2.t21*wrld2.t02
-                    -wrld2.t20*wrld2.t11*wrld2.t02-wrld2.t10*wrld2.t01*wrld2.t22-wrld2.t00*wrld2.t12*wrld2.t21;
+		tgt::Matrix4d wrld2 = volume->getPhysicalToWorldMatrix();
 
 
- 	     LINFO("Getting transformation matrix for object..");
-		tgt::Matrix4d norm = GetTransformation(volume, d);	
+
+ 	    LINFO("Getting transformation matrix for object..");
+ 	     
+		Transform tr = GetTransformation2(volume);
+		wrld2 = tr.offset * wrld2;	
+		wrld2 = tr.rotate * wrld2;
  
-	     Volume* combinedVolume = volume->clone();
+	    Volume* combinedVolume = volume->clone();
 
-		combinedVolume->setPhysicalToWorldMatrix(norm*wrld2);
+		combinedVolume->setPhysicalToWorldMatrix(wrld2);
 
-		combinedVolume->setOffset(tgt::vec3(0,0,0));
-		combinedVolume->setSpacing(tgt::vec3(1,1,1));
 		outport_.setData(combinedVolume);
-	}
+	}*/
 
 }
 
-tgt::Matrix4d VolVolAlign :: GetTransformation(const VolumeBase* vol, double d)
+tgt::Matrix4d VolVolAlign :: GetTransformation(const VolumeBase* vol)
 {
 	O[0] = 0;
 	O[1] = 0;
@@ -198,7 +197,7 @@ tgt::Matrix4d VolVolAlign :: GetTransformation(const VolumeBase* vol, double d)
 		coords[4*i+2] -= O[2];
 	}
 
-	FindAxes(d);
+	FindAxes();
 	delete[] coords;
 
 	tgt::Matrix4d out_data (Ox[0], Ox[1], Ox[2], 0,
@@ -259,25 +258,7 @@ double VolVolAlign :: CalculateMoment(int degX, int degY, int degZ)
 	return res;
 }
 
-double VolVolAlign :: CalculateFourrier(int degX, int degY, int degZ)
-{
-	double res = 0;
-	double temp;
-	for (int i=0; i<entries; ++i)
-	{
-		temp = coords[4*i+3];
-		if (degX<0) temp *= cos(degX*coords[4*i]  /SCALE/MAX_SIZE*PI_2);
-		if (degX>0) temp *= sin(degX*coords[4*i]  /SCALE/MAX_SIZE*PI_2);
-		if (degY<0) temp *= cos(degY*coords[4*i+1]/SCALE/MAX_SIZE*PI_2);
-		if (degY>0) temp *= sin(degY*coords[4*i+1]/SCALE/MAX_SIZE*PI_2);
-		if (degZ<0) temp *= cos(degZ*coords[4*i+2]/SCALE/MAX_SIZE*PI_2);
-		if (degZ>0) temp *= sin(degZ*coords[4*i+2]/SCALE/MAX_SIZE*PI_2);
-		res += temp;
-	}
-	return res;
-}
-
-void VolVolAlign :: FindAxes(double d)
+void VolVolAlign :: FindAxes()
 {
 	double disc;
 	double I[3][3];
@@ -412,14 +393,22 @@ void VolVolAlign :: FindAxes(double d)
 	Oz[2] /= len;
 
 	disc =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
-	if (disc*d>0)
+	
+	double m300 = CalculateMoment(3, 0, 0);
+	double m030 = CalculateMoment(0, 3, 0);
+	
+	std::cout << "disc is " << disc << std::endl;
+	std::cout << "moment300 is " << m300 << std::endl;
+	std::cout << "moment030 is " << m030 << std::endl;
+	
+	if (disc<0)
 	{
 		Oz[0] = -Oz[0];
 		Oz[1] = -Oz[1];
 		Oz[2] = -Oz[2];
 	}
 	
-	if (CalculateMoment(3, 0, 0)<0)
+	if (m300<0)
 	{
 		Ox[0] = -Ox[0];
 		Ox[1] = -Ox[1];
@@ -428,17 +417,32 @@ void VolVolAlign :: FindAxes(double d)
 		Oy[0] = -Oy[0];
 		Oy[1] = -Oy[1];
 		Oy[2] = -Oy[2];
-	}			
-	if (CalculateMoment(0, 3, 0)<0)
-	{
-		Oz[0] = -Oz[0];
-		Oz[1] = -Oz[1];
-		Oz[2] = -Oz[2];
+				
+	    if (m030>0)
+	    {
+		    Oz[0] = -Oz[0];
+		    Oz[1] = -Oz[1];
+		    Oz[2] = -Oz[2];
 
-		Oy[0] = -Oy[0];
-		Oy[1] = -Oy[1];
-		Oy[2] = -Oy[2];
+		    Oy[0] = -Oy[0];
+		    Oy[1] = -Oy[1];
+		    Oy[2] = -Oy[2];
+	    }
 	}
+	else
+	{
+	    if (m030<0)
+	    {
+		    Oz[0] = -Oz[0];
+		    Oz[1] = -Oz[1];
+		    Oz[2] = -Oz[2];
+
+		    Oy[0] = -Oy[0];
+		    Oy[1] = -Oy[1];
+		    Oy[2] = -Oy[2];
+	    }
+	}
+
 	message << "\n"
 	        << " " << Ox[0] << " " << Ox[1] << " " << Ox[2] << std::endl 
 		   << " " << Oy[0] << " " << Oy[1] << " " << Oy[2] << std::endl 
