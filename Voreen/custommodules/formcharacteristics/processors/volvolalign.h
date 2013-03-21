@@ -3,6 +3,7 @@
 
 #include "voreen/core/datastructures/volume/volume.h"
 #include "voreen/core/properties/optionproperty.h"
+#include "voreen/core/properties/buttonproperty.h"
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
 using namespace voreen;
@@ -26,7 +27,9 @@ protected:
         setDescription("Accepts WeigthedPointCloud as input, outputs a matrix as a tgt::Matrix4<double>");
     }
 
-    virtual void process();
+    virtual void process() {}
+    
+    void align();
 
 private:
     double O[3]; 
@@ -41,7 +44,8 @@ private:
     VolumePort             volinport1_;
     VolumePort             volinport2_;
     VolumePort             outport_;
-    StringOptionProperty   tobealigned_;  
+    StringOptionProperty   tobealigned_;
+    ButtonProperty         align_;  
 
 
     double CalculateMoment(int, int, int);

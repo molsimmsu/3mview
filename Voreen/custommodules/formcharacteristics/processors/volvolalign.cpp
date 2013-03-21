@@ -51,60 +51,75 @@ tgt::vec3 getVolumeMassCenter(VolumeBase* vol)
 VolVolAlign :: VolVolAlign()
   : Processor(),
     tobealigned_("tobealigned", "Volume to reorientate", Processor::INVALID_PROGRAM),
+    align_("align", "Align", Processor::INVALID_PROGRAM),
     volinport1_(Port::INPORT,   "volume1", "Electon density map 1"),
     volinport2_(Port::INPORT,   "volume2", "Electon density map 2"),
     outport_(Port::OUTPORT,   "volume3", "Electon density map")
 {
-    tobealigned_.addOption("vol1", "#1");
-    tobealigned_.addOption("vol2", "#2");
+    tobealigned_.addOption("Vol1ToVol2", "Volume 1 to Volume 2");
+    tobealigned_.addOption("Vol2ToVol1", "Volume 2 to Volume 1");
+    tobealigned_.addOption("Vol1ToOrigin", "Volume 1 to Origin");
+    tobealigned_.addOption("Vol2ToOrigin", "Volume 2 to Origin");
     addProperty(tobealigned_);
+    addProperty(align_);
 
     addPort(volinport1_);
     addPort(volinport2_);
     addPort(outport_);
+    
+    align_.onClick(CallMemberAction<VolVolAlign>(this, &VolVolAlign::align));
 }
 
-void VolVolAlign :: process()
+void VolVolAlign :: align()
 {
-	if (tobealigned_.isSelected("vol1"))
+	if (tobealigned_.isSelected("Vol1ToVol2") || tobealigned_.isSelected("Vol2ToVol1"))
 	{
-		const VolumeBase* firstVolume  = volinport1_.getData();
-		const VolumeBase* secondVolume = volinport2_.getData();
+		const VolumeBase* firstVolume;
+		const VolumeBase* secondVolume;
+		
+		if (tobealigned_.isSelected("Vol1ToVol2")) {
+		    firstVolume  = volinport1_.getData();
+		    secondVolume = volinport2_.getData();
+		}
+		if (tobealigned_.isSelected("Vol2ToVol1")) {
+		    firstVolume  = volinport2_.getData();
+		    secondVolume = volinport1_.getData();
+		}
 
-	        LINFO("Getting transformation matrix for object #1..");
+	    LINFO("Getting transformation matrix for object #1..");
 		tgt::mat4 norm1 = GetTransformation(firstVolume);	
-                LINFO("Getting transformation matrix for object #2..");
+        LINFO("Getting transformation matrix for object #2..");
 		tgt::mat4 norm2 = GetTransformation(secondVolume);
 		tgt::mat4 nvrt2;
 		norm2.invert(nvrt2);
  
-	        Volume* combinedVolume = firstVolume->clone();
+	    Volume* combinedVolume = firstVolume->clone();
 
 		tgt::mat4 wrld1 =  firstVolume->getPhysicalToWorldMatrix();
 		tgt::mat4 wrld2 =  secondVolume->getPhysicalToWorldMatrix();
-        
         
 		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1);
 		outport_.setData(combinedVolume);
 	}
-	if (tobealigned_.isSelected("vol2"))
+
+	if (tobealigned_.isSelected("Vol1ToOrigin") || tobealigned_.isSelected("Vol2ToOrigin"))
 	{
-		const VolumeBase* firstVolume  = volinport2_.getData();
-		const VolumeBase* secondVolume = volinport1_.getData();
+		const VolumeBase* volume;
+		if (tobealigned_.isSelected("Vol1ToOrigin")) 
+		    volume = volinport1_.getData();
+		if (tobealigned_.isSelected("Vol2ToOrigin")) 
+		    volume = volinport1_.getData();
+		
 
-	        LINFO("Getting transformation matrix for object #2..");
-		tgt::mat4 norm1 = GetTransformation(firstVolume);	
-                LINFO("Getting transformation matrix for object #1..");
-		tgt::mat4 norm2 = GetTransformation(secondVolume);
-		tgt::mat4 nvrt2;
-		norm2.invert(nvrt2);
+	    LINFO("Getting transformation matrix for object..");
+		tgt::mat4 norm = GetTransformation(volume);	
+		tgt::mat4 nvrt;
+		norm.invert(nvrt);
  
-	        Volume* combinedVolume = firstVolume->clone();
-
-		tgt::mat4 wrld1 =  firstVolume->getPhysicalToWorldMatrix();
-		tgt::mat4 wrld2 =  secondVolume->getPhysicalToWorldMatrix();
-
-		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1);
+	    Volume* combinedVolume = volume->clone();
+	    
+		tgt::mat4 wrld =  volume->getPhysicalToWorldMatrix();
+		combinedVolume->setPhysicalToWorldMatrix(nvrt*wrld);
 		outport_.setData(combinedVolume);
 	}
 
