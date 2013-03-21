@@ -9,6 +9,7 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/calculatescore_.cpp
     ${MOD_DIR}/processors/volvolalign.cpp
     ${MOD_DIR}/processors/molmolalign.cpp
+    ${MOD_DIR}/processors/formfinder.cpp
 )
 
 # module's core header files, path relative to module dir
@@ -19,4 +20,5 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/calculatescore_.h
     ${MOD_DIR}/processors/volvolalign.h
     ${MOD_DIR}/processors/molmolalign.h
+    ${MOD_DIR}/processors/formfinder.h
 )   
