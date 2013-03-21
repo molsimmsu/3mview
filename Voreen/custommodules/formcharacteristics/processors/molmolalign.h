@@ -1,29 +1,28 @@
-#ifndef VRN_VOLVOLALIGN_H
-#define VRN_VOLVOLALIGN_H
+#ifndef VRN_MOLMOLALIGN_H
+#define VRN_MOLMOLALIGN_H
 
-#include "voreen/core/datastructures/volume/volume.h"
+#include "../../molecule/ports/moleculeport.h"
 #include "voreen/core/properties/optionproperty.h"
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
+
 using namespace voreen;
 
-tgt::vec3 getVolumeMassCenter(VolumeBase*);
-
-class VolVolAlign : public Processor {
+class MolMolAlign : public Processor {
 public:
-    VolVolAlign();
+    MolMolAlign();
 
     // virtual constructor
-    virtual Processor* create() const { return new VolVolAlign(); }
+    virtual Processor* create() const { return new MolMolAlign(); }
 
     // documentary functions
-    virtual std::string getClassName() const { return "VolVolAlign";        }
+    virtual std::string getClassName() const { return "MolMolAlign";        }
     virtual std::string getCategory()  const { return "Form Analysis";         }
     virtual CodeState getCodeState()   const { return CODE_STATE_EXPERIMENTAL; }
 
 protected:
     virtual void setDescriptions() {
-        setDescription("Accepts WeigthedPointCloud as input, outputs a matrix as a tgt::Matrix4<double>");
+        setDescription("Accepts two molecules as input, fits one of them to another");
     }
 
     virtual void process();
@@ -38,9 +37,9 @@ private:
     size_t entries;
     float  *coords;
 
-    VolumePort             volinport1_;
-    VolumePort             volinport2_;
-    VolumePort             outport_;
+    MoleculePort          molinport1_;
+    MoleculePort           molinport2_;
+    MoleculePort           outport_;
     StringOptionProperty   tobealigned_;  
 
 
@@ -49,9 +48,9 @@ private:
     void   FindAxes();
     double PolynomVal(double);
 
-    tgt::mat4 GetTransformation(const VolumeBase* vol);
+    tgt::mat4 GetTransformation(const Molecule* vol);
 
     static const std::string loggerCat_; ///< category used in logging
 };
 
-#endif // VRN_VOLVOLALIGN_H
+#endif // VRN_MOLMOLALIGN_H

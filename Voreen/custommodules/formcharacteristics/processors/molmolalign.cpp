@@ -1,157 +1,110 @@
-#include "volvolalign.h"
-
+#include "molmolalign.h"
 
 #define    SCALE          30
 #define    SOLVE_ITER     52
 #define    PI_2           1.57079632679
-#define    MAX_SIZE	      1.5    // range of the first harmonic
+#define    MAX_SIZE        1.5    // range of the first harmonic
 
 
-const std::string VolVolAlign::loggerCat_("3mview.VolVolAlign");
+const std::string MolMolAlign::loggerCat_("3mview.MolMolAlign");
 
-tgt::vec3 getVolumeMassCenter(VolumeBase* vol)
-{
-	tgt::vec3 mass_center;
-	mass_center.x =0.0;
-	mass_center.y =0.0;
-	mass_center.z =0.0;
-	double weight = 0;
-
-	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
-
-	tgt::svec3 dims   = vol->getDimensions();
-	tgt::vec3  space  = vol->getSpacing();
-
-	tgt::vec4     pWorld;
-
-	RealWorldMapping rwm = vol->getRealWorldMapping();
-	float valNorm;
-	float valRW;
-
-	for (int i=0; i<dims.x; ++i)
-		for (int j=0; j<dims.y; ++j)
-			for (int k=0; k<dims.z; ++k)
-			{
-				pWorld = vol->getVoxelToWorldMatrix() * (tgt::vec4(0.5+i, 0.5+j, 0.5+k, 1.0));
-				valNorm = volRam->getVoxelNormalizedLinear(tgt::vec3(0.5+i, 0.5+j, 0.5+k));
-				valRW = rwm.normalizedToRealWorld(valNorm);
-
-				mass_center.x += pWorld.x * valRW;
-				mass_center.y += pWorld.y * valRW;
-				mass_center.z += pWorld.z * valRW;
-				weight  += valRW;
-			}
-     mass_center.x /= weight;
-     mass_center.y /= weight;
-     mass_center.z /= weight;
-     return mass_center;
-}
-
-
-VolVolAlign :: VolVolAlign()
+MolMolAlign :: MolMolAlign()
   : Processor(),
-    tobealigned_("tobealigned", "Volume to reorientate", Processor::INVALID_PROGRAM),
-    volinport1_(Port::INPORT,   "volume1", "Electon density map 1"),
-    volinport2_(Port::INPORT,   "volume2", "Electon density map 2"),
-    outport_(Port::OUTPORT,   "volume3", "Electon density map")
+    tobealigned_("tobealigned", "Molecule to reorientate", Processor::INVALID_PROGRAM),
+    molinport1_(Port::INPORT,   "molecule1", "Molecule 1"),
+    molinport2_(Port::INPORT,   "molecule2", "Molecule 2"),
+    outport_(Port::OUTPORT,   "molecule3", "Molecule")
 {
-    tobealigned_.addOption("vol1", "#1");
-    tobealigned_.addOption("vol2", "#2");
+    tobealigned_.addOption("mol1", "#1");
+    tobealigned_.addOption("mol2", "#2");
     addProperty(tobealigned_);
 
-    addPort(volinport1_);
-    addPort(volinport2_);
+    addPort(molinport1_);
+    addPort(molinport2_);
     addPort(outport_);
 }
 
-void VolVolAlign :: process()
+void MolMolAlign :: process()
 {
-	if (tobealigned_.isSelected("vol1"))
+	if (tobealigned_.isSelected("mol1"))
 	{
-		const VolumeBase* firstVolume  = volinport1_.getData();
-		const VolumeBase* secondVolume = volinport2_.getData();
+		const Molecule* firstMol  = molinport1_.getData();
+		const Molecule* secondMol = molinport2_.getData();
 
-	        LINFO("Getting transformation matrix for object #1..");
-		tgt::mat4 norm1 = GetTransformation(firstVolume);	
-                LINFO("Getting transformation matrix for object #2..");
-		tgt::mat4 norm2 = GetTransformation(secondVolume);
-		tgt::mat4 nvrt2;
-		norm2.invert(nvrt2);
- 
-	        Volume* combinedVolume = firstVolume->clone();
+	     Molecule* outMol = firstMol->clone();
 
-		tgt::mat4 wrld1 =  firstVolume->getPhysicalToWorldMatrix();
-		tgt::mat4 wrld2 =  secondVolume->getPhysicalToWorldMatrix();
-        
-        
-		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1);
-		outport_.setData(combinedVolume);
+		tgt::mat4 fit1;
+		tgt::mat4 fit2;
+		tgt::mat4 invertedfit2;
+		tgt::mat4 wrld1;
+		tgt::mat4 invertedwrld1;
+
+	     LINFO("Getting transformation matrix for molecule #1..");
+		fit1 = GetTransformation(firstMol);	
+
+          LINFO("Getting transformation matrix for molecole #2..");
+		fit2 = GetTransformation(secondMol);
+		fit2.invert(invertedfit2);
+
+		wrld1 =  firstMol ->getTransformationMatrix();
+		wrld1.invert(invertedwrld1);
+
+		const tgt::mat4  _temp = invertedwrld1*invertedfit2*fit1*wrld1;		
+		outMol->transform(_temp);
+		outport_.setData(outMol);
 	}
-	if (tobealigned_.isSelected("vol2"))
+	if (tobealigned_.isSelected("mol2"))
 	{
-		const VolumeBase* firstVolume  = volinport2_.getData();
-		const VolumeBase* secondVolume = volinport1_.getData();
+		const Molecule* firstMol  = molinport2_.getData();
+		const Molecule* secondMol = molinport1_.getData();
 
-	        LINFO("Getting transformation matrix for object #2..");
-		tgt::mat4 norm1 = GetTransformation(firstVolume);	
-                LINFO("Getting transformation matrix for object #1..");
-		tgt::mat4 norm2 = GetTransformation(secondVolume);
-		tgt::mat4 nvrt2;
-		norm2.invert(nvrt2);
- 
-	        Volume* combinedVolume = firstVolume->clone();
+	 	Molecule* outMol = firstMol->clone();
 
-		tgt::mat4 wrld1 =  firstVolume->getPhysicalToWorldMatrix();
-		tgt::mat4 wrld2 =  secondVolume->getPhysicalToWorldMatrix();
+		tgt::mat4 fit1;
+		tgt::mat4 fit2;
+		tgt::mat4 invertedfit2;
+		tgt::mat4 wrld1;
+		tgt::mat4 invertedwrld1;
 
-		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1);
-		outport_.setData(combinedVolume);
+	     LINFO("Getting transformation matrix for molecule #1..");
+		fit1 = GetTransformation(firstMol);	
+
+          LINFO("Getting transformation matrix for molecole #2..");
+		fit2 = GetTransformation(secondMol);
+		fit2.invert(invertedfit2);
+
+		wrld1 =  firstMol ->getTransformationMatrix();
+		wrld1.invert(invertedwrld1);
+
+		const tgt::mat4  _temp = invertedwrld1*invertedfit2*fit1*wrld1;		
+		outMol->transform(_temp);
+		outport_.setData(outMol);
 	}
 
 }
 
-tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
+tgt::mat4 MolMolAlign :: GetTransformation(const Molecule* mol)
 {
-	O[0] = 0;
+     O[0] = 0;
 	O[1] = 0;
 	O[2] = 0;
      total_weight = 0;
 
-	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
-
-	tgt::svec3 dims   = vol->getDimensions();
-	size_t    voxels = vol->getNumVoxels();
-	tgt::vec3  space  = vol->getSpacing();
-	entries = voxels;
-
-	tgt::vec4     pWorld;
-	coords = new float[4*voxels];
-
-	RealWorldMapping rwm = vol->getRealWorldMapping();
-	float valNorm;
-	float valRW;
-
-	for (int i=0; i<dims.x; ++i)
-		for (int j=0; j<dims.y; ++j)
-			for (int k=0; k<dims.z; ++k)
-			{
-				pWorld = vol->getVoxelToWorldMatrix() * (tgt::vec4(0.5+i, 0.5+j, 0.5+k, 1.0));
-				coords[4*(i+j*dims.x+k*dims.x*dims.y)]   = pWorld.x;
-				coords[4*(i+j*dims.x+k*dims.x*dims.y)+1] = pWorld.y;
-				coords[4*(i+j*dims.x+k*dims.x*dims.y)+2] = pWorld.z;
-				valNorm = volRam->getVoxelNormalizedLinear(tgt::vec3(0.5+i, 0.5+j, 0.5+k));
-				valRW = rwm.normalizedToRealWorld(valNorm);
-				coords[4*(i+j*dims.x+k*dims.x*dims.y)+3] = valRW;
-			}
-
+	entries = (mol->getOBMol()).NumAtoms();
+	coords = new float[4*entries];
 	for (int i=0; i<entries; ++i)
 	{	
+		coords[4*i]   = (mol->getOBMol()).GetAtomById(i)->x();
+		coords[4*i+1] = (mol->getOBMol()).GetAtomById(i)->y();
+		coords[4*i+2] = (mol->getOBMol()).GetAtomById(i)->z();
+		coords[4*i+3] = (mol->getOBMol()).GetAtomById(i)->GetFormalCharge(); // TODO !!
+
 		O[0] += coords[4*i]   * coords[4*i+3];
 		O[1] += coords[4*i+1] * coords[4*i+3];
 		O[2] += coords[4*i+2] * coords[4*i+3];
 		total_weight += coords[4*i+3];
-    }
-  
+	}
+
 	O[0] /= total_weight;
 	O[1] /= total_weight;
 	O[2] /= total_weight;
@@ -212,10 +165,10 @@ tgt::mat4 VolVolAlign :: GetTransformation(const VolumeBase* vol)
 	out_data1.t33 =  1;	
 
     tgt::mat4 out_data2 = out_data*out_data1;
-	return out_data2;
+    return out_data2;
 }
 
-double VolVolAlign :: CalculateMoment(int degX, int degY, int degZ)
+double MolMolAlign :: CalculateMoment(int degX, int degY, int degZ)
 {
 	double res = 0;
 	double temp;
@@ -242,7 +195,7 @@ double VolVolAlign :: CalculateMoment(int degX, int degY, int degZ)
 	return res;
 }
 
-double VolVolAlign :: CalculateFourrier(int degX, int degY, int degZ)
+double MolMolAlign :: CalculateFourrier(int degX, int degY, int degZ)
 {
 	double res = 0;
 	double temp;
@@ -260,7 +213,7 @@ double VolVolAlign :: CalculateFourrier(int degX, int degY, int degZ)
 	return res;
 }
 
-void VolVolAlign :: FindAxes()
+void MolMolAlign :: FindAxes()
 {
 	double disc;
 	double I[3][3];
@@ -415,7 +368,7 @@ void VolVolAlign :: FindAxes()
 	}
 }
 
-double VolVolAlign :: PolynomVal(double x)
+double MolMolAlign :: PolynomVal(double x)
 {
 	return polynom[3]*x*x*x + polynom[2]*x*x + polynom[1]*x + polynom[0];
-} 
+}
