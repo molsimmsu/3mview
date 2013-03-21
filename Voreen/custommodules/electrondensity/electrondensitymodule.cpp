@@ -4,6 +4,7 @@
 #include "processors/densitymapmanipulation.h"
 #include "processors/densitymapcollectionsource.h"
 #include "processors/pdbtoedm.h"
+#include "processors/transferfunctioneditor.h"
 #include "io/mrcvolumereader.h"
 using namespace voreen;
 
@@ -16,6 +17,7 @@ ElectronDensityModule::ElectronDensityModule(const std::string& modulePath)
     registerProcessor(new DensityMapManipulation());
     registerProcessor(new DensityMapCollectionSource());
     registerProcessor(new PDBtoEDM());
+    registerProcessor(new TransferFunctionEditor());
     
     registerVolumeReader(new MRCVolumeReader());
 }
