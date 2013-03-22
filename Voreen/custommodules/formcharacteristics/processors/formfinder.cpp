@@ -9,7 +9,7 @@ FormFinder::FormFinder()
     , alignmentList_("alignmentList", "Alignment List")
     , maxDomainsToLoad_("maxDomainsToLoad", "Max domains to load", 3, 1, 5)
     , accuracy_("accuracy", "Bottom value cutoff", 0, 0, 10)
-    , weightFactor_("weightFactor", "Weight Factor", 12, 1, 100, Processor::INVALID_PROGRAM)
+    , weightFactor_("weightFactor", "Weight factor", 12, 1, 100, Processor::INVALID_PROGRAM)
 {
     addProperty(findDomains_);
     addProperty(maxDomainsToLoad_);
@@ -83,7 +83,7 @@ void FormFinder::findDomains()
 		for (int j=0; j < mom_total; ++j)
 		{
 			fscanf(db, "%lf ", &db_moments[j]);
-			disp[i] += (moments[j]/12 - db_moments[j])*(moments[j]/12 - db_moments[j]);
+			disp[i] += (moments[j] - db_moments[j])*(moments[j] - db_moments[j]);
 		}
 		disp[i] /= mom_total;
 		disp[i] = sqrt(disp[i]);

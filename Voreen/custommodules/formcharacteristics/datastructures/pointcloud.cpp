@@ -72,19 +72,19 @@ void PointCloud :: VolumeFill(const Volume* vol, double min)
 			for (int k=0; k<dims.z; ++k)
 			{
 				valNorm = volRam->getVoxelNormalizedLinear(tgt::dvec3(0.5+i, 0.5+j, 0.5+k));
-				valRW = rwm.normalizedToRealWorld(valNorm)/weightfactor;
+				valRW = rwm.normalizedToRealWorld(valNorm);
 				if (fabs(valRW)>min_value)
 				{
 					pworld = vol->getVoxelToWorldMatrix() * (tgt::dvec4(0.5+i, 0.5+j, 0.5+k, 1.0));	
 					points[non_zero][0] = pworld.x;
 					points[non_zero][1] = pworld.y;
 					points[non_zero][2] = pworld.z;
-					values[non_zero] = valRW;
+					values[non_zero] = valRW/weightfactor;
 					if (fabs(valRW)>max_value)
 					{
 						max_value = fabs(valRW);
 					}
-					weight += valRW;
+					weight += valRW/weightfactor;
 					non_zero++;
 				}
 			}
