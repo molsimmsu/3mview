@@ -18,6 +18,7 @@ PointCloud :: ~PointCloud()
 {
 	delete[] points;
 	delete[] values;
+	delete[] moments;
 }
 
 void PointCloud :: VolumeFill(const Volume* vol)
@@ -336,3 +337,28 @@ tgt::Matrix4d PointCloud :: GetAxes()
 			     	   0,     0,     0,     1);
 	return out_data;
 }
+
+void PointCloud :: GetMoments8()
+{
+	Centrify();
+	mom_order = 8;
+	moments = new double[240];
+
+	int a, b, c;
+	int l = 0;
+
+	for (int i = -mom_order*mom_order*mom_order; 
+              i <  mom_order*mom_order*mom_order; ++i) 
+	{
+		a = i / (mom_order * mom_order);
+		b = (i - a*mom_order*mom_order) / mom_order;
+		c = i % mom_order;
+		if (sqrt(a*a) + sqrt(b*b) + sqrt(c*c) < mom_order)
+		{
+			moments[l] = CalculateFourrier(a, b, c);
+			l++;
+		}
+	}	
+	unCentrify();
+}
+

@@ -20,6 +20,7 @@
 using namespace voreen;
 
 #include "tgt/filesystem.h"
+#include "../datastructures/pointcloud.h"
 
 #include <cmath>
 #include <string>
@@ -55,24 +56,7 @@ private:
 	
     VolumePort volinport_;    
 
-
-
-    float  *coords;
-
-    double  O[3]; 
-    double Ox[3];
-    double Oy[3];
-    double Oz[3];
-    double polynom[3];
     double moments[240];
-    double total_weight;
-    int    entries;
-    int    mom_total; 
-
-    double CalculateMoment(int, int, int);
-    double CalculateFourrier(int, int, int); 		
-    void   FindAxes();
-    double PolynomVal(double);
     void   GetMoments();  
 
     static std::string loggerCat_;

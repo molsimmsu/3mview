@@ -18,8 +18,12 @@ public:
 	double    scale;
 	double    max_size;
 
+	double    *moments;
+
 	tgt::Matrix4d GetShift();
 	tgt::Matrix4d GetAxes();
+	
+	void GetMoments8();
 
 	double CalculateMoment(int, int, int);   	
 	double CalculateFourrier(int, int, int); 
@@ -42,6 +46,7 @@ private:
 	double polynom[4];
 	double weight;
 	int    orientation;
+	int    mom_order;
  	
 	double PolynomVal(double);
 	
