@@ -18,7 +18,7 @@ public:
 	double    scale;
 	double    max_size;
 
-	double    *moments;
+	double    moments[240];
 
 	tgt::Matrix4d GetShift();
 	tgt::Matrix4d GetAxes();
