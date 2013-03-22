@@ -56,8 +56,6 @@ private:
 	
     VolumePort volinport_;    
 
-    double moments[240];
-    void   GetMoments();  
 
     static std::string loggerCat_;
 };
