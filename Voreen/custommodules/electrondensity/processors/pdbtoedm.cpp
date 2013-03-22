@@ -25,6 +25,7 @@
 
 #define PI 3.141592
 #define REBUILD_EDM_GRID CallMemberAction<PDBtoEDM>(this, &PDBtoEDM::ShowGrid)
+//#define SELECT_CALCULATION_MODE CallMemberAction<PDBtoEDM>(this, &PDBtoEDM::adjustPropertyVisibility)
 
 using std::string;
 using tgt::vec3;
@@ -44,18 +45,38 @@ PDBtoEDM::PDBtoEDM()
     : Processor()
 , inport_(Port::INPORT, "molecule", "Molecule Input")
 , outport_(Port::OUTPORT, "volumehandle.volumehandle", "Volume Output")
+, calculationmode_("calcmode", "Calculation mode")
 , atoomr_("atoomr", "Length of calc (A)", 2, 1, 3)
-, deltaatoomr_("deltaatoomr", "Step (*0.1 A)", 2, 1, 10)
+, deltaatoomr_("deltaatoomr", "Step (*0.01 A)", 20, 5, 100)
+, resolution_("resolution", "Resolution (*0.1 A)", 30, 5, 100)
+, calcelectronnumb_("calcelectron", "Calculate Number Of Electrons", true)
 , generategrid_("generategrid", "Generate grid")
+
+
 
 {
 addPort(outport_);
 addPort(inport_);
+
+calculationmode_.addOption("scattering", "Scattering factor");
+calculationmode_.addOption("structure", "Structure factor");
+
+//calculationmode_.onChange(SELECT_CALCULATION_MODE);
+
+
+
+addProperty(calculationmode_);
 addProperty(atoomr_);
 addProperty(deltaatoomr_);
+addProperty(resolution_);
+addProperty(calcelectronnumb_);
 addProperty(generategrid_);
 
+
+
+
 generategrid_.onClick(REBUILD_EDM_GRID);
+
 
 }
 
@@ -63,28 +84,349 @@ PDBtoEDM::~PDBtoEDM() {
 }
 
 Processor* PDBtoEDM::create() const {
-    return new PDBtoEDM();
+        return new PDBtoEDM();
 }
 
-void PDBtoEDM::GenerateEDMGrid(const Molecule* InputMoll) {
-
-float dr=deltaatoomr_.get()/10.0; //step of grid
+void PDBtoEDM::GenerateEDMGrid_ScatteringFactor(const Molecule* InputMoll) {
+dr=deltaatoomr_.get()/100.0; //step of grid
+MaxR=atoomr_.get();
+VoxelPerAngstrem=1.0/dr; //number of voxels per angstrem
 int Nsmall=atoomr_.get()/dr; //lenght of atom array dens
-float VoxelPerAngstrem=1.0/dr; //number of voxels per angstrem
 float scale=1.0/VoxelPerAngstrem;
 struct AtomicED sAtomED;
+const OBMol& mol = InputMoll->getOBMol();
+
+std::cout << "Delta_r: "<< dr<<std::endl;
+std::cout << "Voxel per angstrem: "<< VoxelPerAngstrem<<std::endl;
+
+//--------find atom types in pdb-----------
+FindAtomTypesInPDB(mol, &sAtomED);
+//-----------------------------------------
+
+
+//-----------------------------------------
+//--------calc radial ED for atoms---------
+//-----------------------------------------
+
+for (int k=0; k<NumberAtom; k++)
+
+{
+//calc radial distr. from FT of atomic structure. DWF not include
+  for (int j=0; j<Nsmall; j++ )
+  {
+    sAtomED.AtomED[k][j]=sAtomED.a1[k]*exp(-4*PI*PI*pow(dr*j,2)/sAtomED.b1[k])/pow(sAtomED.b1[k]/(4*PI),1.5)
+    +sAtomED.a2[k]*exp(-4*PI*PI*pow(dr*(j),2)/sAtomED.b2[k])/pow(sAtomED.b2[k]/(4*PI),1.5)
+    +sAtomED.a3[k]*exp(-4*PI*PI*pow(dr*(j),2)/sAtomED.b3[k])/pow(sAtomED.b3[k]/(4*PI),1.5)
+    +sAtomED.a4[k]*exp(-4*PI*PI*pow(dr*(j),2)/sAtomED.b4[k])/pow(sAtomED.b4[k]/(4*PI),1.5);
+  }
+}
+//-----------------------------------------
+//-----------------------------------------
+
+//-----------------------------------------
+//----------find bounding box--------------
+//-----------------------------------------
+FindBoundingGeometry(mol);
+std::cout << "NumberVoxels_x:"<<NumberVoxels_x<<std::endl;
+std::cout << "NumberVoxels_y: "<<NumberVoxels_y<<std::endl;
+std::cout << "NumberVoxels_z: "<<NumberVoxels_z<<std::endl;
+//-----------------------------------------
+//-----------------------------------------
+VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxels_x,NumberVoxels_y,NumberVoxels_z));
+
+
+//-----------------------------------------
+//----------create out volume--------------
+//-----------------------------------------
+
+for (int i=0; i<NumberVoxels_x; i++)
+for (int j=0; j<NumberVoxels_y; j++)
+for (int k=0; k<NumberVoxels_z; k++)
+{
+     ((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)=0;
+}
+std::string src,dst;
+for (int i = 1; i <= mol.NumAtoms(); i++)
+    {
+        OBAtom* a = mol.GetAtom(i);
+        src=a->GetType();
+        ttab.SetFromType("INT");
+        ttab.SetToType("XYZ");
+        ttab.Translate(dst,src);
+        int p=0;
+        while (dst!=sAtomED.AtomName[p]) p=p+1;
+
+        float atomx=a->x()+size_x+MaxR-cx;
+        float atomy=a->y()+size_y+MaxR-cy;
+        float atomz=a->z()+size_z+MaxR-cz;
+
+        int Voxx=atomx/dr;
+        int Voxy=atomy/dr;
+        int Voxz=atomz/dr;
+
+        for (int ii=-Nsmall+1; ii<Nsmall; ii++)
+        for (int jj=-Nsmall+1; jj<Nsmall; jj++)
+        for (int kk=-Nsmall+1; kk<Nsmall; kk++)
+        {
+            int tempVoxx=Voxx+ii;
+            int tempVoxy=Voxy+jj;
+            int tempVoxz=Voxz+kk;
+            int temp1=ii*ii+jj*jj+kk*kk;
+            if ((tempVoxx>=0)&(tempVoxy>=0)&(tempVoxz>=0)&(tempVoxx<NumberVoxels_x)&(tempVoxy<NumberVoxels_y)&(tempVoxz<NumberVoxels_z)&(temp1<Nsmall*Nsmall))
+            {
+                int pos=sqrt(temp1);
+                float temp=((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz);
+                ((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz)=temp+sAtomED.AtomED[p][pos];
+
+
+            }
+        }
+
+std::cout << "Calculate density map: "<<i*100/mol.NumAtoms()<< "%"<<"\r";
+    }
+//-----------------------------------------
+//-----------------------------------------
+
+
+
+//-----------------------------------------
+//--------Calc number of electrons----------
+//-----------------------------------------
+if (calcelectronnumb_.get()==true) CalcElectronNumber(targetDataset);
+//-----------------------------------------
+//-----------------------------------------
+
+
+tgt::Matrix4<int> transform
+        (
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1
+        );
+
+
+Volume* volumeHandle = new Volume(
+            targetDataset,                                                                                // data
+            vec3(scale,scale,scale),                                                                      // scale
+            vec3(-(size_x+MaxR)+cx-dr/2,-(size_y+MaxR)+cy-dr/2,-(size_z+MaxR)+cz-dr/2), // offset
+            transform                                                                                     // transform
+        );
+
+
+outport_.setData(volumeHandle);
+
+//-----------------------------------------
+//-----------------------------------------
+}
+
+void PDBtoEDM::GenerateEDMGrid_StructureFactor(const Molecule* InputMoll) {
+
+dr=deltaatoomr_.get()/100.0; //step of grid
+MaxR=2;
+VoxelPerAngstrem=1.0/dr; //number of voxels per angstrem
+resol=resolution_.get()/10.0;
+float scale=1.0/VoxelPerAngstrem;
+struct AtomicED sAtomED;
+const OBMol& mol = InputMoll->getOBMol();
+
+std::cout << "Delta_r: "<< dr<<std::endl;
+std::cout << "Voxel per angstrem: "<< VoxelPerAngstrem<<std::endl;
+std::cout << "Resolution: "<< resol<<std::endl;
+//--------find atom types in pdb-----------
+FindAtomTypesInPDB(mol, &sAtomED);
+//-----------------------------------------
+
+//----------find bounding box--------------
+FindBoundingGeometry(mol);
+std::cout << "NumberVoxels: "<<NumberVoxel_Structure<<std::endl;
+std::cout << "Reflection number: "<<Nh*Nh*Nh<<std::endl;
+//-----------------------------------------
+//-----------------------------------------
+VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
+
+float ScF[NumberAtom][Nh+1][Nh+1][Nh+1];
+float StrFreal[(2*Nh+1)][(2*Nh+1)][(2*Nh+1)];
+float StrFcomplex[(2*Nh+1)][(2*Nh+1)][(2*Nh+1)];
+float StrFModule[(2*Nh+1)][(2*Nh+1)][(2*Nh+1)];
+float phase[(2*Nh+1)][(2*Nh+1)][(2*Nh+1)];
+float lambd=1.54;
+float ddd;
+
+//-----------------------------------------
+//--------Calc scattering factors----------
+//-----------------------------------------
+for (int k=0; k<NumberAtom; k++)
+{
+for (int hh=-Nh; hh<=Nh; hh++)
+for (int kk=-Nh; kk<=Nh; kk++)
+for (int ll=-Nh; ll<=Nh; ll++)
+{
+int posh = abs(hh);
+int posk = abs(kk);
+int posl = abs(ll);
+ddd=big_size/sqrt(ll*ll+hh*hh+kk*kk+0.0001);
+
+ScF[k][posh][posk][posl]=sAtomED.a1[k]*exp(-sAtomED.b1[k]*pow(1/(2*ddd),2))
+    +sAtomED.a2[k]*exp(-sAtomED.b2[k]*pow(1/(2*ddd),2))
+	+sAtomED.a3[k]*exp(-sAtomED.b3[k]*pow(1/(2*ddd),2))
+	+sAtomED.a4[k]*exp(-sAtomED.b4[k]*pow(1/(2*ddd),2))+sAtomED.c[k];
+
+}
+std::cout << "Calculate scattering factors...: "<<(k+1)*100/(NumberAtom)<< "%"<<"\r";
+}
+std::cout << "Finish calc scattering factor!"<<std::endl;
+//-----------------------------------------
+//-----------------------------------------
+
+//-----------------------------------------
+//---------calc structure factors----------
+//-----------------------------------------
+std::string src,dst;
+int posh,posk,posl;
+int pos2h,pos2k,pos2l;
+
+for (int hh=-Nh; hh<=Nh; hh++)
+{
+
+for (int kk=-Nh; kk<=Nh; kk++)
+for (int ll=-Nh; ll<=Nh; ll++)
+{
+posh = abs(hh);
+posk = abs(kk);
+posl = abs(ll);
+pos2h = hh+Nh;
+pos2k = kk+Nh;
+pos2l = ll+Nh;
+
+float tempreal=0,tempcomplex=0;
+for (int i = 1; i <= mol.NumAtoms(); i++)
+    {
+        OBAtom* a = mol.GetAtom(i);
+        src=a->GetType();
+        ttab.SetFromType("INT");
+        ttab.SetToType("XYZ");
+        ttab.Translate(dst,src);
+        int p=0;
+        while (dst!=sAtomED.AtomName[p]) p=p+1;
+        float atomx=(a->x()-cx+big_size/2)/big_size;
+        float atomy=(a->y()-cy+big_size/2)/big_size;
+        float atomz=(a->z()-cz+big_size/2)/big_size;
+        tempreal=tempreal+ScF[p][posh][posk][posl]*cos(2*PI*(hh*atomx+kk*atomy+ll*atomz));
+        tempcomplex=tempcomplex+ScF[p][posh][posk][posl]*sin(2*PI*(hh*atomx+kk*atomy+ll*atomz));
+
+    }
+
+float angle=atan2(tempcomplex,tempreal);
+if (angle<0) angle=angle+2*PI;
+phase[pos2h][pos2k][pos2l]=angle/(2*PI);
+StrFreal[pos2h][pos2k][pos2l]=tempreal;
+StrFcomplex[pos2h][pos2k][pos2l]=tempcomplex;
+StrFModule[pos2h][pos2k][pos2l]=sqrt(tempcomplex*tempcomplex+tempreal*tempreal);
+
+}
+std::cout << "Calculate structure factors...: "<<(pos2h+1)*100/(2*Nh+1)<< "%"<<"\r";
+}
+
+std::cout << "Finish calc structure factor!"<<std::endl;
+//-----------------------------------------
+//-----------------------------------------
+
+//-----------------------------------------
+//----------create out volume--------------
+//-----------------------------------------
+float resul;
+for (int i=0; i<NumberVoxel_Structure; i++)
+for (int j=0; j<NumberVoxel_Structure; j++)
+for (int k=0; k<NumberVoxel_Structure; k++)
+{
+float temprr=0,temprc=0;;
+float voxx=(i*dr)/big_size;
+float voxy=(j*dr)/big_size;
+float voxz=(k*dr)/big_size;
+for (int hh=-Nh; hh<=Nh; hh++)
+for (int kk=-Nh; kk<=Nh; kk++)
+for (int ll=-Nh; ll<=Nh; ll++)
+{
+
+
+int posh = abs(hh);
+int posk = abs(kk);
+int posl = abs(ll);
+int pos2h = hh+Nh;
+int pos2k = kk+Nh;
+int pos2l = ll+Nh;
+
+temprr=temprr+StrFModule[pos2h][pos2k][pos2l]*cos(2*PI*(hh*voxx+kk*voxy+ll*voxz-phase[pos2h][pos2k][pos2l]));
+temprc=temprc+StrFModule[pos2h][pos2k][pos2l]*sin(2*PI*(hh*voxx+kk*voxy+ll*voxz-phase[pos2h][pos2k][pos2l]));
+resul=sqrt(temprr*temprr+temprc*temprc);
+
+}
+ ((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)=temprr/pow(big_size,3);
+std::cout << "Creating out volume: "<<(i+1)*100/(NumberVoxel_Structure)<< "%"<<"\r";
+}
+//-----------------------------------------
+//-----------------------------------------
+
+if (calcelectronnumb_.get()==true) CalcElectronNumber(targetDataset);
+
+tgt::Matrix4<int> transform
+        (
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1
+        );
+
+
+Volume* volumeHandle = new Volume(
+            targetDataset,                                                                                // data
+            vec3(scale,scale,scale),                                                                      // scale
+            vec3(-(big_size/2)+cx-dr/2,-(big_size/2)+cy-dr/2,-(big_size/2)+cz-dr/2), // offset
+            transform                                                                                     // transform
+        );
+
+
+outport_.setData(volumeHandle);
+
+
+//-----------------------------------------
+//-----------------------------------------
+}
+
+
+//-----------------------------------------
+//--------Calc number of electron----------
+//-----------------------------------------
+void PDBtoEDM::CalcElectronNumber(const VolumeRAM* targetDataset)
+{
+float ENumber=0;
+ivec3 NN=((VolumeAtomic<float_t>*)targetDataset)->getDimensions();
+for (int i=0; i<NN[0]; i++)
+for (int j=0; j<NN[1]; j++)
+for (int k=0; k<NN[2]; k++)
+{
+ENumber=ENumber+((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)*dr*dr*dr;
+}
+std::cout << "Number of electron in volume: "<<ENumber<<std::endl;
+}
+//-----------------------------------------
+//-----------------------------------------
+
 
 //-----------------------------------------
 //--------find atom types in pdb-----------
 //-----------------------------------------
-const OBMol& mol = InputMoll->getOBMol();
-int NumberAtom=0;
-float cx=0,cy=0,cz=0;
+void PDBtoEDM::FindAtomTypesInPDB(const OBMol mol, struct AtomicED* sAtomED)
+{
+NumberAtom=0;
+cx=0;
+cy=0;
+cz=0;
 std::string src,dst;
     for (int i = 1; i <= mol.NumAtoms(); i++)
     {
         OBAtom* a = mol.GetAtom(i);
-
         src=a->GetType();
         float atomx=a->x();
         float atomy=a->y();
@@ -96,35 +438,25 @@ std::string src,dst;
         ttab.SetFromType("INT");
         ttab.SetToType("XYZ");
         ttab.Translate(dst,src);
-
         int Flag=1;
 
          for (int k = 0; k<NumberAtom;  k++)
-           if (dst==sAtomED.AtomName[k]) Flag=0;
+           if (dst==sAtomED->AtomName[k]) Flag=0;
            if (Flag!=0)
            {
-               sAtomED.AtomName[NumberAtom]=dst;
+               sAtomED->AtomName[NumberAtom]=dst;
                NumberAtom=NumberAtom+1;
            }
 
     }
-
 cx=cx/mol.NumAtoms();
 cy=cy/mol.NumAtoms();
 cz=cz/mol.NumAtoms();
-sAtomED.NumberTypes=NumberAtom;
+sAtomED->NumberTypes=NumberAtom;
 std::cout << "Number of atoms in input PDB: "<< mol.NumAtoms() << std::endl;
 std::cout << "Number of atom types in input PDB: "<< NumberAtom << std::endl;
-std::cout << "Center: "<< cx << "; "<< cy << "; "<<cz<< std::endl;
-//-----------------------------------------
-//-----------------------------------------
+std::cout << "Center: ["<< cx << ";"<< cy << ";"<<cz<<"]"<< std::endl;
 
-
-//-----------------------------------------
-//--------calc radial ED for atoms---------
-//-----------------------------------------
-
-//hardcoded constant for atomic factors. See PDBtoEDM.pdf
 int AFconst=213;
 std::string element[AFconst];
 float a1[AFconst],b1[AFconst],a2[AFconst],b2[AFconst],a3[AFconst],b3[AFconst],a4[AFconst],b4[AFconst],c[AFconst];
@@ -342,23 +674,31 @@ element[210]="Cm"; a1[210]=36.6488; b1[210]=0.465154; a2[210]=24.4096; b2[210]=3
 element[211]="Bk"; a1[211]=36.7881; b1[211]=0.451018; a2[211]=24.7736; b2[211]=3.04619; a3[211]=17.8919; b3[211]=12.8946; a4[211]=4.23284; b4[211]=86.003; c[211]=13.2754;
 element[212]="Cf"; a1[212]=36.9185; b1[212]=0.437533; a2[212]=25.1995; b2[212]=3.00775; a3[212]=18.3317; b3[212]=12.4044; a4[212]=4.24391; b4[212]=83.7881; c[212]=13.2674;
 
+
+
+
+
 for (int k=0; k<NumberAtom; k++)
 
 {
 int i=1;
-while ((sAtomED.AtomName[k]!=element[i])&(i<AFconst)) {
+while ((sAtomED->AtomName[k]!=element[i])&(i<AFconst)) {
     i=i+1;
-    if (i==AFconst) LWARNING("Do not find atom factor constant for: " + sAtomED.AtomName[k]);
+    if (i==AFconst) LWARNING("Do not find atom factor constant for: " + sAtomED->AtomName[k]);
+}
+    sAtomED->a1[k]=a1[i];
+    sAtomED->a2[k]=a2[i];
+    sAtomED->a3[k]=a3[i];
+    sAtomED->a4[k]=a4[i];
+    sAtomED->b1[k]=b1[i];
+    sAtomED->b2[k]=b2[i];
+    sAtomED->b3[k]=b3[i];
+    sAtomED->b4[k]=b4[i];
+    sAtomED->c[k]=c[i];
+
+
 }
 
-//calc radial distr. from FT of atomic structure. DWF not include
-  for (int j=0; j<Nsmall; j++ )
-  {
-    sAtomED.AtomED[k][j]=a1[i]*exp(-4*PI*PI*pow(dr*j,2)/b1[i])/pow(b1[i]/(4*PI),1.5)
-    +a2[i]*exp(-4*PI*PI*pow(dr*(j),2)/b2[i])/pow(b2[i]/(4*PI),1.5)
-    +a3[i]*exp(-4*PI*PI*pow(dr*(j),2)/b3[i])/pow(b3[i]/(4*PI),1.5)
-    +a4[i]*exp(-4*PI*PI*pow(dr*(j),2)/b4[i])/pow(b4[i]/(4*PI),1.5);
-  }
 }
 //-----------------------------------------
 //-----------------------------------------
@@ -366,8 +706,12 @@ while ((sAtomED.AtomName[k]!=element[i])&(i<AFconst)) {
 //-----------------------------------------
 //----------find bounding box--------------
 //-----------------------------------------
+void PDBtoEDM::FindBoundingGeometry(const OBMol mol)
+{
 std::cout << "Searching size of bounding geometry..."<< std::endl;
-float size_x=0,size_y=0,size_z=0;
+size_x=0;
+size_y=0;
+size_z=0;
 for (int i = 1; i <= mol.NumAtoms(); i++)
     {
         OBAtom* a = mol.GetAtom(i);
@@ -384,94 +728,38 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
 
     }
 
-int rr=atoomr_.get();
-int NumberVoxels_x=2*(size_x+rr)/dr;
-int NumberVoxels_y=2*(size_y+rr)/dr;
-int NumberVoxels_z=2*(size_z+rr)/dr;
+NumberVoxels_x=2*(size_x+MaxR)/dr;
+NumberVoxels_y=2*(size_y+MaxR)/dr;
+NumberVoxels_z=2*(size_z+MaxR)/dr;
+big_size=0;
+if (big_size<2*(size_x+MaxR)) big_size=2*(size_x+MaxR);
+if (big_size<2*(size_y+MaxR)) big_size=2*(size_y+MaxR);
+if (big_size<2*(size_z+MaxR)) big_size=2*(size_z+MaxR);
+NumberVoxel_Structure=big_size/dr;
+Nh=big_size/resol;
+std::cout << "Size of bounding geometry: "<< 2*(size_x+MaxR)<<";"<<2*(size_y+MaxR)<<";"<<2*(size_z+MaxR)<<std::endl;
+std::cout << "Cube bounding: "<<big_size<<std::endl;
 
-std::cout << "Size of bounding geometry: "<< 2*size_x<<";"<<2*size_y<<";"<<2*size_z<<std::endl;
-std::cout << "Delta_r: "<< dr<<std::endl;
-std::cout << "Voxel per angstrem: "<< VoxelPerAngstrem<<std::endl;
-
-VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxels_x,NumberVoxels_y,NumberVoxels_z));
-
-//-----------------------------------------
-//-----------------------------------------
-
-
-//-----------------------------------------
-//----------create out volume--------------
-//-----------------------------------------
-for (int i=0; i<NumberVoxels_x; i++)
-for (int j=0; j<NumberVoxels_y; j++)
-for (int k=0; k<NumberVoxels_z; k++)
-{
-     ((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)=0;
 }
-
-
-for (int i = 1; i <= mol.NumAtoms(); i++)
-    {
-        OBAtom* a = mol.GetAtom(i);
-        src=a->GetType();
-        ttab.SetFromType("INT");
-        ttab.SetToType("XYZ");
-        ttab.Translate(dst,src);
-        int p=0;
-        while (dst!=sAtomED.AtomName[p]) p=p+1;
-
-        float atomx=a->x()+(size_x+rr)-cx;
-        float atomy=a->y()+(size_y+rr)-cy;
-        float atomz=a->z()+(size_z+rr)-cz;
-        int Voxx=atomx/dr;
-        int Voxy=atomy/dr;
-        int Voxz=atomz/dr;
-
-        for (int ii=-Nsmall+1; ii<Nsmall; ii++)
-        for (int jj=-Nsmall+1; jj<Nsmall; jj++)
-        for (int kk=-Nsmall+1; kk<Nsmall; kk++)
-        {
-            int tempVoxx=Voxx+ii;
-            int tempVoxy=Voxy+jj;
-            int tempVoxz=Voxz+kk;
-            int temp1=ii*ii+jj*jj+kk*kk;
-            if ((tempVoxx>=0)&(tempVoxy>=0)&(tempVoxz>=0)&(tempVoxx<NumberVoxels_x)&(tempVoxy<NumberVoxels_y)&(tempVoxz<NumberVoxels_z)&(temp1<Nsmall*Nsmall))
-            {
-                int pos=sqrt(temp1);
-                float temp=((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz);
-                ((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz)=temp+sAtomED.AtomED[p][pos];
-
-            }
-        }
-
-
-std::cout << "Calculate density map: "<<i*100/mol.NumAtoms()<< "%"<<"\r";
-    }
-
-tgt::Matrix4<int> transform
-        (
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1
-        );
-
-
-Volume* volumeHandle = new Volume(
-            targetDataset,                                                                                // data
-            vec3(scale,scale,scale),                                                                      // scale
-            vec3(-(size_x+rr)+cx,-(size_y+rr)+cy,-(size_z+rr)+cz), // offset
-            transform                                                                                     // transform
-        );
-
-
-outport_.setData(volumeHandle);
-
 //-----------------------------------------
 //-----------------------------------------
-}
+
 
 void PDBtoEDM::process() {
+    if (calculationmode_.isSelected("scattering"))
+    {
+    resolution_.setVisible(false);
+    atoomr_.setVisible(true);
+
+    }
+    else
+    {
+    resolution_.setVisible(true);
+    atoomr_.setVisible(false);
+
+    }
+
+
 }
 
 void PDBtoEDM::ShowGrid() {
@@ -480,7 +768,11 @@ const Molecule* InputMoll = inport_.getData();
 const OBMol& mol = InputMoll->getOBMol();
 if (mol.NumAtoms()!=0)
 {
-PDBtoEDM::GenerateEDMGrid(InputMoll);
+    if (calculationmode_.isSelected("scattering"))
+        PDBtoEDM::GenerateEDMGrid_ScatteringFactor(InputMoll);
+    else
+        PDBtoEDM::GenerateEDMGrid_StructureFactor(InputMoll);
+
 LWARNING("Density map calculated!");
 }
 else LWARNING("Download a PDB structure!");

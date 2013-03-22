@@ -14,9 +14,12 @@
 #include "voreen/core/properties/boolproperty.h"
 #include "voreen/core/properties/buttonproperty.h"
 
+#include <fstream>
+#include <iostream>
+#include <assert.h>
+#include <cmath>
 
-
-
+using std::string;
 namespace voreen {
 
 class Volume;
@@ -26,7 +29,21 @@ class PDBtoEDM : virtual public Processor{
 public:
 
     static const std::string loggerCat_;
-    static const int MaxOfTypes=20;
+    static const int MaxOfTypes=60;
+    int NumberAtom,MaxR,Nh;
+    float VoxelPerAngstrem;
+    int NumberVoxels_x,NumberVoxels_y,NumberVoxels_z,NumberVoxel_Structure;
+    float dr,cx,cy,cz,big_size,resol;
+    int size_x,size_y,size_z;
+
+struct AtomicED
+    {
+        std::string AtomName[MaxOfTypes];
+        float AtomED[MaxOfTypes][MaxOfTypes];
+        float a1[MaxOfTypes],a2[MaxOfTypes],a3[MaxOfTypes],a4[MaxOfTypes];
+        float b1[MaxOfTypes],b2[MaxOfTypes],b3[MaxOfTypes],b4[MaxOfTypes],c[MaxOfTypes];
+        int NumberTypes;
+    };
 
 
     PDBtoEDM();
@@ -38,18 +55,15 @@ public:
 protected:
 
 //record of atom types in input PDB with radial electron density distribution
-    struct AtomicED
-    {
-        std::string AtomName[MaxOfTypes];
-        float AtomED[MaxOfTypes][MaxOfTypes];
-        int NumberTypes;
-    };
-
     virtual void setDescriptions() {setDescription("Loads multiple electron density maps and provides them as VolumeCollection.");}
     virtual void process();
     virtual void ShowGrid();
-    void GenerateEDMGrid(const Molecule* InputMoll);
-
+    void GenerateEDMGrid_ScatteringFactor(const Molecule* InputMoll);
+    void GenerateEDMGrid_StructureFactor(const Molecule* InputMoll);
+    void CalcElectronNumber(const VolumeRAM* targetDataset);
+    void FindAtomTypesInPDB(const OBMol mol, struct AtomicED* sAtomED);
+    void FindBoundingGeometry(const OBMol mol);
+    void adjustPropertyVisibility();
     /// The volume port the loaded data set is written to.
     MoleculePort inport_;
     VolumePort outport_;
@@ -57,7 +71,21 @@ protected:
 
     IntProperty atoomr_; //calculated distance (A)
     IntProperty deltaatoomr_; //step of calculate (0.1 A)
+    IntProperty resolution_; //select resolution for structure factor calculation; (0.1 A)
     ButtonProperty generategrid_; //click this button to generate volume
+    BoolProperty calcelectronnumb_;
+    StringOptionProperty calculationmode_;
+
+
+
+
+
+
+
+
+
+
+
 };
 
 } // namespace
