@@ -46,6 +46,10 @@ void PointCloud :: VolumeFill(const Volume* vol)
 
 void PointCloud :: VolumeFill(const Volume* vol, double min)
 {
+	have_center  = 0;
+	have_axes    = 0;
+	have_moments = 0;
+
 	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
 	RealWorldMapping rwm    = vol->getRealWorldMapping();
 	SetOrientation(vol->getVoxelToWorldMatrix());
@@ -90,6 +94,10 @@ void PointCloud :: VolumeFill(const Volume* vol, double min)
 
 void PointCloud :: MoleculeFill(const Molecule * mol)
 {
+	have_center  = 0;
+	have_axes    = 0;
+	have_moments = 0;
+
 	std :: cout << "Filling points set...\n";
 	entries_num = (mol->getOBMol()).NumAtoms();
 
