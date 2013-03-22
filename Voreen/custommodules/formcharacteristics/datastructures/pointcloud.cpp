@@ -18,7 +18,6 @@ PointCloud :: ~PointCloud()
 {
 	delete[] points;
 	delete[] values;
-	delete[] moments;
 }
 
 void PointCloud :: VolumeFill(const Volume* vol)
@@ -36,7 +35,7 @@ void PointCloud :: VolumeFill(const Volume* vol)
 
 	entries_num =  dims.x*dims.y*dims.z;
 	points      = new tgt::vec3[entries_num];
-     values      = new double[entries_num];
+        values      = new double[entries_num];
 
 	for (int i=0; i<dims.x; ++i)
 		for (int j=0; j<dims.y; ++j)
@@ -61,7 +60,7 @@ void PointCloud :: MoleculeFill(const Molecule * mol)
 	entries_num = (mol->getOBMol()).NumAtoms();
 
 	points      = new tgt::vec3[entries_num];
-     values      = new double[entries_num];
+        values      = new double[entries_num];
 
 	weight 	  = 0;
 
@@ -127,11 +126,11 @@ double PointCloud :: PolynomVal(double x)
 }
 
 tgt::Matrix4d PointCloud :: GetShift()
-{
-     O[0] = 0;
+{   
+        O[0] = 0;
 	O[1] = 0;
 	O[2] = 0;
-     weight = 0;
+        weight = 0;
 
 	for (int i=0; i<entries_num; ++i)
 	{	
@@ -145,10 +144,10 @@ tgt::Matrix4d PointCloud :: GetShift()
 	O[1] /= weight;
 	O[2] /= weight;
 	 
-	tgt::Matrix4d out_data(1,     0,     0, -O[0],
-					   0,     1,     0, -O[1],
-			 		   0,     0,     1, -O[2],
-					   0,     0,     0,    1);
+	tgt::Matrix4d out_data( 1,     0,     0, -O[0],
+			        0,     1,     0, -O[1],
+	    		 	0,     0,     1, -O[2],
+				0,     0,     0,    1);
 	return out_data;
 }
 
@@ -174,7 +173,7 @@ void PointCloud :: unCentrify()
 
 tgt::Matrix4d PointCloud :: GetAxes()
 {
-     Centrify();
+        Centrify();
 	double disc;
 	double I[3][3];
 	double eigens[3];
@@ -342,7 +341,6 @@ void PointCloud :: GetMoments8()
 {
 	Centrify();
 	mom_order = 8;
-	moments = new double[240];
 
 	int a, b, c;
 	int l = 0;
