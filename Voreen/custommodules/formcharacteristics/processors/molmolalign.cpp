@@ -47,26 +47,30 @@ void MolMolAlign :: align()
 		    firstMol  = molinport2_.getData();
 		    secondMol = molinport1_.getData();
 		}
-		if  ((firstMol=0) || (secondMol=0)) return;
-		tgt::mat4 fit1;
-		tgt::mat4 fit2;
-		tgt::mat4 invertedfit2;
+
+		tgt::mat4 norm1;
+		tgt::mat4 norm2;
+		tgt::mat4 invertednorm2;
 		tgt::mat4 wrld1;
+		tgt::mat4 wrld2;
 		tgt::mat4 invertedwrld1;
 
+
+ 	     Molecule* outMol = firstMol->clone();
 	     LINFO("Getting transformation matrix for molecule #1..");
-		fit1 = GetTransformation(firstMol);	
-
-          LINFO("Getting transformation matrix for molecole #2..");
-		fit2 = GetTransformation(secondMol);
-		fit2.invert(invertedfit2);
-
-		wrld1 =  firstMol ->getTransformationMatrix();
+		wrld1 = outMol->getTransformationMatrix();
+		norm1 = GetAlignment(outMol);
 		wrld1.invert(invertedwrld1);
 
-	     Molecule* outMol = firstMol->clone();
+          LINFO("Getting transformation matrix for molecole #2..");
 
-		const tgt::mat4  _temp = invertedwrld1*invertedfit2*fit1*wrld1;		
+		wrld2 = secondMol->getTransformationMatrix();
+		norm2 = GetAlignment(secondMol);
+		norm2.invert(invertednorm2);
+
+
+
+		const tgt::mat4  _temp = wrld2*invertednorm2*norm1*invertedwrld1;	
 		outMol->transform(_temp);
 		outport_.setData(outMol);
 	}
@@ -78,312 +82,37 @@ void MolMolAlign :: align()
 		    molecula = molinport1_.getData();
 		if (tobealigned_.isSelected("Mol2ToOrigin")) 
 		    molecula = molinport2_.getData();
-		
-		if (molecula=0) return;
-	     LINFO("Getting transformation matrix for object..");
-		tgt::mat4 fit  = GetTransformation(molecula);
- 		tgt::mat4 wrld = molecula->getTransformationMatrix();	;
-		tgt::mat4 invertedwrld;
-		wrld.invert(invertedwrld);
+
 
 	     Molecule* outMol = molecula->clone(); 
-	    
-		const tgt::mat4  _temp = invertedwrld*fit*wrld;		
+
+ 		tgt::mat4 wrld = outMol->getTransformationMatrix();
+ 		tgt::mat4 inv;
+		wrld.invert(inv);
+
+          LINFO("Getting transformation matrix for object..");
+		tgt::mat4 fit  = GetAlignment(outMol);
+
+		const tgt::mat4  _temp = fit*inv;		
 		outMol->transform(_temp);
+
 		outport_.setData(outMol);
 	}
 
 }
 
-tgt::mat4 MolMolAlign :: GetTransformation(const Molecule* mol)
+tgt::mat4 MolMolAlign :: GetAlignment(const Molecule* mol)
 {
-     O[0] = 0;
-	O[1] = 0;
-	O[2] = 0;
-     total_weight = 0;
+	PointCloud cloud;
+	cloud.MoleculeFill(mol);
 
-	entries = (mol->getOBMol()).NumAtoms();
-	if (entries==0) return tgt::mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-	coords = new float[4*entries];
-	for (int i=0; i<entries; ++i)
-	{	
-		coords[4*i]   = (mol->getOBMol()).GetAtomById(i)->x();
-		coords[4*i+1] = (mol->getOBMol()).GetAtomById(i)->y();
-		coords[4*i+2] = (mol->getOBMol()).GetAtomById(i)->z();
-		//coords[4*i+3] = (mol->getOBMol()).GetAtomById(i)->GetFormalCharge(); // TODO !!
-		coords[4*i+3] = 1;
+	cloud.scale    = 32;
+	cloud.max_size = 1.5;
 
-		O[0] += coords[4*i]   * coords[4*i+3];
-		O[1] += coords[4*i+1] * coords[4*i+3];
-		O[2] += coords[4*i+2] * coords[4*i+3];
-		total_weight += coords[4*i+3];
-	}
-
-	printf("total weight: %lf\n", total_weight);
-	O[0] /= total_weight;
-	O[1] /= total_weight;
-	O[2] /= total_weight;
-	printf("center: (%7.2lf; %7.2lf; %7.2lf)\n", O[0], O[1], O[2]);
-	for (int i=0; i<entries; ++i)
-	{	
-		coords[4*i]   -= O[0];
-		coords[4*i+1] -= O[1];
-		coords[4*i+2] -= O[2];
-	}
-
-	FindAxes();
-	delete[] coords;
-
-	tgt::mat4 out_data;
-	
-	out_data.t00 = Ox[0];
-	out_data.t10 = Ox[1];
-	out_data.t20 = Ox[2];
-	out_data.t30 = 0;
-		
-	out_data.t01 = Oy[0];
-	out_data.t11 = Oy[1];
-	out_data.t21 = Oy[2];
-	out_data.t31 = 0;
-
-	out_data.t02 = Oz[0];
-	out_data.t12 = Oz[1];
-	out_data.t22 = Oz[2];
-	out_data.t32 = 0;
-	
-	out_data.t03 = 0;
-	out_data.t13 = 0;
-	out_data.t23 = 0;
-	out_data.t33 = 1;
-	
-	
-	tgt::mat4 out_data1;
-	
-	out_data1.t00 = 1;
-	out_data1.t10 = 0;
-	out_data1.t20 = 0;
-	out_data1.t30 = 0;
-		
-	out_data1.t01 = 0;
-	out_data1.t11 = 1;
-	out_data1.t21 = 0;
-	out_data1.t31 = 0;
-
-	out_data1.t02 = 0;
-	out_data1.t12 = 0;
-	out_data1.t22 = 1;
-	out_data1.t32 = 0;
-	
-	out_data1.t03 = -O[0];
-	out_data1.t13 = -O[1];
-	out_data1.t23 = -O[2];
-	out_data1.t33 =  1;	
-
-    tgt::mat4 out_data2 = out_data*out_data1;
-    return out_data2;
+	tgt::Matrix4d result = cloud.GetShift();
+	result = cloud.GetAxes()*result;
+	return result;
 }
 
-double MolMolAlign :: CalculateMoment(int degX, int degY, int degZ)
-{
-	double res = 0;
-	double temp;
-	for (int i=0; i<entries; ++i)
-	{
-		temp = coords[4*i+3];
-		for (int j = 0; j < degX; ++j)
-		{
-			temp *= coords[4*i]/SCALE;
-		}
-		
-		for (int j = 0; j < degY; ++j)
-		{
-			temp *= coords[4*i+1]/SCALE;
-		}
-		
-		for (int j = 0; j < degZ; ++j)
-		{
-			temp *= coords[4*i+2]/SCALE;
-		}
-
-		res += temp/total_weight;
-	}
-	return res;
-}
-
-double MolMolAlign :: CalculateFourrier(int degX, int degY, int degZ)
-{
-	double res = 0;
-	double temp;
-	for (int i=0; i<entries; ++i)
-	{
-		temp = coords[4*i+3];
-		if (degX<0) temp *= cos(degX*coords[4*i]  /SCALE/MAX_SIZE*PI_2);
-		if (degX>0) temp *= sin(degX*coords[4*i]  /SCALE/MAX_SIZE*PI_2);
-		if (degY<0) temp *= cos(degY*coords[4*i+1]/SCALE/MAX_SIZE*PI_2);
-		if (degY>0) temp *= sin(degY*coords[4*i+1]/SCALE/MAX_SIZE*PI_2);
-		if (degZ<0) temp *= cos(degZ*coords[4*i+2]/SCALE/MAX_SIZE*PI_2);
-		if (degZ>0) temp *= sin(degZ*coords[4*i+2]/SCALE/MAX_SIZE*PI_2);
-		res += temp;
-	}
-	return res;
-}
-
-void MolMolAlign :: FindAxes()
-{
-	double disc;
-	double I[3][3];
-	double eigens[3];
-
-	double V1[3];
-	double V2[3];
-	double a = -1;
-	double b = 1;
-	
-	I[0][0] = CalculateMoment(2, 0, 0);
-	I[1][1] = CalculateMoment(0, 2, 0);
-	I[2][2] = CalculateMoment(0, 0, 2);
-	I[0][1] = CalculateMoment(1, 1, 0);
-	I[0][2] = CalculateMoment(1, 0, 1);
-	I[1][2] = CalculateMoment(0, 1, 1);
-	I[1][0] = I[0][1];
-	I[2][0] = I[0][2];
-	I[2][1] = I[1][2];
 
 
-	polynom[0] =  I[0][0]*I[1][1]*I[2][2]+2*I[0][1]*I[0][2]*I[1][2]-I[0][2]*I[0][2]*I[1][1]-I[2][1]*I[2][1]*I[0][0]-I[0][1]*I[0][1]*I[2][2];
-	polynom[1] = -(I[1][1]*I[2][2]+I[2][2]*I[0][0]+I[0][0]*I[1][1]-I[0][2]*I[0][2]-I[1][2]*I[1][2]-I[0][1]*I[0][1]);
-	polynom[2] = I[0][0] + I[1][1] + I[2][2];
-	polynom[3] = -1;
-
-	while (PolynomVal(a)<0) {a-=1;}
-	while (PolynomVal(b)>0) {b+=1;}
-	for (int i=0; i<SOLVE_ITER; ++i)
-	{
-		if (PolynomVal((b+a)/2) > 0)
-		{
-			a = (b+a)/2;
-		}
-		else 
-		{
-			b = (b+a)/2;
-		}
-	}
-	eigens[0] = a;
-	
-	polynom[0] = polynom[1]+a*polynom[2]+a*a*polynom[3];
-	polynom[1] = polynom[2]+a*polynom[3];
-	polynom[2] = polynom[3];
-	polynom[3] = 0;
-	
-
-	disc = polynom[1]*polynom[1] - 4*polynom[0]*polynom[2];
-	if (disc < 0) 
-	{
-  		LINFO("Negative eigenvalues!");
-		return;
-	}
-	else
-	{
-		eigens[1] = -(polynom[1]-sqrt(disc))/(2*polynom[2]);
-		eigens[2] = -(polynom[1]+sqrt(disc))/(2*polynom[2]);
-	}
-	
-	for (int i=0; i<3; ++i)
-	{
-		for (int j=i; j<3; ++j)	
-		{
-			if (eigens[i] > eigens[j])
-			{
-				disc = eigens[i];
-				eigens[i] = eigens[j];
-				eigens[j] = disc;
-			}
-		}
-	}	
-
-	V1[0] = I[0][0] - eigens[0]; 
-	V1[1] = I[0][1];
-	V1[2] = I[0][2];
-
-	V2[0] = I[1][0]; 
-	V2[1] = I[1][1] - eigens[0];
-	V2[2] = I[1][2];
-
-	Ox[0] = V1[1]*V2[2] - V1[2]*V2[1];	
-	Ox[1] = V1[2]*V2[0] - V1[0]*V2[2];	
-	Ox[2] = V1[0]*V2[1] - V1[1]*V2[0];
-	
-	double len = sqrt(Ox[0]*Ox[0]+Ox[1]*Ox[1]+Ox[2]*Ox[2]);
-	Ox[0] /= len;
-	Ox[1] /= len;
-	Ox[2] /= len;
-
-
-	V1[0] = I[1][0];
-	V1[1] = I[1][1] - eigens[1]; 
-	V1[2] = I[1][2];
-
-	V2[0] = I[2][0]; 
-	V2[1] = I[2][1];
-	V2[2] = I[2][2] - eigens[1];
-
-	Oy[0] = V1[1]*V2[2] - V1[2]*V2[1];	
-	Oy[1] = V1[2]*V2[0] - V1[0]*V2[2];	
-	Oy[2] = V1[0]*V2[1] - V1[1]*V2[0];
-
-	len = sqrt(Oy[0]*Oy[0]+Oy[1]*Oy[1]+Oy[2]*Oy[2]);
-	Oy[0] /= len;
-	Oy[1] /= len;
-	Oy[2] /= len;
-
-	V1[0] = I[0][0] - eigens[2]; 
-	V1[1] = I[0][1];
-	V1[2] = I[0][2];
-
-	V2[0] = I[2][0]; 
-	V2[1] = I[2][1];
-	V2[2] = I[2][2] - eigens[2];
-
-	Oz[0] = V1[1]*V2[2] - V1[2]*V2[1];	
-	Oz[1] = V1[2]*V2[0] - V1[0]*V2[2];	
-	Oz[2] = V1[0]*V2[1] - V1[1]*V2[0];
-
-	len = sqrt(Oz[0]*Oz[0]+Oz[1]*Oz[1]+Oz[2]*Oz[2]);
-	Oz[0] /= len;
-	Oz[1] /= len;
-	Oz[2] /= len;
-
-	disc =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
-	if (disc<0)
-	{
-		Oz[0] = -Oz[0];
-		Oz[1] = -Oz[1];
-		Oz[2] = -Oz[2];
-	}
-	
-	if (CalculateMoment(3, 0, 0)<0)
-	{
-		Ox[0] = -Ox[0];
-		Ox[1] = -Ox[1];
-		Ox[2] = -Ox[2];
-
-		Oy[0] = -Oy[0];
-		Oy[1] = -Oy[1];
-		Oy[2] = -Oy[2];
-	}			
-	if (CalculateMoment(0, 3, 0)<0)
-	{
-		Oz[0] = -Oz[0];
-		Oz[1] = -Oz[1];
-		Oz[2] = -Oz[2];
-
-		Oy[0] = -Oy[0];
-		Oy[1] = -Oy[1];
-		Oy[2] = -Oy[2];
-	}
-}
-
-double MolMolAlign :: PolynomVal(double x)
-{
-	return polynom[3]*x*x*x + polynom[2]*x*x + polynom[1]*x + polynom[0];
-} 

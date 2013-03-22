@@ -5,6 +5,7 @@
 #include "voreen/core/properties/optionproperty.h"
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
+#include "../datastructures/pointcloud.h"
 
 using namespace voreen;
 
@@ -30,14 +31,6 @@ protected:
     void align();
 
 private:
-    double O[3]; 
-    double Ox[3];
-    double Oy[3];
-    double Oz[3];
-    double polynom[3];
-    double total_weight;
-    size_t entries;
-    float  *coords;
 
     MoleculePort           molinport1_;
     MoleculePort           molinport2_;
@@ -46,12 +39,7 @@ private:
     ButtonProperty         align_;  
 
 
-    double CalculateMoment(int, int, int);
-    double CalculateFourrier(int, int, int);     	
-    void   FindAxes();
-    double PolynomVal(double);
-
-    tgt::mat4 GetTransformation(const Molecule* vol);
+    tgt::mat4 GetAlignment(const Molecule* vol);
 
     static const std::string loggerCat_; ///< category used in logging
 };

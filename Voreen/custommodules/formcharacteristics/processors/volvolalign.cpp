@@ -84,7 +84,6 @@ void VolVolAlign :: align()
 
 		combinedVolume->setOffset (tgt::vec3(0, 0, 0));
 		combinedVolume->setSpacing(tgt::vec3(1, 1, 1));
-
 		outport_.setData(combinedVolume);
 	}
 }
