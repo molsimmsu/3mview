@@ -1,13 +1,22 @@
 #include "volvolalign.h"
+#include "../ext/tgt/matrix.h"
 
-
-#define    SCALE          100
-#define    SOLVE_ITER     60
+#define    SCALE          32
+#define    SOLVE_ITER     50
 #define    PI_2           1.57079632679
 #define    MAX_SIZE	      1.5    // range of the first harmonic
 
 
 const std::string VolVolAlign::loggerCat_("3mview.VolVolAlign");
+
+int detsign(tgt::Matrix4d& arg)
+{
+	double z;
+     z = arg.elem[0]*(arg.elem[4]*arg.elem[8] - arg.elem[5]*arg.elem[7]) + arg.elem[1]*(arg.elem[5]*arg.elem[6] - arg.elem[3]*arg.elem[8]) + arg.elem[2]*(arg.elem[3]*arg.elem[7] - arg.elem[4]*arg.elem[6]);
+	if (z>0)	return 1;
+
+	return -1;
+}
 
 tgt::vec3 getVolumeMassCenter(VolumeBase* vol)
 {
@@ -86,37 +95,38 @@ void VolVolAlign :: align()
 		    secondVolume = volinport1_.getData();
 		}
 
+ 	     Volume* combinedVolume = firstVolume->clone();	    
+		tgt::Matrix4d wrld1 = combinedVolume->getVoxelToWorldMatrix();
+		sign = detsign(wrld1);
+  	     LINFO("Getting transformation matrix for object..");
+ 	     
+		tgt::Matrix4d shift1 = GetShift(combinedVolume);
+		combinedVolume->setPhysicalToWorldMatrix(shift1*wrld1);
+		tgt::Matrix4d rotate1= GetAxes();
+		combinedVolume->setPhysicalToWorldMatrix(rotate1*shift1*wrld1);
 
-		tgt::Matrix4d wrld1 =  firstVolume->getPhysicalToWorldMatrix();
-		tgt::Matrix4d wrld2 = secondVolume->getPhysicalToWorldMatrix();
-		
-         LINFO("Getting transformation matrix for object #1..");
-        Volume* firstVolume1 = firstVolume->clone();
-		tgt::Matrix4d norm1 = GetTransformation(firstVolume1);	
-		firstVolume1->setPhysicalToWorldMatrix(norm1*wrld1);
-		tgt::Matrix4d norm1a = GetTransformation(firstVolume1);
-		norm1=norm1a*norm1;
-		
-         LINFO("Getting transformation matrix for object #2..");
-         Volume* secondVolume2 = secondVolume->clone();
-		tgt::Matrix4d norm2 = GetTransformation(secondVolume2);
-		secondVolume2->setPhysicalToWorldMatrix(norm2*wrld2);
-		tgt::Matrix4d norm2a = GetTransformation(secondVolume2);
-		norm2=norm2a*norm2;
+		combinedVolume->setOffset (tgt::vec3(0, 0, 0));
+		combinedVolume->setSpacing(tgt::vec3(1, 1, 1));
 
-		tgt::Matrix4d nvrt2;
-		norm2.invert(nvrt2);
+
+
+ 	     Volume* temp = secondVolume->clone();	    
+		tgt::Matrix4d wrld2 = temp->getVoxelToWorldMatrix();	
+		sign = detsign(wrld2);
+
+		tgt::Matrix4d invrot, invshift;
+		tgt::Matrix4d shift2 = GetShift(temp);
+		temp->setPhysicalToWorldMatrix(shift2*wrld2);
+		tgt::Matrix4d rotate2= GetAxes();
+
+		shift2.invert(invshift);
+		rotate2.invert(invrot);
  
-	     Volume* combinedVolume = firstVolume->clone();
-
-        
-		combinedVolume->setPhysicalToWorldMatrix(nvrt2*norm1*wrld1);
-
-
+		combinedVolume->setPhysicalToWorldMatrix(invshift*invrot*rotate1*shift1*wrld1);
 		outport_.setData(combinedVolume);
 	}
 
-	/*if (tobealigned_.isSelected("Vol1ToOrigin") || tobealigned_.isSelected("Vol2ToOrigin"))
+	if (tobealigned_.isSelected("Vol1ToOrigin") || tobealigned_.isSelected("Vol2ToOrigin"))
 	{
 		const VolumeBase* volume;
 		if (tobealigned_.isSelected("Vol1ToOrigin")) 
@@ -125,30 +135,27 @@ void VolVolAlign :: align()
 		    volume = volinport2_.getData();
 
 
-	    
-		tgt::Matrix4d wrld2 = volume->getPhysicalToWorldMatrix();
-
-
-
- 	    LINFO("Getting transformation matrix for object..");
+ 	     Volume* combinedVolume = volume->clone();	    
+		tgt::Matrix4d wrld = combinedVolume->getVoxelToWorldMatrix();
+		sign = detsign(wrld);
+  	     LINFO("Getting transformation matrix for object..");
  	     
-		Transform tr = GetTransformation2(volume);
-		wrld2 = tr.offset * wrld2;	
-		wrld2 = tr.rotate * wrld2;
- 
-	    Volume* combinedVolume = volume->clone();
+		tgt::Matrix4d shift = GetShift(combinedVolume);
+		combinedVolume->setPhysicalToWorldMatrix(shift*wrld);
+		tgt::Matrix4d rotate= GetAxes();
+		combinedVolume->setPhysicalToWorldMatrix(rotate*shift*wrld);
 
-		combinedVolume->setPhysicalToWorldMatrix(wrld2);
+		combinedVolume->setOffset (tgt::vec3(0, 0, 0));
+		combinedVolume->setSpacing(tgt::vec3(1, 1, 1));
 
 		outport_.setData(combinedVolume);
-	}*/
-
+	}
 }
 
-tgt::Matrix4d VolVolAlign :: GetTransformation(const VolumeBase* vol)
+tgt::Matrix4d VolVolAlign :: GetShift(const Volume* vol)
 {
-    O = tgt::vec3(0, 0, 0);
-    total_weight = 0;
+     O = tgt::vec3(0, 0, 0);
+     total_weight = 0;
 
 	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
 
@@ -194,40 +201,17 @@ tgt::Matrix4d VolVolAlign :: GetTransformation(const VolumeBase* vol)
 		coords[4*i+1] -= O[1];
 		coords[4*i+2] -= O[2];
 	}
-
-	FindAxes();
-	delete[] coords;
-
-	tgt::Matrix4d out_data (Ox[0], Ox[1], Ox[2], 0,
-				   	    Oy[0], Oy[1], Oy[2], 0,
- 					    Oz[0], Oz[1], Oz[2], 0,
-			     	    0,     0,     0,     1);	
 	
-	tgt::Matrix4d out_data1;
 	
-	out_data1.t00 = 1;
-	out_data1.t10 = 0;
-	out_data1.t20 = 0;
-	out_data1.t30 = 0;
-		
-	out_data1.t01 = 0;
-	out_data1.t11 = 1;
-	out_data1.t21 = 0;
-	out_data1.t31 = 0;
+	tgt::Matrix4d out_data (1,     0,     0, -O[0],
+				   	    0,     1,     0, -O[1],
+ 					    0,     0,     1, -O[2],
+			     	    0,     0,     0,    1);	
 
-	out_data1.t02 = 0;
-	out_data1.t12 = 0;
-	out_data1.t22 = 1;
-	out_data1.t32 = 0;
-	
-	out_data1.t03 = -O[0];
-	out_data1.t13 = -O[1];
-	out_data1.t23 = -O[2];
-	out_data1.t33 =  1;	
-
-    tgt::Matrix4d out_data2 = out_data*out_data1;
-	return out_data2;
+	return out_data;
 }
+
+
 
 double VolVolAlign :: CalculateMoment(int degX, int degY, int degZ)
 {
@@ -256,7 +240,7 @@ double VolVolAlign :: CalculateMoment(int degX, int degY, int degZ)
 	return res;
 }
 
-void VolVolAlign :: FindAxes()
+tgt::Matrix4d VolVolAlign :: GetAxes()
 {
 	double disc;
 	double I[3][3];
@@ -266,7 +250,7 @@ void VolVolAlign :: FindAxes()
 	double V2[3];
 	double a = -1;
 	double b = 1;
-	
+
 	I[0][0] = CalculateMoment(2, 0, 0);
 	I[1][1] = CalculateMoment(0, 2, 0);
 	I[2][2] = CalculateMoment(0, 0, 2);
@@ -314,7 +298,7 @@ void VolVolAlign :: FindAxes()
 	if (disc < 0) 
 	{
   		LINFO("Negative eigenvalues!");
-		return;
+		return tgt::Matrix4d(0.0);
 	}
 	else
 	{
@@ -392,21 +376,14 @@ void VolVolAlign :: FindAxes()
 
 	disc =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
 	
-	double m300 = CalculateMoment(3, 0, 0);
-	double m030 = CalculateMoment(0, 3, 0);
-	
-	std::cout << "disc is " << disc << std::endl;
-	std::cout << "moment300 is " << m300 << std::endl;
-	std::cout << "moment030 is " << m030 << std::endl;
-	
-	if (disc<0)
+	if (disc*sign<0)
 	{
 		Oz[0] = -Oz[0];
 		Oz[1] = -Oz[1];
 		Oz[2] = -Oz[2];
 	}
 	
-	if (m300<0)
+	if (CalculateMoment(3, 0, 0)<0)
 	{
 		Ox[0] = -Ox[0];
 		Ox[1] = -Ox[1];
@@ -415,38 +392,24 @@ void VolVolAlign :: FindAxes()
 		Oy[0] = -Oy[0];
 		Oy[1] = -Oy[1];
 		Oy[2] = -Oy[2];
-				
-	    if (m030>0)
-	    {
-		    Oz[0] = -Oz[0];
-		    Oz[1] = -Oz[1];
-		    Oz[2] = -Oz[2];
-
-		    Oy[0] = -Oy[0];
-		    Oy[1] = -Oy[1];
-		    Oy[2] = -Oy[2];
-	    }
-	}
-	else
+	}			
+	if (CalculateMoment(0, 3, 0)<0)
 	{
-	    if (m030<0)
-	    {
-		    Oz[0] = -Oz[0];
-		    Oz[1] = -Oz[1];
-		    Oz[2] = -Oz[2];
+		Oz[0] = -Oz[0];
+		Oz[1] = -Oz[1];
+		Oz[2] = -Oz[2];
 
-		    Oy[0] = -Oy[0];
-		    Oy[1] = -Oy[1];
-		    Oy[2] = -Oy[2];
-	    }
+		Oy[0] = -Oy[0];
+		Oy[1] = -Oy[1];
+		Oy[2] = -Oy[2];
 	}
 
-	message << "\n"
-	        << " " << Ox[0] << " " << Ox[1] << " " << Ox[2] << std::endl 
-		   << " " << Oy[0] << " " << Oy[1] << " " << Oy[2] << std::endl 
-		   << " " << Oz[0] << " " << Oz[1] << " " << Oz[2] << std::endl; 
-
-	LINFO(message.str().c_str());
+	delete[] coords;
+	tgt::Matrix4d out_data (Ox[0], Ox[1], Ox[2], 0,
+				   	    Oy[0], Oy[1], Oy[2], 0,
+ 					    Oz[0], Oz[1], Oz[2], 0,
+			     	    0,     0,     0,     1);
+	return out_data;
 }
 
 double VolVolAlign :: PolynomVal(double x)
