@@ -17,6 +17,8 @@
 #include "voreen/core/properties/buttonproperty.h"
 #include "voreen/core/properties/filedialogproperty.h"
 #include "voreen/core/properties/intproperty.h"
+#include "voreen/core/properties/floatproperty.h"
+
 using namespace voreen;
 
 #include "tgt/filesystem.h"
@@ -53,9 +55,13 @@ private:
     ButtonProperty        findDomains_;
     AlignmentListProperty alignmentList_;
     IntProperty           maxDomainsToLoad_;
+    FloatProperty         accuracy_;
+    FloatProperty         weightFactor_;
 	
     VolumePort volinport_;    
 
+    double moments[240];
+    void   GetMoments();  
 
     static std::string loggerCat_;
 };

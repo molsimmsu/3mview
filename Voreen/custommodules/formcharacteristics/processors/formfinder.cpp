@@ -8,10 +8,13 @@ FormFinder::FormFinder()
     , volinport_(Port::INPORT,   "volume", "Electon density map")
     , alignmentList_("alignmentList", "Alignment List")
     , maxDomainsToLoad_("maxDomainsToLoad", "Max domains to load", 3, 1, 5)
+    , accuracy_("accuracy", "Bottom value cutoff", 0, 0, 10)
+    , weightFactor_("weightFactor", "Weight Factor", 12, 1, 100, Processor::INVALID_PROGRAM)
 {
     addProperty(findDomains_);
     addProperty(maxDomainsToLoad_);
-   
+    addProperty(accuracy_);
+    addProperty(weightFactor_);
     addPort(volinport_);
     findDomains_.onChange(CallMemberAction<FormFinder>(this, &FormFinder::findDomains));
 }
@@ -23,7 +26,8 @@ void FormFinder::findDomains()
 	const Volume* vol = data->clone();
 
 	PointCloud  cloud;
-	cloud.VolumeFill(vol);	
+	cloud.VolumeFill(vol, accuracy_.get());	
+	cloud.weightfactor  = weightFactor_.get();
 	cloud.GetMoments8();
 	double *moments = cloud.moments;
 
@@ -38,9 +42,13 @@ void FormFinder::findDomains()
 		LINFO("failed to open database file!");
 		return;
 	}
-	LINFO("Moments database file opened");
-	fscanf(db, "%d", &N);			// read total number of entries
-	
+	int err = fscanf(db, "%d", &N);			// read total number of entries
+	if (!err)
+	{
+		LINFO("Moments database file corrupted!");
+		return;
+	}
+	std :: cout << "Database opened, "<< N << "entries";
 	char			buff[8];
 	char			*name;
 	long double	*disp;
@@ -57,10 +65,16 @@ void FormFinder::findDomains()
 	name       =    new char[N*NAMELEN+1];
 	disp       =    new long double[N+1];
 	db_moments =    new double[mom_total+1];
-	
+	int    part   = 0;
+	double factor = 10/N;	
 
 	for (int i = 0; i < N; ++i)
 	{	
+		if (part != (int)(10.0*i/N))
+		{
+			std :: cout << part*10 << "\% complete" ;
+			part = (int)(10.0*i/N);
+		}
 		fscanf(db, "%s", ct);
 	//	printf("%d --- %s\n", i , ct);
 		strncpy(&name[NAMELEN*i], ct, NAMELEN);
@@ -74,9 +88,8 @@ void FormFinder::findDomains()
 		disp[i] /= mom_total;
 		disp[i] = sqrt(disp[i]);
 	}	
-	
 	fclose(db); 
- 
+ 	std :: cout << "Got distances, sorting...";
      while (1) 
      {
 		if (p > 0) 

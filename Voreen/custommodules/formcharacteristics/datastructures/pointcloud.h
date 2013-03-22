@@ -16,9 +16,14 @@ public:
 	tgt::vec3 *points;
 	double    *values;
 	double    scale;
-	double    max_size;
+	double    max_size;   // maximum of
 
-	double    moments[240];
+	double    max_value;  // max value for volumes
+	double    min_value;  // min value (cutoff)
+ 
+	double    weightfactor;
+
+	double    *moments;
 
 	tgt::Matrix4d GetShift();
 	tgt::Matrix4d GetAxes();
@@ -28,7 +33,8 @@ public:
 	double CalculateMoment(int, int, int);   	
 	double CalculateFourrier(int, int, int); 
 
-	void VolumeFill(const Volume* vol);
+	void VolumeFill(const Volume* vol, double min);  // min = min_value
+	void VolumeFill(const Volume* vol);  // min = 0
 
  	void MoleculeFill(const Molecule* mol);
 
@@ -37,6 +43,11 @@ public:
 	PointCloud();
 	~PointCloud();
 private:
+
+	bool      have_center;
+	bool      have_axes;
+	bool 	have_moments;
+	bool      have_points;
 
 	float O[3]; 
 	float Ox[3];
@@ -47,7 +58,11 @@ private:
 	double weight;
 	int    orientation;
 	int    mom_order;
- 	
+
+	int    stepx; 	
+	int    stepy;
+	int    stepz;
+	
 	double PolynomVal(double);
 	
 	void Centrify();

@@ -1,12 +1,6 @@
 #include "molmolalign.h"
 
 
-#define    SCALE          30
-#define    SOLVE_ITER     52
-#define    PI_2           1.57079632679
-#define    MAX_SIZE	      1.5    // range of the first harmonic
-
-
 const std::string MolMolAlign::loggerCat_("3mview.MolMolAlign");
 
 
@@ -90,12 +84,12 @@ void MolMolAlign :: align()
  		tgt::mat4 inv;
 		wrld.invert(inv);
 
-          LINFO("Getting transformation matrix for object..");
+          LINFO("Calculating transformation matrix for object...");
 		tgt::mat4 fit  = GetAlignment(outMol);
 
 		const tgt::mat4  _temp = fit*inv;		
 		outMol->transform(_temp);
-
+		std :: cout << "Done. \n";
 		outport_.setData(outMol);
 	}
 

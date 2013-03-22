@@ -12,15 +12,39 @@ void PointCloud :: SetOrientation(tgt::mat4 arg)
 
 PointCloud :: PointCloud()
 {
+	have_center  = 0;
+	have_axes    = 0;
+	have_moments = 0;
+	have_points  = 0;
+	scale        = 30;
+	weightfactor = 12;
+	stepx 	   = 1; 	
+	stepy        = 1;
+	stepz        = 1;
+	max_value    = 0;
+	min_value    = 0;
 }
 
 PointCloud :: ~PointCloud()
 {
-	delete[] points;
-	delete[] values;
+	if (have_points)
+	{
+		delete[] points;
+		delete[] values;
+	}
+	if (have_moments)
+	{
+		delete[] moments;
+	}
 }
 
+
 void PointCloud :: VolumeFill(const Volume* vol)
+{
+	VolumeFill(vol, 0);
+}
+
+void PointCloud :: VolumeFill(const Volume* vol, double min)
 {
 	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
 	RealWorldMapping rwm    = vol->getRealWorldMapping();
@@ -30,49 +54,66 @@ void PointCloud :: VolumeFill(const Volume* vol)
 	tgt::dvec4 pworld;
 	double     valNorm;
 	double     valRW;
-
-	weight 	  = 0;
+	int        non_zero    = 0; 
+	weight 	 = 0;
 
 	entries_num =  dims.x*dims.y*dims.z;
-	points      = new tgt::vec3[entries_num];
-        values      = new double[entries_num];
+	points      = new tgt::vec3[entries_num+1];
+     values      = new double[entries_num+1];
+	max_value   = 0;
+	min_value   = min;
 
 	for (int i=0; i<dims.x; ++i)
 		for (int j=0; j<dims.y; ++j)
 			for (int k=0; k<dims.z; ++k)
 			{
-				pworld = vol->getVoxelToWorldMatrix() * (tgt::dvec4(0.5+i, 0.5+j, 0.5+k, 1.0));
-
-				points[i+j*dims.x+k*dims.x*dims.y].x = pworld.x;
-				points[i+j*dims.x+k*dims.x*dims.y].y = pworld.y;
-				points[i+j*dims.x+k*dims.x*dims.y].z = pworld.z;
-
 				valNorm = volRam->getVoxelNormalizedLinear(tgt::dvec3(0.5+i, 0.5+j, 0.5+k));
-				valRW = rwm.normalizedToRealWorld(valNorm);
-
-				values[i+j*dims.x+k*dims.x*dims.y] = valRW;
-				weight += valRW;
+				valRW = rwm.normalizedToRealWorld(valNorm)/weightfactor;
+				if (fabs(valRW)>min_value)
+				{
+					pworld = vol->getVoxelToWorldMatrix() * (tgt::dvec4(0.5+i, 0.5+j, 0.5+k, 1.0));	
+					points[non_zero][0] = pworld.x;
+					points[non_zero][1] = pworld.y;
+					points[non_zero][2] = pworld.z;
+					values[non_zero] = valRW;
+					if (fabs(valRW)>max_value)
+					{
+						max_value = fabs(valRW);
+					}
+					weight += valRW;
+					non_zero++;
+				}
 			}
+	entries_num = non_zero;
+	have_points = true;
 }
 
 void PointCloud :: MoleculeFill(const Molecule * mol)
 {
+	std :: cout << "Filling points set...\n";
 	entries_num = (mol->getOBMol()).NumAtoms();
 
-	points      = new tgt::vec3[entries_num];
-        values      = new double[entries_num];
+	int non_zero = 0; 
 
+	points      = new tgt::vec3[entries_num+1];
+     values      = new double[entries_num+1];
 	weight 	  = 0;
 
 	for (int i=0; i<entries_num; ++i)
 	{	
-		points[i].x   = (mol->getOBMol()).GetAtomById(i)->x();
-		points[i].y   = (mol->getOBMol()).GetAtomById(i)->y();
-		points[i].z   = (mol->getOBMol()).GetAtomById(i)->z();
-		values[i]     = 1;
-
-		weight += values[i];
+		if ((mol->getOBMol()).GetAtomById(i)->GetType()[0] = 'C')
+		if ((mol->getOBMol()).GetAtomById(i)->GetType()[1] = 'A')
+		{			
+			values[non_zero]     = 1;	
+			points[non_zero].x   = (mol->getOBMol()).GetAtomById(non_zero)->x();
+			points[non_zero].y   = (mol->getOBMol()).GetAtomById(non_zero)->y();
+			points[non_zero].z   = (mol->getOBMol()).GetAtomById(non_zero)->z();
+			weight += values[non_zero];
+			non_zero++;	
+		}
 	}
+	entries_num = non_zero;
+	have_points = true;
 }
 
 
@@ -126,11 +167,21 @@ double PointCloud :: PolynomVal(double x)
 }
 
 tgt::Matrix4d PointCloud :: GetShift()
-{   
-        O[0] = 0;
+{
+	if (have_center)
+	{
+		tgt::Matrix4d out_data(1,     0,     0, -O[0],
+					   0,     1,     0, -O[1],
+			 		   0,     0,     1, -O[2],
+					   0,     0,     0,    1);
+		return out_data;
+	}
+
+	std :: cout << "Getting shift... \n";
+     O[0] = 0;
 	O[1] = 0;
 	O[2] = 0;
-        weight = 0;
+     weight = 0;
 
 	for (int i=0; i<entries_num; ++i)
 	{	
@@ -143,16 +194,22 @@ tgt::Matrix4d PointCloud :: GetShift()
 	O[0] /= weight;
 	O[1] /= weight;
 	O[2] /= weight;
-	 
-	tgt::Matrix4d out_data( 1,     0,     0, -O[0],
-			        0,     1,     0, -O[1],
-	    		 	0,     0,     1, -O[2],
-				0,     0,     0,    1);
+	have_center = true;
+	tgt::Matrix4d out_data(1,     0,     0, -O[0],
+					   0,     1,     0, -O[1],
+			 		   0,     0,     1, -O[2],
+					   0,     0,     0,    1);
 	return out_data;
 }
 
 void PointCloud :: Centrify()
 {
+	if (!have_center)
+	{
+		GetShift();
+	}
+
+	std :: cout << "Centrifying... \n";
 	for (int i=0; i<entries_num; ++i)
 	{	
 		points[i].x -= O[0];
@@ -163,6 +220,7 @@ void PointCloud :: Centrify()
 
 void PointCloud :: unCentrify()
 {
+	std :: cout << "Moving center back... \n";
 	for (int i=0; i<entries_num; ++i)
 	{	
 		points[i].x += O[0];
@@ -173,7 +231,16 @@ void PointCloud :: unCentrify()
 
 tgt::Matrix4d PointCloud :: GetAxes()
 {
-        Centrify();
+	if (have_axes) 
+	{
+	     tgt::Matrix4d out_data(Ox[0], Ox[1], Ox[2], 0,
+					   Oy[0], Oy[1], Oy[2], 0,
+ 					   Oz[0], Oz[1], Oz[2], 0,
+			     	   0,     0,     0,     1);
+		return out_data;	
+	}
+	std :: cout << "Getting axes... \n";
+     Centrify();
 	double disc;
 	double I[3][3];
 	double eigens[3];
@@ -329,7 +396,7 @@ tgt::Matrix4d PointCloud :: GetAxes()
 	}
 
      unCentrify();
-
+	have_axes = true;
      tgt::Matrix4d out_data(Ox[0], Ox[1], Ox[2], 0,
 					   Oy[0], Oy[1], Oy[2], 0,
  					   Oz[0], Oz[1], Oz[2], 0,
@@ -339,11 +406,16 @@ tgt::Matrix4d PointCloud :: GetAxes()
 
 void PointCloud :: GetMoments8()
 {
+	if (have_moments) {return;}
+	
 	Centrify();
 	mom_order = 8;
 
 	int a, b, c;
 	int l = 0;
+	int done = 0;
+	std:: cout << "Calculating moments...\n";
+	moments = new double[240];
 
 	for (int i = -mom_order*mom_order*mom_order; 
               i <  mom_order*mom_order*mom_order; ++i) 
@@ -355,8 +427,14 @@ void PointCloud :: GetMoments8()
 		{
 			moments[l] = CalculateFourrier(a, b, c);
 			l++;
+			if (done != l/24)
+			{
+				done = l/24;
+				std :: cout << 10*done << " percent complete..\n";
+			}
 		}
 	}	
+	have_moments = true;
 	unCentrify();
 }
 
