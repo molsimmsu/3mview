@@ -6,6 +6,7 @@
 #include "voreen/core/properties/buttonproperty.h"
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
+#include "../datastructures/pointcloud.h"
 
 using namespace voreen;
 
@@ -33,15 +34,7 @@ protected:
     void align();
 
 private:
-    tgt::vec3 O; 
-    tgt::vec3 Ox;
-    tgt::vec3 Oy;
-    tgt::vec3 Oz;
-    double polynom[4];
-    double total_weight;
-    size_t entries;
-    int sign;
-    double  *coords;
+    PointCloud 		  cloud;
 
     VolumePort             volinport1_;
     VolumePort             volinport2_;
@@ -49,9 +42,6 @@ private:
     StringOptionProperty   tobealigned_;
     ButtonProperty         align_;  
 
-
-    double CalculateMoment(int, int, int);       
-    double PolynomVal(double);
 
     tgt::Matrix4d GetShift(const Volume* vol);
     tgt::Matrix4d GetAxes();
