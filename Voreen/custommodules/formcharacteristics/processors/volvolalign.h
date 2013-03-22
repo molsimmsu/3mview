@@ -6,6 +6,7 @@
 #include "voreen/core/properties/buttonproperty.h"
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
+
 using namespace voreen;
 
 tgt::vec3 getVolumeMassCenter(VolumeBase*);
@@ -39,6 +40,7 @@ private:
     double polynom[4];
     double total_weight;
     size_t entries;
+    int sign;
     double  *coords;
 
     VolumePort             volinport1_;
@@ -48,11 +50,11 @@ private:
     ButtonProperty         align_;  
 
 
-    double CalculateMoment(int, int, int);   	
-    void   FindAxes();
+    double CalculateMoment(int, int, int);       
     double PolynomVal(double);
 
-    tgt::Matrix4d GetTransformation(const VolumeBase* vol);
+    tgt::Matrix4d GetShift(const Volume* vol);
+    tgt::Matrix4d GetAxes();
 
     static const std::string loggerCat_; ///< category used in logging
 };
