@@ -1,4 +1,4 @@
-#include "volvolalign_.h"
+#include "volvolalign.h"
 #include "../ext/tgt/matrix.h"
 
 
@@ -47,28 +47,22 @@ void VolVolAlign :: align()
 		tgt::Matrix4d wrld1 = combinedVolume->getVoxelToWorldMatrix();
   	     LINFO("Getting transformation matrix for object..");
  	     
-		tgt::Matrix4d shift1 = GetShift(combinedVolume);
-		combinedVolume->setPhysicalToWorldMatrix(shift1*wrld1);
-		tgt::Matrix4d rotate1= GetAxes();
-		combinedVolume->setPhysicalToWorldMatrix(rotate1*shift1*wrld1);
+		tgt::Matrix4d norm1 = GetAlignment(combinedVolume);
+		combinedVolume->setPhysicalToWorldMatrix(norm1*wrld1);
 
 		combinedVolume->setOffset (tgt::vec3(0, 0, 0));
 		combinedVolume->setSpacing(tgt::vec3(1, 1, 1));
 
-
-
  	     Volume* temp = secondVolume->clone();	    
 		tgt::Matrix4d wrld2 = temp->getVoxelToWorldMatrix();	
 
-		tgt::Matrix4d invrot, invshift;
-		tgt::Matrix4d shift2 = GetShift(temp);
-		temp->setPhysicalToWorldMatrix(shift2*wrld2);
-		tgt::Matrix4d rotate2= GetAxes();
+		tgt::Matrix4d inv2;
+		tgt::Matrix4d norm2 = GetAlignment(temp);
+		temp->setPhysicalToWorldMatrix(norm2*wrld2);
 
-		shift2.invert(invshift);
-		rotate2.invert(invrot);
+		norm2.invert(inv2);
  
-		combinedVolume->setPhysicalToWorldMatrix(invshift*invrot*rotate1*shift1*wrld1);
+		combinedVolume->setPhysicalToWorldMatrix(inv2*norm1*wrld1);
 		outport_.setData(combinedVolume);
 	}
 
@@ -84,11 +78,9 @@ void VolVolAlign :: align()
  	     Volume* combinedVolume = volume->clone();	    
 		tgt::Matrix4d wrld = combinedVolume->getVoxelToWorldMatrix();
   	     LINFO("Getting transformation matrix for object..");
- 	     
-		tgt::Matrix4d shift = GetShift(combinedVolume);
-		combinedVolume->setPhysicalToWorldMatrix(shift*wrld);
-		tgt::Matrix4d rotate= GetAxes();
-		combinedVolume->setPhysicalToWorldMatrix(rotate*shift*wrld);
+
+		tgt::Matrix4d norm = GetAlignment(combinedVolume);
+		combinedVolume->setPhysicalToWorldMatrix(norm*wrld);
 
 		combinedVolume->setOffset (tgt::vec3(0, 0, 0));
 		combinedVolume->setSpacing(tgt::vec3(1, 1, 1));
@@ -97,19 +89,17 @@ void VolVolAlign :: align()
 	}
 }
 
-tgt::Matrix4d VolVolAlign :: GetShift(const Volume* vol)
+tgt::Matrix4d VolVolAlign :: GetAlignment(const Volume* vol)
 {
+	PointCloud cloud;
+
 	cloud.VolumeFill(vol);
 	cloud.scale    = 32;
 	cloud.max_size = 1.5;
 
-	tgt::Matrix4d out_data(cloud.GetShift());
-	return out_data;
+	tgt::Matrix4d result = cloud.GetShift();
+	result = cloud.GetAxes()*result;
+	return result;
 }
 
-tgt::Matrix4d VolVolAlign :: GetAxes()
-{
-	
-	tgt::Matrix4d out_data(cloud.GetAxes());
-	return out_data;
-}
+

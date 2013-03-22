@@ -28,6 +28,8 @@ public:
 
  	void MoleculeFill(const Molecule* mol);
 
+	void SetOrientation(tgt::mat4 arg);
+
 	PointCloud();
 	~PointCloud();
 private:

@@ -2,13 +2,12 @@
  
 using namespace voreen;
 
-int detsign(tgt::mat4 arg)
+void PointCloud :: SetOrientation(tgt::mat4 arg)
 {
 	double z;
-     z = arg.elem[0]*(arg.elem[4]*arg.elem[8] - arg.elem[5]*arg.elem[7]) + arg.elem[1]*(arg.elem[5]*arg.elem[6] - arg.elem[3]*arg.elem[8]) + arg.elem[2]*(arg.elem[3]*arg.elem[7] - arg.elem[4]*arg.elem[6]);
-	if (z>0)	return 1;
-
-	return -1;
+     z = arg.elem[0]*(arg.elem[5]*arg.elem[10] - arg.elem[6]*arg.elem[9]) + arg.elem[1]*(arg.elem[6]*arg.elem[8] - arg.elem[4]*arg.elem[10]) + arg.elem[2]*(arg.elem[4]*arg.elem[9] - arg.elem[5]*arg.elem[8]);
+	if (z>0)	orientation = 1;
+	else      orientation = -1;
 }
 
 PointCloud :: PointCloud()
@@ -25,8 +24,7 @@ void PointCloud :: VolumeFill(const Volume* vol)
 {
 	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
 	RealWorldMapping rwm    = vol->getRealWorldMapping();
-
-	orientation = detsign(vol->getVoxelToWorldMatrix());
+	SetOrientation(vol->getVoxelToWorldMatrix());
 
 	tgt::svec3 dims   = vol->getDimensions();
 	tgt::dvec4 pworld;
@@ -297,17 +295,19 @@ tgt::Matrix4d PointCloud :: GetAxes()
 	Oz[0] /= len;
 	Oz[1] /= len;
 	Oz[2] /= len;
+	double mx = CalculateMoment(3, 0, 0);
+	double my = CalculateMoment(0, 3, 0);
 
 	disc =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
 	
-	if (disc*orientation<0)
+	if (disc<0)
 	{
 		Oz[0] = -Oz[0];
 		Oz[1] = -Oz[1];
 		Oz[2] = -Oz[2];
 	}
 	
-	if (CalculateMoment(3, 0, 0)<0)
+	if (mx<0)
 	{
 		Ox[0] = -Ox[0];
 		Ox[1] = -Ox[1];
@@ -317,7 +317,7 @@ tgt::Matrix4d PointCloud :: GetAxes()
 		Oy[1] = -Oy[1];
 		Oy[2] = -Oy[2];
 	}			
-	if (CalculateMoment(0, 3, 0)<0)
+	if (my<0)
 	{
 		Oz[0] = -Oz[0];
 		Oz[1] = -Oz[1];

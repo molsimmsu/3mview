@@ -10,8 +10,6 @@
 
 using namespace voreen;
 
-tgt::vec3 getVolumeMassCenter(VolumeBase*);
-
 class VolVolAlign : public Processor {
 public:
     VolVolAlign();
@@ -34,17 +32,13 @@ protected:
     void align();
 
 private:
-    PointCloud 		  cloud;
-
     VolumePort             volinport1_;
     VolumePort             volinport2_;
     VolumePort             outport_;
     StringOptionProperty   tobealigned_;
     ButtonProperty         align_;  
 
-
-    tgt::Matrix4d GetShift(const Volume* vol);
-    tgt::Matrix4d GetAxes();
+    tgt::Matrix4d GetAlignment(const Volume* vol);
 
     static const std::string loggerCat_; ///< category used in logging
 };
