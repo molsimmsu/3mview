@@ -27,8 +27,10 @@ public:
 
 	tgt::Matrix4d GetShift();
 	tgt::Matrix4d GetAxes();
-	
+	tgt::Matrix4d FixOrientation();
+
 	void GetMoments8();
+
 
 	double CalculateMoment(int, int, int);   	
 	double CalculateFourrier(int, int, int); 
@@ -39,15 +41,15 @@ public:
  	void MoleculeFill(const Molecule* mol);
 
 	void SetOrientation(tgt::mat4 arg);
+	
 
 	PointCloud();
 	~PointCloud();
 private:
 
-	bool      have_center;
-	bool      have_axes;
-	bool 	have_moments;
-	bool      have_points;
+
+	bool  have_points;
+	bool  have_moments;
 
 	float O[3]; 
 	float Ox[3];
@@ -66,7 +68,6 @@ private:
 	double PolynomVal(double);
 	
 	void Centrify();
-	void unCentrify();
 	void Reorientate();
 };
 
