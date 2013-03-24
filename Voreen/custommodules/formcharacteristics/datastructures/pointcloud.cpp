@@ -9,14 +9,13 @@ void PointCloud :: SetOrientation(tgt::mat4 arg)
 	if (z>0)	orientation = 1;
 	else      orientation = -1;
 }
-
+ 
 PointCloud :: PointCloud()
 {
-	have_center  = 0;
-	have_axes    = 0;
-	have_moments = 0;
-	have_points  = 0;
+	have_points  = false;
+	have_moments = false;
 	scale        = 30;
+	max_size     = 1.5;
 	weightfactor = 12;
 	stepx 	   = 1; 	
 	stepy        = 1;
@@ -34,7 +33,7 @@ PointCloud :: ~PointCloud()
 	}
 	if (have_moments)
 	{
-		delete[] moments;
+		delete[] points;
 	}
 }
 
@@ -46,9 +45,6 @@ void PointCloud :: VolumeFill(const Volume* vol)
 
 void PointCloud :: VolumeFill(const Volume* vol, double min)
 {
-	have_center  = 0;
-	have_axes    = 0;
-	have_moments = 0;
 
 	const VolumeRAM* volRam = vol->getRepresentation<VolumeRAM>();
 	RealWorldMapping rwm    = vol->getRealWorldMapping();
@@ -92,12 +88,9 @@ void PointCloud :: VolumeFill(const Volume* vol, double min)
 	have_points = true;
 }
 
+
 void PointCloud :: MoleculeFill(const Molecule * mol)
 {
-	have_center  = 0;
-	have_axes    = 0;
-	have_moments = 0;
-
 	std :: cout << "Filling points set...\n";
 	entries_num = (mol->getOBMol()).NumAtoms();
 
@@ -176,14 +169,6 @@ double PointCloud :: PolynomVal(double x)
 
 tgt::Matrix4d PointCloud :: GetShift()
 {
-	if (have_center)
-	{
-		tgt::Matrix4d out_data(1,     0,     0, -O[0],
-					   0,     1,     0, -O[1],
-			 		   0,     0,     1, -O[2],
-					   0,     0,     0,    1);
-		return out_data;
-	}
 
 	std :: cout << "Getting shift... \n";
      O[0] = 0;
@@ -202,7 +187,8 @@ tgt::Matrix4d PointCloud :: GetShift()
 	O[0] /= weight;
 	O[1] /= weight;
 	O[2] /= weight;
-	have_center = true;
+	Centrify();
+
 	tgt::Matrix4d out_data(1,     0,     0, -O[0],
 					   0,     1,     0, -O[1],
 			 		   0,     0,     1, -O[2],
@@ -212,10 +198,7 @@ tgt::Matrix4d PointCloud :: GetShift()
 
 void PointCloud :: Centrify()
 {
-	if (!have_center)
-	{
-		GetShift();
-	}
+
 
 	std :: cout << "Centrifying... \n";
 	for (int i=0; i<entries_num; ++i)
@@ -226,29 +209,10 @@ void PointCloud :: Centrify()
 	}
 }
 
-void PointCloud :: unCentrify()
-{
-	std :: cout << "Moving center back... \n";
-	for (int i=0; i<entries_num; ++i)
-	{	
-		points[i].x += O[0];
-		points[i].y += O[1];
-		points[i].z += O[2];
-	}
-}
-
 tgt::Matrix4d PointCloud :: GetAxes()
 {
-	if (have_axes) 
-	{
-	     tgt::Matrix4d out_data(Ox[0], Ox[1], Ox[2], 0,
-					   Oy[0], Oy[1], Oy[2], 0,
- 					   Oz[0], Oz[1], Oz[2], 0,
-			     	   0,     0,     0,     1);
-		return out_data;	
-	}
+
 	std :: cout << "Getting axes... \n";
-     Centrify();
 	double disc;
 	double I[3][3];
 	double eigens[3];
@@ -370,41 +334,79 @@ tgt::Matrix4d PointCloud :: GetAxes()
 	Oz[0] /= len;
 	Oz[1] /= len;
 	Oz[2] /= len;
+
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+
+	int   invx = 1,
+	      invy = 1, 
+	      invz = 1;	
+
+	double nx,
+	       ny, 
+	       nz;	
+
+	nx =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
+	
+	if (nx<0)
+	{
+		Oz[0] = -Oz[0];	
+		Oz[1] = -Oz[1];	
+		Oz[2] = -Oz[2];	
+	}
+
+	for (int i=0; i<entries_num; ++i)
+	{
+		nx = points[i].x;
+		ny = points[i].y;
+		nz = points[i].z;
+	
+          points[i].x = Ox[0]*nx + Ox[1]*ny + Ox[2]*nz;
+          points[i].y = Oy[0]*nx + Oy[1]*ny + Oy[2]*nz;
+          points[i].z = Oz[0]*nx + Oz[1]*ny + Oz[2]*nz;
+	}
+
 	double mx = CalculateMoment(3, 0, 0);
 	double my = CalculateMoment(0, 3, 0);
 
-	disc =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
-	
-	if (disc<0)
+	if ((mx<0) && (my>0))
 	{
-		Oz[0] = -Oz[0];
-		Oz[1] = -Oz[1];
-		Oz[2] = -Oz[2];
+		invx = -invx;
+		invz = -invz;		
 	}
-	
-	if (mx<0)
+			
+	if ((mx>0) && (my<0))
 	{
-		Ox[0] = -Ox[0];
-		Ox[1] = -Ox[1];
-		Ox[2] = -Ox[2];
-
-		Oy[0] = -Oy[0];
-		Oy[1] = -Oy[1];
-		Oy[2] = -Oy[2];
-	}			
-	if (my<0)
-	{
-		Oz[0] = -Oz[0];
-		Oz[1] = -Oz[1];
-		Oz[2] = -Oz[2];
-
-		Oy[0] = -Oy[0];
-		Oy[1] = -Oy[1];
-		Oy[2] = -Oy[2];
+		invy = -invy;
+		invz = -invz;
 	}
 
-     unCentrify();
-	have_axes = true;
+	if ((mx<0) && (my<0))
+	{
+		invy = -invy;
+		invx = -invx;
+	}
+	
+	Ox[0] = invx*Ox[0];
+	Ox[1] = invx*Ox[1];
+	Ox[2] = invx*Ox[2];
+
+	Oy[0] = invy*Oy[0];
+	Oy[1] = invy*Oy[1];
+	Oy[2] = invy*Oy[2];
+
+	Oz[0] = invz*Oz[0];
+	Oz[1] = invz*Oz[1];
+	Oz[2] = invz*Oz[2];
+
+	for (int i=0; i<entries_num; ++i)
+	{
+          points[i].x *= invx;
+          points[i].y *= invy;
+          points[i].z *= invz;
+	}
+
+
      tgt::Matrix4d out_data(Ox[0], Ox[1], Ox[2], 0,
 					   Oy[0], Oy[1], Oy[2], 0,
  					   Oz[0], Oz[1], Oz[2], 0,
@@ -414,10 +416,15 @@ tgt::Matrix4d PointCloud :: GetAxes()
 
 void PointCloud :: GetMoments8()
 {
-	if (have_moments) {return;}
-	
+	GetShift();
 	Centrify();
+	GetAxes();
+	
 	mom_order = 8;
+
+//	    database constructed with
+//			scale        = 30;
+//			max_size     = 1.5;
 
 	int a, b, c;
 	int l = 0;
@@ -443,6 +450,4 @@ void PointCloud :: GetMoments8()
 		}
 	}	
 	have_moments = true;
-	unCentrify();
 }
-
