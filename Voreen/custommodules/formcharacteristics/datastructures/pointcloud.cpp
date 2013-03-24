@@ -9,7 +9,7 @@ void PointCloud :: SetOrientation(tgt::mat4 arg)
 	if (z>0)	orientation = 1;
 	else      orientation = -1;
 }
-
+ 
 PointCloud :: PointCloud()
 {
 	have_points  = false;
