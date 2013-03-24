@@ -42,7 +42,7 @@ public:
 
 	void SetOrientation(tgt::mat4 arg);
 	
-
+ 
 	PointCloud();
 	~PointCloud();
 private:
