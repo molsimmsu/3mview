@@ -379,7 +379,7 @@ void PDB :: Reorientate()
 	disc = polynom[1]*polynom[1] - 4*polynom[0]*polynom[2];
 	if (disc < 0) 
 	{
-		return tgt::Matrix4d::identity;
+		return;
 	}
 	else
 	{
@@ -472,7 +472,7 @@ void PDB :: Reorientate()
 		Oz[2] = -Oz[2];	
 	}
 
-	for (int i=0; i<entries_num; ++i)
+	for (int i=0; i<entries; ++i)
 	{
 		nx = atoms[i].x;
 		ny = atoms[i].y;
@@ -516,7 +516,7 @@ void PDB :: Reorientate()
 	Oz[1] = invz*Oz[1];
 	Oz[2] = invz*Oz[2];
 
-	for (int i=0; i<entries_num; ++i)
+	for (int i=0; i<entries; ++i)
 	{
           atoms[i].x *= invx;
           atoms[i].y *= invy;
