@@ -1,4 +1,4 @@
-//    Moments calculation application, September, 17 2012	
+//	Moments calculation application, September, 17 2012	
 //                     
 
 #include <stdio.h>

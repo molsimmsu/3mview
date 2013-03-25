@@ -331,12 +331,14 @@ void PDB :: Rescale()
 void PDB :: Reorientate()
 {
 	double disc;
+	double I[3][3];
+	double eigens[3];
+
 	double V1[3];
 	double V2[3];
 	double a = -1;
 	double b = 1;
-	
-	//  rotate the system to find new axes
+
 	I[0][0] = CalculateMoment(2, 0, 0);
 	I[1][1] = CalculateMoment(0, 2, 0);
 	I[2][2] = CalculateMoment(0, 0, 2);
@@ -346,19 +348,16 @@ void PDB :: Reorientate()
 	I[1][0] = I[0][1];
 	I[2][0] = I[0][2];
 	I[2][1] = I[1][2];
-	
-	// OK, let's try straightforward approach, index = degree
+
+
 	polynom[0] =  I[0][0]*I[1][1]*I[2][2]+2*I[0][1]*I[0][2]*I[1][2]-I[0][2]*I[0][2]*I[1][1]-I[2][1]*I[2][1]*I[0][0]-I[0][1]*I[0][1]*I[2][2];
 	polynom[1] = -(I[1][1]*I[2][2]+I[2][2]*I[0][0]+I[0][0]*I[1][1]-I[0][2]*I[0][2]-I[1][2]*I[1][2]-I[0][1]*I[0][1]);
 	polynom[2] = I[0][0] + I[1][1] + I[2][2];
 	polynom[3] = -1;
-//	printf("Characteristic polynom is\n\t %.2lfX^3+%.2lfX^2+%.2lfX+%.2lf\n", polynom[3], polynom[2], polynom[1], polynom[0]);
-	
-	// Now we have a polynom, let's find an eigenvalue using bisection
 
 	while (PolynomVal(a)<0) {a-=1;}
 	while (PolynomVal(b)>0) {b+=1;}
-	for (int i=0; i<52; ++i)
+	for (int i=0; i<50; ++i)
 	{
 		if (PolynomVal((b+a)/2) > 0)
 		{
@@ -371,8 +370,6 @@ void PDB :: Reorientate()
 	}
 	eigens[0] = a;
 	
-	// Now let's divide our polynom by (x-a) and solve the quadratic equation
-//	printf("\nDivision error: %lf\n", polynom[0]+a*polynom[1]+a*a*polynom[2]+a*a*a*polynom[3]);
 	polynom[0] = polynom[1]+a*polynom[2]+a*a*polynom[3];
 	polynom[1] = polynom[2]+a*polynom[3];
 	polynom[2] = polynom[3];
@@ -382,8 +379,7 @@ void PDB :: Reorientate()
 	disc = polynom[1]*polynom[1] - 4*polynom[0]*polynom[2];
 	if (disc < 0) 
 	{
-//		printf("Eigenvalues are complex...\n");
-		exit(8);
+		return tgt::Matrix4d::identity;
 	}
 	else
 	{
@@ -395,7 +391,7 @@ void PDB :: Reorientate()
 	{
 		for (int j=i; j<3; ++j)	
 		{
-			if (eigens[i] > eigens[j])
+			if (fabs(eigens[i]) > fabs(eigens[j]))
 			{
 				disc = eigens[i];
 				eigens[i] = eigens[j];
@@ -403,7 +399,6 @@ void PDB :: Reorientate()
 			}
 		}
 	}	
-	// Now let's find eigenvectors
 
 	V1[0] = I[0][0] - eigens[0]; 
 	V1[1] = I[0][1];
@@ -417,7 +412,10 @@ void PDB :: Reorientate()
 	Ox[1] = V1[2]*V2[0] - V1[0]*V2[2];	
 	Ox[2] = V1[0]*V2[1] - V1[1]*V2[0];
 	
-	NormVect(Ox);
+	double len = sqrt(Ox[0]*Ox[0]+Ox[1]*Ox[1]+Ox[2]*Ox[2]);
+	Ox[0] /= len;
+	Ox[1] /= len;
+	Ox[2] /= len;
 
 
 	V1[0] = I[1][0];
@@ -432,8 +430,10 @@ void PDB :: Reorientate()
 	Oy[1] = V1[2]*V2[0] - V1[0]*V2[2];	
 	Oy[2] = V1[0]*V2[1] - V1[1]*V2[0];
 
-	NormVect(Oy);
-	
+	len = sqrt(Oy[0]*Oy[0]+Oy[1]*Oy[1]+Oy[2]*Oy[2]);
+	Oy[0] /= len;
+	Oy[1] /= len;
+	Oy[2] /= len;
 
 	V1[0] = I[0][0] - eigens[2]; 
 	V1[1] = I[0][1];
@@ -447,60 +447,82 @@ void PDB :: Reorientate()
 	Oz[1] = V1[2]*V2[0] - V1[0]*V2[2];	
 	Oz[2] = V1[0]*V2[1] - V1[1]*V2[0];
 
-	NormVect(Oz);
+	len = sqrt(Oz[0]*Oz[0]+Oz[1]*Oz[1]+Oz[2]*Oz[2]);
+	Oz[0] /= len;
+	Oz[1] /= len;
+	Oz[2] /= len;
 
-// Orientation fixes
-	disc =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
-	if (disc<0)
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+
+	int   invx = 1,
+	      invy = 1, 
+	      invz = 1;	
+
+	double nx,
+	       ny, 
+	       nz;	
+
+	nx =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
+	
+	if (nx<0)
 	{
-		Oz[0] = -Oz[0];
-		Oz[1] = -Oz[1];
-		Oz[2] = -Oz[2];
+		Oz[0] = -Oz[0];	
+		Oz[1] = -Oz[1];	
+		Oz[2] = -Oz[2];	
+	}
+
+	for (int i=0; i<entries_num; ++i)
+	{
+		nx = atoms[i].x;
+		ny = atoms[i].y;
+		nz = atoms[i].z;
+	
+          atoms[i].x = Ox[0]*nx + Ox[1]*ny + Ox[2]*nz;
+          atoms[i].y = Oy[0]*nx + Oy[1]*ny + Oy[2]*nz;
+          atoms[i].z = Oz[0]*nx + Oz[1]*ny + Oz[2]*nz;
+	}
+
+	double mx = CalculateMoment(3, 0, 0);
+	double my = CalculateMoment(0, 3, 0);
+
+	if ((mx<0) && (my>0))
+	{
+		invx = -invx;
+		invz = -invz;		
+	}
+			
+	if ((mx>0) && (my<0))
+	{
+		invy = -invy;
+		invz = -invz;
+	}
+
+	if ((mx<0) && (my<0))
+	{
+		invy = -invy;
+		invx = -invx;
 	}
 	
-	if (CalculateMoment(3, 0, 0)<0)
-	{
-		Ox[0] = -Ox[0];
-		Ox[1] = -Ox[1];
-		Ox[2] = -Ox[2];
+	Ox[0] = invx*Ox[0];
+	Ox[1] = invx*Ox[1];
+	Ox[2] = invx*Ox[2];
 
-		Oy[0] = -Oy[0];
-		Oy[1] = -Oy[1];
-		Oy[2] = -Oy[2];
-	}			
-	if (CalculateMoment(0, 3, 0)<0)
-	{
-		Oz[0] = -Oz[0];
-		Oz[1] = -Oz[1];
-		Oz[2] = -Oz[2];
+	Oy[0] = invy*Oy[0];
+	Oy[1] = invy*Oy[1];
+	Oy[2] = invy*Oy[2];
 
-		Oy[0] = -Oy[0];
-		Oy[1] = -Oy[1];
-		Oy[2] = -Oy[2];
+	Oz[0] = invz*Oz[0];
+	Oz[1] = invz*Oz[1];
+	Oz[2] = invz*Oz[2];
+
+	for (int i=0; i<entries_num; ++i)
+	{
+          atoms[i].x *= invx;
+          atoms[i].y *= invy;
+          atoms[i].z *= invz;
 	}
-/*   Finding reciprocal matrix for Ox Oy Oz
-	polynom[3] =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
-	C[0][0] = (Oy[1]*Oz[2] - Oy[2]*Oz[1])/polynom[3];
-	C[1][0] = (Oy[2]*Oz[0] - Oy[0]*Oz[2])/polynom[3];
-	C[2][0] = (Oy[0]*Oz[1] - Oy[1]*Oz[0])/polynom[3];
-	C[0][1] = (Oz[1]*Ox[2] - Oz[2]*Ox[1])/polynom[3];
-	C[1][1] = (Oz[2]*Ox[0] - Oz[0]*Ox[2])/polynom[3];
-	C[2][1] = (Oz[0]*Ox[1] - Oz[1]*Ox[0])/polynom[3];
-	C[0][2] = (Ox[1]*Oy[2] - Ox[2]*Oy[1])/polynom[3];
-	C[1][2] = (Ox[2]*Oy[0] - Ox[0]*Oy[2])/polynom[3];
-	C[2][2] = (Ox[0]*Oy[1] - Ox[1]*Oy[0])/polynom[3];
-*/
 
-	for (int i=0; i<entries; ++i)
-	{
-		V1[0] = atoms[i].x;
-		V1[1] = atoms[i].y;
-		V1[2] = atoms[i].z;
-		
-		atoms[i].x = Ox[0]*V1[0] + Ox[1]*V1[1] + Ox[2]*V1[2];
-		atoms[i].y = Oy[0]*V1[0] + Oy[1]*V1[1] + Oy[2]*V1[2];		
-		atoms[i].z = Oz[0]*V1[0] + Oz[1]*V1[1] + Oz[2]*V1[2];
-	}
 }
 
 double PDB :: PolynomVal(double x)
@@ -544,11 +566,11 @@ void   PDB :: GetMoments()
 			if (sqrt(a*a) + sqrt(b*b) + sqrt(c*c) < MAX_ORDER)
 			{
 				moments[l] = CalculateFourrier(a, b, c);
-				printf("%d %d %d %d \n", l, a, b, c);
+			//	printf("%d %d %d %d \n", l, a, b, c);
 				l++;
 			}
 		}	
-   // 204  of 8 order
+   // 239  of 8 order
 	}
 	mom_total = l;
 	//printf("moments: %d\n", l);
