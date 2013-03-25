@@ -451,4 +451,3 @@ void PointCloud :: GetMoments8()
 	}	
 	have_moments = true;
 }
-
