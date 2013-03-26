@@ -6,28 +6,13 @@
 #include <cstdlib>
 #include <string.h>
 #include "mpi.h"
+#include "masslist.h"
 /*  MAX_ORDER defines maximum degree of moments to be calculated                           */
 
 #define    MAX_ORDER  		13
 #define    SCALE              30
-#define	 PI_2		 	1.570796327
+#define	   PI_2		 	1.570796327
 #define    MAX_SIZE			1.5     // for fourrier 
-
-/*  atoms weights register  */
-#define    C_WEIGHT           12
-#define    N_WEIGHT 		14
-#define    O_WEIGHT 		16
-#define    H_WEIGHT 		1
-#define    F_WEIGHT 		0
-#define    P_WEIGHT 		0
-#define    S_WEIGHT 		32
-#define    MG_WEIGHT 		0
-#define    MN_WEIGHT 		0
-#define    Z_WEIGHT			0
-#define    UNCOMMON_WEIGHT 	0
- 
-
-
 
 struct particle {
 	int    weight;  
