@@ -7,11 +7,13 @@ FormFinder::FormFinder()
     : findDomains_("findDomains", "Find Domains")
     , volinport_(Port::INPORT,   "volume", "Electon density map")
     , alignmentList_("alignmentList", "Alignment List")
+    , momentsOrder_("momorder", "Order of moments in database", 6, 1, 50)
     , maxDomainsToLoad_("maxDomainsToLoad", "Max domains to load", 3, 1, 5)
     , accuracy_("accuracy", "Bottom value cutoff", 0, 0, 10)
     , weightFactor_("weightFactor", "Weight factor", 12, 1, 100, Processor::INVALID_PROGRAM)
 {
     addProperty(findDomains_);
+    addProperty(momentsOrder_);
     addProperty(maxDomainsToLoad_);
     addProperty(accuracy_);
     addProperty(weightFactor_);
@@ -21,14 +23,15 @@ FormFinder::FormFinder()
 
 void FormFinder::findDomains() 
 {
-	int	mom_total = 239;
 	const VolumeBase* data =  volinport_.getData();
 	const Volume* vol = data->clone();
 
 	PointCloud  cloud;
+	int	mom_total = cloud.GetMomentsNumber(momentsOrder_.get());
+	moments = new double[mom_total];
 	cloud.VolumeFill(vol, accuracy_.get());	
 	cloud.weightfactor  = weightFactor_.get();
-	cloud.GetMoments8();
+	cloud.GetMoments(momentsOrder_.get());
 	double *moments = cloud.moments;
 
 //   READ THE DATABASE FILE
@@ -48,7 +51,8 @@ void FormFinder::findDomains()
 		LINFO("Moments database file corrupted!");
 		return;
 	}
-	std :: cout << "Database opened, "<< N << "entries";
+	std :: cout << "Database opened, "<< N << " entries\n";
+	char           tmp;
 	char			buff[8];
 	char			*name;
 	long double	*disp;
@@ -72,24 +76,41 @@ void FormFinder::findDomains()
 	{	
 		if (part != (int)(10.0*i/N))
 		{
-			std :: cout << part*10 << "\% complete" ;
+			std :: cout << part*10 << "\% complete\n" << std :: flush ;
 			part = (int)(10.0*i/N);
 		}
 		fscanf(db, "%s", ct);
 	//	printf("%d --- %s\n", i , ct);
 		strncpy(&name[NAMELEN*i], ct, NAMELEN);
-		fscanf(db, "%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &dt, &dt, &dt, &dt, &dt, &dt, &dt, &dt, &dt, &dt, &dt, &dt); // ingore axes
+		for (int cntr = 0; cntr<12; ++cntr)
+		{	
+			fscanf(db, "%lf", &dt);
+		}
+	
 		disp[i] = 0;
 		for (int j=0; j < mom_total; ++j)
 		{
-			fscanf(db, "%lf ", &db_moments[j]);
+			fscanf(db, "%c", &tmp);
+			if (tmp == '\n')
+			{
+				printf("Wrong number of moments in database.\n");
+				return;
+			}
+			fscanf(db, "%lf", &db_moments[j]);
 			disp[i] += (moments[j] - db_moments[j])*(moments[j] - db_moments[j]);
+			
+		}
+		fscanf(db, "%c", &tmp);
+		if (tmp != '\n')
+		{
+			printf("Wrong number of moments in database.\n");
+			return;
 		}
 		disp[i] /= mom_total;
 		disp[i] = sqrt(disp[i]);
 	}	
 	fclose(db); 
- 	std :: cout << "Got distances, sorting...";
+ 	std :: cout << "Got distances, sorting...\n";
      while (1) 
      {
 		if (p > 0) 
@@ -139,7 +160,7 @@ void FormFinder::findDomains()
     std::string path("../../DomainDB/domains/");
     std::string pdbPath;
 
-    LINFO("Loading domains:");
+    LINFO("Loading domains:\n");
     for (size_t i = 0; i < maxDomainsToLoad_.get(); i++) {
         pdbPath = path;
 	   for (int k=0; k<7; ++k)

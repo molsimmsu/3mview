@@ -1,51 +1,32 @@
-//    Moments calculation application, September, 17 2012	
+//	Moments calculation application, September, 17 2012	
 //                     
 
 #include <stdio.h>
 #include <cmath>
 #include <cstdlib>
 #include <string.h>
-
+#include "mpi.h"
+#include "masslist.h"
 /*  MAX_ORDER defines maximum degree of moments to be calculated                           */
-/*  WEIGHT_RENORM defines wether weight renormalization of moments is to be performed      */  
 
-#define    MAX_ORDER  		8
-#define    WEIGHT_RENORM		0
-
-/*  atoms weights register  */
-#define    C_WEIGHT           12
-#define    N_WEIGHT 		14
-#define    O_WEIGHT 		16
-#define    H_WEIGHT 		1
-#define    F_WEIGHT 		0
-#define    P_WEIGHT 		0
-#define    S_WEIGHT 		32
-#define    MG_WEIGHT 		0
-#define    MN_WEIGHT 		0
-#define    Z_WEIGHT			0
-#define    UNCOMMON_WEIGHT 	0
-
-#define    CA_ONLY            1  
-
+#define    MAX_ORDER  		13
 #define    SCALE              30
-#define    MOM_TYPE			1     // type of moments 0 - geometrical; 1 - fourrier; 2 - spherical
-//#define 	 BOX_R			1.5
-#define	 PI_2		 	1.570796327
+#define	   PI_2		 	1.570796327
 #define    MAX_SIZE			1.5     // for fourrier 
 
 struct particle {
-	int    weight;
+	int    weight;  
 
 
 
-	double x, y, z;
+	double x, y, z; 
 
 
-	char   number[7];
+	char   number[7]; 
 	char   type[5];
 	char   altloc[2];
 	char   residue[5];
-	char   chain[2];
+	char   chain[2]; 
 	char   resseq[5];
 	char   icode[2];
 };
@@ -55,10 +36,9 @@ public:
 	particle *atoms;
 	int 		mom_total;
 
-	int 	  entries;
-	char   name[10];
-	int 	  total_weight;
-	double    scale;
+	int 	  	entries;
+	char   	name[10];
+	int 	  	total_weight;
 		
 	double    Ox[3];
 	double    Oy[3];
@@ -70,8 +50,9 @@ public:
 	double    polynom[4];
 	double    eigens[3];
 	
-	double    moments[1000];
+	double    *moments;
 
+	int       rank, size;
 	
 	PDB();
 	PDB(char * arg);
@@ -86,9 +67,7 @@ public:
 	double PolynomVal(double x);
 
 	void   Center();
-	void   Rescale();
 	void   Reorientate();
-	void   Reduce();
 	void   GetMoments();
 	void   WriteMoments();
 };

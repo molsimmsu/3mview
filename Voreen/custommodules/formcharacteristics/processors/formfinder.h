@@ -55,12 +55,13 @@ private:
     ButtonProperty        findDomains_;
     AlignmentListProperty alignmentList_;
     IntProperty           maxDomainsToLoad_;
+    IntProperty           momentsOrder_;
     FloatProperty         accuracy_;
     FloatProperty         weightFactor_;
 	
     VolumePort volinport_;    
 
-    double moments[240];
+    double *moments;
     void   GetMoments();  
 
     static std::string loggerCat_;

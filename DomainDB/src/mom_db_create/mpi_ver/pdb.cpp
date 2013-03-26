@@ -1,8 +1,10 @@
 #include "pdb.h"
 
+#define PACKET_SIZE 1000
+
 void NormVect(double Arg[3])
 {
-             double len = sqrt(Arg[0]*Arg[0]+Arg[1]*Arg[1]+Arg[2]*Arg[2]);
+     double len = sqrt(Arg[0]*Arg[0]+Arg[1]*Arg[1]+Arg[2]*Arg[2]);
 	Arg[0] /= len;
 	Arg[1] /= len;
 	Arg[2] /= len;
@@ -20,7 +22,31 @@ PDB :: PDB(char * arg)
 	memset(Ox, 0, 3*sizeof(double));
 	memset(Oy, 0, 3*sizeof(double));
 	memset(Oz, 0, 3*sizeof(double));
-	this->Read(arg);
+
+	int counter;
+
+	MPI_Init (NULL, NULL);	/* starts MPI */
+     MPI_Comm_rank (MPI_COMM_WORLD, &rank);	/* get current process id */
+     MPI_Comm_size (MPI_COMM_WORLD, &size);	/* get number of processes */
+
+	if (rank == 0)
+	{
+		Read(arg);
+		Center();
+		Reorientate();
+		MPI_Bcast(&entries, 1, MPI_INT, 0, MPI_COMM_WORLD);
+		MPI_Bcast(&total_weight, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+		MPI_Bcast(atoms, entries*sizeof(particle), MPI_CHAR, 0, MPI_COMM_WORLD);
+	}
+	else
+	{
+		MPI_Bcast(&entries, 1, MPI_INT, 0, MPI_COMM_WORLD);;
+		MPI_Bcast(&total_weight, 1, MPI_INT, 0, MPI_COMM_WORLD);
+		atoms = new particle[entries];
+		MPI_Bcast(atoms, entries*sizeof(particle), MPI_CHAR, 0, MPI_COMM_WORLD);
+	}
+	GetMoments();
 }
 
 void PDB :: Read(char * arg1)
@@ -105,63 +131,51 @@ void PDB :: Read(char * arg1)
 //// ASSIGN WEIGHT ////////////////////////////////////
 ///////////////////////////////////////////////////////
 
-#ifdef CA_ONLY 
-	atoms[entries].weight = 0;	
- 	if (atoms[entries].type[nz]=='C')
-	{
-		nz++;
-		if (atoms[entries].type[nz]=='A')
-		{	
-			atoms[entries].weight = 1;
-		}
-	}
-#else
-	switch (atoms[entries].type[nz])	
-	{
-		case 'C':
-			atoms[entries].weight = C_WEIGHT;
-		break;
-		case 'N':
-			atoms[entries].weight = N_WEIGHT;
-		break;
-		case 'O':
-			atoms[entries].weight = O_WEIGHT;
-		break;
-		case 'H':
-			atoms[entries].weight = H_WEIGHT;
-		break;
-		case 'P':
-			atoms[entries].weight = P_WEIGHT;
-		break;
-		case 'S':
-			atoms[entries].weight = S_WEIGHT;
-		break;
-		case 'F':
-			atoms[entries].weight = F_WEIGHT;
-		break;
-		case 'Z':
-			atoms[entries].weight = Z_WEIGHT;
-		break;
-		case 'M':
-			if (atoms[entries].type[nz+1] == 'N')
+			switch (atoms[entries].type[nz])	
 			{
-				atoms[entries].weight = MN_WEIGHT;
+				case 'C':
+					atoms[entries].weight = C_WEIGHT;
 				break;
+				case 'N':
+					atoms[entries].weight = N_WEIGHT;
+				break;
+				case 'O':
+					atoms[entries].weight = O_WEIGHT;
+				break;
+				case 'H':
+					atoms[entries].weight = H_WEIGHT;
+				break;
+				case 'P':
+					atoms[entries].weight = P_WEIGHT;
+				break;
+				case 'S':
+					atoms[entries].weight = S_WEIGHT;
+				break;
+				case 'F':
+					atoms[entries].weight = F_WEIGHT;
+				break;
+				case 'Z':
+					atoms[entries].weight = Z_WEIGHT;
+				break;
+				case 'M':
+					if (atoms[entries].type[nz+1] == 'N')
+					{
+						atoms[entries].weight = MN_WEIGHT;
+						break;
+					}
+					else	if (atoms[entries].type[nz+1] == 'G')
+					{
+						atoms[entries].weight = MG_WEIGHT;
+						break;
+					}					
+				default:
+		//			printf("Warning: [%d] uncommon atom (%s) shall be ignored.\n", entries+1, atoms[entries].type);
+					atoms[entries].weight = UNCOMMON_WEIGHT;
 			}
-			else	if (atoms[entries].type[nz+1] == 'G')
+			if (het == 1)
 			{
-				atoms[entries].weight = MG_WEIGHT;
-				break;
-			}					
-		default:
-//			printf("Warning: [%d] uncommon atom (%s) shall be ignored.\n", entries+1, atoms[entries].type);
-			atoms[entries].weight = UNCOMMON_WEIGHT;
-		}
-		if (het == 1)
-		{
-				atoms[entries].weight = UNCOMMON_WEIGHT;
-		}
-#endif
+					atoms[entries].weight = UNCOMMON_WEIGHT;
+			}
 /////////////////////////////////////////
 /////////////////////////////////////////
 			fscanf(inp, "%lf %lf %lf", &(atoms[entries].x), &(atoms[entries].y), &(atoms[entries].z));
@@ -180,21 +194,24 @@ void PDB :: Read(char * arg1)
 
 void PDB :: WritePDB()
 {
-	FILE * out;
-	char buff[50];
-	sprintf(buff, "%s_out.pdb", name);
-	out = fopen(buff, "w+");
-	if (out == NULL) 
+	if (rank == 0)
 	{
-		printf("Failed to open/create %s. Exit.\n", buff);
-		exit(3);
-	}
-	for (int i=0; i<entries; ++i)
-	{
-			fprintf(out, "ATOM  %6s%4s%1s%4s%1s%4s%1s    %7.3lf %7.3lf %7.3lf\n", atoms[i].number, atoms[i].type, atoms[i].altloc, atoms[i].residue, atoms[i].chain, atoms[i].resseq, atoms[i].icode, atoms[i].x*SCALE, atoms[i].y*SCALE, atoms[i].z*SCALE);
+		FILE * out;
+		char buff[50];
+		sprintf(buff, "%s_out.pdb", name);
+		out = fopen(buff, "w+");
+		if (out == NULL) 
+		{
+			printf("Failed to open/create %s. Exit.\n", buff);
+			exit(3);
+		}
+		for (int i=0; i<entries; ++i)
+		{
+				fprintf(out, "ATOM  %6s%4s%1s%4s%1s%4s%1s    %7.3lf %7.3lf %7.3lf\n", atoms[i].number, atoms[i].type, atoms[i].altloc, atoms[i].residue, atoms[i].chain, atoms[i].resseq, atoms[i].icode, atoms[i].x*SCALE, atoms[i].y*SCALE, atoms[i].z*SCALE);	
 
-	}	
-	fclose(out);
+		}	
+		fclose(out);
+	}
 }
 
 double PDB :: CalculateMoment(int degX, int degY, int degZ)
@@ -254,26 +271,20 @@ double PDB :: CalculateSpherical(int degX, int degY, int degZ)
 	return res;
 }
 
-
-void PDB :: Reduce()
-{
-	Center();
-	Rescale();
-	Reorientate();
-	GetMoments();
-}
-
 void PDB :: WriteMoments()
 {
-	printf("\n%4s ", name);
-	printf("%13lf %13lf %13lf ",  O[0],  O[1],  O[2]);
-	printf("%13lf %13lf %13lf ", Ox[0], Ox[1], Ox[2]);
-	printf("%13lf %13lf %13lf ", Oy[0], Oy[1], Oy[2]);
-	printf("%13lf %13lf %13lf ", Oz[0], Oz[1], Oz[2]);
-
-	for (int k=0; k<mom_total; ++k)
+	if (rank == 0)	
 	{
-		printf("%13lf ", moments[k]);
+		printf("\n%4s ", name);
+		printf("%13lf %13lf %13lf ",  O[0],  O[1],  O[2]);
+		printf("%13lf %13lf %13lf ", Ox[0], Ox[1], Ox[2]);
+		printf("%13lf %13lf %13lf ", Oy[0], Oy[1], Oy[2]);
+		printf("%13lf %13lf %13lf ", Oz[0], Oz[1], Oz[2]);
+
+		for (int k=0; k<mom_total; ++k)
+		{
+			printf("%13lf ", moments[k]);
+		}
 	}
 }
 
@@ -302,41 +313,26 @@ void PDB :: Center()
 	}
 }
 
-void PDB :: Rescale()
+
+void PDB :: Reorientate()
 {
-// 	BOX RESCALE
-/*
-	scale = 0;
-	for (int i=0; i<entries; ++i)
-	{
-		if (scale < atoms[i].x*atoms[i].x + atoms[i].y*atoms[i].y + atoms[i].z*atoms[i].z) scale = atoms[i].x*atoms[i].x + atoms[i].y*atoms[i].y + atoms[i].z*atoms[i].z;
-	}
-	scale = sqrt(scale)/5;
-	for (int i=0; i<entries; ++i)
-	{
-		atoms[i].x /= scale;
-		atoms[i].y /= scale;
-		atoms[i].z /= scale;
-	}
-*/
-//   FACTOR RESCALE
+
 	for (int i=0; i<entries; ++i)
 	{
 		atoms[i].x /= SCALE;
 		atoms[i].y /= SCALE;
 		atoms[i].z /= SCALE;
 	}
-}
 
-void PDB :: Reorientate()
-{
 	double disc;
+	double I[3][3];
+	double eigens[3];
+
 	double V1[3];
 	double V2[3];
 	double a = -1;
 	double b = 1;
-	
-	//  rotate the system to find new axes
+
 	I[0][0] = CalculateMoment(2, 0, 0);
 	I[1][1] = CalculateMoment(0, 2, 0);
 	I[2][2] = CalculateMoment(0, 0, 2);
@@ -346,19 +342,16 @@ void PDB :: Reorientate()
 	I[1][0] = I[0][1];
 	I[2][0] = I[0][2];
 	I[2][1] = I[1][2];
-	
-	// OK, let's try straightforward approach, index = degree
+
+
 	polynom[0] =  I[0][0]*I[1][1]*I[2][2]+2*I[0][1]*I[0][2]*I[1][2]-I[0][2]*I[0][2]*I[1][1]-I[2][1]*I[2][1]*I[0][0]-I[0][1]*I[0][1]*I[2][2];
 	polynom[1] = -(I[1][1]*I[2][2]+I[2][2]*I[0][0]+I[0][0]*I[1][1]-I[0][2]*I[0][2]-I[1][2]*I[1][2]-I[0][1]*I[0][1]);
 	polynom[2] = I[0][0] + I[1][1] + I[2][2];
 	polynom[3] = -1;
-//	printf("Characteristic polynom is\n\t %.2lfX^3+%.2lfX^2+%.2lfX+%.2lf\n", polynom[3], polynom[2], polynom[1], polynom[0]);
-	
-	// Now we have a polynom, let's find an eigenvalue using bisection
 
 	while (PolynomVal(a)<0) {a-=1;}
 	while (PolynomVal(b)>0) {b+=1;}
-	for (int i=0; i<52; ++i)
+	for (int i=0; i<50; ++i)
 	{
 		if (PolynomVal((b+a)/2) > 0)
 		{
@@ -371,8 +364,6 @@ void PDB :: Reorientate()
 	}
 	eigens[0] = a;
 	
-	// Now let's divide our polynom by (x-a) and solve the quadratic equation
-//	printf("\nDivision error: %lf\n", polynom[0]+a*polynom[1]+a*a*polynom[2]+a*a*a*polynom[3]);
 	polynom[0] = polynom[1]+a*polynom[2]+a*a*polynom[3];
 	polynom[1] = polynom[2]+a*polynom[3];
 	polynom[2] = polynom[3];
@@ -382,8 +373,7 @@ void PDB :: Reorientate()
 	disc = polynom[1]*polynom[1] - 4*polynom[0]*polynom[2];
 	if (disc < 0) 
 	{
-//		printf("Eigenvalues are complex...\n");
-		exit(8);
+		return;
 	}
 	else
 	{
@@ -395,7 +385,7 @@ void PDB :: Reorientate()
 	{
 		for (int j=i; j<3; ++j)	
 		{
-			if (eigens[i] > eigens[j])
+			if (fabs(eigens[i]) > fabs(eigens[j]))
 			{
 				disc = eigens[i];
 				eigens[i] = eigens[j];
@@ -403,7 +393,6 @@ void PDB :: Reorientate()
 			}
 		}
 	}	
-	// Now let's find eigenvectors
 
 	V1[0] = I[0][0] - eigens[0]; 
 	V1[1] = I[0][1];
@@ -417,7 +406,10 @@ void PDB :: Reorientate()
 	Ox[1] = V1[2]*V2[0] - V1[0]*V2[2];	
 	Ox[2] = V1[0]*V2[1] - V1[1]*V2[0];
 	
-	NormVect(Ox);
+	double len = sqrt(Ox[0]*Ox[0]+Ox[1]*Ox[1]+Ox[2]*Ox[2]);
+	Ox[0] /= len;
+	Ox[1] /= len;
+	Ox[2] /= len;
 
 
 	V1[0] = I[1][0];
@@ -432,8 +424,10 @@ void PDB :: Reorientate()
 	Oy[1] = V1[2]*V2[0] - V1[0]*V2[2];	
 	Oy[2] = V1[0]*V2[1] - V1[1]*V2[0];
 
-	NormVect(Oy);
-	
+	len = sqrt(Oy[0]*Oy[0]+Oy[1]*Oy[1]+Oy[2]*Oy[2]);
+	Oy[0] /= len;
+	Oy[1] /= len;
+	Oy[2] /= len;
 
 	V1[0] = I[0][0] - eigens[2]; 
 	V1[1] = I[0][1];
@@ -447,59 +441,80 @@ void PDB :: Reorientate()
 	Oz[1] = V1[2]*V2[0] - V1[0]*V2[2];	
 	Oz[2] = V1[0]*V2[1] - V1[1]*V2[0];
 
-	NormVect(Oz);
+	len = sqrt(Oz[0]*Oz[0]+Oz[1]*Oz[1]+Oz[2]*Oz[2]);
+	Oz[0] /= len;
+	Oz[1] /= len;
+	Oz[2] /= len;
 
-// Orientation fixes
-	disc =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
-	if (disc<0)
-	{
-		Oz[0] = -Oz[0];
-		Oz[1] = -Oz[1];
-		Oz[2] = -Oz[2];
-	}
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+
+	int   invx = SCALE,
+	      invy = SCALE, 
+	      invz = SCALE;	
+
+	double nx,
+	       ny, 
+	       nz;	
+
+	nx =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
 	
-	if (CalculateMoment(3, 0, 0)<0)
+	if (nx<0)
 	{
-		Ox[0] = -Ox[0];
-		Ox[1] = -Ox[1];
-		Ox[2] = -Ox[2];
-
-		Oy[0] = -Oy[0];
-		Oy[1] = -Oy[1];
-		Oy[2] = -Oy[2];
-	}			
-	if (CalculateMoment(0, 3, 0)<0)
-	{
-		Oz[0] = -Oz[0];
-		Oz[1] = -Oz[1];
-		Oz[2] = -Oz[2];
-
-		Oy[0] = -Oy[0];
-		Oy[1] = -Oy[1];
-		Oy[2] = -Oy[2];
+		Oz[0] = -Oz[0];	
+		Oz[1] = -Oz[1];	
+		Oz[2] = -Oz[2];	
 	}
-/*   Finding reciprocal matrix for Ox Oy Oz
-	polynom[3] =  Ox[0]*Oy[1]*Oz[2]+Ox[1]*Oy[2]*Oz[0]+Oy[0]*Oz[1]*Ox[2]-Ox[2]*Oz[0]*Oy[1]-Oz[1]*Oy[2]*Ox[0]-Ox[1]*Oy[0]*Oz[2];
-	C[0][0] = (Oy[1]*Oz[2] - Oy[2]*Oz[1])/polynom[3];
-	C[1][0] = (Oy[2]*Oz[0] - Oy[0]*Oz[2])/polynom[3];
-	C[2][0] = (Oy[0]*Oz[1] - Oy[1]*Oz[0])/polynom[3];
-	C[0][1] = (Oz[1]*Ox[2] - Oz[2]*Ox[1])/polynom[3];
-	C[1][1] = (Oz[2]*Ox[0] - Oz[0]*Ox[2])/polynom[3];
-	C[2][1] = (Oz[0]*Ox[1] - Oz[1]*Ox[0])/polynom[3];
-	C[0][2] = (Ox[1]*Oy[2] - Ox[2]*Oy[1])/polynom[3];
-	C[1][2] = (Ox[2]*Oy[0] - Ox[0]*Oy[2])/polynom[3];
-	C[2][2] = (Ox[0]*Oy[1] - Ox[1]*Oy[0])/polynom[3];
-*/
 
 	for (int i=0; i<entries; ++i)
 	{
-		V1[0] = atoms[i].x;
-		V1[1] = atoms[i].y;
-		V1[2] = atoms[i].z;
-		
-		atoms[i].x = Ox[0]*V1[0] + Ox[1]*V1[1] + Ox[2]*V1[2];
-		atoms[i].y = Oy[0]*V1[0] + Oy[1]*V1[1] + Oy[2]*V1[2];		
-		atoms[i].z = Oz[0]*V1[0] + Oz[1]*V1[1] + Oz[2]*V1[2];
+		nx = atoms[i].x;
+		ny = atoms[i].y;
+		nz = atoms[i].z;
+	
+          atoms[i].x = Ox[0]*nx + Ox[1]*ny + Ox[2]*nz;
+          atoms[i].y = Oy[0]*nx + Oy[1]*ny + Oy[2]*nz;
+          atoms[i].z = Oz[0]*nx + Oz[1]*ny + Oz[2]*nz;
+	}
+
+	double mx = CalculateMoment(3, 0, 0);
+	double my = CalculateMoment(0, 3, 0);
+
+	if ((mx<0) && (my>0))
+	{
+		invx = -invx;
+		invz = -invz;		
+	}
+			
+	if ((mx>0) && (my<0))
+	{
+		invy = -invy;
+		invz = -invz;
+	}
+
+	if ((mx<0) && (my<0))
+	{
+		invy = -invy;
+		invx = -invx;
+	}
+	
+	Ox[0] = invx*Ox[0];
+	Ox[1] = invx*Ox[1];
+	Ox[2] = invx*Ox[2];
+
+	Oy[0] = invy*Oy[0];
+	Oy[1] = invy*Oy[1];
+	Oy[2] = invy*Oy[2];
+
+	Oz[0] = invz*Oz[0];
+	Oz[1] = invz*Oz[1];
+	Oz[2] = invz*Oz[2];
+
+	for (int i=0; i<entries; ++i)
+	{
+          atoms[i].x *= invx;
+          atoms[i].y *= invy;
+          atoms[i].z *= invz;
 	}
 }
 
@@ -511,50 +526,65 @@ double PDB :: PolynomVal(double x)
 void   PDB :: GetMoments()
 {
 	int a, b, c;
-	int l = 0;
-
-
-	if ( MOM_TYPE	== 0 )
-	{
-		moments[0] = CalculateMoment(0, 0, 0);
-		moments[1] = CalculateMoment(0, 0, 2);
-		moments[2] = CalculateMoment(0, 2, 0);
-		moments[3] = CalculateMoment(2, 0, 0);
-		l = 4; 
-		for (int i = 0; i < MAX_ORDER*MAX_ORDER*MAX_ORDER; ++i) 
-		{
-			a = i / (MAX_ORDER * MAX_ORDER);
-			b = (i - a*MAX_ORDER*MAX_ORDER) / MAX_ORDER;
-			c = i % MAX_ORDER;
-			if ((a+b+c < MAX_ORDER) && (a+b+c > 2))
-			{
-				moments[l] = CalculateMoment(a, b, c);		
-				l++;
-			}
-		}
-	}
+	int l = 0, k = 0, s = 0;
+	int deg, piece;
+	double *temp;
 	
-	if ( MOM_TYPE	== 1 )
+	k = 7;
+	for (int i=2; i<MAX_ORDER+1; ++i)
 	{
-		for (int i = -MAX_ORDER*MAX_ORDER*MAX_ORDER; i < MAX_ORDER*MAX_ORDER*MAX_ORDER; ++i) 
+		k += 4*(i-1)*(i-2) + 12*i-6;		
+	}
+
+	moments = new double[k];
+	memset(moments, 0, k*sizeof(double));
+
+	deg  = 2*MAX_ORDER+1;
+	for (int i = 0; i < deg*deg*deg; ++i) 
+	{
+		a = i / (deg * deg);
+		b = (i - a*deg*deg) / deg;
+		c = i % deg - MAX_ORDER;
+		a -= MAX_ORDER;
+		b -= MAX_ORDER;
+			
+
+	
+		if (sqrt(a*a) + sqrt(b*b) + sqrt(c*c) < (MAX_ORDER+1))
 		{
-			a = i / (MAX_ORDER * MAX_ORDER);
-			b = (i - a*MAX_ORDER*MAX_ORDER) / MAX_ORDER;
-			c = i % MAX_ORDER;
-			if (sqrt(a*a) + sqrt(b*b) + sqrt(c*c) < MAX_ORDER)
+			if (l % size == rank)
 			{
 				moments[l] = CalculateFourrier(a, b, c);
-				printf("%d %d %d %d \n", l, a, b, c);
-				l++;
+				s++;		
 			}
-		}	
-   // 204  of 8 order
+			++l;
+		}
+	}	
+
+	if (k!=l)
+	{
+		printf("Fatal error: Number of moments varies from the expected!\n");
+		exit(0);
 	}
-	mom_total = l;
-	//printf("moments: %d\n", l);
-}
+
+
+	if (rank == 0)
+	{
+		temp    = new double[k];
+		memcpy(temp, moments, k*sizeof(double));
+		MPI_Reduce(temp, moments, l, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);	
+		mom_total = l;
+		delete[] temp;
+	}
+	else
+	{
+		MPI_Reduce(moments, temp, l, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);	
+		delete[] moments;
+	}
+}	
 
 PDB :: ~PDB()
 {
+     MPI_Finalize();
 	delete[] atoms;
 }
