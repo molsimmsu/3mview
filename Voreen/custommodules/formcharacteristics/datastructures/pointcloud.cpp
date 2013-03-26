@@ -33,7 +33,7 @@ PointCloud :: ~PointCloud()
 	}
 	if (have_moments)
 	{
-		delete[] points;
+		delete[] moments;
 	}
 }
 
