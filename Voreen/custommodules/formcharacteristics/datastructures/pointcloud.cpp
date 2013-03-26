@@ -414,40 +414,56 @@ tgt::Matrix4d PointCloud :: GetAxes()
 	return out_data;
 }
 
-void PointCloud :: GetMoments8()
+
+int PointCloud :: GetMomentsNumber(int order)
 {
+	if (order == 0) return 1;
+	if (order == 1) return 7;
+
+	int  k = 7;
+
+	for (int i=2; i<mom_order+1; ++i)
+	{
+		k += 4*(i-1)*(i-2) + 12*i-6;		
+	}
+	return k;
+}
+
+void PointCloud :: GetMoments(int order)
+{
+	mom_order = order;
+
 	GetShift();
 	Centrify();
 	GetAxes();
-	
-	mom_order = 8;
-
-//	    database constructed with
-//			scale        = 30;
-//			max_size     = 1.5;
 
 	int a, b, c;
-	int l = 0;
-	int done = 0;
-	std:: cout << "Calculating moments...\n";
-	moments = new double[240];
+	int l = 0, k = GetMomentsNumber(order);
+	int deg;
+	double *temp;
 
-	for (int i = -mom_order*mom_order*mom_order; 
-              i <  mom_order*mom_order*mom_order; ++i) 
+	moments = new double[k];
+	
+	deg  = 2*mom_order+1;
+	for (int i = 0; i < deg*deg*deg; ++i) 
 	{
-		a = i / (mom_order * mom_order);
-		b = (i - a*mom_order*mom_order) / mom_order;
-		c = i % mom_order;
-		if (sqrt(a*a) + sqrt(b*b) + sqrt(c*c) < mom_order)
+		a = i / (deg * deg);
+		b = (i - a*deg*deg) / deg;
+		c = i % deg - mom_order;
+		a -= mom_order;
+		b -= mom_order;
+				
+		if (sqrt(a*a) + sqrt(b*b) + sqrt(c*c) < (mom_order+1))
 		{
 			moments[l] = CalculateFourrier(a, b, c);
 			l++;
-			if (done != l/24)
-			{
-				done = l/24;
-				std :: cout << 10*done << " percent complete..\n";
-			}
 		}
 	}	
+	if (k!=l)
+	{
+		printf("Fatal error: Number of moments varies from the expected!\n");
+		exit(0);
+	}
+	mom_total = l;	
 	have_moments = true;
 }

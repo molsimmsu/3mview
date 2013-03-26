@@ -24,12 +24,13 @@ public:
 	double    weightfactor;
 
 	double    *moments;
+	int        mom_total;
 
 	tgt::Matrix4d GetShift();
 	tgt::Matrix4d GetAxes();
-	tgt::Matrix4d FixOrientation();
 
-	void GetMoments8();
+	void GetMoments(int order);
+	int  GetMomentsNumber(int order);
 
 
 	double CalculateMoment(int, int, int);   	
@@ -42,7 +43,7 @@ public:
 
 	void SetOrientation(tgt::mat4 arg);
 	
- 
+
 	PointCloud();
 	~PointCloud();
 private:
