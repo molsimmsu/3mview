@@ -7,7 +7,7 @@ echo "Applying " $1 " to " $2
 for b in $a; do
 echo $b "..."
 c=`echo $b | cut -d. -f1`
-$1 $c >> ../db.dat
+$1 $c >> ../moments.dat
 done
 rm $1
 
