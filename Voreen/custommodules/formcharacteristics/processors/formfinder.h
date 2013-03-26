@@ -5,7 +5,7 @@
 #define	SOLVE_ITER		52
 #define	PI_2	  			1.57079632679
 #define	MAX_SIZE			1.5
-#define	DB_FILENAME		"../../DomainDB/mdb.dat"
+#define	DB_FILENAME		"../../DomainDB/bin/DomainsDB/mdb.dat"
 #define	NAMELEN			8
 #define	MAX_ORDER			8
 
