@@ -61,6 +61,7 @@ addPort(inport_);
 calculationmode_.addOption("scattering", "Scattering factor");
 calculationmode_.addOption("structure", "Structure factor");
 
+
 //calculationmode_.onChange(SELECT_CALCULATION_MODE);
 
 
@@ -91,7 +92,7 @@ void PDBtoEDM::GenerateEDMGrid_ScatteringFactor(const Molecule* InputMoll) {
 dr=deltaatoomr_.get()/100.0; //step of grid
 MaxR=atoomr_.get();
 VoxelPerAngstrem=1.0/dr; //number of voxels per angstrem
-int Nsmall=atoomr_.get()/dr; //lenght of atom array dens
+int Nsmall=atoomr_.get()/dr; //
 float scale=1.0/VoxelPerAngstrem;
 struct AtomicED sAtomED;
 const OBMol& mol = InputMoll->getOBMol();
@@ -139,6 +140,7 @@ VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxels_x,Number
 //----------create out volume--------------
 //-----------------------------------------
 
+float R,ED;
 for (int i=0; i<NumberVoxels_x; i++)
 for (int j=0; j<NumberVoxels_y; j++)
 for (int k=0; k<NumberVoxels_z; k++)
@@ -172,11 +174,23 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
             int tempVoxy=Voxy+jj;
             int tempVoxz=Voxz+kk;
             int temp1=ii*ii+jj*jj+kk*kk;
-            if ((tempVoxx>=0)&(tempVoxy>=0)&(tempVoxz>=0)&(tempVoxx<NumberVoxels_x)&(tempVoxy<NumberVoxels_y)&(tempVoxz<NumberVoxels_z)&(temp1<Nsmall*Nsmall))
-            {
-                int pos=sqrt(temp1);
+            if ((tempVoxx>=0)&(tempVoxy>=0)&(tempVoxz>=0)&(tempVoxx<NumberVoxels_x)&(tempVoxy<NumberVoxels_y)&(tempVoxz<NumberVoxels_z)&(temp1<Nsmall*Nsmall)){
+
                 float temp=((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz);
-                ((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz)=temp+sAtomED.AtomED[p][pos];
+
+                if ((ii==0)&(jj==0)&(kk==0))
+                {
+                R=sqrt(pow(atomx-(tempVoxx*dr+dr/2),2)+pow(atomy-(tempVoxy*dr+dr/2),2)+pow(atomz-(tempVoxz*dr+dr/2),2));
+                ED=CalcElectronDens(sAtomED,p,R);
+                }
+                else
+                {
+                int pos=sqrt(temp1);
+                ED=sAtomED.AtomED[p][pos];
+                }
+
+
+                ((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz)=temp+ED;
 
 
             }
@@ -209,7 +223,7 @@ tgt::Matrix4<int> transform
 Volume* volumeHandle = new Volume(
             targetDataset,                                                                                // data
             vec3(scale,scale,scale),                                                                      // scale
-            vec3(-(size_x+MaxR)+cx-dr/2,-(size_y+MaxR)+cy-dr/2,-(size_z+MaxR)+cz-dr/2), // offset
+            vec3(-(size_x+MaxR)+cx,-(size_y+MaxR)+cy,-(size_z+MaxR)+cz), // offset
             transform                                                                                     // transform
         );
 
@@ -703,6 +717,20 @@ while ((sAtomED->AtomName[k]!=element[i])&(i<AFconst)) {
 //-----------------------------------------
 //-----------------------------------------
 
+
+float PDBtoEDM::CalcElectronDens(struct AtomicED sAtomED, int k, float R)
+{
+
+    float ED=sAtomED.a1[k]*exp(-4*PI*PI*pow(R,2)/sAtomED.b1[k])/pow(sAtomED.b1[k]/(4*PI),1.5)
+    +sAtomED.a2[k]*exp(-4*PI*PI*pow(R,2)/sAtomED.b2[k])/pow(sAtomED.b2[k]/(4*PI),1.5)
+    +sAtomED.a3[k]*exp(-4*PI*PI*pow(R,2)/sAtomED.b3[k])/pow(sAtomED.b3[k]/(4*PI),1.5)
+    +sAtomED.a4[k]*exp(-4*PI*PI*pow(R,2)/sAtomED.b4[k])/pow(sAtomED.b4[k]/(4*PI),1.5);
+
+    return ED;
+
+}
+
+
 //-----------------------------------------
 //----------find bounding box--------------
 //-----------------------------------------
@@ -770,8 +798,9 @@ if (mol.NumAtoms()!=0)
 {
     if (calculationmode_.isSelected("scattering"))
         PDBtoEDM::GenerateEDMGrid_ScatteringFactor(InputMoll);
-    else
+    if (calculationmode_.isSelected("structure"))
         PDBtoEDM::GenerateEDMGrid_StructureFactor(InputMoll);
+
 
 LWARNING("Density map calculated!");
 }

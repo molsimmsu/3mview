@@ -62,6 +62,7 @@ protected:
     void GenerateEDMGrid_StructureFactor(const Molecule* InputMoll);
     void CalcElectronNumber(const VolumeRAM* targetDataset);
     void FindAtomTypesInPDB(const OBMol mol, struct AtomicED* sAtomED);
+    float CalcElectronDens(struct AtomicED sAtomED, int k, float R);
     void FindBoundingGeometry(const OBMol mol);
     void adjustPropertyVisibility();
     /// The volume port the loaded data set is written to.
