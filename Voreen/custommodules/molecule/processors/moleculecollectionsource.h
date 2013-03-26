@@ -12,7 +12,7 @@
 #include "voreen/core/properties/buttonproperty.h"
 using namespace voreen;
 
-class MoleculeCollectionSource : virtual public Processor, virtual public ManipulationBase {
+class MoleculeCollectionSource : virtual public Processor {
 public:
     MoleculeCollectionSource();
 
