@@ -42,17 +42,10 @@ protected:
     static const std::string loggerCat_;
 
 private:
-    /**
-     * Reads molecule from file and assigns the returned molecule to the outport.
-     */
-    void readMolecule();
 
     // ports and properties
     MoleculeCollectionPort outport_; ///< This outport must always contain valid data
     CoProcessorPort coProcessorPort_; ///< This outport must always contain valid data
-    
-    FileDialogProperty inputFile_;
-    ButtonProperty loadMolecule_;
     
     MoleculeURLListProperty moleculeURLlist_;
     

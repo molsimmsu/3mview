@@ -8,6 +8,19 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
+#include <QAction>
+#include <QApplication>
+#include <QDesktopServices>
+#include <QErrorMessage>
+#include <QFile>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QMainWindow>
+#include <QMenu>
+#include <QMessageBox>
+#include <QUrl>
+#include <QSettings>
+
 namespace {
 #ifdef __APPLE__
     int fontSize = 13;
@@ -53,7 +66,7 @@ MoleculeURLListPropertyWidget::MoleculeURLListPropertyWidget(MoleculeURLListProp
     moleculeTreeWidget_->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
-    //FIXME connect(loadButton_, SIGNAL(clicked()), &moleculeIOHelper_, SLOT(showFileOpenDialog()));
+    connect(loadButton_, SIGNAL(clicked()), this, SLOT(showFileOpenDialog()));
     //FIXME connect(&moleculeIOHelper_, SIGNAL(moleculeLoaded(const Molecule*)), this, SLOT(moleculeLoaded(const Molecule*)));
     connect(clearButton_, SIGNAL(clicked()), this, SLOT(clearMolecules()));
 
@@ -66,7 +79,69 @@ MoleculeURLListPropertyWidget::MoleculeURLListPropertyWidget(MoleculeURLListProp
     updateFromProperty();
 }
 
+void MoleculeURLListPropertyWidget::showFileOpenDialog() {
+    std::string openPath;
+    QSettings settings;
+    settings.beginGroup("MoleculeIOHelper");
+    if (settings.contains("lastMoleculePath"))
+        openPath = settings.value("lastMoleculePath").toString().toStdString();
+    else
+        openPath = VoreenApplication::app()->getUserDataPath("volumes");
+    // we want absolute path name to prevent problems when the file dialog perform chdir()
+    QDir openDir(QString::fromStdString(openPath));
+    
+    QStringList filters;
+    QString allVolumesFilter = QString::fromStdString("*.pdb");
+    QString rawVolumeFilter = "PDB (*)";
+    
+    // sidebar URLs
+    QList<QUrl> urls;
+    urls << QUrl::fromLocalFile(VoreenApplication::app()->getResourcePath("volumes").c_str());
+    urls << QUrl::fromLocalFile(VoreenApplication::app()->getUserDataPath().c_str());
+    urls << QUrl::fromLocalFile(VoreenApplication::app()->getBasePath("modules").c_str());
+    if (QDir(VoreenApplication::app()->getBasePath("custommodules").c_str()).exists())
+        urls << QUrl::fromLocalFile(VoreenApplication::app()->getBasePath("custommodules").c_str());
+    if (VoreenApplication::app()->getTestDataPath() != "")
+        urls << QUrl::fromLocalFile(VoreenApplication::app()->getTestDataPath().c_str());
+    urls << QUrl::fromLocalFile(QDesktopServices::storageLocation(QDesktopServices::DesktopLocation));
+    urls << QUrl::fromLocalFile(QDesktopServices::storageLocation(QDesktopServices::HomeLocation));
 
+    // create dialog
+    QFileDialog fileDialog(parentWidget(), tr("Load Molecule..."), openDir.absolutePath(), "");
+    fileDialog.setNameFilters(filters);
+    fileDialog.setSidebarUrls(urls);
+    fileDialog.setViewMode(QFileDialog::Detail);
+    fileDialog.setAcceptMode(QFileDialog::AcceptOpen);
+    /*if (fileMode_ == SINGLE_FILE)
+        fileDialog.setFileMode(QFileDialog::ExistingFile);
+    else
+        fileDialog.setFileMode(QFileDialog::ExistingFiles);*/
+
+    // execute dialog
+    if (fileDialog.exec() != QDialog::Accepted)
+        return;
+
+    // retrieve selected filenames from dialog
+    std::vector<std::string> filenames;
+    const QStringList& lst = fileDialog.selectedFiles();
+    QStringList::const_iterator it = lst.begin();
+    for (; it != lst.end(); ++it) {
+        filenames.push_back(it->toStdString());
+        urlListProperty_->addURL(it->toStdString(), true);
+        urlListProperty_->loadMolecule(it->toStdString());
+    }
+    if (filenames.empty()) {
+        LWARNING("no files selected");
+        return;
+    }
+
+    // retrieve the user selected file filter
+    QString selectedFilter = fileDialog.selectedFilter();
+
+    // store dialog path
+    settings.setValue("lastMoleculePath", fileDialog.directory().absolutePath());
+    settings.endGroup();
+}
 
 CustomLabel* MoleculeURLListPropertyWidget::getNameLabel() const {
     return 0;

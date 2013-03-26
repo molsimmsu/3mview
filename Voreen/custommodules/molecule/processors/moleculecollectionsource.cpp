@@ -19,18 +19,12 @@ MoleculeCollectionSource::MoleculeCollectionSource()
   : Processor()
   , outport_(Port::OUTPORT, "moleculecollection", "Molecule Collection Output")
   , coProcessorPort_(Port::OUTPORT, "coProcessor", "Molecule Collection Co-processor")
-  , inputFile_("inputFile", "Input file", "Load PDB", VoreenApplication::app()->getUserDataPath(), "*.pdb")
-  , loadMolecule_("loadMolecule", "Load Molecule")
   , moleculeURLlist_("moleculeURLlist_", "Molecule list", std::vector<std::string>())
 {
     addPort(outport_);
     addPort(coProcessorPort_);
     
-    addProperty(inputFile_);
-    addProperty(loadMolecule_);
     addProperty(moleculeURLlist_);
-    
-    loadMolecule_.onChange(CallMemberAction<MoleculeCollectionSource>(this, &MoleculeCollectionSource::readMolecule));
     
 	// Create empty data to make this outport valid. Take ownership is true because
 	// we want the data to be automatically deleted when replaced at the next setData() call
@@ -113,8 +107,3 @@ MoleculeCollection* MoleculeCollectionSource::getMoleculeCollection() {
 MoleculeCollection* MoleculeCollectionSource::getSelectedMoleculeCollection() {
     return outport_.getWritableData(); //moleculeURLlist_.getMolecules(true);
 }
-
-void MoleculeCollectionSource::readMolecule() {
-    load(inputFile_.get());
-}
-

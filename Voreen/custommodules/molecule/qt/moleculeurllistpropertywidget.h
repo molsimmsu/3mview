@@ -45,6 +45,7 @@ private slots:
 
     void itemSelected(QTreeWidgetItem*, int);
     void selectAll(bool);
+    void showFileOpenDialog();
 };
 
 } //namespace
