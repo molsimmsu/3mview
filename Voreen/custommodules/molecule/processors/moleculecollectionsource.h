@@ -30,8 +30,6 @@ public:
     
     MoleculeCollection* getMoleculeCollection();
     MoleculeCollection* getSelectedMoleculeCollection();
-    
-    virtual void applyTransformation(tgt::vec3 offset, tgt::mat4 matrix);
 
 protected:
     virtual void setDescriptions() {
