@@ -2,7 +2,7 @@
 
 void NormVect(double Arg[3])
 {
-             double len = sqrt(Arg[0]*Arg[0]+Arg[1]*Arg[1]+Arg[2]*Arg[2]);
+     double len = sqrt(Arg[0]*Arg[0]+Arg[1]*Arg[1]+Arg[2]*Arg[2]);
 	Arg[0] /= len;
 	Arg[1] /= len;
 	Arg[2] /= len;
@@ -105,64 +105,52 @@ void PDB :: Read(char * arg1)
 //// ASSIGN WEIGHT ////////////////////////////////////
 ///////////////////////////////////////////////////////
 
-#ifdef CA_ONLY 
-	atoms[entries].weight = 0;	
- 	if (atoms[entries].type[nz]=='C')
-	{
-		nz++;
-		if (atoms[entries].type[nz]=='A')
-		{	
-			atoms[entries].weight = 1;
-		}
-	}
-#else
-	switch (atoms[entries].type[nz])	
-	{
-		case 'C':
-			atoms[entries].weight = C_WEIGHT;
-		break;
-		case 'N':
-			atoms[entries].weight = N_WEIGHT;
-		break;
-		case 'O':
-			atoms[entries].weight = O_WEIGHT;
-		break;
-		case 'H':
-			atoms[entries].weight = H_WEIGHT;
-		break;
-		case 'P':
-			atoms[entries].weight = P_WEIGHT;
-		break;
-		case 'S':
-			atoms[entries].weight = S_WEIGHT;
-		break;
-		case 'F':
-			atoms[entries].weight = F_WEIGHT;
-		break;
-		case 'Z':
-			atoms[entries].weight = Z_WEIGHT;
-		break;
-		case 'M':
-			if (atoms[entries].type[nz+1] == 'N')
+			switch (atoms[entries].type[nz])	
 			{
-				atoms[entries].weight = MN_WEIGHT;
+				case 'C':
+					atoms[entries].weight = C_WEIGHT;
 				break;
+				case 'N':
+					atoms[entries].weight = N_WEIGHT;
+				break;
+				case 'O':
+					atoms[entries].weight = O_WEIGHT;
+				break;
+				case 'H':
+					atoms[entries].weight = H_WEIGHT;
+				break;
+				case 'P':
+					atoms[entries].weight = P_WEIGHT;
+				break;
+				case 'S':
+					atoms[entries].weight = S_WEIGHT;
+				break;
+				case 'F':
+					atoms[entries].weight = F_WEIGHT;
+				break;
+				case 'Z':
+					atoms[entries].weight = Z_WEIGHT;
+				break;
+				case 'M':
+					if (atoms[entries].type[nz+1] == 'N')
+					{
+						atoms[entries].weight = MN_WEIGHT;
+						break;
+					}
+					else	if (atoms[entries].type[nz+1] == 'G')
+					{
+						atoms[entries].weight = MG_WEIGHT;
+						break;
+					}					
+				default:
+		//			printf("Warning: [%d] uncommon atom (%s) shall be ignored.\n", entries+1, atoms[entries].type);
+					atoms[entries].weight = UNCOMMON_WEIGHT;
 			}
-			else	if (atoms[entries].type[nz+1] == 'G')
+			if (het == 1)
 			{
-				atoms[entries].weight = MG_WEIGHT;
-				break;
-			}					
-		default:
-//			printf("Warning: [%d] uncommon atom (%s) shall be ignored.\n", entries+1, atoms[entries].type);
-			atoms[entries].weight = UNCOMMON_WEIGHT;
-		}
-		if (het == 1)
-		{
-				atoms[entries].weight = UNCOMMON_WEIGHT;
-		}
-#endif
-/////////////////////////////////////////
+					atoms[entries].weight = UNCOMMON_WEIGHT;
+			}
+
 /////////////////////////////////////////
 			fscanf(inp, "%lf %lf %lf", &(atoms[entries].x), &(atoms[entries].y), &(atoms[entries].z));
 			total_weight += atoms[entries].weight; 
@@ -258,7 +246,6 @@ double PDB :: CalculateSpherical(int degX, int degY, int degZ)
 void PDB :: Reduce()
 {
 	Center();
-	Rescale();
 	Reorientate();
 	GetMoments();
 }
@@ -302,34 +289,16 @@ void PDB :: Center()
 	}
 }
 
-void PDB :: Rescale()
+
+void PDB :: Reorientate()
 {
-// 	BOX RESCALE
-/*
-	scale = 0;
-	for (int i=0; i<entries; ++i)
-	{
-		if (scale < atoms[i].x*atoms[i].x + atoms[i].y*atoms[i].y + atoms[i].z*atoms[i].z) scale = atoms[i].x*atoms[i].x + atoms[i].y*atoms[i].y + atoms[i].z*atoms[i].z;
-	}
-	scale = sqrt(scale)/5;
-	for (int i=0; i<entries; ++i)
-	{
-		atoms[i].x /= scale;
-		atoms[i].y /= scale;
-		atoms[i].z /= scale;
-	}
-*/
-//   FACTOR RESCALE
 	for (int i=0; i<entries; ++i)
 	{
 		atoms[i].x /= SCALE;
 		atoms[i].y /= SCALE;
 		atoms[i].z /= SCALE;
 	}
-}
 
-void PDB :: Reorientate()
-{
 	double disc;
 	double I[3][3];
 	double eigens[3];
@@ -455,9 +424,9 @@ void PDB :: Reorientate()
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 
-	int   invx = 1,
-	      invy = 1, 
-	      invz = 1;	
+	int   invx = SCALE,
+	      invy = SCALE, 
+	      invz = SCALE;	
 
 	double nx,
 	       ny, 
@@ -533,50 +502,43 @@ double PDB :: PolynomVal(double x)
 void   PDB :: GetMoments()
 {
 	int a, b, c;
-	int l = 0;
-
-
-	if ( MOM_TYPE	== 0 )
-	{
-		moments[0] = CalculateMoment(0, 0, 0);
-		moments[1] = CalculateMoment(0, 0, 2);
-		moments[2] = CalculateMoment(0, 2, 0);
-		moments[3] = CalculateMoment(2, 0, 0);
-		l = 4; 
-		for (int i = 0; i < MAX_ORDER*MAX_ORDER*MAX_ORDER; ++i) 
-		{
-			a = i / (MAX_ORDER * MAX_ORDER);
-			b = (i - a*MAX_ORDER*MAX_ORDER) / MAX_ORDER;
-			c = i % MAX_ORDER;
-			if ((a+b+c < MAX_ORDER) && (a+b+c > 2))
-			{
-				moments[l] = CalculateMoment(a, b, c);		
-				l++;
-			}
-		}
-	}
+	int l = 0, k = 0;
+	int deg;
+	double *temp;
 	
-	if ( MOM_TYPE	== 1 )
+	k = 7;
+	for (int i=2; i<MAX_ORDER+1; ++i)
 	{
-		for (int i = -MAX_ORDER*MAX_ORDER*MAX_ORDER; i < MAX_ORDER*MAX_ORDER*MAX_ORDER; ++i) 
-		{
-			a = i / (MAX_ORDER * MAX_ORDER);
-			b = (i - a*MAX_ORDER*MAX_ORDER) / MAX_ORDER;
-			c = i % MAX_ORDER;
-			if (sqrt(a*a) + sqrt(b*b) + sqrt(c*c) < MAX_ORDER)
-			{
-				moments[l] = CalculateFourrier(a, b, c);
-			//	printf("%d %d %d %d \n", l, a, b, c);
-				l++;
-			}
-		}	
-   // 239  of 8 order
+		k += 4*(i-1)*(i-2) + 12*i-6;		
 	}
-	mom_total = l;
-	//printf("moments: %d\n", l);
+
+	moments = new double[k];
+	
+	deg  = 2*MAX_ORDER+1;
+	for (int i = 0; i < deg*deg*deg; ++i) 
+	{
+		a = i / (deg * deg);
+		b = (i - a*deg*deg) / deg;
+		c = i % deg - MAX_ORDER;
+		a -= MAX_ORDER;
+		b -= MAX_ORDER;
+				
+		if (sqrt(a*a) + sqrt(b*b) + sqrt(c*c) < (MAX_ORDER+1))
+		{
+			moments[l] = CalculateFourrier(a, b, c);
+			l++;
+		}
+	}	
+	if (k!=l)
+	{
+		printf("Fatal error: Number of moments varies from the expected!\n");
+		exit(0);
+	}
+	mom_total = l;	
 }
 
 PDB :: ~PDB()
 {
+	delete[] moments;
 	delete[] atoms;
 }

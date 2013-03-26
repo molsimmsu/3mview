@@ -9,8 +9,10 @@
 /*  MAX_ORDER defines maximum degree of moments to be calculated                           */
 /*  WEIGHT_RENORM defines wether weight renormalization of moments is to be performed      */  
 
-#define    MAX_ORDER  		8
-#define    WEIGHT_RENORM		0
+#define    MAX_ORDER  		13
+#define    SCALE              30
+#define	 PI_2		 	1.570796327
+#define    MAX_SIZE			1.5     // for fourrier 
 
 /*  atoms weights register  */
 #define    C_WEIGHT           12
@@ -25,13 +27,7 @@
 #define    Z_WEIGHT			0
 #define    UNCOMMON_WEIGHT 	0
 
-#define    CA_ONLY            1  
 
-#define    SCALE              30
-#define    MOM_TYPE			1     // type of moments 0 - geometrical; 1 - fourrier; 2 - spherical
-//#define 	 BOX_R			1.5
-#define	 PI_2		 	1.570796327
-#define    MAX_SIZE			1.5     // for fourrier 
 
 struct particle {
 	int    weight;
@@ -70,7 +66,7 @@ public:
 	double    polynom[4];
 	double    eigens[3];
 	
-	double    moments[1000];
+	double    *moments;
 
 	
 	PDB();
