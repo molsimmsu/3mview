@@ -79,6 +79,7 @@ void MoleculeCollectionSource::invalidate(int inv) {
     }
     
     Processor::invalidate(inv);
+    outport_.invalidatePort();
 }
 
 void MoleculeCollectionSource::load(const std::string& path) {
