@@ -17,19 +17,24 @@ bdf: src/bdf.cpp
 mom_db_create: src/mom_db_create/main.cpp src/mom_db_create/pdb.cpp
 	g++ src/mom_db_create/main.cpp src/mom_db_create/pdb.cpp -o bin/mom_db_create
 
-testdb: bde bdf formdb
+testdb: bde bdf
 	cd bin && \
 	./bde -m interval -f 0 -l 100 $(FILTER) && \
 	./bdf -m
 
-fulldb: bde bdf formdb
+homodb: bde bdf
 	cd bin && \
 	./bde -m all $(FILTER) && \
 	./bdf -m
 
+formdb:
+	cd bin && \
+	sh convertdir.sh ./mom_db_create ./DomainsDB/domains
+
 clean:
 	rm -f bin/bde
 	rm -f bin/bdf
+	rm -f bin/mom_db_create
 	rm -f bin/DomainsDB -r
 	
 rar:
