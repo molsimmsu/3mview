@@ -3,6 +3,7 @@
 Состав комплекса:
 1) BALBES Domain Extractor (BDE)
 2) BLAST Domain Finder (BDF)
+3) Moments Database Creator (mom_db_create)
 
 Требования:
 - Компилятор g++
