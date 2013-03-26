@@ -14,7 +14,7 @@ PointCloud :: PointCloud()
 {
 	have_points  = false;
 	have_moments = false;
-	scale        = 30;
+	scale        = 1;
 	max_size     = 1.5;
 	weightfactor = 12;
 	stepx 	   = 1; 	
@@ -94,24 +94,29 @@ void PointCloud :: MoleculeFill(const Molecule * mol)
 	std :: cout << "Filling points set...\n";
 	entries_num = (mol->getOBMol()).NumAtoms();
 
-	int non_zero = 0; 
-
+	int non_zero 	  = 0; 
+	int atomic_num	  = 0;
+	
 	points      = new tgt::vec3[entries_num+1];
      values      = new double[entries_num+1];
 	weight 	  = 0;
 
 	for (int i=0; i<entries_num; ++i)
 	{	
-		if ((mol->getOBMol()).GetAtomById(i)->GetType()[0] = 'C')
-		if ((mol->getOBMol()).GetAtomById(i)->GetType()[1] = 'A')
-		{			
-			values[non_zero]     = 1;	
-			points[non_zero].x   = (mol->getOBMol()).GetAtomById(non_zero)->x();
-			points[non_zero].y   = (mol->getOBMol()).GetAtomById(non_zero)->y();
-			points[non_zero].z   = (mol->getOBMol()).GetAtomById(non_zero)->z();
-			weight += values[non_zero];
-			non_zero++;	
-		}
+		atomic_num = (mol->getOBMol()).GetAtomById(non_zero)->GetAtomicNum();
+		if ((mol->getOBMol()).GetAtomById(non_zero)->IsHeteroatom())
+			{
+				values[non_zero] = 0;
+			}
+		else
+			{
+				values[non_zero] = atomic_num;
+			}
+		points[non_zero].x   = (mol->getOBMol()).GetAtomById(non_zero)->x();
+		points[non_zero].y   = (mol->getOBMol()).GetAtomById(non_zero)->y();
+		points[non_zero].z   = (mol->getOBMol()).GetAtomById(non_zero)->z();
+		weight += values[non_zero];
+		non_zero++;	
 	}
 	entries_num = non_zero;
 	have_points = true;
