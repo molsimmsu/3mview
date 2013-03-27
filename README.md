@@ -14,10 +14,7 @@
 ### Установка пакетов
 Ubuntu:
 
-    sudo apt-get install libqt4-dev cmake libeigen2-dev libboost-dev libpng12-dev libfftw3-dev libtiff5-dev python-sip-dev python-qt4-dev libdevil-dev libglew-dev
-
-3DConnexion
-    sudo apt-get install libspnav-dev
+    sudo apt-get install libspnav-dev libqt4-dev cmake libeigen2-dev libboost-dev libpng12-dev libfftw3-dev libtiff5-dev python-sip-dev python-qt4-dev libdevil-dev libglew-dev
 
 Скачиваем [OpenBabel](http://sourceforge.net/projects/openbabel/files/openbabel/2.3.2/openbabel-2.3.2.tar.gz/download) и распаковываем его в 3mview/openbabel-2.3.2
     
