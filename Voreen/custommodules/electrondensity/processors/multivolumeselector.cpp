@@ -51,19 +51,14 @@ void MultiVolumeSelector::invalidate(int /*inv = INVALID_RESULT*/) {
 void MultiVolumeSelector::adjustToVolumeCollection() {
     //if (!outport_.isInitialized())
         //return;
-    LINFO("MultiVolumeSelector::adjustToVolumeCollection");
 
     const VolumeCollection* collection = inport_.getData();
     
     for (size_t i = 0; i < outports_.size(); i++) {
-        if (collection && i < collection->size()) {
+        if (collection && i < collection->size())
             outports_[i]->setData(collection->at(i), false);
-            LINFO("MultiVolumeSelector::adjustToVolumeCollection 1");
-        }
-        else {
+        else
             outports_[i]->setData(0);
-            LINFO("MultiVolumeSelector::adjustToVolumeCollection 2");
-        }
     }
 }
 
