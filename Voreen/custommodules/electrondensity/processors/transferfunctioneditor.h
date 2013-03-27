@@ -27,6 +27,7 @@ private:
 	TransFuncProperty func1_;
 	TransFuncProperty func2_;
 	TransFuncProperty func3_;
+	TransFuncProperty func4_;
 	IntProperty interactionCoarseness_; 
 
 };
