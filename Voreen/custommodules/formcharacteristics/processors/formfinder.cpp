@@ -93,12 +93,6 @@ void FormFinder::findDomains()
 		disp[i] = 0;
 		for (int j=0; j < mom_total; ++j)
 		{
-			fscanf(db, "%c", &tmp);
-			if (tmp == '\n')
-			{
-				printf("Wrong number of moments in database.\n");
-				return;
-			}
 			fscanf(db, "%lf", &db_moments[j]);
 			disp[i] += (moments[j] - db_moments[j])*(moments[j] - db_moments[j]);
 			
