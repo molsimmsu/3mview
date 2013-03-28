@@ -8,6 +8,7 @@
 #include "processors/transferfunctioneditor.h"
 #include "processors/multivolumeselector.h"
 #include "io/mrcvolumereader.h"
+#include "processors/addvolumetocollection.h"
 using namespace voreen;
 
 ElectronDensityModule::ElectronDensityModule(const std::string& modulePath) 
@@ -15,6 +16,7 @@ ElectronDensityModule::ElectronDensityModule(const std::string& modulePath)
 {
     setName("Electron Density Maps");
 
+    registerProcessor(new AddVolumeToCollection());
     registerProcessor(new SegmentationProcessor());
     registerProcessor(new SegmentationSplit());
     registerProcessor(new DensityMapManipulation());

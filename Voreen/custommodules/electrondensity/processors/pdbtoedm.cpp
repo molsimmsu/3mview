@@ -227,7 +227,6 @@ Volume* volumeHandle = new Volume(
             transform                                                                                     // transform
         );
 
-
 outport_.setData(volumeHandle);
 
 //-----------------------------------------
@@ -801,6 +800,11 @@ if (mol.NumAtoms()!=0)
     if (calculationmode_.isSelected("structure"))
         PDBtoEDM::GenerateEDMGrid_StructureFactor(InputMoll);
 
+//-----------------------------------------
+//--------Set volume identifier------------
+//-----------------------------------------
+VolumeBase* volume = outport_.getWritableData();
+volume->setOrigin(InputMoll->getOrigin());
 
 LWARNING("Density map calculated!");
 }

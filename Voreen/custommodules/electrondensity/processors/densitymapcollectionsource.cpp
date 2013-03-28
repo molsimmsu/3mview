@@ -64,7 +64,9 @@ void DensityMapCollectionSource::setVolumeCollection(VolumeCollection* collectio
         volumeURLList_.addVolume(collection->at(i), owner, true);
 }
 
-void DensityMapCollectionSource::addVolume(Volume* vol, bool owner, bool selected) {
+void DensityMapCollectionSource::addVolume(VolumeBase* vol, bool owner, bool selected) {
+    LINFO("Adding volume with origin:");
+    LINFO(vol->getOrigin().getURL());
     volumeURLList_.addVolume(vol, owner, selected);
 }
 
