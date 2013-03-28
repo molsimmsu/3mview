@@ -133,7 +133,7 @@ std::cout << "NumberVoxels_y: "<<NumberVoxels_y<<std::endl;
 std::cout << "NumberVoxels_z: "<<NumberVoxels_z<<std::endl;
 //-----------------------------------------
 //-----------------------------------------
-VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxels_x,NumberVoxels_y,NumberVoxels_z));
+VolumeRAM* targetDataset = new VolumeAtomic<float>(ivec3(NumberVoxels_x,NumberVoxels_y,NumberVoxels_z));
 
 
 //-----------------------------------------
@@ -145,7 +145,7 @@ for (int i=0; i<NumberVoxels_x; i++)
 for (int j=0; j<NumberVoxels_y; j++)
 for (int k=0; k<NumberVoxels_z; k++)
 {
-     ((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)=0;
+     ((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)=0;
 }
 std::string src,dst;
 for (int i = 1; i <= mol.NumAtoms(); i++)
@@ -176,7 +176,7 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
             int temp1=ii*ii+jj*jj+kk*kk;
             if ((tempVoxx>=0)&(tempVoxy>=0)&(tempVoxz>=0)&(tempVoxx<NumberVoxels_x)&(tempVoxy<NumberVoxels_y)&(tempVoxz<NumberVoxels_z)&(temp1<Nsmall*Nsmall)){
 
-                float temp=((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz);
+                float temp=((VolumeAtomic<float>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz);
 
                 if ((ii==0)&(jj==0)&(kk==0))
                 {
@@ -190,7 +190,7 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
                 }
 
 
-                ((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz)=temp+ED;
+                ((VolumeAtomic<float>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz)=temp+ED;
 
 
             }
@@ -257,7 +257,7 @@ std::cout << "NumberVoxels: "<<NumberVoxel_Structure<<std::endl;
 std::cout << "Reflection number: "<<Nh*Nh*Nh<<std::endl;
 //-----------------------------------------
 //-----------------------------------------
-VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
+VolumeRAM* targetDataset = new VolumeAtomic<float>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
 
 float ScF[NumberAtom][Nh+1][Nh+1][Nh+1];
 float StrFreal[(2*Nh+1)][(2*Nh+1)][(2*Nh+1)];
@@ -376,7 +376,7 @@ temprc=temprc+StrFModule[pos2h][pos2k][pos2l]*sin(2*PI*(hh*voxx+kk*voxy+ll*voxz-
 resul=sqrt(temprr*temprr+temprc*temprc);
 
 }
- ((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)=temprr/pow(big_size,3);
+ ((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)=temprr/pow(big_size,3);
 std::cout << "Creating out volume: "<<(i+1)*100/(NumberVoxel_Structure)<< "%"<<"\r";
 }
 //-----------------------------------------
@@ -415,12 +415,12 @@ outport_.setData(volumeHandle);
 void PDBtoEDM::CalcElectronNumber(const VolumeRAM* targetDataset)
 {
 float ENumber=0;
-ivec3 NN=((VolumeAtomic<float_t>*)targetDataset)->getDimensions();
+ivec3 NN=((VolumeAtomic<float>*)targetDataset)->getDimensions();
 for (int i=0; i<NN[0]; i++)
 for (int j=0; j<NN[1]; j++)
 for (int k=0; k<NN[2]; k++)
 {
-ENumber=ENumber+((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)*dr*dr*dr;
+ENumber=ENumber+((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)*dr*dr*dr;
 }
 std::cout << "Number of electron in volume: "<<ENumber<<std::endl;
 }

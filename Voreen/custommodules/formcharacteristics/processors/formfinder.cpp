@@ -31,6 +31,7 @@ void FormFinder::findDomains()
 	moments = new double[mom_total];
 	cloud.VolumeFill(vol, accuracy_.get());	
 	cloud.weightfactor  = weightFactor_.get();
+	std :: cout << "Calculating " << momentsOrder_.get() << " order moments (" << mom_total << " pieces) \n";
 	cloud.GetMoments(momentsOrder_.get());
 	double *moments = cloud.moments;
 
@@ -53,12 +54,11 @@ void FormFinder::findDomains()
 	}
 	std :: cout << "Database opened, "<< N << " entries\n";
 	char           tmp;
-	char			buff[8];
+	char			buff[25];
 	char			*name;
 	long double	*disp;
 	double		*db_moments;
 	double 		dt;
-	char   		ct[NAMELEN];
 	double         temp;
 	unsigned int   n = N, 
 				p = n/2, 
@@ -79,9 +79,12 @@ void FormFinder::findDomains()
 			std :: cout << part*10 << "\% complete\n" << std :: flush ;
 			part = (int)(10.0*i/N);
 		}
-		fscanf(db, "%s", ct);
-	//	printf("%d --- %s\n", i , ct);
-		strncpy(&name[NAMELEN*i], ct, NAMELEN);
+		fscanf(db, "%s", buff);
+		if (strlen(buff)>NAMELEN)	
+		{
+			printf("Wrong number of moments in database.\n");
+			return;			
+		}
 		for (int cntr = 0; cntr<12; ++cntr)
 		{	
 			fscanf(db, "%lf", &dt);
@@ -100,12 +103,7 @@ void FormFinder::findDomains()
 			disp[i] += (moments[j] - db_moments[j])*(moments[j] - db_moments[j]);
 			
 		}
-		fscanf(db, "%c", &tmp);
-		if (tmp != '\n')
-		{
-			printf("Wrong number of moments in database.\n");
-			return;
-		}
+		strncpy(&name[NAMELEN*i], buff, NAMELEN);
 		disp[i] /= mom_total;
 		disp[i] = sqrt(disp[i]);
 	}	
@@ -163,10 +161,7 @@ void FormFinder::findDomains()
     LINFO("Loading domains:\n");
     for (size_t i = 0; i < maxDomainsToLoad_.get(); i++) {
         pdbPath = path;
-	   for (int k=0; k<7; ++k)
-	   {
-               pdbPath += name[i*NAMELEN+k];
-	   }
+	   pdbPath += &name[i*NAMELEN];
 	   pdbPath += ".pdb";
         LINFO(pdbPath.c_str());
         molCollection->load(pdbPath);

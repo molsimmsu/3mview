@@ -27,7 +27,7 @@ public:
     virtual void invalidate(int inv = INVALID_RESULT);
     
     void load(const std::string& path);
-    
+    void runTestFasta();
     MoleculeCollection* getMoleculeCollection();
     MoleculeCollection* getSelectedMoleculeCollection();
 
@@ -49,6 +49,9 @@ private:
     
     MoleculeURLListProperty moleculeURLlist_;
     
+    //temp
+    ButtonProperty testFasta_;
+    //temp
 };
 
 #endif // VRN_MOLECULECOLLECTIONSOURCE_H
