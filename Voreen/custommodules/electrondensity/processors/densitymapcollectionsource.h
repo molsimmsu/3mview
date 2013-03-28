@@ -27,6 +27,8 @@ public:
     VolumeCollection* getVolumeCollection() const { return volumeURLList_.getVolumes(false); }
     
     VolumeCollection* getSelectedVolumeCollection() const { return volumeURLList_.getVolumes(true); }
+    
+    void addVolume(Volume* vol, bool owner = false, bool selected = false);
 
 protected:
     virtual void setDescriptions() {

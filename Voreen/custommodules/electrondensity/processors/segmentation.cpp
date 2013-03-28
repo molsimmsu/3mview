@@ -1,5 +1,7 @@
 #include "segmentation.h"
 
+const std::string SegmentationProcessor::loggerCat_("3MTK.DensityMap.SegmentationProcessor");
+
 SegmentationProcessor::SegmentationProcessor()
   : inport_(Port::INPORT, "inport", "Volume Inport")
   , outport_(Port::OUTPORT, "outport", "Segmentation Outport")

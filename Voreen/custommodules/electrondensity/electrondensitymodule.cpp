@@ -1,6 +1,7 @@
 #include "electrondensitymodule.h"
 
 #include "processors/segmentation.h"
+#include "processors/segmentationsplit.h"
 #include "processors/densitymapmanipulation.h"
 #include "processors/densitymapcollectionsource.h"
 #include "processors/pdbtoedm.h"
@@ -15,6 +16,7 @@ ElectronDensityModule::ElectronDensityModule(const std::string& modulePath)
     setName("Electron Density Maps");
 
     registerProcessor(new SegmentationProcessor());
+    registerProcessor(new SegmentationSplit());
     registerProcessor(new DensityMapManipulation());
     registerProcessor(new DensityMapCollectionSource());
     registerProcessor(new PDBtoEDM());

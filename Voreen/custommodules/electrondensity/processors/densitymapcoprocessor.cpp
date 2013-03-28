@@ -1,6 +1,6 @@
 #include "densitymapcoprocessor.h"
 
-const std::string DensityMapCoProcessor::loggerCat_("3mview.densitymap.DensityMapCoProcessor");
+const std::string DensityMapCoProcessor::loggerCat_("3MTK.DensityMap.DensityMapCoProcessor");
 
 DensityMapCoProcessor::DensityMapCoProcessor()
     : Processor()

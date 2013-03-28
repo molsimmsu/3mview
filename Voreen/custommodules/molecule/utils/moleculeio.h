@@ -1,5 +1,5 @@
-#ifndef MOLECULEREADER_H
-#define MOLECULEREADER_H
+#ifndef MOLECULEIO_H
+#define MOLECULEIO_H
 
 #include "../datastructures/molecule.h"
 using namespace voreen;
@@ -7,14 +7,16 @@ using namespace voreen;
 #include "tgt/exception.h"
 using tgt::FileException;
 
-class MoleculeReader
+class MoleculeIO
 {
 public:
-    MoleculeReader();
+    MoleculeIO();
     
     static Molecule* read(const MoleculeURL& url);
     static Molecule* read(const std::string& filename)
         throw (FileException);
+        
+    static void write(OBMol& mol, const std::string& filename);
   
 protected:
     static const std::string loggerCat_;

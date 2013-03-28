@@ -1,7 +1,7 @@
 #include "moleculeurllistproperty.h"
 
 #include "../datastructures/moleculecollection.h"
-#include "../utils/moleculereader.h"
+#include "../utils/moleculeio.h"
 #include "voreen/core/io/progressbar.h"
 #include "voreen/core/voreenapplication.h"
 
@@ -141,7 +141,7 @@ void MoleculeURLListProperty::loadMolecule(const std::string& url)
         progressBar->setMessage("Loading molecule ...");
     }
 
-    Molecule* handle = MoleculeReader::read(MoleculeURL(url));
+    Molecule* handle = MoleculeIO::read(MoleculeURL(url));
 
     if (handle) {
         // url may have been altered by loading routine

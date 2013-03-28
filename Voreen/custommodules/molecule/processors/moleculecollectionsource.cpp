@@ -4,7 +4,7 @@
 #include "voreen/core/processors/processorwidget.h"
 
 #include "../utils/stridereader.h"
-#include "../utils/moleculereader.h"
+#include "../utils/moleculeio.h"
 
 #include "openbabel/obconversion.h"
 #include "openbabel/mol.h"
@@ -42,7 +42,6 @@ void MoleculeCollectionSource::initialize() throw (tgt::Exception) {
 }
 
 void MoleculeCollectionSource::invalidate(int inv) {
-    LWARNING("MoleculeCollectionSource::invalidate()");
     //outport_.setData(moleculeURLlist_.getMolecules(true), true);
     
     MoleculeCollection* outCol = outport_.getWritableData();
@@ -68,10 +67,8 @@ void MoleculeCollectionSource::invalidate(int inv) {
         const std::vector<const Port*> connectedPorts = coProcessorOutports[i]->getConnected();
         
         for (size_t j = 0; j < connectedPorts.size(); ++j) {
-            LWARNING("MoleculeCollectionSource::Found Port");
             Processor* processor = connectedPorts[j]->getProcessor();
             try {
-                LWARNING("MoleculeCollectionSource::Trying Port");
                 dynamic_cast<MoleculeCoProcessor*>(processor)->updateSelection();
             }
             catch (...) { LWARNING("MoleculeCollectionSource::Error Port"); }
@@ -84,7 +81,7 @@ void MoleculeCollectionSource::invalidate(int inv) {
 
 void MoleculeCollectionSource::load(const std::string& path) {
     try {
-        Molecule* mol = MoleculeReader::read(path);
+        Molecule* mol = MoleculeIO::read(path);
         tgtAssert(mol, "null pointer to mol returned (exception expected) at MoleculeCollectionSource::readMolecule()");
 
         getMoleculeCollection()->add(mol);
