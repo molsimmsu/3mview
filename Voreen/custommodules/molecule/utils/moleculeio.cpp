@@ -1,4 +1,4 @@
-#include "moleculereader.h"
+#include "moleculeio.h"
 
 #include "../utils/stridereader.h"
 
@@ -9,13 +9,13 @@ using namespace OpenBabel;
 #include <fstream>
 #include <string>
 
-const std::string MoleculeReader::loggerCat_ = "3mview.MoleculeReader";
+const std::string MoleculeIO::loggerCat_ = "3mview.MoleculeIO";
 
-Molecule* MoleculeReader::read(const MoleculeURL& url) {
+Molecule* MoleculeIO::read(const MoleculeURL& url) {
     return read(url.getPath());
 }
 
-Molecule* MoleculeReader::read(const std::string& filename) 
+Molecule* MoleculeIO::read(const std::string& filename) 
     throw (FileException) 
 {
     std::ifstream stream;
@@ -47,4 +47,33 @@ Molecule* MoleculeReader::read(const std::string& filename)
     Molecule* result = new Molecule(mol);
     result->setOrigin(VolumeURL(filename));
     return result;
+}
+
+void MoleculeIO::write(OBMol& mol, const std::string& filename)
+{   
+    std::fstream stream;
+    stream.open(filename.c_str(), std::ios_base::out);
+
+    if (stream.fail())
+        throw VoreenException("Failed to open file for witing: " + filename);
+
+    std::string molFormat("PDB");
+
+    LWARNING("Start writing");
+
+    OBConversion conv;
+    if (!conv.SetOutFormat(molFormat.c_str()))
+        throw VoreenException("Failed to set output format for writing molecule: " + molFormat);
+        
+    LWARNING("Start conversion");
+        
+    
+    if (!conv.Write(&mol, &stream)==1)
+        throw VoreenException("Failed to write molecule from file: " + filename);
+
+    stream.close();
+        
+    
+    LWARNING("Write successful");
+ 
 }

@@ -18,7 +18,7 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/properties/moleculeselectionproperty.cpp
     ${MOD_DIR}/properties/moleculeurllistproperty.cpp
     ${MOD_DIR}/utils/stridereader.cpp
-    ${MOD_DIR}/utils/moleculereader.cpp
+    ${MOD_DIR}/utils/moleculeio.cpp
 )
 
 # module's core header files, path relative to module dir
@@ -37,7 +37,7 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/properties/moleculeselectionproperty.h
     ${MOD_DIR}/properties/moleculeurllistproperty.h
     ${MOD_DIR}/utils/stridereader.h
-    ${MOD_DIR}/utils/moleculereader.h
+    ${MOD_DIR}/utils/moleculeio.h
 )
 
 SET(MOD_QT_MODULECLASS MoleculeModuleQt)

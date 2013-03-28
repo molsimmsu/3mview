@@ -1,6 +1,8 @@
 #ifndef VRN_SEGMENTATIONPROCESSOR_H
 #define VRN_SEGMENTATIONPROCESSOR_H
 
+#include "densitymapcoprocessor.h"
+
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/ports/volumeport.h"
 #include "voreen/core/properties/buttonproperty.h"
@@ -25,6 +27,26 @@ typedef std::vector<svec3> Front;
     for ((VOXEL).z = (MIN).z; (VOXEL).z < (MAX).z; ++(VOXEL).z)\
     for ((VOXEL).y = (MIN).y; (VOXEL).y < (MAX).y; ++(VOXEL).y)\
     for ((VOXEL).x = (MIN).x; (VOXEL).x < (MAX).x; ++(VOXEL).x)
+    
+class SubVolume {
+public:
+    SubVolume(svec3 value)
+      : min_(value)
+      , max_(value)
+    {}
+    
+    void expand(svec3 v) {
+        for (size_t i = 0; i < 3; i++) {
+            if (v[i] < min_[i]) min_[i] = v[i];
+            if (v[i] > max_[i]) max_[i] = v[i];
+        }
+    }
+    
+    svec3 getMin() { return min_; }
+    svec3 getMax() { return max_; }
+
+    svec3 min_, max_;
+};
 
 class Segmentation {
 public:
@@ -46,7 +68,7 @@ public:
     virtual Processor* create() const;
 
     virtual std::string getClassName() const { return "SegmentationProcessor";   }
-    virtual std::string getCategory() const  { return "Input";            }
+    virtual std::string getCategory() const  { return "Segmentation";            }
     virtual CodeState getCodeState() const   { return CODE_STATE_STABLE;  }
     
     virtual void process() {}
@@ -55,6 +77,8 @@ protected:
     virtual void setDescriptions() {
         setDescription("Performs a volume segmentation algorithm by Shaytan, Shurov, Armeev");
     }
+    
+    static const std::string loggerCat_;
     
 private:
 	Volume* findSeeds(const VolumeBase* volume, float threshold);
@@ -74,6 +98,7 @@ private:
 	FloatProperty growThreshold_;
 	ButtonProperty seedButton_;
 	ButtonProperty growButton_;
+	ButtonProperty splitButton_;
 	
 	std::vector<Front> seeds;
 	std::vector<Front*> fronts;

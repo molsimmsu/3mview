@@ -23,7 +23,7 @@ public:
     /*
      * Copy and paste this function in your derived classes to update selection
      */
-    virtual void updateSelection() { LWARNING("MoleculeCoProcessor::updateSelection()"); }
+    virtual void updateSelection() { }
     
 protected:
     virtual void setDescriptions() {

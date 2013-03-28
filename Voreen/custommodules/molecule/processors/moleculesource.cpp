@@ -1,7 +1,7 @@
 #include "moleculesource.h"
 
 #include "../utils/stridereader.h"
-#include "../utils/moleculereader.h"
+#include "../utils/moleculeio.h"
 
 #include "openbabel/obconversion.h"
 #include "openbabel/mol.h"
@@ -33,7 +33,7 @@ MoleculeSource::MoleculeSource()
 void MoleculeSource::readMolecule() {
     try {
         // Load new molecule
-        Molecule* mol = MoleculeReader::read(MoleculeURL(inputFile_.get()));
+        Molecule* mol = MoleculeIO::read(MoleculeURL(inputFile_.get()));
         tgtAssert(mol, "null pointer to mol returned (exception expected) at MoleculeSource::readMolecule()");
         
         // Delete old data and set new

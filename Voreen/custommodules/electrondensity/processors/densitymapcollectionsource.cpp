@@ -63,3 +63,8 @@ void DensityMapCollectionSource::setVolumeCollection(VolumeCollection* collectio
     for (size_t i=0; i<collection->size(); i++)
         volumeURLList_.addVolume(collection->at(i), owner, true);
 }
+
+void DensityMapCollectionSource::addVolume(Volume* vol, bool owner, bool selected) {
+    volumeURLList_.addVolume(vol, owner, selected);
+}
+
