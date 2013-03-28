@@ -427,7 +427,7 @@ int PointCloud :: GetMomentsNumber(int order)
 
 	int  k = 7;
 
-	for (int i=2; i<mom_order+1; ++i)
+	for (int i=2; i<order+1; ++i)
 	{
 		k += 4*(i-1)*(i-2) + 12*i-6;		
 	}
@@ -439,7 +439,6 @@ void PointCloud :: GetMoments(int order)
 	mom_order = order;
 
 	GetShift();
-	Centrify();
 	GetAxes();
 
 	int a, b, c;
