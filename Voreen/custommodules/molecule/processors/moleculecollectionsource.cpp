@@ -20,7 +20,10 @@ MoleculeCollectionSource::MoleculeCollectionSource()
   , outport_(Port::OUTPORT, "moleculecollection", "Molecule Collection Output")
   , coProcessorPort_(Port::OUTPORT, "coProcessor", "Molecule Collection Co-processor")
   , moleculeURLlist_("moleculeURLlist_", "Molecule list", std::vector<std::string>())
+  , testFasta_("testFasta","Test Fasta")
 {
+    addProperty(testFasta_);
+    testFasta_.onChange(CallMemberAction<MoleculeCollectionSource>(this, &MoleculeCollectionSource::runTestFasta));
     addPort(outport_);
     addPort(coProcessorPort_);
     
@@ -29,6 +32,20 @@ MoleculeCollectionSource::MoleculeCollectionSource()
 	// Create empty data to make this outport valid. Take ownership is true because
 	// we want the data to be automatically deleted when replaced at the next setData() call
     outport_.setData(new MoleculeCollection(), true);
+    
+}
+
+void MoleculeCollectionSource::runTestFasta(){
+    const MoleculeCollection* collection = moleculeURLlist_.getMolecules(true);
+            if (collection == 0 || collection->size() == 0) {
+                //LINFO("Exit DotLauncher::savePDBtoWorkDir() at return");
+                return;
+            }
+            for(size_t i = 0; i < collection->size(); i++) {
+            Molecule* molecule = collection->at(i);
+            OBMol mol = molecule->getOBMol();
+            std::cout << MoleculeIO::getFastaFromMol(mol) <<std::endl;
+            }
 }
 
 void MoleculeCollectionSource::initialize() throw (tgt::Exception) {

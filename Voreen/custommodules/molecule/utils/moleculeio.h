@@ -17,7 +17,8 @@ public:
         throw (FileException);
         
     static void write(OBMol& mol, const std::string& filename);
-  
+    static std::string getAminoFasta(std::string name);
+    static std::string getFastaFromMol(OBMol mol);
 protected:
     static const std::string loggerCat_;
 
