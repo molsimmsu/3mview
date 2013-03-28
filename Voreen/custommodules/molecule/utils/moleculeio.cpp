@@ -111,19 +111,23 @@ std::string MoleculeIO::getAminoFasta(std::string name){
 
 
 // returns string with FASTA formated sequence 
-std::string MoleculeIO::getFastaFromMol(OBMol mol){
+std::vector<std::string> MoleculeIO::getFastaFromMol(OBMol mol){
 
     OBResidueIterator  i;
-    std::string fasta;
+    std::vector<std::string> fasta;
 
-    fasta = getAminoFasta(mol.BeginResidue(i)->GetName());
+    fasta.push_back(getAminoFasta(mol.BeginResidue(i)->GetName()));
 
     while(true){
         OBResidue *res = mol.NextResidue(i);
         if(res==0) break;
         if (res->GetResidueProperty(0)){ //checks that this residue belongs to protein 
             std::string resname = res->GetName();
-            fasta.append(getAminoFasta(resname));
+            
+            if (res->GetChainNum() > fasta.size())
+                fasta.push_back(std::string());
+                
+            fasta[res->GetChainNum()-1].append(getAminoFasta(resname));
         }
     }
     return fasta;
