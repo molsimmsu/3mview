@@ -11,13 +11,13 @@ using namespace OpenBabel;
 
 const std::string MoleculeIO::loggerCat_ = "3mview.MoleculeIO";
 
-Molecule* MoleculeIO::read(const MoleculeURL& url) {
-    return read(url.getPath());
+Molecule* MoleculeIO::read(const std::string& filename) {
+    return read(VolumeURL(filename));
 }
 
-Molecule* MoleculeIO::read(const std::string& filename) 
-    throw (FileException) 
-{
+Molecule* MoleculeIO::read(const MoleculeURL& url) {
+    std::string filename = url.getPath();
+
     std::ifstream stream;
     stream.open(filename.c_str());
     if (stream.fail())
@@ -45,7 +45,7 @@ Molecule* MoleculeIO::read(const std::string& filename)
     
     //return new Molecule(mol, stride.getStructure());
     Molecule* result = new Molecule(mol);
-    result->setOrigin(VolumeURL(filename));
+    result->setOrigin(url);
     return result;
 }
 

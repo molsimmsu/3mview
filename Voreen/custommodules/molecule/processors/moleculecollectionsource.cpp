@@ -81,7 +81,8 @@ void MoleculeCollectionSource::invalidate(int inv) {
 
 void MoleculeCollectionSource::load(const std::string& path) {
     try {
-        Molecule* mol = MoleculeIO::read(path);
+        VolumeURL url(path);
+        Molecule* mol = MoleculeIO::read(url);
         tgtAssert(mol, "null pointer to mol returned (exception expected) at MoleculeCollectionSource::readMolecule()");
 
         getMoleculeCollection()->add(mol);

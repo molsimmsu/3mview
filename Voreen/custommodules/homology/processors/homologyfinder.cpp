@@ -24,12 +24,26 @@ void HomologyFinder::findDomains() {
     LINFO("Finding domains with sequence:");
     LINFO(seq.c_str());
     
-	AlignmentList A;
-	A.findHomologousBLAST(seq, "../../DomainDB/bin");
-	A.sortByIdentityPercent();
-	A.write(std::cout);
+	std::string cmd("cd ../../DomainDB/bin && ./bdf -f ");
+	cmd += seq;
 	
-    alignmentList_.set(A);
+	AlignmentList A;
+	
+	FILE* pipe = popen(cmd.c_str(), "r");
+
+	while (!feof(pipe))
+	{
+		char sseqid[8]; float pident;
+		int qstart, qend;
+		fscanf(pipe, "%s %f %d %d", sseqid, &pident, &qstart, &qend);
+		A.push_back(Alignment(sseqid, pident, qstart, qend));
+	}
+	
+	A.pop_back();
+	
+	pclose(pipe);
+	
+	alignmentList_.set(A);
     
     loadDomains();
 }
@@ -48,8 +62,9 @@ void HomologyFinder::loadDomains() {
     LINFO("Loading domains:");
     for (size_t i = 0; i < numToLoad; i++) {
         Alignment a = A.at(i);
-        std::string pdbPath = path + a.getName() + ".pdb";
-        LINFO(pdbPath.c_str());
-        molCollection->load(pdbPath);
+        std::stringstream pdbPath;
+        pdbPath << path << a.getName() << ".pdb" << "?score=" << a.pident;
+        LINFO(pdbPath.str());
+        molCollection->load(pdbPath.str());
     }
 }

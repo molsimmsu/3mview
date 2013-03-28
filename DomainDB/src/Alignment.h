@@ -25,7 +25,7 @@ public:
 
 	void write(ostream& out) const
 	{
-		out << name << " " << param << " " << qstart << " " << qend << endl;
+		out << name << " " << (int)param << " " << qstart << " " << qend << endl;
 	}
 
 	bool operator < (const Alignment& A) const

@@ -87,6 +87,14 @@ public:
 		}
 	}
 	
+	void push_back(const Alignment& alignment) {
+	    A.push_back(alignment);
+	}
+	
+	void pop_back() {
+	    A.pop_back();
+	}
+	
 	bool operator == (const AlignmentList& A) const
 	{
 		return !(*this != A);
@@ -107,7 +115,7 @@ public:
 		sort(A.rbegin(), A.rend());
 	}
 
-	void findHomologousBLAST(string seq, string dir = ".")
+	std::string findHomologousBLAST(string seq, string dir = ".")
 	{
 		sourceSeq = seq;
 		std::string cmd;
@@ -131,6 +139,8 @@ public:
 		A.pop_back();
 	
 		pclose(pipe);
+		
+		return cmd;
 	}
 
 };

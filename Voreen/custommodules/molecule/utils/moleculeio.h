@@ -13,8 +13,7 @@ public:
     MoleculeIO();
     
     static Molecule* read(const MoleculeURL& url);
-    static Molecule* read(const std::string& filename)
-        throw (FileException);
+    static Molecule* read(const std::string& filename);
         
     static void write(OBMol& mol, const std::string& filename);
   
