@@ -37,15 +37,19 @@ MoleculeCollectionSource::MoleculeCollectionSource()
 
 void MoleculeCollectionSource::runTestFasta(){
     const MoleculeCollection* collection = moleculeURLlist_.getMolecules(true);
-            if (collection == 0 || collection->size() == 0) {
-                //LINFO("Exit DotLauncher::savePDBtoWorkDir() at return");
-                return;
-            }
-            for(size_t i = 0; i < collection->size(); i++) {
+        if (collection == 0 || collection->size() == 0) {
+            //LINFO("Exit DotLauncher::savePDBtoWorkDir() at return");
+            return;
+        }
+        for(size_t i = 0; i < collection->size(); i++) {
             Molecule* molecule = collection->at(i);
             OBMol mol = molecule->getOBMol();
-            std::cout << MoleculeIO::getFastaFromMol(mol) <<std::endl;
-            }
+            
+            std::vector<std::string> fasta = MoleculeIO::getFastaFromMol(mol);
+            
+            for (size_t i = 0; i < fasta.size(); i++)
+                std::cout << "chain " << i+1 << ": " << fasta[i] <<std::endl;
+        }
 }
 
 void MoleculeCollectionSource::initialize() throw (tgt::Exception) {
