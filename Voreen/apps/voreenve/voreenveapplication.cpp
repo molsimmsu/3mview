@@ -38,6 +38,8 @@
 
 #include <QMessageBox>
 
+#include "../../custommodules/geometry/utils/spaceballevent.h"
+
 namespace voreen {
 
 VoreenVEApplication* VoreenVEApplication::veApp_ = 0;
@@ -50,14 +52,81 @@ VoreenVEApplication::VoreenVEApplication(int& argc, char** argv)
 #else
     , VoreenApplicationQt("voreenve", "VoreenVE", "Voreen Visualization Environment", argc, argv, VoreenApplication::APP_DEFAULT)
 #endif
+    , spnavPresent_(false)
 {
     veApp_ = this;
+    
+    QWidget w; // FIXME creating dummy widget for spacenav init
+    
+    initializeSpnav(&w);
 
     registerSerializerFactory(new VoreenVEMetaDataFactory());
+    
+    SpaceballRegistrator::setInstance(new SpaceballRegistrator());
 }
 
-VoreenVEApplication::~VoreenVEApplication() {
+VoreenVEApplication::~VoreenVEApplication() 
+{
+    if (spnav_close())
+            std::cout <<"Couldn't disconnect from spacenav daemon\n"<< std::endl;
+        else
+            std::cout <<"Disconnected from spacenav daemon\n"<< std::endl;
+    
 }
+
+void VoreenVEApplication::initializeSpnav(QWidget *e){
+
+    std::cout << "attempting to connect to spnav" << std::endl;
+    if (spnav_x11_open(QX11Info::display(), e->winId()) == -1)
+        std::cout << "Couldn't connect to spacenav daemon" << std::endl;
+    else
+    {
+        std::cout << "Connected to spacenav daemon" << std::endl;
+     spnavPresent_ = true;
+    }
+
+}
+
+bool VoreenVEApplication::x11EventFilter(XEvent *event){
+    spnav_event navEvent;
+        if (!spnav_x11_event(event, &navEvent))
+            return false;
+
+        QWidget *currentWidget = this->activeWindow();
+       
+        if (navEvent.type == SPNAV_EVENT_MOTION)
+        { 
+            Spaceball::MotionEvent *motionEvent = new Spaceball::MotionEvent();
+            motionEvent->makeRotationMatrixFromInput(navEvent.motion.x, navEvent.motion.y, navEvent.motion.z, 
+                                                     navEvent.motion.rx, navEvent.motion.ry, navEvent.motion.rz);
+            size_t n = SpaceballRegistrator::getInstance()->getNumListeners();
+            for (size_t i = 0; i < n; i++) {
+                SpaceballEventListener* listener = SpaceballRegistrator::getInstance()->getListener(i);
+                listener->event(motionEvent);
+                std::cout << "postEvent" << std::endl;
+            }
+            
+            std::cout << "knob" << std::endl;
+            return true;
+        }
+
+        if (navEvent.type == SPNAV_EVENT_BUTTON)
+        {
+            Spaceball::ButtonEvent *buttonEvent = new Spaceball::ButtonEvent();
+            buttonEvent->setButtonNumber(navEvent.button.bnum);
+            if (navEvent.button.press)
+                buttonEvent->setButtonStatus(Spaceball::BUTTON_PRESSED);
+            else
+                buttonEvent->setButtonStatus(Spaceball::BUTTON_RELEASED);
+            this->postEvent(currentWidget, buttonEvent);
+            std::cout << "button" << std::endl;
+            return true;
+        }
+
+        return true;
+
+}
+
 
 void VoreenVEApplication::loadModules() throw (VoreenException) {
     VoreenApplicationQt::loadModules();

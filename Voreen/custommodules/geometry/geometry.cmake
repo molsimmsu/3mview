@@ -26,12 +26,14 @@ SET(MOD_QT_MODULECLASS GeometryModuleQt)
 
 SET(MOD_QT_SOURCES
     ${MOD_DIR}/processors/manipulationbase.cpp
+    ${MOD_DIR}/utils/spaceballevent.cpp
 )
     
 SET(MOD_QT_HEADERS
-
+    
 )
 
 SET(MOD_QT_HEADERS_NONMOC
-    ${MOD_DIR}/processors/manipulationbase.cpp
+    ${MOD_DIR}/processors/manipulationbase.h
+    ${MOD_DIR}/utils/spaceballevent.h
 )

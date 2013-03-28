@@ -29,6 +29,7 @@
 #include "voreen/qt/voreenapplicationqt.h"
 #include <QApplication>
 
+
 namespace voreen {
 
 class VoreenModuleVE;
@@ -61,6 +62,9 @@ public:
 
     /// Registers a VoreenVE module.
     const std::vector<VoreenModuleVE*>& getVEModules() const;
+    
+    bool x11EventFilter(XEvent *event);
+    void initializeSpnav(QWidget *e);
 
 protected:
     /// Adds VE modules.
@@ -69,7 +73,7 @@ protected:
 private:
     static VoreenVEApplication* veApp_;
     std::vector<VoreenModuleVE*> veModules_;
-
+    bool spnavPresent_;
     static const std::string loggerCat_;
 };
 

@@ -226,6 +226,9 @@ TARGET_LINK_LIBRARIES(voreenve openbabel)
 # add Boost dependency
 TARGET_LINK_LIBRARIES(voreenve ${BOOST_LIBRARIES})
 
+# add Spnav dependency
+TARGET_LINK_LIBRARIES(voreenve spnav)
+
 # add gcc pch
 IF (VRN_PRECOMPILED_HEADER AND CMAKE_COMPILER_IS_GNUCXX)
     ADD_GCC_PRECOMPILED_HEADER(voreenve pch_ve.h)

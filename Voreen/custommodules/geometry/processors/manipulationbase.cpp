@@ -1,19 +1,9 @@
 #include "manipulationbase.h"
+#include "../utils/spaceballevent.h"
 
-#include "tgt/qt/qttimer.h"
+SpaceballRegistrator* SpaceballRegistrator::instance_ = 0;
 
 namespace voreen {
-
-SpaceballEventListener::SpaceballEventListener(ManipulationBase* manipulation)
-    : EventListener()
-    , manipulation_(manipulation) 
-{}
-
-void SpaceballEventListener::timerEvent(TimeEvent* e) {
-    tgt::vec3 offset(0.0, 0.0, 0.0);
-    tgt::mat4 transformMatrix = tgt::mat4::createIdentity();
-    manipulation_->applyTransformation(offset, transformMatrix);
-}
 
 ManipulationBase::ManipulationBase()
     : Processor()
@@ -21,6 +11,7 @@ ManipulationBase::ManipulationBase()
 	, manipulationAxis_("manipulationAxis", "Manipulation axis")
 	, invertDirection_("invertDirection", "Invert direction")
     , manipulationSlider_("manipulationSlider", "Manipulation slider", 0, -1, 1)
+    , camera_("camera", "Camera")
 {
     manipulationType_.addOption("rotate", "Rotate");
 	manipulationType_.addOption("move", "Move");
@@ -30,31 +21,38 @@ ManipulationBase::ManipulationBase()
 	manipulationAxis_.addOption("z", "Z");
     
     manipulationSlider_.onChange(CallMemberAction<ManipulationBase>(this, &ManipulationBase::guiEventHandler));
-
+    
+    addProperty(camera_);
     addProperty(manipulationType_);
     addProperty(manipulationAxis_);
     addProperty(invertDirection_);
     addProperty(manipulationSlider_);
     
     spaceballListener_ = new SpaceballEventListener(this);
-    eventHandler_ = new EventHandler();
-    eventHandler_->addListenerToFront(spaceballListener_);
-    
-    timer_ = new QtTimer(eventHandler_);
-    timer_->start(500);
+    //VoreenApplication::app()->getSpaceballRegistrator();
+    SpaceballRegistrator::getInstance()->addListener(spaceballListener_);
 }
 
 ManipulationBase::~ManipulationBase() {
-    timer_->stop();
-    eventHandler_->clear();
-    
-    delete spaceballListener_;
-    delete eventHandler_;
-    delete timer_;
+
 }
 
 Processor* ManipulationBase::create() const {
     return new ManipulationBase();
+}
+
+
+tgt::mat4 ManipulationBase::GetRotMat(){
+//std::cout << camera_.get().getRotateMatrix() << std::endl;
+return camera_.get().getRotateMatrix();
+}
+
+tgt::mat4 ManipulationBase::GetInvMat(){
+//std::cout << camera_.get().getProjectionMatrix(1.0) << std::endl;
+tgt::mat4 matrix = tgt::mat4::identity;
+camera_.get().getRotateMatrix().invert(matrix);
+//tgt::mat4::invert(*matrix);
+return matrix;
 }
 
 void ManipulationBase::applyTransformation(tgt::vec3 offset, tgt::mat4 matrix) {
