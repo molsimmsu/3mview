@@ -73,6 +73,17 @@ public:
     const OBMol& getOBMol() const;
     
     /**
+     *  Delete residues of restype
+     *  or delete all residues exept restype if invert=true
+     *  AMINO = 0, AMINO_NUCLEO = 1, COENZYME = 2, ION = 3, 
+     *  NUCLEO = 4, PROTEIN = 5, PURINE = 6, PYRIMIDINE = 7, 
+     *  SOLVENT = 8, WATER = 9 
+     *  
+     */
+    
+    void ClearResidues(int restype, bool invert=false);
+    
+    /**
      * Returns secondary structure of a given residue
      */
     char getSecondaryStructure(size_t chainNum, size_t residueNum) const;

@@ -51,6 +51,7 @@ Molecule* MoleculeIO::read(const MoleculeURL& url) {
     return result;
 }
 
+
 void MoleculeIO::write(OBMol& mol, const std::string& filename)
 {   
     std::fstream stream;

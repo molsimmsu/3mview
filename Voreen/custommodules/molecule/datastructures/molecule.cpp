@@ -27,6 +27,25 @@ const OBMol& Molecule::getOBMol() const {
     return mol_;
 }
 
+void Molecule::ClearResidues(int restype, bool invert){
+    
+        std::cout << mol_.NumAtoms() << std::endl;
+        std::cout << mol_.NumResidues() << std::endl;
+        for(int i=mol_.NumAtoms(); i>0; i--){
+            OBAtom * atom = mol_.GetAtom(i);
+            if(!(invert == atom->GetResidue()->GetResidueProperty(restype))){ mol_.DeleteAtom(atom);
+            } 
+        }
+        for(int i=mol_.NumResidues()-1; i>=0; i--){
+            OBResidue * res = mol_.GetResidue(i);
+            if(!(invert == res->GetResidueProperty(restype))){ mol_.DeleteResidue(res);
+            } 
+        }
+        std::cout << mol_.NumAtoms() << std::endl;
+        std::cout << mol_.NumResidues() << std::endl;
+        
+}
+
 char Molecule::getSecondaryStructure(size_t chainNum, size_t residueNum) const {
 	return secStructure_[chainNum][residueNum];
 }
