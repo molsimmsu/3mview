@@ -152,7 +152,7 @@ void FormFinder::findDomains()
     MoleculeCollectionSource* molCollection = getSourceProcessor();
     if (molCollection == 0) return;
     
-    std::string path("../../DomainDB/domains/");
+    std::string path(DOMAIN_LOAD_PATH);
     std::string pdbPath;
 
     LINFO("Loading domains:\n");

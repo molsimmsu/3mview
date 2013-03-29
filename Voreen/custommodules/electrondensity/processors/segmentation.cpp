@@ -6,9 +6,9 @@ SegmentationProcessor::SegmentationProcessor()
   : inport_(Port::INPORT, "inport", "Volume Inport")
   , outport_(Port::OUTPORT, "outport", "Segmentation Outport")
   , status_("status", "Status")
-  , seedThreshold_("seedThreshold", "Seed threshold", 0.0, 0.0, 10.0)
+  , seedThreshold_("seedThreshold", "Seed threshold", 0.0, 0.0, 50.0)
   , seedButton_("seedButton", "Start seeding")
-  , growThreshold_("growThreshold", "Grow threshold", 0.0, 0.0, 10.0)
+  , growThreshold_("growThreshold", "Grow threshold", 0.0, 0.0, 50.0)
   , growButton_("growButton", "Start growing")
 {
 	addPort(inport_);

@@ -25,12 +25,12 @@ protected:
     }
     
     /// Inport for the volume collection.
-    //VolumeCollectionPort inport_;
+    VolumeCollectionPort inport_;
 
     /// The volume ports the selected volumes are written to.
-    //VolumePort outport1_, outport2_, outport3_, outport4_;
+    VolumePort outport1_, outport2_, outport3_, outport4_;
     
-    //std::vector<VolumePort*> outports_;
+    std::vector<VolumePort*> outports_;
 
     static const std::string loggerCat_;
 
