@@ -7,7 +7,7 @@
 
 namespace voreen {
 
-const std::string MultiVolumeSelector::loggerCat_("voreen.core.MultiVolumeSelector");
+const std::string MultiVolumeSelector::loggerCat_("3MTK.DensityMap.MultiVolumeSelector");
 
 MultiVolumeSelector::MultiVolumeSelector()
     : Processor()

@@ -28,6 +28,9 @@ void FormFinder::findDomains()
 
 	PointCloud  cloud;
 	int	mom_total = cloud.GetMomentsNumber(momentsOrder_.get());
+	
+	std::cout << "Total number of moments: " << mom_total << std::endl;
+	
 	moments = new double[mom_total];
 	cloud.VolumeFill(vol, accuracy_.get());	
 	cloud.weightfactor  = weightFactor_.get();

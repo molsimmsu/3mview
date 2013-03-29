@@ -5,7 +5,7 @@
             <MetaData>
                 <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
                     <values>
-                        <item type="TransferFunctionEditor" ref="ref58" />
+                        <item type="ChecklistVolumeSelector" ref="ref58" />
                     </values>
                 </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
@@ -140,10 +140,10 @@
                 <Processor type="Canvas" name="Canvas" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-1101" y="467" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="821" y="295" width="538" height="477" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="822" y="322" width="538" height="477" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="821" y="295" />
+                            <value x="822" y="322" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="538" y="477" />
@@ -523,10 +523,8 @@
                                 <url value="../../../Tests/EMD-2013.map" />
                                 <url value="../../../Tests/copy of EMD-2013.ccp4" />
                                 <url value="../../../Tests/EMD-2013.ccp4" />
-                                <url value="../../../../../.." />
                             </VolumeURLs>
                             <Selection>
-                                <entry url="../../../../../.." value="true" />
                                 <entry url="../../../Tests/1aph.ccp4" value="false" />
                                 <entry url="../../../Tests/4e7v.ccp4" value="false" />
                                 <entry url="../../../Tests/6ins.ccp4" value="false" />
@@ -715,10 +713,8 @@
                         <Property name="volumeURLList">
                             <VolumeURLs>
                                 <url value="../../../Tests/EMD-2013.ccp4" />
-                                <url value="../../../../../.." />
                             </VolumeURLs>
                             <Selection>
-                                <entry url="../../../../../.." value="false" />
                                 <entry url="../../../Tests/EMD-2013.ccp4" value="false" />
                             </Selection>
                         </Property>
@@ -773,12 +769,8 @@
                         <Property name="manipulationSlider" value="0.08" />
                         <Property name="manipulationType" value="move" />
                         <Property name="moleculeURLlist_">
-                            <MoleculeURLs>
-                                <url value="/home/dimax/3mview/Tests/4INS.pdb" />
-                            </MoleculeURLs>
-                            <Selection>
-                                <entry url="/home/dimax/3mview/Tests/4INS.pdb" value="false" />
-                            </Selection>
+                            <MoleculeURLs />
+                            <Selection />
                         </Property>
                     </Properties>
                     <Inports />
@@ -6318,7 +6310,7 @@
                     <Outports />
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="TransferFunctionEditor" name="TransferFunctionEditor" id="ref58">
+                <Processor type="TransferFunctionEditor" name="TransferFunctionEditor">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-1087" y="-1059" />
                     </MetaData>
@@ -6341,7 +6333,7 @@
                         </Property>
                         <Property name="func2" AlwaysFitDomain="false" id="ref106">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="true" width="504" height="308" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="true" x="729" y="460" width="504" height="308" />
                             </MetaData>
                             <TransferFunction type="TransFuncIntensity" lower="0.75098813" upper="1">
                                 <Keys>
@@ -6672,6 +6664,20 @@
                             </Properties>
                         </Port>
                     </Inports>
+                    <Outports />
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="ChecklistVolumeSelector" name="ChecklistVolumeSelector" id="ref58">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-1170" y="-870" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="volumeURLList">
+                            <VolumeURLs />
+                            <Selection />
+                        </Property>
+                    </Properties>
+                    <Inports />
                     <Outports />
                     <InteractionHandlers />
                 </Processor>
