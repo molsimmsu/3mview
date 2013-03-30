@@ -51,7 +51,7 @@ PDBtoEDM::PDBtoEDM()
 , outport_(Port::OUTPORT, "volumehandle.volumehandle", "Volume Output")
 , calculationmode_("calcmode", "Calculation mode")
 , atoomr_("atoomr", "Length of calc (A)", 2, 1, 3)
-, deltaatoomr_("deltaatoomr", "Step (*0.01 A)", 20, 1, 200)
+, deltaatoomr_("deltaatoomr", "Step (*0.01 A)", 20, 1, 500)
 , resolution_("resolution", "Resolution (*0.1 A)", 30, 1, 100)
 //, gaussvoxel_("gaussvoxel_", "Gauss blur", 1, 0, 5)
 , calcelectronnumb_("calcelectron", "Calculate Number Of Electrons", true)
@@ -872,6 +872,13 @@ if (mol.NumAtoms()!=0)
         PDBtoEDM::GenerateEDMGrid_ScatteringFactor(InputMoll);
     if (calculationmode_.isSelected("structure"))
         PDBtoEDM::GenerateEDMGrid_StructureFactor(InputMoll);
+
+
+//-----------------------------------------
+//--------Set volume identifier------------
+//-----------------------------------------
+VolumeBase* volume = outport_.getWritableData();
+volume->setOrigin(InputMoll->getOrigin());
 
 
 LWARNING("Density map calculated!");
