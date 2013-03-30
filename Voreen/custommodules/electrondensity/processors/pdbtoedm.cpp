@@ -210,75 +210,6 @@ std::cout << "Calculate density map: "<<i*100/mol.NumAtoms()<< "%"<<"\r";
 //-----------------------------------------
 
 
-/*
-//------------Gauss filtering--------------
-//-----------------------------------------
-
-if (gaussfiltering_.get()==true)
-{
-int N=gaussvoxel_.get();
-int tempi,tempj,tempk;
-float gaus[2*N+1][2*N+1][2*N+1],sigm2;
-if (N==0) gaus[0][0][0]=1;
-else
-{
-
-    sigm2=pow(N/3.0,2);
-
-float summ=0;
-    for (int i=-N; i<=N; i++)
-    for (int j=-N; j<=N; j++)
-    for (int k=-N; k<=N; k++)
-    {
-       tempi=i+N;
-       tempj=j+N;
-       tempk=k+N;
-    gaus[tempi][tempj][tempk]=1/pow((2*PI*sigm2),1.5)*exp(-(i*i+j*j+k*k)/(2*sigm2));
-    summ=summ+gaus[tempi][tempj][tempk];
-
-    }
-
-    for (int i=-N; i<=N; i++)
-    for (int j=-N; j<=N; j++)
-    for (int k=-N; k<=N; k++)
-    {
-        tempi=i+N;
-        tempj=j+N;
-        tempk=k+N;
-        gaus[tempi][tempj][tempk]=gaus[tempi][tempj][tempk]/summ;
-
-    }
-
-}
-
-for (int i=0; i<NumberVoxels_x; i++)
-{
-for (int j=0; j<NumberVoxels_y; j++)
-for (int k=0; k<NumberVoxels_z; k++)
-{
-float meanval=0;
-for (int ii=-N; ii<=N; ii++)
-    for (int jj=-N; jj<=N; jj++)
-    for (int kk=-N; kk<=N; kk++)
-    {
-        tempi=i+ii;
-        tempj=j+jj;
-        tempk=k+kk;
-        if ((tempi>=0)&(tempj>=0)&(tempk>=0)&(tempi<NumberVoxels_x)&(tempj<NumberVoxels_y)&(tempk<NumberVoxels_z))
-
-        meanval=meanval+((VolumeAtomic<float_t>*)targetDataset)->voxel(tempi,tempj,tempk)*gaus[ii+N][jj+N][kk+N];
-
-    }
-    ((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)=meanval;
-}
-std::cout << "Gauss filtering...: "<<i*100/NumberVoxels_x<< "%"<<"\r";
-}
-}
-//-----------------------------------------
-//-----------------------------------------
-*/
-
-
 //-----------------------------------------
 //--------Calc number of electrons----------
 //-----------------------------------------
@@ -858,7 +789,6 @@ void PDBtoEDM::process() {
     atoomr_.setVisible(false);
 
     }
-//if (gaussfiltering_.get()==true ) gaussvoxel_.setVisible(true); else gaussvoxel_.setVisible(false);
 
 }
 
