@@ -10,6 +10,7 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/densitymapmanipulation.cpp
     ${MOD_DIR}/processors/densitymapcollectionsource.cpp
     ${MOD_DIR}/processors/pdbtoedm.cpp
+    ${MOD_DIR}/processors/correlation.cpp
     ${MOD_DIR}/processors/transferfunctioneditor.cpp
     ${MOD_DIR}/processors/multivolumeselector.cpp
     ${MOD_DIR}/io/mrcvolumereader.cpp
@@ -26,6 +27,7 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/densitymapmanipulation.h
     ${MOD_DIR}/processors/densitymapcollectionsource.h
     ${MOD_DIR}/processors/pdbtoedm.h
+    ${MOD_DIR}/processors/correlation.h
     ${MOD_DIR}/processors/transferfunctioneditor.h
     ${MOD_DIR}/processors/multivolumeselector.h
     ${MOD_DIR}/io/mrcvolumereader.h

@@ -73,8 +73,10 @@ protected:
     IntProperty atoomr_; //calculated distance (A)
     IntProperty deltaatoomr_; //step of calculate (0.1 A)
     IntProperty resolution_; //select resolution for structure factor calculation; (0.1 A)
+    //IntProperty gaussvoxel_; //numberof convolutions voxels
     ButtonProperty generategrid_; //click this button to generate volume
     BoolProperty calcelectronnumb_;
+    //BoolProperty gaussfiltering_;
     StringOptionProperty calculationmode_;
 
 

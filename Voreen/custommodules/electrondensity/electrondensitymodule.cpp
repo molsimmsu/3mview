@@ -5,6 +5,7 @@
 #include "processors/densitymapmanipulation.h"
 #include "processors/densitymapcollectionsource.h"
 #include "processors/pdbtoedm.h"
+#include "processors/correlation.h"
 #include "processors/transferfunctioneditor.h"
 #include "processors/multivolumeselector.h"
 #include "io/mrcvolumereader.h"
@@ -24,6 +25,7 @@ ElectronDensityModule::ElectronDensityModule(const std::string& modulePath)
     registerProcessor(new DensityMapManipulation());
     registerProcessor(new DensityMapCollectionSource());
     registerProcessor(new PDBtoEDM());
+    registerProcessor(new Correlation());
     registerProcessor(new TransferFunctionEditor());
     registerProcessor(new MultiVolumeSelector());
     

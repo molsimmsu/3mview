@@ -9,6 +9,10 @@
 #include "voreen/core/io/volumeserializer.h"
 #include "voreen/core/io/progressbar.h"
 #include "voreen/core/voreenapplication.h"
+
+#include "voreen/core/fft/fftw.h"
+
+
 #include "openbabel/typer.h"
 #include "openbabel/data.h"
 
@@ -33,8 +37,8 @@ using tgt::ivec3;
 using tgt::Texture;
 using namespace OpenBabel;
 
-namespace voreen {
 
+namespace voreen {
 
 
 
@@ -47,9 +51,11 @@ PDBtoEDM::PDBtoEDM()
 , outport_(Port::OUTPORT, "volumehandle.volumehandle", "Volume Output")
 , calculationmode_("calcmode", "Calculation mode")
 , atoomr_("atoomr", "Length of calc (A)", 2, 1, 3)
-, deltaatoomr_("deltaatoomr", "Step (*0.01 A)", 20, 5, 500)
-, resolution_("resolution", "Resolution (*0.1 A)", 30, 5, 100)
+, deltaatoomr_("deltaatoomr", "Step (*0.01 A)", 20, 1, 200)
+, resolution_("resolution", "Resolution (*0.1 A)", 30, 1, 100)
+//, gaussvoxel_("gaussvoxel_", "Gauss blur", 1, 0, 5)
 , calcelectronnumb_("calcelectron", "Calculate Number Of Electrons", true)
+//, gaussfiltering_("gaussfiltering", "Gauss convolution", false)
 , generategrid_("generategrid", "Generate grid")
 
 
@@ -71,6 +77,8 @@ addProperty(atoomr_);
 addProperty(deltaatoomr_);
 addProperty(resolution_);
 addProperty(calcelectronnumb_);
+//addProperty(gaussfiltering_);
+//addProperty(gaussvoxel_);
 addProperty(generategrid_);
 
 
@@ -133,7 +141,7 @@ std::cout << "NumberVoxels_y: "<<NumberVoxels_y<<std::endl;
 std::cout << "NumberVoxels_z: "<<NumberVoxels_z<<std::endl;
 //-----------------------------------------
 //-----------------------------------------
-VolumeRAM* targetDataset = new VolumeAtomic<float>(ivec3(NumberVoxels_x,NumberVoxels_y,NumberVoxels_z));
+VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxels_x,NumberVoxels_y,NumberVoxels_z));
 
 
 //-----------------------------------------
@@ -145,7 +153,7 @@ for (int i=0; i<NumberVoxels_x; i++)
 for (int j=0; j<NumberVoxels_y; j++)
 for (int k=0; k<NumberVoxels_z; k++)
 {
-     ((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)=0;
+     ((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)=0;
 }
 std::string src,dst;
 for (int i = 1; i <= mol.NumAtoms(); i++)
@@ -176,7 +184,7 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
             int temp1=ii*ii+jj*jj+kk*kk;
             if ((tempVoxx>=0)&(tempVoxy>=0)&(tempVoxz>=0)&(tempVoxx<NumberVoxels_x)&(tempVoxy<NumberVoxels_y)&(tempVoxz<NumberVoxels_z)&(temp1<Nsmall*Nsmall)){
 
-                float temp=((VolumeAtomic<float>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz);
+                float temp=((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz);
 
                 if ((ii==0)&(jj==0)&(kk==0))
                 {
@@ -190,7 +198,7 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
                 }
 
 
-                ((VolumeAtomic<float>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz)=temp+ED;
+                ((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz)=temp+ED;
 
 
             }
@@ -201,6 +209,74 @@ std::cout << "Calculate density map: "<<i*100/mol.NumAtoms()<< "%"<<"\r";
 //-----------------------------------------
 //-----------------------------------------
 
+
+/*
+//------------Gauss filtering--------------
+//-----------------------------------------
+
+if (gaussfiltering_.get()==true)
+{
+int N=gaussvoxel_.get();
+int tempi,tempj,tempk;
+float gaus[2*N+1][2*N+1][2*N+1],sigm2;
+if (N==0) gaus[0][0][0]=1;
+else
+{
+
+    sigm2=pow(N/3.0,2);
+
+float summ=0;
+    for (int i=-N; i<=N; i++)
+    for (int j=-N; j<=N; j++)
+    for (int k=-N; k<=N; k++)
+    {
+       tempi=i+N;
+       tempj=j+N;
+       tempk=k+N;
+    gaus[tempi][tempj][tempk]=1/pow((2*PI*sigm2),1.5)*exp(-(i*i+j*j+k*k)/(2*sigm2));
+    summ=summ+gaus[tempi][tempj][tempk];
+
+    }
+
+    for (int i=-N; i<=N; i++)
+    for (int j=-N; j<=N; j++)
+    for (int k=-N; k<=N; k++)
+    {
+        tempi=i+N;
+        tempj=j+N;
+        tempk=k+N;
+        gaus[tempi][tempj][tempk]=gaus[tempi][tempj][tempk]/summ;
+
+    }
+
+}
+
+for (int i=0; i<NumberVoxels_x; i++)
+{
+for (int j=0; j<NumberVoxels_y; j++)
+for (int k=0; k<NumberVoxels_z; k++)
+{
+float meanval=0;
+for (int ii=-N; ii<=N; ii++)
+    for (int jj=-N; jj<=N; jj++)
+    for (int kk=-N; kk<=N; kk++)
+    {
+        tempi=i+ii;
+        tempj=j+jj;
+        tempk=k+kk;
+        if ((tempi>=0)&(tempj>=0)&(tempk>=0)&(tempi<NumberVoxels_x)&(tempj<NumberVoxels_y)&(tempk<NumberVoxels_z))
+
+        meanval=meanval+((VolumeAtomic<float_t>*)targetDataset)->voxel(tempi,tempj,tempk)*gaus[ii+N][jj+N][kk+N];
+
+    }
+    ((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)=meanval;
+}
+std::cout << "Gauss filtering...: "<<i*100/NumberVoxels_x<< "%"<<"\r";
+}
+}
+//-----------------------------------------
+//-----------------------------------------
+*/
 
 
 //-----------------------------------------
@@ -227,6 +303,7 @@ Volume* volumeHandle = new Volume(
             transform                                                                                     // transform
         );
 
+
 outport_.setData(volumeHandle);
 
 //-----------------------------------------
@@ -239,78 +316,73 @@ dr=deltaatoomr_.get()/100.0; //step of grid
 MaxR=2;
 VoxelPerAngstrem=1.0/dr; //number of voxels per angstrem
 resol=resolution_.get()/10.0;
-float scale=1.0/VoxelPerAngstrem;
 struct AtomicED sAtomED;
 const OBMol& mol = InputMoll->getOBMol();
 
-std::cout << "Delta_r: "<< dr<<std::endl;
-std::cout << "Voxel per angstrem: "<< VoxelPerAngstrem<<std::endl;
-std::cout << "Resolution: "<< resol<<std::endl;
 //--------find atom types in pdb-----------
 FindAtomTypesInPDB(mol, &sAtomED);
 //-----------------------------------------
 
 //----------find bounding box--------------
 FindBoundingGeometry(mol);
-std::cout << "NumberVoxels: "<<NumberVoxel_Structure<<std::endl;
-std::cout << "Reflection number: "<<Nh*Nh*Nh<<std::endl;
 //-----------------------------------------
-//-----------------------------------------
-VolumeRAM* targetDataset = new VolumeAtomic<float>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
-
-float ScF[NumberAtom][Nh+1][Nh+1][Nh+1];
-float StrFreal[(2*Nh+1)][(2*Nh+1)][(2*Nh+1)];
-float StrFcomplex[(2*Nh+1)][(2*Nh+1)][(2*Nh+1)];
-float StrFModule[(2*Nh+1)][(2*Nh+1)][(2*Nh+1)];
-float phase[(2*Nh+1)][(2*Nh+1)][(2*Nh+1)];
-float lambd=1.54;
+int NN=2*Nh;
+static complex StF[100000000];
 float ddd;
+if (resol>big_size)
+    {
+        resol=big_size;
+        LWARNING("Resolution > Cell size!");
+    }
 
-//-----------------------------------------
-//--------Calc scattering factors----------
-//-----------------------------------------
-for (int k=0; k<NumberAtom; k++)
+if (dr>resol/2)
+    {
+        dr=resol/2;
+        LWARNING("Grid step > resolution!");
+    }
+
+
+float TempVoxel=big_size/dr;
+float r=log10(TempVoxel)/log10(2);
+int rr=ceil(r);
+
+int NewL=pow(2,rr);
+float powN=pow(NN,3);
+float powNweL=pow(NewL,3);
+NumberVoxel_Structure=NewL;
+dr=big_size/NewL; //step of grid
+float scale=dr;
+float V=pow(big_size,3);
+
+std::cout << "NumberVoxels: "<<NumberVoxel_Structure<<std::endl;
+std::cout << "Reflection number: "<<NN<<std::endl;
+std::cout << "Resolution: "<< resol<<std::endl;
+
+
+VolumeRAM* realData = new VolumeAtomic<float_t>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
+VolumeRAM* complexData = new VolumeAtomic<float_t>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
+VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
+
+for (int hh=0; hh<NewL; hh++)
+for (int kk=0; kk<NewL; kk++)
+for (int ll=0; ll<NewL; ll++)
 {
-for (int hh=-Nh; hh<=Nh; hh++)
-for (int kk=-Nh; kk<=Nh; kk++)
-for (int ll=-Nh; ll<=Nh; ll++)
-{
-int posh = abs(hh);
-int posk = abs(kk);
-int posl = abs(ll);
-ddd=big_size/sqrt(ll*ll+hh*hh+kk*kk+0.0001);
-
-ScF[k][posh][posk][posl]=sAtomED.a1[k]*exp(-sAtomED.b1[k]*pow(1/(2*ddd),2))
-    +sAtomED.a2[k]*exp(-sAtomED.b2[k]*pow(1/(2*ddd),2))
-	+sAtomED.a3[k]*exp(-sAtomED.b3[k]*pow(1/(2*ddd),2))
-	+sAtomED.a4[k]*exp(-sAtomED.b4[k]*pow(1/(2*ddd),2))+sAtomED.c[k];
-
+((VolumeAtomic<float_t>*)realData)->voxel(hh,kk,ll)=0;
+((VolumeAtomic<float_t>*)complexData)->voxel(hh,kk,ll)=0;
+((VolumeAtomic<float_t>*)targetDataset)->voxel(hh,kk,ll)=0.0;
 }
-std::cout << "Calculate scattering factors...: "<<(k+1)*100/(NumberAtom)<< "%"<<"\r";
-}
-std::cout << "Finish calc scattering factor!"<<std::endl;
-//-----------------------------------------
-//-----------------------------------------
+
 
 //-----------------------------------------
 //---------calc structure factors----------
 //-----------------------------------------
 std::string src,dst;
-int posh,posk,posl;
-int pos2h,pos2k,pos2l;
-
-for (int hh=-Nh; hh<=Nh; hh++)
+int pos;
+float atomx,atomy,atomz;
+for (int hh=0; hh<NN; hh++)
+for (int kk=0; kk<NN; kk++)
+for (int ll=0; ll<NN; ll++)
 {
-
-for (int kk=-Nh; kk<=Nh; kk++)
-for (int ll=-Nh; ll<=Nh; ll++)
-{
-posh = abs(hh);
-posk = abs(kk);
-posl = abs(ll);
-pos2h = hh+Nh;
-pos2k = kk+Nh;
-pos2l = ll+Nh;
 
 float tempreal=0,tempcomplex=0;
 for (int i = 1; i <= mol.NumAtoms(); i++)
@@ -322,67 +394,68 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
         ttab.Translate(dst,src);
         int p=0;
         while (dst!=sAtomED.AtomName[p]) p=p+1;
-        float atomx=(a->x()-cx+big_size/2)/big_size;
-        float atomy=(a->y()-cy+big_size/2)/big_size;
-        float atomz=(a->z()-cz+big_size/2)/big_size;
-        tempreal=tempreal+ScF[p][posh][posk][posl]*cos(2*PI*(hh*atomx+kk*atomy+ll*atomz));
-        tempcomplex=tempcomplex+ScF[p][posh][posk][posl]*sin(2*PI*(hh*atomx+kk*atomy+ll*atomz));
+        atomx=(a->x()-cx+big_size/2)/big_size;
+        atomy=(a->y()-cy+big_size/2)/big_size;
+        atomz=(a->z()-cz+big_size/2)/big_size;
+        //scattering
+        ddd=big_size/sqrt(pow(hh-NN,2)+pow(kk-NN,2)+pow(ll-NN,2)+0.0001);
+        float scat=sAtomED.a1[p]*exp(-sAtomED.b1[p]*pow(1/(2*ddd),2))
+    +sAtomED.a2[p]*exp(-sAtomED.b2[p]*pow(1/(2*ddd),2))
+	+sAtomED.a3[p]*exp(-sAtomED.b3[p]*pow(1/(2*ddd),2))
+	+sAtomED.a4[p]*exp(-sAtomED.b4[p]*pow(1/(2*ddd),2))+sAtomED.c[p];
+        //----------
+        tempreal=tempreal+scat*cos(2*PI*((hh-NN)*atomx+(kk-NN)*atomy+(ll-NN)*atomz));
+        tempcomplex=tempcomplex+scat*sin(2*PI*((hh-NN)*atomx+(kk-NN)*atomy+(ll-NN)*atomz));
 
     }
 
-float angle=atan2(tempcomplex,tempreal);
-if (angle<0) angle=angle+2*PI;
-phase[pos2h][pos2k][pos2l]=angle/(2*PI);
-StrFreal[pos2h][pos2k][pos2l]=tempreal;
-StrFcomplex[pos2h][pos2k][pos2l]=tempcomplex;
-StrFModule[pos2h][pos2k][pos2l]=sqrt(tempcomplex*tempcomplex+tempreal*tempreal);
 
-}
-std::cout << "Calculate structure factors...: "<<(pos2h+1)*100/(2*Nh+1)<< "%"<<"\r";
+((VolumeAtomic<float_t>*)realData)->voxel(hh,kk,ll)=tempreal;
+((VolumeAtomic<float_t>*)complexData)->voxel(hh,kk,ll)=tempcomplex;
+std::cout << "Calculate structure factors...: "<<(hh+1)*100/(NN)<< "%"<<"\r";
 }
 
 std::cout << "Finish calc structure factor!"<<std::endl;
 //-----------------------------------------
 //-----------------------------------------
 
+std::cout << "FFT..."<<std::endl;
+for (int hh=0; hh<NewL; hh++)
+for (int kk=0; kk<NewL; kk++)
+for (int ll=0; ll<NewL; ll++)
+{
+    pos =ll+kk*NewL+hh*NewL*NewL;
+    StF[pos].Im=((VolumeAtomic<float_t>*)complexData)->voxel(hh,kk,ll);
+    StF[pos].Re=((VolumeAtomic<float_t>*)realData)->voxel(hh,kk,ll);
+}
+
+
+fft3D(StF, NewL,NewL,NewL, -1);
+
 //-----------------------------------------
 //----------create out volume--------------
 //-----------------------------------------
-float resul;
+std::cout << "Generate out volume..."<<std::endl;
 for (int i=0; i<NumberVoxel_Structure; i++)
 for (int j=0; j<NumberVoxel_Structure; j++)
 for (int k=0; k<NumberVoxel_Structure; k++)
 {
-float temprr=0,temprc=0;;
-float voxx=(i*dr)/big_size;
-float voxy=(j*dr)/big_size;
-float voxz=(k*dr)/big_size;
-for (int hh=-Nh; hh<=Nh; hh++)
-for (int kk=-Nh; kk<=Nh; kk++)
-for (int ll=-Nh; ll<=Nh; ll++)
-{
+    pos=k+j*NumberVoxel_Structure+i*NumberVoxel_Structure*NumberVoxel_Structure;
+float ed=sqrt(pow(StF[pos].Re,2)+pow(StF[pos].Im,2));
+((VolumeAtomic<float_t>*)targetDataset)->voxel(NumberVoxel_Structure-1-i,NumberVoxel_Structure-1-j,NumberVoxel_Structure-1-k)=ed/V;
 
 
-int posh = abs(hh);
-int posk = abs(kk);
-int posl = abs(ll);
-int pos2h = hh+Nh;
-int pos2k = kk+Nh;
-int pos2l = ll+Nh;
-
-temprr=temprr+StrFModule[pos2h][pos2k][pos2l]*cos(2*PI*(hh*voxx+kk*voxy+ll*voxz-phase[pos2h][pos2k][pos2l]));
-temprc=temprc+StrFModule[pos2h][pos2k][pos2l]*sin(2*PI*(hh*voxx+kk*voxy+ll*voxz-phase[pos2h][pos2k][pos2l]));
-resul=sqrt(temprr*temprr+temprc*temprc);
 
 }
- ((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)=temprr/pow(big_size,3);
-std::cout << "Creating out volume: "<<(i+1)*100/(NumberVoxel_Structure)<< "%"<<"\r";
-}
+
+
 //-----------------------------------------
 //-----------------------------------------
 
 if (calcelectronnumb_.get()==true) CalcElectronNumber(targetDataset);
 
+float ca=cos(PI);
+float sa=sin(PI);
 tgt::Matrix4<int> transform
         (
             1, 0, 0, 0,
@@ -395,7 +468,7 @@ tgt::Matrix4<int> transform
 Volume* volumeHandle = new Volume(
             targetDataset,                                                                                // data
             vec3(scale,scale,scale),                                                                      // scale
-            vec3(-(big_size/2)+cx-dr/2,-(big_size/2)+cy-dr/2,-(big_size/2)+cz-dr/2), // offset
+            vec3(-(big_size/2)+cx+dr/2,-(big_size/2)+cy+dr/2,-(big_size/2)+cz+dr/2), // offset
             transform                                                                                     // transform
         );
 
@@ -414,12 +487,12 @@ outport_.setData(volumeHandle);
 void PDBtoEDM::CalcElectronNumber(const VolumeRAM* targetDataset)
 {
 float ENumber=0;
-ivec3 NN=((VolumeAtomic<float>*)targetDataset)->getDimensions();
+ivec3 NN=((VolumeAtomic<float_t>*)targetDataset)->getDimensions();
 for (int i=0; i<NN[0]; i++)
 for (int j=0; j<NN[1]; j++)
 for (int k=0; k<NN[2]; k++)
 {
-ENumber=ENumber+((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)*dr*dr*dr;
+ENumber=ENumber+((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)*dr*dr*dr;
 }
 std::cout << "Number of electron in volume: "<<ENumber<<std::endl;
 }
@@ -762,8 +835,8 @@ big_size=0;
 if (big_size<2*(size_x+MaxR)) big_size=2*(size_x+MaxR);
 if (big_size<2*(size_y+MaxR)) big_size=2*(size_y+MaxR);
 if (big_size<2*(size_z+MaxR)) big_size=2*(size_z+MaxR);
-NumberVoxel_Structure=big_size/dr;
 Nh=big_size/resol;
+NumberVoxel_Structure=2*Nh;
 std::cout << "Size of bounding geometry: "<< 2*(size_x+MaxR)<<";"<<2*(size_y+MaxR)<<";"<<2*(size_z+MaxR)<<std::endl;
 std::cout << "Cube bounding: "<<big_size<<std::endl;
 
@@ -785,7 +858,7 @@ void PDBtoEDM::process() {
     atoomr_.setVisible(false);
 
     }
-
+//if (gaussfiltering_.get()==true ) gaussvoxel_.setVisible(true); else gaussvoxel_.setVisible(false);
 
 }
 
@@ -800,11 +873,6 @@ if (mol.NumAtoms()!=0)
     if (calculationmode_.isSelected("structure"))
         PDBtoEDM::GenerateEDMGrid_StructureFactor(InputMoll);
 
-//-----------------------------------------
-//--------Set volume identifier------------
-//-----------------------------------------
-VolumeBase* volume = outport_.getWritableData();
-volume->setOrigin(InputMoll->getOrigin());
 
 LWARNING("Density map calculated!");
 }
