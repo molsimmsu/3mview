@@ -3,6 +3,7 @@
 
 #include "../../geometry/processors/manipulationbase.h"
 #include "../../molecule/ports/moleculeport.h"
+#include "densitymapcoprocessor.h"
 
 #include "voreen/core/ports/allports.h"
 #include "voreen/core/datastructures/volume/volume.h"
@@ -24,7 +25,7 @@ namespace voreen {
 
 class Volume;
 
-class PDBtoEDM : virtual public Processor{
+class PDBtoEDM : public DensityMapCoProcessor {
 
 public:
 
@@ -58,8 +59,8 @@ protected:
     virtual void setDescriptions() {setDescription("Loads multiple electron density maps and provides them as VolumeCollection.");}
     virtual void process();
     virtual void ShowGrid();
-    void GenerateEDMGrid_ScatteringFactor(const Molecule* InputMoll);
-    void GenerateEDMGrid_StructureFactor(const Molecule* InputMoll);
+    Volume* GenerateEDMGrid_ScatteringFactor(const Molecule* InputMoll);
+    Volume* GenerateEDMGrid_StructureFactor(const Molecule* InputMoll);
     void CalcElectronNumber(const VolumeRAM* targetDataset);
     void FindAtomTypesInPDB(const OBMol mol, struct AtomicED* sAtomED);
     float CalcElectronDens(struct AtomicED sAtomED, int k, float R);

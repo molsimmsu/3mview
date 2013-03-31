@@ -11,7 +11,9 @@
 #include "voreen/core/io/progressbar.h"
 #include "voreen/core/voreenapplication.h"
 
-const std::string DensityMapCollectionSource::loggerCat_("3mview.densitymap.DensityMapCollectionSource");
+#include <sstream>
+
+const std::string DensityMapCollectionSource::loggerCat_("3MTK.DensityMap.DensityMapCollectionSource");
 
 DensityMapCollectionSource::DensityMapCollectionSource()
     : Processor()
@@ -60,13 +62,17 @@ void DensityMapCollectionSource::setVolumeCollection(VolumeCollection* collectio
     volumeURLList_.clear();
     if (!collection)
         return;
-    for (size_t i=0; i<collection->size(); i++)
+    for (size_t i = 0; i<collection->size(); i++)
         volumeURLList_.addVolume(collection->at(i), owner, true);
 }
 
 void DensityMapCollectionSource::addVolume(VolumeBase* vol, bool owner, bool selected) {
-    LINFO("Adding volume with origin:");
-    LINFO(vol->getOrigin().getURL());
+    LINFO("Start addVolume()");
+    
+    std::stringstream info;
+    info << "Origin: " << vol->getOrigin().getURL();
+    LINFO(info.str());
+    
     volumeURLList_.addVolume(vol, owner, selected);
 }
 

@@ -96,7 +96,7 @@ Processor* PDBtoEDM::create() const {
         return new PDBtoEDM();
 }
 
-void PDBtoEDM::GenerateEDMGrid_ScatteringFactor(const Molecule* InputMoll) {
+Volume* PDBtoEDM::GenerateEDMGrid_ScatteringFactor(const Molecule* InputMoll) {
 dr=deltaatoomr_.get()/100.0; //step of grid
 MaxR=atoomr_.get();
 VoxelPerAngstrem=1.0/dr; //number of voxels per angstrem
@@ -141,7 +141,7 @@ std::cout << "NumberVoxels_y: "<<NumberVoxels_y<<std::endl;
 std::cout << "NumberVoxels_z: "<<NumberVoxels_z<<std::endl;
 //-----------------------------------------
 //-----------------------------------------
-VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxels_x,NumberVoxels_y,NumberVoxels_z));
+VolumeRAM* targetDataset = new VolumeAtomic<float>(ivec3(NumberVoxels_x,NumberVoxels_y,NumberVoxels_z));
 
 
 //-----------------------------------------
@@ -153,7 +153,7 @@ for (int i=0; i<NumberVoxels_x; i++)
 for (int j=0; j<NumberVoxels_y; j++)
 for (int k=0; k<NumberVoxels_z; k++)
 {
-     ((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)=0;
+     ((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)=0;
 }
 std::string src,dst;
 for (int i = 1; i <= mol.NumAtoms(); i++)
@@ -184,7 +184,7 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
             int temp1=ii*ii+jj*jj+kk*kk;
             if ((tempVoxx>=0)&(tempVoxy>=0)&(tempVoxz>=0)&(tempVoxx<NumberVoxels_x)&(tempVoxy<NumberVoxels_y)&(tempVoxz<NumberVoxels_z)&(temp1<Nsmall*Nsmall)){
 
-                float temp=((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz);
+                float temp=((VolumeAtomic<float>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz);
 
                 if ((ii==0)&(jj==0)&(kk==0))
                 {
@@ -198,7 +198,7 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
                 }
 
 
-                ((VolumeAtomic<float_t>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz)=temp+ED;
+                ((VolumeAtomic<float>*)targetDataset)->voxel(tempVoxx,tempVoxy,tempVoxz)=temp+ED;
 
 
             }
@@ -235,13 +235,13 @@ Volume* volumeHandle = new Volume(
         );
 
 
-outport_.setData(volumeHandle);
+return volumeHandle;
 
 //-----------------------------------------
 //-----------------------------------------
 }
 
-void PDBtoEDM::GenerateEDMGrid_StructureFactor(const Molecule* InputMoll) {
+Volume* PDBtoEDM::GenerateEDMGrid_StructureFactor(const Molecule* InputMoll) {
 
 dr=deltaatoomr_.get()/100.0; //step of grid
 MaxR=2;
@@ -290,17 +290,17 @@ std::cout << "Reflection number: "<<NN<<std::endl;
 std::cout << "Resolution: "<< resol<<std::endl;
 
 
-VolumeRAM* realData = new VolumeAtomic<float_t>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
-VolumeRAM* complexData = new VolumeAtomic<float_t>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
-VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
+VolumeRAM* realData = new VolumeAtomic<float>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
+VolumeRAM* complexData = new VolumeAtomic<float>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
+VolumeRAM* targetDataset = new VolumeAtomic<float>(ivec3(NumberVoxel_Structure,NumberVoxel_Structure,NumberVoxel_Structure));
 
 for (int hh=0; hh<NewL; hh++)
 for (int kk=0; kk<NewL; kk++)
 for (int ll=0; ll<NewL; ll++)
 {
-((VolumeAtomic<float_t>*)realData)->voxel(hh,kk,ll)=0;
-((VolumeAtomic<float_t>*)complexData)->voxel(hh,kk,ll)=0;
-((VolumeAtomic<float_t>*)targetDataset)->voxel(hh,kk,ll)=0.0;
+((VolumeAtomic<float>*)realData)->voxel(hh,kk,ll)=0;
+((VolumeAtomic<float>*)complexData)->voxel(hh,kk,ll)=0;
+((VolumeAtomic<float>*)targetDataset)->voxel(hh,kk,ll)=0.0;
 }
 
 
@@ -341,8 +341,8 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
     }
 
 
-((VolumeAtomic<float_t>*)realData)->voxel(hh,kk,ll)=tempreal;
-((VolumeAtomic<float_t>*)complexData)->voxel(hh,kk,ll)=tempcomplex;
+((VolumeAtomic<float>*)realData)->voxel(hh,kk,ll)=tempreal;
+((VolumeAtomic<float>*)complexData)->voxel(hh,kk,ll)=tempcomplex;
 std::cout << "Calculate structure factors...: "<<(hh+1)*100/(NN)<< "%"<<"\r";
 }
 
@@ -356,8 +356,8 @@ for (int kk=0; kk<NewL; kk++)
 for (int ll=0; ll<NewL; ll++)
 {
     pos =ll+kk*NewL+hh*NewL*NewL;
-    StF[pos].Im=((VolumeAtomic<float_t>*)complexData)->voxel(hh,kk,ll);
-    StF[pos].Re=((VolumeAtomic<float_t>*)realData)->voxel(hh,kk,ll);
+    StF[pos].Im=((VolumeAtomic<float>*)complexData)->voxel(hh,kk,ll);
+    StF[pos].Re=((VolumeAtomic<float>*)realData)->voxel(hh,kk,ll);
 }
 
 
@@ -373,7 +373,7 @@ for (int k=0; k<NumberVoxel_Structure; k++)
 {
     pos=k+j*NumberVoxel_Structure+i*NumberVoxel_Structure*NumberVoxel_Structure;
 float ed=sqrt(pow(StF[pos].Re,2)+pow(StF[pos].Im,2));
-((VolumeAtomic<float_t>*)targetDataset)->voxel(NumberVoxel_Structure-1-i,NumberVoxel_Structure-1-j,NumberVoxel_Structure-1-k)=ed/V;
+((VolumeAtomic<float>*)targetDataset)->voxel(NumberVoxel_Structure-1-i,NumberVoxel_Structure-1-j,NumberVoxel_Structure-1-k)=ed/V;
 
 
 
@@ -404,7 +404,7 @@ Volume* volumeHandle = new Volume(
         );
 
 
-outport_.setData(volumeHandle);
+return volumeHandle;
 
 
 //-----------------------------------------
@@ -418,12 +418,12 @@ outport_.setData(volumeHandle);
 void PDBtoEDM::CalcElectronNumber(const VolumeRAM* targetDataset)
 {
 float ENumber=0;
-ivec3 NN=((VolumeAtomic<float_t>*)targetDataset)->getDimensions();
+ivec3 NN=((VolumeAtomic<float>*)targetDataset)->getDimensions();
 for (int i=0; i<NN[0]; i++)
 for (int j=0; j<NN[1]; j++)
 for (int k=0; k<NN[2]; k++)
 {
-ENumber=ENumber+((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)*dr*dr*dr;
+ENumber=ENumber+((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)*dr*dr*dr;
 }
 std::cout << "Number of electron in volume: "<<ENumber<<std::endl;
 }
@@ -798,17 +798,18 @@ void PDBtoEDM::ShowGrid() {
     
     if (mol.NumAtoms()!=0)
     {
+        Volume* volume;
+        
         if (calculationmode_.isSelected("scattering"))
-            PDBtoEDM::GenerateEDMGrid_ScatteringFactor(InputMoll);
+            volume = GenerateEDMGrid_ScatteringFactor(InputMoll);
         if (calculationmode_.isSelected("structure"))
-            PDBtoEDM::GenerateEDMGrid_StructureFactor(InputMoll);
+            volume = GenerateEDMGrid_StructureFactor(InputMoll);
 
         //-----------------------------------------
         //--------Set volume identifier------------
         //-----------------------------------------
-        VolumeBase* volume = outport_.getWritableData();
         volume->setOrigin(InputMoll->getOrigin());
-        outport_.invalidatePort();
+        getSourceProcessor()->addVolume(volume, true, true);
 
         LWARNING("Density map calculated!");
     }
