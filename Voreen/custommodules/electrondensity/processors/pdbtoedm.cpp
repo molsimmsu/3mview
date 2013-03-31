@@ -793,27 +793,27 @@ void PDBtoEDM::process() {
 }
 
 void PDBtoEDM::ShowGrid() {
+    const Molecule* InputMoll = inport_.getData();
+    const OBMol& mol = InputMoll->getOBMol();
+    
+    if (mol.NumAtoms()!=0)
+    {
+        if (calculationmode_.isSelected("scattering"))
+            PDBtoEDM::GenerateEDMGrid_ScatteringFactor(InputMoll);
+        if (calculationmode_.isSelected("structure"))
+            PDBtoEDM::GenerateEDMGrid_StructureFactor(InputMoll);
 
-const Molecule* InputMoll = inport_.getData();
-const OBMol& mol = InputMoll->getOBMol();
-if (mol.NumAtoms()!=0)
-{
-    if (calculationmode_.isSelected("scattering"))
-        PDBtoEDM::GenerateEDMGrid_ScatteringFactor(InputMoll);
-    if (calculationmode_.isSelected("structure"))
-        PDBtoEDM::GenerateEDMGrid_StructureFactor(InputMoll);
+        //-----------------------------------------
+        //--------Set volume identifier------------
+        //-----------------------------------------
+        VolumeBase* volume = outport_.getWritableData();
+        volume->setOrigin(InputMoll->getOrigin());
+        outport_.invalidatePort();
 
-
-//-----------------------------------------
-//--------Set volume identifier------------
-//-----------------------------------------
-VolumeBase* volume = outport_.getWritableData();
-volume->setOrigin(InputMoll->getOrigin());
-
-
-LWARNING("Density map calculated!");
-}
-else LWARNING("Download a PDB structure!");
+        LWARNING("Density map calculated!");
+    }
+    else 
+        LWARNING("Download a PDB structure!");
 }
 
 
