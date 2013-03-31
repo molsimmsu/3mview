@@ -35,11 +35,11 @@ void ChecklistVolumeSelector::invalidate(int inv) {
         const VolumeCollection* collection = inport_.getData();
         if (collection == 0) return;
         
-        LINFO("Clearing collection");
         volumeURLList_.clear();
-        LINFO("Adding volumes to collection");
+        
         for (size_t i = 0; i < collection->size(); i++)
             volumeURLList_.addVolume(collection->at(i));
+            
         LINFO("Invalidation done");
     }
 }
