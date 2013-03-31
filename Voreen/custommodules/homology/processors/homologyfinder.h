@@ -2,12 +2,14 @@
 #define VRN_HOMOLOGYFINDER_H
 
 #include "../../molecule/processors/moleculecoprocessor.h"
+#include "../../molecule/ports/moleculeport.h"
 #include "../properties/alignmentlistproperty.h"
 
 #include "voreen/core/properties/callmemberaction.h"
 #include "voreen/core/properties/buttonproperty.h"
 #include "voreen/core/properties/filedialogproperty.h"
 #include "voreen/core/properties/stringproperty.h"
+#include "voreen/core/properties/optionproperty.h"
 #include "voreen/core/properties/intproperty.h"
 using namespace voreen;
 
@@ -46,6 +48,9 @@ protected:
     void loadDomains();
     
 private:
+    MoleculePort moleculePort_;
+    
+    StringOptionProperty sequenceSource_;
     FileDialogProperty loadSequence_;
     StringProperty sequenceText_;
     ButtonProperty findDomains_;

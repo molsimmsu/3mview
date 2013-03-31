@@ -112,9 +112,49 @@ std::string MoleculeIO::getAminoFasta(std::string name){
 
 
 // returns string with FASTA formated sequence 
+std::vector<std::string> MoleculeIO::getFastaFromMol(const OBMol& mol){
+    std::vector<std::string> fasta;
+    //std::cout << "getFastaFromMol()" << std::endl;
+    
+    size_t numResidues = mol.NumResidues();
+    //std::cout << numResidues << " residues" << std::endl;
+    
+    for (size_t i = 0; i < numResidues; i++) {
+        OBResidue* res = mol.GetResidue(i);
+        //std::cout << "Residue" << i << std::endl;
+        
+        if (res->GetResidueProperty(0)) { //checks that this residue belongs to protein 
+            std::string resname = res->GetName();
+            
+            //std::cout << "Residue is protein" << std::endl;
+            
+            int chainNum = res->GetChainNum();
+            //std::cout << "Chain num is " << chainNum << std::endl;
+            
+            while (chainNum > fasta.size())
+                fasta.push_back(std::string());
+            
+            std::string aminoFasta = getAminoFasta(resname);
+            //std::cout << "Amino Fasta is " << aminoFasta << std::endl;
+            
+            fasta[chainNum-1].append(aminoFasta);
+            //std::cout << "Append OK" << std::endl;
+        }
+    }
+    
+    // Return only non-empty chains
+    std::vector<std::string> result;
+    for (size_t i = 0; i < fasta.size(); i++)
+        if (fasta[i].size() > 0)
+            result.push_back(fasta[i]);
+    
+    return result;
+}
+
+/*
 std::vector<std::string> MoleculeIO::getFastaFromMol(OBMol mol){
 
-    OBResidueIterator  i;
+    OBResidueIterator i;
     std::vector<std::string> fasta;
 
     fasta.push_back(getAminoFasta(mol.BeginResidue(i)->GetName()));
@@ -122,7 +162,7 @@ std::vector<std::string> MoleculeIO::getFastaFromMol(OBMol mol){
     while(true){
         OBResidue *res = mol.NextResidue(i);
         if(res==0) break;
-        if (res->GetResidueProperty(0)){ //checks that this residue belongs to protein 
+        if (res->GetResidueProperty(0)){ //checks that this residue belongs to protein
             std::string resname = res->GetName();
             
             if (res->GetChainNum() > fasta.size())
@@ -133,14 +173,6 @@ std::vector<std::string> MoleculeIO::getFastaFromMol(OBMol mol){
     }
     return fasta;
 }
-
-
-
-
-
-
-
-
-
+*/
 
 

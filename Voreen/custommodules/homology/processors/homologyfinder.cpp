@@ -6,15 +6,24 @@ std::string HomologyFinder::loggerCat_ = "homology.HomologyFinder";
 
 HomologyFinder::HomologyFinder()
     : loadSequence_("loadSequence", "Load Sequence", "Load Sequence", VoreenApplication::app()->getUserDataPath(), "*.pdb, *.fa")
+    , sequenceSource_("sequenceSource", "Sequence source")
     , sequenceText_("sequenceText", "Sequence", "")
     , findDomains_("findDomains", "Find Domains")
     , alignmentList_("alignmentList", "Alignment List")
     , maxDomainsToLoad_("maxDomainsToLoad", "Max domains to load", 3, 1, 5)
+    , moleculePort_(Port::INPORT, "moleculePort", "Molecule Input")
 {
+    addProperty(sequenceSource_);
     addProperty(loadSequence_);
     addProperty(sequenceText_);
     addProperty(findDomains_);
     addProperty(maxDomainsToLoad_);
+    
+    addPort(moleculePort_);
+    
+    sequenceSource_.addOption("selMol", "Selected molecule");
+    sequenceSource_.addOption("file", "File");
+    sequenceSource_.addOption("string", "String");
     
     findDomains_.onChange(CallMemberAction<HomologyFinder>(this, &HomologyFinder::findDomains));
 }
