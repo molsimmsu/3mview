@@ -10,6 +10,7 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/ports/moleculecollectionport.cpp
     ${MOD_DIR}/processors/moleculesource.cpp
     ${MOD_DIR}/processors/moleculeselector.cpp
+    ${MOD_DIR}/processors/moleculeselectornores.cpp
     ${MOD_DIR}/processors/moleculecollectionsource.cpp
     ${MOD_DIR}/processors/moleculegeometrybuilder.cpp
     ${MOD_DIR}/processors/moleculecollectiongeometrybuilder.cpp
@@ -29,6 +30,7 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/ports/moleculecollectionport.h
     ${MOD_DIR}/processors/moleculesource.h
     ${MOD_DIR}/processors/moleculeselector.h
+    ${MOD_DIR}/processors/moleculeselectornores.h
     ${MOD_DIR}/processors/moleculecollectionsource.h
     ${MOD_DIR}/processors/moleculegeometrybuilder.h
     ${MOD_DIR}/processors/moleculecollectiongeometrybuilder.h
