@@ -84,6 +84,11 @@ public:
     void ClearResidues(int restype, bool invert=false);
     
     /**
+     * Returns a sequence of the molecule in FASTA format
+     */
+    std::vector<std::string> getSequence() const;
+    
+    /**
      * Returns secondary structure of a given residue
      */
     char getSecondaryStructure(size_t chainNum, size_t residueNum) const;
@@ -129,6 +134,8 @@ public:
      * Tells if the transformation matrix has changed
      */
      void notifyTransformationChange(const tgt::mat4& matrix);
+     
+     static std::string getAminoFasta(std::string name);
     
 private:
     OBMol mol_;  ///< OpenBabel molecule data structure

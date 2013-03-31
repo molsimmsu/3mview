@@ -43,9 +43,8 @@ void MoleculeCollectionSource::runTestFasta(){
         }
         for(size_t i = 0; i < collection->size(); i++) {
             Molecule* molecule = collection->at(i);
-            OBMol mol = molecule->getOBMol();
             
-            std::vector<std::string> fasta = MoleculeIO::getFastaFromMol(mol);
+            std::vector<std::string> fasta = molecule->getSequence();
             
             for (size_t i = 0; i < fasta.size(); i++)
                 std::cout << "chain " << i+1 << ": " << fasta[i] <<std::endl;
