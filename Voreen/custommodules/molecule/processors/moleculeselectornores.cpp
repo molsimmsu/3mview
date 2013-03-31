@@ -28,8 +28,8 @@ MoleculeSelectornores::MoleculeSelectornores()
     addPort(outport_);
 
     addProperty(moleculeID_);
-    resType_.onChange(CallMemberAction<MoleculeSelectornores>(this, &MoleculeSelectornores::adjustToMoleculeCollection));
-    invertSelection_.onChange(CallMemberAction<MoleculeSelectornores>(this, &MoleculeSelectornores::adjustToMoleculeCollection));
+    resType_.onChange(CallMemberAction<MoleculeSelectornores>(this, &MoleculeSelectornores::UpdateResSelection));
+    invertSelection_.onChange(CallMemberAction<MoleculeSelectornores>(this, &MoleculeSelectornores::UpdateResSelection));
 }
 
 Processor* MoleculeSelectornores::create() const {
@@ -48,6 +48,19 @@ void MoleculeSelectornores::initialize() throw (tgt::Exception) {
 
 void MoleculeSelectornores::invalidate(int /*inv = INVALID_RESULT*/) {
     adjustToMoleculeCollection();
+}
+
+void MoleculeSelectornores::UpdateResSelection() {
+int resid=9;
+    if(resType_.isSelected("water")) resid=9;
+    else if(resType_.isSelected("protein")) resid=5;
+    else if(resType_.isSelected("nucleo")) resid=4;
+    else if(resType_.isSelected("ion")) resid=3;
+    else if(resType_.isSelected("solvent")) resid=8;
+    const MoleculeCollection* collection = inport_.getData();
+    Molecule *mol = collection->at(moleculeID_.get())->clone();
+    mol->clearResidues(resid, invertSelection_.get());
+    outport_.setData(mol, false);
 }
 
 void MoleculeSelectornores::adjustToMoleculeCollection() {
@@ -76,7 +89,7 @@ void MoleculeSelectornores::adjustToMoleculeCollection() {
 
         // update output handle
         //if (collection->at(moleculeID_.get()) != outport_.getData())
-            Molecule *mol = collection->at(moleculeID_.get());
+            Molecule *mol = collection->at(moleculeID_.get())->clone();
                 mol->clearResidues(resid, invertSelection_.get());
                 outport_.setData(mol, false);
     }
@@ -95,7 +108,7 @@ void MoleculeSelectornores::adjustToMoleculeCollection() {
                 //&& collection->at(moleculeID_.get()) != outport_.getData()
                 )
             {
-                Molecule *mol = collection->at(moleculeID_.get());
+                Molecule *mol = collection->at(moleculeID_.get())->clone();
                 mol->clearResidues(resid, invertSelection_.get());
                 outport_.setData(mol, false);
             }

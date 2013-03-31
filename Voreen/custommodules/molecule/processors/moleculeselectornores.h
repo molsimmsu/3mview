@@ -46,6 +46,7 @@ protected:
     static const std::string loggerCat_;
 
 private:
+    void UpdateResSelection();
     void adjustToMoleculeCollection();
     StringOptionProperty    resType_;
     BoolProperty invertSelection_;
