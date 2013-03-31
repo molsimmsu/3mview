@@ -49,6 +49,12 @@ public:
 
 class Molecule : public Observable<MoleculeObserver> {
 public:
+    enum ResidueType {
+        AMINO = 0, AMINO_NUCLEO = 1, COENZYME = 2, ION = 3, 
+        NUCLEO = 4, PROTEIN = 5, PURINE = 6, PYRIMIDINE = 7, 
+        SOLVENT = 8, WATER = 9 
+    };
+
     Molecule();
     Molecule(const OBMol& mol);
     Molecule(const OBMol& mol, const SecStructure& secStructure);
@@ -81,7 +87,7 @@ public:
      *  
      */
     
-    void ClearResidues(int restype, bool invert=false);
+    void clearResidues(int restype, bool invert=false);
     
     /**
      * Returns a sequence of the molecule in FASTA format

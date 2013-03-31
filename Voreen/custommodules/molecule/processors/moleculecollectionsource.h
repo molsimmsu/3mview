@@ -9,7 +9,7 @@
 #include "voreen/core/ports/coprocessorport.h"
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/properties/filedialogproperty.h"
-#include "voreen/core/properties/buttonproperty.h"
+#include "voreen/core/properties/boolproperty.h"
 using namespace voreen;
 
 class MoleculeCollectionSource : virtual public Processor {
@@ -47,11 +47,9 @@ private:
     MoleculeCollectionPort outport_; ///< This outport must always contain valid data
     CoProcessorPort coProcessorPort_; ///< This outport must always contain valid data
     
+    BoolProperty clearWater_;
     MoleculeURLListProperty moleculeURLlist_;
     
-    //temp
-    ButtonProperty testFasta_;
-    //temp
 };
 
 #endif // VRN_MOLECULECOLLECTIONSOURCE_H

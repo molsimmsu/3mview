@@ -27,7 +27,7 @@ const OBMol& Molecule::getOBMol() const {
     return mol_;
 }
 
-void Molecule::ClearResidues(int restype, bool invert){
+void Molecule::clearResidues(int restype, bool invert) {
     
         std::cout << mol_.NumAtoms() << std::endl;
         std::cout << mol_.NumResidues() << std::endl;
@@ -136,7 +136,7 @@ void Molecule::notifyTransformationChange(const tgt::mat4& matrix) {
     }
 }
 
-std::string Molecule::getAminoFasta(std::string name){
+std::string Molecule::getAminoFasta(std::string name) {
     std::string resfasta;
     if ( name.compare("ALA")==0) resfasta = "A";
         else if ( name.compare("ARG")==0) resfasta = "R";
