@@ -97,7 +97,10 @@ std::string HomologyFinder::getSequence() {
         
         std::vector<std::string> sequence = mol->getSequence();
         
-        if (sequence.size() > 0) return sequence[0];
+        if (sequence.size() > 0) {
+            sequenceText_.set(sequence[0]);
+            return sequence[0];
+        }
         else {
             LWARNING("Molecule sequence is 0.Stop");
             return std::string();
