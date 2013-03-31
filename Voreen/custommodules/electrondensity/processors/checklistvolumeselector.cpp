@@ -54,7 +54,7 @@ void ChecklistVolumeSelector::adjustToVolumeCollection() {
     
     std::stringstream info;
     info << "Setting " << collection->size() << "outports";
-    LINFO(info);
+    LINFO(info.str());
     
     for (size_t i = 0; i < outports_.size(); i++) {
         if (collection && i < collection->size())

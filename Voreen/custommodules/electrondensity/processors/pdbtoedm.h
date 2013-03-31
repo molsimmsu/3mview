@@ -1,7 +1,6 @@
 #ifndef VRN_PDBtoEDM_H
 #define VRN_PDBtoEDM_H
 
-#include "../../geometry/processors/manipulationbase.h"
 #include "../../molecule/ports/moleculeport.h"
 #include "densitymapcoprocessor.h"
 
@@ -53,6 +52,7 @@ struct AtomicED
     virtual std::string getClassName() const  { return "PDBtoEDM"; }
     virtual std::string getCategory() const   { return "Input";                  }
     virtual CodeState getCodeState() const    { return CODE_STATE_STABLE;        }
+    
 protected:
 
 //record of atom types in input PDB with radial electron density distribution
@@ -68,7 +68,6 @@ protected:
     void adjustPropertyVisibility();
     /// The volume port the loaded data set is written to.
     MoleculePort inport_;
-    VolumePort outport_;
 
 
     IntProperty atoomr_; //calculated distance (A)
@@ -79,17 +78,6 @@ protected:
     BoolProperty calcelectronnumb_;
     //BoolProperty gaussfiltering_;
     StringOptionProperty calculationmode_;
-
-
-
-
-
-
-
-
-
-
-
 };
 
 } // namespace

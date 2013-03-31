@@ -4,13 +4,12 @@
 #include "voreen/core/datastructures/volume/volume.h"
 #include "voreen/core/properties/optionproperty.h"
 #include "voreen/core/properties/buttonproperty.h"
-#include "voreen/core/processors/volumeprocessor.h"
-#include "voreen/core/processors/processor.h"
 #include "../datastructures/pointcloud.h"
-
+#include "../../electrondensity/processors/densitymapcoprocessor.h"
+#include "voreen/core/properties/volumeurllistproperty.h"
 using namespace voreen;
 
-class VolVolAlign : public Processor {
+class VolVolAlign : public DensityMapCoProcessor {
 public:
     VolVolAlign();
 
@@ -30,13 +29,13 @@ protected:
     virtual void process() {}
     
     void align();
+    
+    virtual void updateSelection();
 
 private:
-    VolumePort             volinport1_;
-    VolumePort             volinport2_;
-    VolumePort             outport_;
     StringOptionProperty   tobealigned_;
-    ButtonProperty         align_;  
+    ButtonProperty         align_;
+    VolumeURLListProperty volumeURLList_;
 
     tgt::Matrix4d GetAlignment(const Volume* vol);
 

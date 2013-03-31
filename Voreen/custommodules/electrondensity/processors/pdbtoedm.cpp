@@ -47,46 +47,34 @@ const std::string PDBtoEDM::loggerCat_("voreen.core.PDBtoEDM");
 
 PDBtoEDM::PDBtoEDM()
     : Processor()
-, inport_(Port::INPORT, "molecule", "Molecule Input")
-, outport_(Port::OUTPORT, "volumehandle.volumehandle", "Volume Output")
-, calculationmode_("calcmode", "Calculation mode")
-, atoomr_("atoomr", "Length of calc (A)", 2, 1, 3)
-, deltaatoomr_("deltaatoomr", "Step (*0.01 A)", 20, 1, 500)
-, resolution_("resolution", "Resolution (*0.1 A)", 30, 1, 100)
-//, gaussvoxel_("gaussvoxel_", "Gauss blur", 1, 0, 5)
-, calcelectronnumb_("calcelectron", "Calculate Number Of Electrons", true)
-//, gaussfiltering_("gaussfiltering", "Gauss convolution", false)
-, generategrid_("generategrid", "Generate grid")
-
-
-
+    , inport_(Port::INPORT, "molecule", "Molecule Input")
+    , calculationmode_("calcmode", "Calculation mode")
+    , atoomr_("atoomr", "Length of calc (A)", 2, 1, 3)
+    , deltaatoomr_("deltaatoomr", "Step (*0.01 A)", 20, 1, 500)
+    , resolution_("resolution", "Resolution (*0.1 A)", 30, 1, 100)
+    //, gaussvoxel_("gaussvoxel_", "Gauss blur", 1, 0, 5)
+    , calcelectronnumb_("calcelectron", "Calculate Number Of Electrons", true)
+    //, gaussfiltering_("gaussfiltering", "Gauss convolution", false)
+    , generategrid_("generategrid", "Generate grid")
 {
-addPort(outport_);
-addPort(inport_);
+    addPort(inport_);
 
-calculationmode_.addOption("scattering", "Scattering factor");
-calculationmode_.addOption("structure", "Structure factor");
-
-
-//calculationmode_.onChange(SELECT_CALCULATION_MODE);
+    calculationmode_.addOption("scattering", "Scattering factor");
+    calculationmode_.addOption("structure", "Structure factor");
 
 
+    //calculationmode_.onChange(SELECT_CALCULATION_MODE);
 
-addProperty(calculationmode_);
-addProperty(atoomr_);
-addProperty(deltaatoomr_);
-addProperty(resolution_);
-addProperty(calcelectronnumb_);
-//addProperty(gaussfiltering_);
-//addProperty(gaussvoxel_);
-addProperty(generategrid_);
+    addProperty(calculationmode_);
+    addProperty(atoomr_);
+    addProperty(deltaatoomr_);
+    addProperty(resolution_);
+    addProperty(calcelectronnumb_);
+    //addProperty(gaussfiltering_);
+    //addProperty(gaussvoxel_);
+    addProperty(generategrid_);
 
-
-
-
-generategrid_.onClick(REBUILD_EDM_GRID);
-
-
+    generategrid_.onClick(REBUILD_EDM_GRID);
 }
 
 PDBtoEDM::~PDBtoEDM() {

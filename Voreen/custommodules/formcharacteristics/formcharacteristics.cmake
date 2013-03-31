@@ -3,11 +3,8 @@ SET(MOD_CORE_MODULECLASS FormCharacteristicsModule)
 
 # module's core source files, path relative to module dir
 SET(MOD_CORE_SOURCES
-#    ${MOD_DIR}/ports/matrix4doubleport.cpp
-#    ${MOD_DIR}/processors/alignbymoments.cpp
-#    ${MOD_DIR}/processors/databasematch.cpp
     ${MOD_DIR}/datastructures/pointcloud.cpp
-    ${MOD_DIR}/processors/calculatescore_.cpp
+    ${MOD_DIR}/processors/calculatescore.cpp
     ${MOD_DIR}/processors/volvolalign.cpp
     ${MOD_DIR}/processors/molmolalign.cpp
     ${MOD_DIR}/processors/formfinder.cpp
@@ -15,11 +12,8 @@ SET(MOD_CORE_SOURCES
 
 # module's core header files, path relative to module dir
 SET(MOD_CORE_HEADERS
-#    ${MOD_DIR}/ports/matrix4doubleport.h
-#    ${MOD_DIR}/processors/alignbymoments.h
-#    ${MOD_DIR}/processors/databasematch.h
     ${MOD_DIR}/datastructures/pointcloud.h
-    ${MOD_DIR}/processors/calculatescore_.h
+    ${MOD_DIR}/processors/calculatescore.h
     ${MOD_DIR}/processors/volvolalign.h
     ${MOD_DIR}/processors/molmolalign.h
     ${MOD_DIR}/processors/formfinder.h

@@ -5,6 +5,7 @@
 #include "voreen/core/ports/allports.h"
 #include "voreen/core/properties/intproperty.h"
 #include "voreen/core/datastructures/volume/volume.h"
+#include "voreen/core/properties/volumeurllistproperty.h"
 
 #include <vector>
 
@@ -39,6 +40,7 @@ protected:
 
     /// Inport for the volume collection.
     VolumeCollectionPort inport_;
+    VolumeURLListProperty volumeURLList_;
 
     /// The volume ports the selected volumes are written to.
     VolumePort outport1_, outport2_, outport3_, outport4_;
