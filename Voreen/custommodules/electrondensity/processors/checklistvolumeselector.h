@@ -2,6 +2,7 @@
 #define VRN_ChecklistVolumeSelector_H
 
 #include "voreen/core/processors/processor.h"
+#include "voreen/core/properties/buttonproperty.h"
 #include "voreen/core/properties/volumeurllistproperty.h"
 using namespace voreen;
  
@@ -24,6 +25,8 @@ protected:
         setDescription("Select several volumes");
     }
     
+    void adjustToVolumeCollection();
+    
     /// Inport for the volume collection.
     VolumeCollectionPort inport_;
 
@@ -36,6 +39,7 @@ protected:
 
 private:
     VolumeURLListProperty volumeURLList_;
+    ButtonProperty        updateButton_;
 };
 
 #endif // VRN_ChecklistVolumeSelector_H
