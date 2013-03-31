@@ -3,6 +3,7 @@
 
 #include "../../molecule/processors/moleculecoprocessor.h"
 #include "../../molecule/ports/moleculeport.h"
+#include "../../molecule/utils/moleculeio.h"
 #include "../properties/alignmentlistproperty.h"
 
 #include "voreen/core/properties/callmemberaction.h"
@@ -46,6 +47,14 @@ protected:
      * into the molecule collection
      */
     void loadDomains();
+    
+    /*
+     * Get a sequence from a given source:
+     * - Inport molecule
+     * - FASTA file
+     * - String property
+     */
+    std::string getSequence();
     
 private:
     MoleculePort moleculePort_;

@@ -21,15 +21,22 @@ HomologyFinder::HomologyFinder()
     
     addPort(moleculePort_);
     
-    sequenceSource_.addOption("selMol", "Selected molecule");
-    sequenceSource_.addOption("file", "File");
     sequenceSource_.addOption("string", "String");
+    sequenceSource_.addOption("molecule", "Input molecule");
+    // TODO sequenceSource_.addOption("fasta", "FASTA file");
     
     findDomains_.onChange(CallMemberAction<HomologyFinder>(this, &HomologyFinder::findDomains));
 }
 
 void HomologyFinder::findDomains() {
-    std::string seq = sequenceText_.get();
+    LINFO("Start findDomains()");
+    
+    std::string seq = getSequence();
+    if (seq.empty()) {
+        LWARNING("Sequence is empty. Stop");
+        return;
+    }
+    
     LINFO("Finding domains with sequence:");
     LINFO(seq.c_str());
     
@@ -55,6 +62,8 @@ void HomologyFinder::findDomains() {
 	alignmentList_.set(A);
     
     loadDomains();
+    
+    LINFO("Finish findDomains()");
 }
 
 void HomologyFinder::loadDomains() {
@@ -77,3 +86,35 @@ void HomologyFinder::loadDomains() {
         molCollection->load(pdbPath.str());
     }
 }
+
+std::string HomologyFinder::getSequence() {
+    if (sequenceSource_.get() == "molecule") {
+        const Molecule* mol = moleculePort_.getData();
+        if (mol == 0) {
+            LWARNING("Molecule is 0. Stop");
+            return std::string();
+        }
+        
+        std::vector<std::string> sequence = mol->getSequence();
+        
+        if (sequence.size() > 0) return sequence[0];
+        else {
+            LWARNING("Molecule sequence is 0.Stop");
+            return std::string();
+        }
+    }
+    
+    /* TODO
+    if (sequenceSource_.get() == "fasta") {
+        return sequenceText_.get();
+    }
+    */
+    
+    if (sequenceSource_.get() == "string") {
+        return sequenceText_.get();
+    }
+    
+    LERROR("Wrong sequence source selected");
+    return std::string();
+}
+
