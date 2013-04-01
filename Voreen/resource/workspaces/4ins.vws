@@ -3,25 +3,20 @@
     <Workspace version="2" GlobalDescription="">
         <ProcessorNetwork version="13">
             <MetaData>
-                <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
-                    <values>
-                        <item type="Background" ref="ref0" />
-                    </values>
-                </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
-                    <value x="-390.89083862" y="-397.70870972" />
+                    <value x="-302.08059692" y="-622.77282715" />
                 </MetaItem>
-                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.44002053" />
+                <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.69848907" />
                 <MetaItem name="autoLinkCameras" type="BoolMetaData" value="true" />
             </MetaData>
             <Processors>
                 <Processor type="Canvas" name="Canvas" id="ref1">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-194" y="274" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="0" y="154" width="649" height="562" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="245" y="536" width="649" height="562" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="0" y="154" />
+                            <value x="245" y="536" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="649" y="562" />
@@ -106,9 +101,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="721" y="372" />
                             </MetaData>
-                            <position x="4.18616056" y="38.83629608" z="33.76338577" />
-                            <focus x="3.31500483" y="31.91626167" z="24.90809441" />
-                            <upVector x="0.28084496" y="-0.86708391" z="0.41145077" />
+                            <position x="37.17008591" y="43.02709961" z="59.63359833" />
+                            <focus x="17.16636848" y="25.33772087" z="26.70890045" />
+                            <upVector x="0.32695204" y="-0.94269222" z="0.06658676" />
                         </Property>
                         <Property name="jitterEntryPoints" value="false" />
                         <Property name="jitterStepLength" value="0.005" />
@@ -169,9 +164,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="9" y="0" />
                             </MetaData>
-                            <position x="4.18616056" y="38.83629608" z="33.76338577" />
-                            <focus x="3.31500483" y="31.91626167" z="24.90809441" />
-                            <upVector x="0.28084496" y="-0.86708391" z="0.41145077" />
+                            <position x="37.17008591" y="43.02709961" z="59.63359833" />
+                            <focus x="17.16636848" y="25.33772087" z="26.70890045" />
+                            <upVector x="0.32695204" y="-0.94269222" z="0.06658676" />
                         </Property>
                         <Property name="shader.program" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -221,9 +216,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="9" y="0" />
                             </MetaData>
-                            <position x="4.18616056" y="38.83629608" z="33.76338577" />
-                            <focus x="3.31500483" y="31.91626167" z="24.90809441" />
-                            <upVector x="0.28084496" y="-0.86708391" z="0.41145077" />
+                            <position x="37.17008591" y="43.02709961" z="59.63359833" />
+                            <focus x="17.16636848" y="25.33772087" z="26.70890045" />
+                            <upVector x="0.32695204" y="-0.94269222" z="0.06658676" />
                         </Property>
                         <Property name="renderGeometries" value="true" />
                     </Properties>
@@ -424,7 +419,7 @@
                 </Processor>
                 <Processor type="MoleculeGeometryBuilder" name="MoleculeGeometryBuilder" id="ref10">
                     <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-208" y="-702" />
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-210" y="-691" />
                     </MetaData>
                     <Properties>
                         <Property name="atomRadius" value="0.40000001" />
@@ -435,7 +430,7 @@
                         <Property name="traceCylinderRadius" value="0.1" />
                         <Property name="traceNumCylinderSides" value="5" />
                         <Property name="traceNumSteps" value="4" />
-                        <Property name="traceTangentLength" value="1.5" />
+                        <Property name="traceTangentLength" value="1.48000002" />
                     </Properties>
                     <Inports>
                         <Port name="molecule">
@@ -484,7 +479,7 @@
                     </Outports>
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="PDBtoEDM" name="PDBtoEDM" id="ref16">
+                <Processor type="PDBtoEDM" name="PDBtoEDM">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-480" y="-683" />
                     </MetaData>
@@ -515,10 +510,12 @@
                                 <url value="/home/class3d/softw/Work/3mview/Tests/4e7v.pdb" />
                                 <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" />
                                 <url value="/home/satary/soft/3mview/Tests/4INS.pdb" />
+                                <url value="/home/dimax/3mview/Tests/4INS.pdb" />
                             </MoleculeURLs>
                             <Selection>
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/4e7v.pdb" value="true" />
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" value="true" />
+                                <entry url="/home/dimax/3mview/Tests/4INS.pdb" value="true" />
                                 <entry url="/home/satary/soft/3mview/Tests/4INS.pdb" value="true" />
                             </Selection>
                         </Property>
@@ -550,29 +547,6 @@
                     </Outports>
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="MoleculeSelectorNoRes" name="MoleculeSelectorNoRes" id="ref14">
-                    <MetaData>
-                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-290" y="-840" />
-                    </MetaData>
-                    <Properties>
-                        <Property name="invertSelection" value="false" />
-                        <Property name="moleculeID" value="0" />
-                        <Property name="restype" value="water" />
-                    </Properties>
-                    <Inports>
-                        <Port name="moleculecollection">
-                            <Properties />
-                        </Port>
-                    </Inports>
-                    <Outports>
-                        <Port name="moleculehandle.moleculehandle">
-                            <Properties>
-                                <Property name="blockEvents" value="false" />
-                            </Properties>
-                        </Port>
-                    </Outports>
-                    <InteractionHandlers />
-                </Processor>
                 <Processor type="SingleVolumeRaycaster" name="SingleVolumeRaycaster" id="ref4">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-245" y="-18" />
@@ -583,9 +557,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-27" />
                             </MetaData>
-                            <position x="4.18616056" y="38.83629608" z="33.76338577" />
-                            <focus x="3.31500483" y="31.91626167" z="24.90809441" />
-                            <upVector x="0.28084496" y="-0.86708391" z="0.41145077" />
+                            <position x="37.17008591" y="43.02709961" z="59.63359833" />
+                            <focus x="17.16636848" y="25.33772087" z="26.70890045" />
+                            <upVector x="0.32695204" y="-0.94269222" z="0.06658676" />
                         </Property>
                         <Property name="classification" value="transfer-function" />
                         <Property name="compositing" value="dvr" />
@@ -691,6 +665,46 @@
                             </Properties>
                         </Port>
                     </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="MoleculeSelector" name="MoleculeSelector" id="ref14">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-246" y="-854" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="moleculeID" value="0" />
+                    </Properties>
+                    <Inports>
+                        <Port name="moleculecollection">
+                            <Properties />
+                        </Port>
+                    </Inports>
+                    <Outports>
+                        <Port name="moleculehandle.moleculehandle">
+                            <Properties>
+                                <Property name="blockEvents" value="false" />
+                            </Properties>
+                        </Port>
+                    </Outports>
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="MoleculeCleaner" name="MoleculeCleaner" id="ref16">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-1" y="-952" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="clearButton" />
+                        <Property name="createNew" value="true" />
+                        <Property name="invertSelection" value="false" />
+                        <Property name="moleculeURLlist_">
+                            <MoleculeURLs />
+                            <Selection />
+                        </Property>
+                        <Property name="removeHydrogens" value="true" />
+                        <Property name="restype" value="water" />
+                    </Properties>
+                    <Inports />
+                    <Outports />
                     <InteractionHandlers />
                 </Processor>
             </Processors>
@@ -812,7 +826,7 @@
                         <Processor type="MoleculeCollectionSource" ref="ref13" />
                     </Outport>
                     <Inport name="moleculecollection">
-                        <Processor type="MoleculeSelectorNoRes" ref="ref14" />
+                        <Processor type="MoleculeSelector" ref="ref14" />
                     </Inport>
                 </Connection>
                 <Connection>
@@ -824,27 +838,19 @@
                     </Inport>
                 </Connection>
                 <Connection>
-                    <Outport name="moleculehandle.moleculehandle">
-                        <Processor type="MoleculeSelectorNoRes" ref="ref14" />
-                    </Outport>
-                    <Inport name="molecule">
-                        <Processor type="PDBtoEDM" ref="ref16" />
-                    </Inport>
-                </Connection>
-                <Connection>
-                    <Outport name="moleculehandle.moleculehandle">
-                        <Processor type="MoleculeSelectorNoRes" ref="ref14" />
-                    </Outport>
-                    <Inport name="molecule">
-                        <Processor type="MoleculeGeometryBuilder" ref="ref10" />
-                    </Inport>
-                </Connection>
-                <Connection>
                     <Outport name="image.output">
                         <Processor type="SingleVolumeRaycaster" ref="ref4" />
                     </Outport>
                     <Inport name="image.inport1">
                         <Processor type="Compositor" ref="ref6" />
+                    </Inport>
+                </Connection>
+                <Connection>
+                    <Outport name="moleculehandle.moleculehandle">
+                        <Processor type="MoleculeSelector" ref="ref14" />
+                    </Outport>
+                    <Inport name="molecule">
+                        <Processor type="MoleculeGeometryBuilder" ref="ref10" />
                     </Inport>
                 </Connection>
             </Connections>
@@ -863,6 +869,14 @@
                     </Outport>
                     <Inport name="coprocessor.geometryrenderers">
                         <Processor type="GeometryProcessor" ref="ref5" />
+                    </Inport>
+                </CoProcessorConnection>
+                <CoProcessorConnection>
+                    <Outport name="coProcessor">
+                        <Processor type="MoleculeCollectionSource" ref="ref13" />
+                    </Outport>
+                    <Inport name="MoleculeSource">
+                        <Processor type="MoleculeCleaner" ref="ref16" />
                     </Inport>
                 </CoProcessorConnection>
             </CoProcessorConnections>

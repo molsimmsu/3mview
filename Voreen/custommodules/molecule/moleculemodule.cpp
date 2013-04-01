@@ -4,7 +4,7 @@
 #include "processors/moleculecollectionsource.h"
 #include "processors/moleculegeometrybuilder.h"
 #include "processors/moleculeselector.h"
-#include "processors/moleculeselectornores.h"
+#include "processors/moleculecleaner.h"
 #include "processors/moleculesource.h"
 #include "processors/moleculemanipulation.h"
 
@@ -19,7 +19,7 @@ MoleculeModule::MoleculeModule(const std::string& modulePath)
     registerProcessor(new MoleculeCollectionSource());
     registerProcessor(new MoleculeGeometryBuilder());
     registerProcessor(new MoleculeSelector());
-    registerProcessor(new MoleculeSelectornores());
+    registerProcessor(new MoleculeCleaner());
     registerProcessor(new MoleculeSource());
     registerProcessor(new MoleculeManipulation());
 }
