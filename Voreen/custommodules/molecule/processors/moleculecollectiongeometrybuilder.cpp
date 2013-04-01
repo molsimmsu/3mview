@@ -137,6 +137,7 @@ void MoleculeCollectionGeometryBuilder::createMoleculeGeometry(const Molecule* m
         LERROR("Unknown representation name");
         return;
     }
+    molGeom->transform(mol->getTransformationMatrix());
     getOutputGeometry()->push_back(molGeom);
 }
 
