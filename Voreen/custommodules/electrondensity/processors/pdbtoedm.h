@@ -3,6 +3,8 @@
 
 #include "../../molecule/ports/moleculeport.h"
 #include "densitymapcoprocessor.h"
+#include "../../molecule/processors/moleculecoprocessor.h"
+#include "../../molecule/properties/moleculeurllistproperty.h"
 
 #include "voreen/core/ports/allports.h"
 #include "voreen/core/datastructures/volume/volume.h"
@@ -24,7 +26,7 @@ namespace voreen {
 
 class Volume;
 
-class PDBtoEDM : public DensityMapCoProcessor {
+class PDBtoEDM : virtual public MoleculeCoProcessor, virtual public DensityMapCoProcessor {
 
 public:
 
@@ -53,6 +55,8 @@ struct AtomicED
     virtual std::string getCategory() const   { return "Input";                  }
     virtual CodeState getCodeState() const    { return CODE_STATE_STABLE;        }
     
+    virtual void updateSelection();
+    
 protected:
 
 //record of atom types in input PDB with radial electron density distribution
@@ -66,8 +70,7 @@ protected:
     float CalcElectronDens(struct AtomicED sAtomED, int k, float R);
     void FindBoundingGeometry(const OBMol mol);
     void adjustPropertyVisibility();
-    /// The volume port the loaded data set is written to.
-    MoleculePort inport_;
+
 
 
     IntProperty atoomr_; //calculated distance (A)
@@ -78,6 +81,7 @@ protected:
     BoolProperty calcelectronnumb_;
     //BoolProperty gaussfiltering_;
     StringOptionProperty calculationmode_;
+    MoleculeURLListProperty moleculeURLlist_;
 };
 
 } // namespace

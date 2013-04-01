@@ -1,5 +1,6 @@
 #include "pdbtoedm.h"
 
+#include "../datastructures/moleculevolume.h"
 #include "voreen/core/processors/processorwidget.h"
 #include "voreen/core/processors/processorwidgetfactory.h"
 #include "voreen/core/datastructures/volume/volume.h"
@@ -47,7 +48,6 @@ const std::string PDBtoEDM::loggerCat_("voreen.core.PDBtoEDM");
 
 PDBtoEDM::PDBtoEDM()
     : Processor()
-    , inport_(Port::INPORT, "molecule", "Molecule Input")
     , calculationmode_("calcmode", "Calculation mode")
     , atoomr_("atoomr", "Length of calc (A)", 2, 1, 3)
     , deltaatoomr_("deltaatoomr", "Step (*0.01 A)", 20, 1, 500)
@@ -56,15 +56,15 @@ PDBtoEDM::PDBtoEDM()
     , calcelectronnumb_("calcelectron", "Calculate Number Of Electrons", true)
     //, gaussfiltering_("gaussfiltering", "Gauss convolution", false)
     , generategrid_("generategrid", "Generate grid")
+    , moleculeURLlist_("moleculeURLlist_", "Molecule URL List", std::vector<std::string>())
 {
-    addPort(inport_);
 
     calculationmode_.addOption("scattering", "Scattering factor");
     calculationmode_.addOption("structure", "Structure factor");
 
 
     //calculationmode_.onChange(SELECT_CALCULATION_MODE);
-
+    addProperty(moleculeURLlist_);
     addProperty(calculationmode_);
     addProperty(atoomr_);
     addProperty(deltaatoomr_);
@@ -781,32 +781,47 @@ void PDBtoEDM::process() {
 }
 
 void PDBtoEDM::ShowGrid() {
-    const Molecule* InputMoll = inport_.getData();
-    const OBMol& mol = InputMoll->getOBMol();
+    MoleculeCollection* collection = moleculeURLlist_.getMolecules(true);
     
-    if (mol.NumAtoms()!=0)
-    {
-        Volume* volume;
+    for (size_t i = 0; i < collection->size(); i++) {
+        const Molecule* InputMoll = collection->at(i);
+        const OBMol& mol = InputMoll->getOBMol();
         
-        if (calculationmode_.isSelected("scattering"))
-            volume = GenerateEDMGrid_ScatteringFactor(InputMoll);
-        if (calculationmode_.isSelected("structure"))
-            volume = GenerateEDMGrid_StructureFactor(InputMoll);
+        if (mol.NumAtoms()!=0)
+        {
+            Volume* volume;
+            
+            if (calculationmode_.isSelected("scattering"))
+                volume = GenerateEDMGrid_ScatteringFactor(InputMoll);
+            if (calculationmode_.isSelected("structure"))
+                volume = GenerateEDMGrid_StructureFactor(InputMoll);
 
-        //-----------------------------------------
-        //--------Set volume identifier------------
-        //-----------------------------------------
-        volume->setOrigin(InputMoll->getOrigin());
-        
-        tgt::mat4 matrix = volume->getPhysicalToWorldMatrix();
-        volume->setPhysicalToWorldMatrix(InputMoll->getTransformationMatrix() * matrix);
-        
-        getSourceProcessor()->addVolume(volume, true, true);
+            //-----------------------------------------
+            //--------Set volume identifier------------
+            //-----------------------------------------
+            volume->setOrigin(InputMoll->getOrigin());
+            
+            tgt::mat4 matrix = volume->getPhysicalToWorldMatrix();
+            volume->setPhysicalToWorldMatrix(InputMoll->getTransformationMatrix() * matrix);
+            
+            DensityMapCoProcessor::getSourceProcessor()->addVolume(volume, true, true);
 
-        LWARNING("Density map calculated!");
+            LWARNING("Density map calculated!");
+        }
     }
-    else 
-        LWARNING("Download a PDB structure!");
+
+}
+
+void PDBtoEDM::updateSelection() {
+    MoleculeCoProcessor::updateSelection();
+    const MoleculeCollection* collection = getInputMoleculeCollection();
+    if (collection == 0) {
+        LERROR("Collection is NULL at DensityMapManipulation::updateSelection()");
+        return;
+    }
+    moleculeURLlist_.clear();
+    for (size_t i = 0; i < collection->size(); i++)
+        moleculeURLlist_.addMolecule(collection->at(i));
 }
 
 
