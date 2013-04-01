@@ -7,7 +7,7 @@ using namespace voreen;
 
 class MoleculeVolume : public Volume {
 public:
-    MoleculeVolume(VolumeRepresentation* const volume, Molecule* molecule, const tgt::vec3& spacing, const tgt::vec3& offset, const tgt::mat4& transformation = tgt::mat4::identity)
+    MoleculeVolume(Molecule* molecule, VolumeRepresentation* const volume, const tgt::vec3& spacing, const tgt::vec3& offset, const tgt::mat4& transformation = tgt::mat4::identity)
       : Volume(volume, spacing, offset, transformation)
       , molecule_(molecule)
     { }

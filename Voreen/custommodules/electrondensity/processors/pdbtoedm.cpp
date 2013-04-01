@@ -84,7 +84,7 @@ Processor* PDBtoEDM::create() const {
         return new PDBtoEDM();
 }
 
-Volume* PDBtoEDM::GenerateEDMGrid_ScatteringFactor(const Molecule* InputMoll) {
+Volume* PDBtoEDM::GenerateEDMGrid_ScatteringFactor(Molecule* InputMoll) {
 dr=deltaatoomr_.get()/100.0; //step of grid
 MaxR=atoomr_.get();
 VoxelPerAngstrem=1.0/dr; //number of voxels per angstrem
@@ -215,7 +215,8 @@ tgt::Matrix4<int> transform
         );
 
 
-Volume* volumeHandle = new Volume(
+Volume* volumeHandle = new MoleculeVolume(
+            InputMoll,
             targetDataset,                                                                                // data
             vec3(scale,scale,scale),                                                                      // scale
             vec3(-(size_x+MaxR)+cx,-(size_y+MaxR)+cy,-(size_z+MaxR)+cz), // offset
@@ -229,7 +230,7 @@ return volumeHandle;
 //-----------------------------------------
 }
 
-Volume* PDBtoEDM::GenerateEDMGrid_StructureFactor(const Molecule* InputMoll) {
+Volume* PDBtoEDM::GenerateEDMGrid_StructureFactor(Molecule* InputMoll) {
 
 dr=deltaatoomr_.get()/100.0; //step of grid
 MaxR=2;
@@ -384,7 +385,8 @@ tgt::Matrix4<int> transform
         );
 
 
-Volume* volumeHandle = new Volume(
+Volume* volumeHandle = new MoleculeVolume(
+            InputMoll,
             targetDataset,                                                                                // data
             vec3(scale,scale,scale),                                                                      // scale
             vec3(-(big_size/2)+cx+dr/2,-(big_size/2)+cy+dr/2,-(big_size/2)+cz+dr/2), // offset
@@ -784,7 +786,7 @@ void PDBtoEDM::ShowGrid() {
     MoleculeCollection* collection = moleculeURLlist_.getMolecules(true);
     
     for (size_t i = 0; i < collection->size(); i++) {
-        const Molecule* InputMoll = collection->at(i);
+        Molecule* InputMoll = collection->at(i);
         const OBMol& mol = InputMoll->getOBMol();
         
         if (mol.NumAtoms()!=0)

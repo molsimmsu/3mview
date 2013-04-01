@@ -63,15 +63,13 @@ protected:
     virtual void setDescriptions() {setDescription("Loads multiple electron density maps and provides them as VolumeCollection.");}
     virtual void process();
     virtual void ShowGrid();
-    Volume* GenerateEDMGrid_ScatteringFactor(const Molecule* InputMoll);
-    Volume* GenerateEDMGrid_StructureFactor(const Molecule* InputMoll);
+    Volume* GenerateEDMGrid_ScatteringFactor(Molecule* InputMoll);
+    Volume* GenerateEDMGrid_StructureFactor(Molecule* InputMoll);
     void CalcElectronNumber(const VolumeRAM* targetDataset);
     void FindAtomTypesInPDB(const OBMol mol, struct AtomicED* sAtomED);
     float CalcElectronDens(struct AtomicED sAtomED, int k, float R);
     void FindBoundingGeometry(const OBMol mol);
     void adjustPropertyVisibility();
-
-
 
     IntProperty atoomr_; //calculated distance (A)
     IntProperty deltaatoomr_; //step of calculate (0.1 A)
