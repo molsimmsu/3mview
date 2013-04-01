@@ -87,8 +87,12 @@ protected:
     MoleculeGeometry* getMoleculeGeometry(const Molecule* molecule);
     
     virtual void moleculeAdded(const MoleculeCollection* /*source*/, const Molecule* /*handle*/);
+    virtual void moleculeChanged(const MoleculeCollection* /*source*/, const Molecule* /*handle*/);
     virtual void moleculeRemoved(const MoleculeCollection* /*source*/, const Molecule* /*handle*/);
     virtual void moleculeTransformed(const MoleculeCollection* /*source*/, const Molecule* /*handle*/, const tgt::mat4& matrix);
+    
+    void createMoleculeGeometry(const Molecule* mol);
+    void deleteMoleculeGeometry(const Molecule* mol);
     
     /**
      * This function is called whenever the molecule needs to be rebuilt, 

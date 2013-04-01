@@ -3,8 +3,6 @@
 #include "voreen/core/datastructures/geometry/meshlistgeometry.h"
 
 #include "../../geometry/utils/primitivegeometrybuilder.h"
-#include "../../geometry/utils/primitivegeometrybuilder.h"
-
 
 #include "openbabel/mol.h"
 using namespace OpenBabel;
@@ -99,16 +97,41 @@ MoleculeGeometry* MoleculeCollectionGeometryBuilder::getMoleculeGeometry(const M
 
 void MoleculeCollectionGeometryBuilder::moleculeAdded(const MoleculeCollection* mc, const Molecule* mol) {
     LINFO("MoleculeCollectionGeometryBuilder::moleculeAdded()");
-    // TODO Check if there can be more than one instances
-    MoleculeGeometry* molGeom = buildBackboneTraceGeometry(mol);
-    getOutputGeometry()->push_back(molGeom);
+    
+    createMoleculeGeometry(mol);
     outport_.invalidatePort();
 }
 
+void MoleculeCollectionGeometryBuilder::moleculeChanged(const MoleculeCollection* mc, const Molecule* mol) {
+    LINFO("MoleculeCollectionGeometryBuilder::moleculeChanged()");
+    
+    deleteMoleculeGeometry(mol);
+    createMoleculeGeometry(mol);
+    outport_.invalidatePort();
+}
 
 void MoleculeCollectionGeometryBuilder::moleculeRemoved(const MoleculeCollection* mc, const Molecule* mol) {
     LINFO("MoleculeCollectionGeometryBuilder::moleculeRemoved()");
     
+    deleteMoleculeGeometry(mol);
+    outport_.invalidatePort();
+}
+
+void MoleculeCollectionGeometryBuilder::moleculeTransformed(const MoleculeCollection* mc, const Molecule* mol, const tgt::mat4& matrix) {
+    //LINFO("MoleculeCollectionGeometryBuilder::moleculeTransformed()");
+    
+    MoleculeGeometry* moleculeGeometry = getMoleculeGeometry(mol);
+    moleculeGeometry->transform(matrix);
+    
+    outport_.invalidatePort();
+}
+
+void MoleculeCollectionGeometryBuilder::createMoleculeGeometry(const Molecule* mol) {
+    MoleculeGeometry* molGeom = buildBackboneTraceGeometry(mol);
+    getOutputGeometry()->push_back(molGeom);
+}
+
+void MoleculeCollectionGeometryBuilder::deleteMoleculeGeometry(const Molecule* mol) {
     GeometryCollection* geom = getOutputGeometry();
     
     for (size_t i = 0; i < geom->size(); i++) {
@@ -120,17 +143,6 @@ void MoleculeCollectionGeometryBuilder::moleculeRemoved(const MoleculeCollection
             delete molGeom;
         }
     }
-    
-    outport_.invalidatePort();
-}
-
-void MoleculeCollectionGeometryBuilder::moleculeTransformed(const MoleculeCollection* mc, const Molecule* mol, const tgt::mat4& matrix) {
-    //LINFO("MoleculeCollectionGeometryBuilder::moleculeTransformed()");
-    
-    MoleculeGeometry* moleculeGeometry = getMoleculeGeometry(mol);
-    moleculeGeometry->transform(matrix);
-    
-    outport_.invalidatePort();
 }
 
 void MoleculeCollectionGeometryBuilder::rebuildMolecule() {

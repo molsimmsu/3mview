@@ -1,59 +1,44 @@
-#ifndef VRN_MOLECULESELECTORNORES_H
-#define VRN_MOLECULESELECTORNORES_H
+#ifndef VRN_MoleculeCleaner_H
+#define VRN_MoleculeCleaner_H
 
-#include "voreen/core/processors/processor.h"
-#include "../ports/moleculeport.h"
-#include "../ports/moleculecollectionport.h"
-#include "voreen/core/properties/intproperty.h"
+#include "moleculecoprocessor.h"
+#include "../properties/moleculeurllistproperty.h"
+#include "voreen/core/properties/boolproperty.h"
+#include "voreen/core/properties/buttonproperty.h"
+#include "voreen/core/properties/optionproperty.h"
+using namespace voreen;
 
-namespace voreen {
-
-class Molecule;
-class ProcessorWidgetFactory;
-
-/**
- * Selects a single molecule out of a input collection.
- */
-class MoleculeSelectornores : public Processor {
+class MoleculeCleaner : public MoleculeCoProcessor {
 
 public:
-    MoleculeSelectornores();
+    MoleculeCleaner();
     virtual Processor* create() const;
 
-    virtual std::string getClassName() const { return "MoleculeSelectorNoRes";  }
+    virtual std::string getClassName() const { return "MoleculeCleaner";  }
     virtual std::string getCategory() const  { return "Input";           }
-    virtual CodeState getCodeState() const   { return CODE_STATE_STABLE; }
-    virtual bool isUtility() const           { return true; }
-
-    virtual void invalidate(int inv = INVALID_RESULT);
+    virtual CodeState getCodeState() const   { return CODE_STATE_TESTING; }
+    
+    virtual void updateSelection();
 
 protected:
     virtual void setDescriptions() {
-        setDescription("Selects a single molecule from the input collection.");
+        setDescription("Removes selected types of residues from the molecules");
     }
 
-    virtual void process();
-    virtual void initialize() throw (tgt::Exception);
-
-    IntProperty moleculeID_;
-
-    /// Inport for the molecule collection.
-    MoleculeCollectionPort inport_;
-
-    /// The molecule port the selected molecule is written to.
-    MoleculePort outport_;
+    virtual void process() {}
 
     static const std::string loggerCat_;
 
 private:
     void UpdateResSelection();
-    void adjustToMoleculeCollection();
+    
     StringOptionProperty    resType_;
     BoolProperty invertSelection_;
     BoolProperty removeHydrogens_;
+    BoolProperty createNew_;
+    ButtonProperty clearButton_;
+    MoleculeURLListProperty moleculeURLlist_;
 
 };
-
-} // namespace
 
 #endif
