@@ -1,5 +1,7 @@
 #include "densitymapmanipulation.h"
 
+const std::string DensityMapManipulation::loggerCat_("3MTK.DensityMap.DensityMapManipulation");
+
 DensityMapManipulation::DensityMapManipulation()
     : ManipulationBase()
     , volumeURLList_("volumeURLList", "Volume URL List", std::vector<std::string>())
@@ -15,16 +17,16 @@ void DensityMapManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 tra
         for (size_t i = 0; i < collection->size(); i++) {
             VolumeBase* volume = collection->at(i);
             
-            if (typeid(*volume) != typeid(Volume)) {
-                LWARNING("Base class is not an instance of Volume");
-                continue;
-            }
+            //tgt::vec3 volumeOffset = volume->getOffset() + offset;
+            //dynamic_cast<Volume*>(volume)->setOffset(volumeOffset);
             
-            tgt::vec3 volumeOffset = volume->getOffset() + offset;
-            static_cast<Volume*>(volume)->setOffset(volumeOffset);
+            tgt::mat4 offsetMatrix = tgt::mat4::createIdentity();
+            offsetMatrix[0][3] = offset[0];
+            offsetMatrix[1][3] = offset[1];
+            offsetMatrix[2][3] = offset[2];
             
             tgt::mat4 matrix = volume->getPhysicalToWorldMatrix();
-            static_cast<Volume*>(volume)->setPhysicalToWorldMatrix(transform * matrix);
+            dynamic_cast<Volume*>(volume)->setPhysicalToWorldMatrix(offsetMatrix * transform * matrix);
         }
         
         DensityMapCollectionSource* source = getSourceProcessor();

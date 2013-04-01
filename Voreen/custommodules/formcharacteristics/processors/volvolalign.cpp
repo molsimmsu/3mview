@@ -9,6 +9,7 @@ VolVolAlign :: VolVolAlign()
   : Processor()
   , tobealigned_("tobealigned", "Volume to reorientate", Processor::INVALID_PROGRAM)
   , align_("align", "Align", Processor::INVALID_PROGRAM)
+  , createNew_("createNew", "Create new volume")
   , volumeURLList_("volumeURLList", "Volume URL List", std::vector<std::string>())
 {
     tobealigned_.addOption("Vol1ToVol2", "Volume 1 to Volume 2");
@@ -18,6 +19,7 @@ VolVolAlign :: VolVolAlign()
     
     addProperty(volumeURLList_);
     addProperty(tobealigned_);
+    addProperty(createNew_);
     addProperty(align_);
     
     align_.onClick(CallMemberAction<VolVolAlign>(this, &VolVolAlign::align));
@@ -41,17 +43,17 @@ void VolVolAlign :: align()
     
 	if (tobealigned_.isSelected("Vol1ToVol2") || tobealigned_.isSelected("Vol2ToVol1"))
 	{
-		const VolumeBase* firstVolume;
-		const VolumeBase* secondVolume;
+		Volume* firstVolume;
+		Volume* secondVolume;
 		
 		if (tobealigned_.isSelected("Vol1ToVol2")) {
-		    firstVolume  = volumes->at(0);
-		    secondVolume = volumes->at(1);
+		    firstVolume  = dynamic_cast<Volume*>(volumes->at(0));
+		    secondVolume = dynamic_cast<Volume*>(volumes->at(1));
 		}
 		
 		if (tobealigned_.isSelected("Vol2ToVol1")) {
-		    firstVolume  = volumes->at(1);
-		    secondVolume = volumes->at(0);
+		    firstVolume  = dynamic_cast<Volume*>(volumes->at(1));
+		    secondVolume = dynamic_cast<Volume*>(volumes->at(0));
 		}
 		
 		if (firstVolume == 0 || secondVolume == 0) {
@@ -77,19 +79,29 @@ void VolVolAlign :: align()
 		temp->setPhysicalToWorldMatrix(norm2*wrld2);
 
 		norm2.invert(inv2);
- 
-		combinedVolume->setPhysicalToWorldMatrix(inv2*norm1*wrld1);
+		
+		tgt::Matrix4d newMatrix = inv2*norm1*wrld1;
         
-        std::string url1 = firstVolume->getOrigin().getURL();
-        std::string url2 = secondVolume->getOrigin().getFilename();
-        std::string newOrigin = url1 + "_align_to_" + url2;
-        combinedVolume->setOrigin(VolumeURL(newOrigin));
-        
-        std::stringstream info;
-        info << "Output origin: " << newOrigin;
-        LINFO(info);
-        
-		getSourceProcessor()->addVolume(combinedVolume, true, true);
+        if (createNew_.get() == true) {
+		    combinedVolume->setPhysicalToWorldMatrix(newMatrix);
+            
+            std::string url1 = firstVolume->getOrigin().getURL();
+            std::string url2 = secondVolume->getOrigin().getFilename();
+            std::string newOrigin = url1 + "_align_to_" + url2;
+            combinedVolume->setOrigin(VolumeURL(newOrigin));
+            
+            std::stringstream info;
+            info << "Output origin: " << newOrigin;
+            LINFO(info.str());
+            
+		    getSourceProcessor()->addVolume(combinedVolume, true, true);
+		}
+		else {
+		    firstVolume->setOffset (tgt::vec3(0, 0, 0));
+		    firstVolume->setSpacing(tgt::vec3(1, 1, 1));
+		    firstVolume->setPhysicalToWorldMatrix(newMatrix);
+		    getSourceProcessor()->invalidateOutport();
+		}
 	}
 
 	if (tobealigned_.isSelected("Vol1ToOrigin") || tobealigned_.isSelected("Vol2ToOrigin"))

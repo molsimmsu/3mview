@@ -29,6 +29,10 @@ public:
     VolumeCollection* getSelectedVolumeCollection() const { return volumeURLList_.getVolumes(true); }
     
     void addVolume(VolumeBase* vol, bool owner = false, bool selected = false);
+    
+    void invalidateOutport() {
+        outport_.invalidatePort();
+    }
 
 protected:
     virtual void setDescriptions() {

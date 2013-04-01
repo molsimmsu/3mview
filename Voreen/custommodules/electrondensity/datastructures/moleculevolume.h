@@ -14,6 +14,17 @@ public:
     
     Molecule* getMolecule() { return molecule_; }
     
+    virtual void setPhysicalToWorldMatrix(const tgt::mat4& transformationMatrix) {
+        tgt::mat4 oldMatrix = getPhysicalToWorldMatrix();
+        tgt::mat4 invertMatrix;
+        oldMatrix.invert(invertMatrix);
+        tgt::mat4 molTransform = transformationMatrix * invertMatrix;
+        
+        molecule_->transform(molTransform);
+        
+        Volume::setPhysicalToWorldMatrix(transformationMatrix);
+    }
+    
 private:
     Molecule* molecule_;
 };

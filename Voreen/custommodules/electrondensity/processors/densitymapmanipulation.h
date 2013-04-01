@@ -26,6 +26,8 @@ protected:
     virtual void setDescriptions() {
         setDescription("Processor for electron density maps manipulation");
     }
+    
+    static const std::string loggerCat_;
 
 private:
     virtual void applyTransformation(tgt::vec3 offset, tgt::mat4 matrix);
