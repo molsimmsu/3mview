@@ -48,6 +48,16 @@ void MoleculeManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 matri
             return;
         }
         
+        tgt::ivec3 center(0.f, 0.f, 0.f);
+        ///*** here ve calculete group rotation pivot
+        for (size_t i = 0; i < collection->size(); i++) {
+            Molecule* molecule = collection->at(i);
+            tgt::ivec3 temp = molecule->getCenterOfMass();
+            center += temp;
+        }
+        center = tgt::vec3(center[0] / float(collection->size()), center[1] / float(collection->size()), center[2] / float(collection->size()));
+        
+        ///*** aplying pivotcentric rotation
         for (size_t i = 0; i < collection->size(); i++) {
             Molecule* molecule = collection->at(i);
             if (!molecule) {
@@ -61,20 +71,18 @@ void MoleculeManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 matri
                 0, 0, 1, offset[2],
                 0, 0, 0, 1
             );
-            tgt::vec3 cm = molecule->getCenterOfMass();
-            //std::cout << cm << std::endl;
-            
+                        
             tgt::mat4 shiftMatrix(
-                1, 0, 0, -cm[0],
-                0, 1, 0, -cm[1],
-                0, 0, 1, -cm[2],
+                1, 0, 0, -center[0],
+                0, 1, 0, -center[1],
+                0, 0, 1, -center[2],
                 0, 0, 0, 1
             );
             
             tgt::mat4 returnMatrix(
-                1, 0, 0, cm[0],
-                0, 1, 0, cm[1],
-                0, 0, 1, cm[2],
+                1, 0, 0, center[0],
+                0, 1, 0, center[1],
+                0, 0, 1, center[2],
                 0, 0, 0, 1
             );
             tgt::mat4 resultMatrix = returnMatrix * matrix * offsetMatrix * shiftMatrix;

@@ -130,7 +130,6 @@ const tgt::mat4& Molecule::getTransformationMatrix() const {
 void Molecule::transform(const tgt::mat4& matrix) {
     transformationMatrix_ = matrix * transformationMatrix_;
     MassCent_ = matrix * MassCent_;
-    std::cout << MassCent_ << std::endl;
     notifyTransformationChange(matrix);
 }
 
