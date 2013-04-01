@@ -27,6 +27,10 @@ const OBMol& Molecule::getOBMol() const {
     return mol_;
 }
 
+void Molecule::DeleteHydrogens() {
+mol_.DeleteHydrogens();
+}
+
 void Molecule::clearResidues(int restype, bool invert) {
     
         std::cout << mol_.NumAtoms() << std::endl;

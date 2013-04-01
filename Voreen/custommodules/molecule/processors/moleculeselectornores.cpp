@@ -13,7 +13,8 @@ MoleculeSelectornores::MoleculeSelectornores()
       inport_(Port::INPORT, "moleculecollection", "MoleculeCollection Input", false),
       outport_(Port::OUTPORT, "moleculehandle.moleculehandle", "Molecule Output", false),
       resType_("restype", "select residues"),
-      invertSelection_("invertSelection", "Invert Selection", false)
+      invertSelection_("invertSelection", "Invert Selection", false),
+      removeHydrogens_("removeHydrogens", "Remove Hydrogens", true)
 
 {
     resType_.addOption("water", "Water");
@@ -24,12 +25,14 @@ MoleculeSelectornores::MoleculeSelectornores()
     
     addProperty(resType_);
     addProperty(invertSelection_);
+    addProperty(removeHydrogens_);
     addPort(inport_);
     addPort(outport_);
 
     addProperty(moleculeID_);
     resType_.onChange(CallMemberAction<MoleculeSelectornores>(this, &MoleculeSelectornores::UpdateResSelection));
     invertSelection_.onChange(CallMemberAction<MoleculeSelectornores>(this, &MoleculeSelectornores::UpdateResSelection));
+    removeHydrogens_.onChange(CallMemberAction<MoleculeSelectornores>(this, &MoleculeSelectornores::UpdateResSelection));
 }
 
 Processor* MoleculeSelectornores::create() const {
@@ -91,6 +94,7 @@ void MoleculeSelectornores::adjustToMoleculeCollection() {
         //if (collection->at(moleculeID_.get()) != outport_.getData())
             Molecule *mol = collection->at(moleculeID_.get())->clone();
                 mol->clearResidues(resid, invertSelection_.get());
+                if(removeHydrogens_.get()) mol->DeleteHydrogens();
                 outport_.setData(mol, false);
     }
     else {
@@ -110,6 +114,7 @@ void MoleculeSelectornores::adjustToMoleculeCollection() {
             {
                 Molecule *mol = collection->at(moleculeID_.get())->clone();
                 mol->clearResidues(resid, invertSelection_.get());
+                if(removeHydrogens_.get())mol->DeleteHydrogens();
                 outport_.setData(mol, false);
             }
         } else {

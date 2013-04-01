@@ -78,6 +78,8 @@ public:
      */
     const OBMol& getOBMol() const;
     
+    void DeleteHydrogens();
+    
     /**
      *  Delete residues of restype
      *  or delete all residues exept restype if invert=true

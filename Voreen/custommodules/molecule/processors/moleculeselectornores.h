@@ -50,6 +50,7 @@ private:
     void adjustToMoleculeCollection();
     StringOptionProperty    resType_;
     BoolProperty invertSelection_;
+    BoolProperty removeHydrogens_;
 
 };
 
