@@ -7,6 +7,7 @@
 #include "processors/moleculecleaner.h"
 #include "processors/moleculesource.h"
 #include "processors/moleculemanipulation.h"
+#include "processors/moleculerepresentation.h"
 
 namespace voreen {
 
@@ -16,6 +17,7 @@ MoleculeModule::MoleculeModule(const std::string& modulePath)
     setName("Molecule");
     
     registerProcessor(new MoleculeCollectionGeometryBuilder());
+    registerProcessor(new MoleculeRepresentation());
     registerProcessor(new MoleculeCollectionSource());
     registerProcessor(new MoleculeGeometryBuilder());
     registerProcessor(new MoleculeSelector());

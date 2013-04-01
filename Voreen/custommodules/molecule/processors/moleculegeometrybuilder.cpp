@@ -43,10 +43,8 @@ MoleculeGeometryBuilder::MoleculeGeometryBuilder()
     addProperty(atomRadius_);
     addProperty(bondRadius_);
     
-    
-    
-    repType_.addOption("atomsAndBonds", "Atoms and bonds");
-    repType_.addOption("backboneTrace", "Backbone trace");
+    repType_.addOption("BallsAndSticks", "Balls and sticks");
+    repType_.addOption("RibbonsRep", "Ribbons");
     
     repType_.onChange(REBUILD_MOLECULE_ACTION);
     traceTangentLength_.onChange(REBUILD_MOLECULE_ACTION);

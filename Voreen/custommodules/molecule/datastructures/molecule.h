@@ -17,6 +17,90 @@ typedef std::vector< std::vector<char> > SecStructure;
 
 class Molecule;
 
+class MoleculeRep {
+public:
+    MoleculeRep() {}
+    ~MoleculeRep() {}
+    
+    virtual std::string getName() = 0;
+};
+
+class BallsAndSticksRep : public MoleculeRep {
+public:
+    BallsAndSticksRep(
+        float atomsRadius = 0.40f,
+        float bondsRadius = 0.25f,
+        size_t atomsResolution = 5,
+        size_t bondsResolution = 5,
+        bool atomsVisible = true,
+        bool bondsVisible = true
+    )
+    : atomsRadius_(atomsRadius)
+    , bondsRadius_(bondsRadius)
+    , atomsResolution_(atomsResolution)
+    , bondsResolution_(bondsResolution)
+    , atomsVisible_(atomsVisible)
+    , bondsVisible_(bondsVisible)
+    {  }
+    
+    std::string getName() { return std::string("BallsAndSticks"); }
+
+    float atomsRadius() { return atomsRadius_; }
+    float bondsRadius() { return bondsRadius_; }
+    size_t atomsResolution() { return atomsResolution_; }
+    size_t bondsResolution() { return bondsResolution_; }
+    bool atomsVisible() { return atomsVisible_; }
+    bool bondsVisible() { return bondsVisible_; }
+    
+    void atomsRadius(float value) { atomsRadius_ = value; }
+    void bondsRadius(float value) { bondsRadius_ = value; }
+    void atomsResolution(size_t value) { atomsResolution_ = value; }
+    void bondsResolution(size_t value) { bondsResolution_ = value; }
+    void atomsVisible(bool value) { atomsVisible_ = value; }
+    void bondsVisible(bool value) { bondsVisible_ = value; }
+
+private:
+    float atomsRadius_;
+    float bondsRadius_;
+    size_t atomsResolution_;
+    size_t bondsResolution_;
+    bool atomsVisible_;
+    bool bondsVisible_;
+};
+
+class RibbonsRep : public MoleculeRep {
+public:
+    RibbonsRep(
+        float tangentLength = 1.5f,
+        float traceRadius = 0.1f,
+        size_t cylinderResolution = 5,
+        size_t splineResolution = 4
+    )
+    : tangentLength_(tangentLength)
+    , traceRadius_(traceRadius)
+    , cylinderResolution_(cylinderResolution)
+    , splineResolution_(splineResolution)
+    {  }
+    
+    std::string getName() { return std::string("Ribbons"); }
+
+    float tangentLength() { return tangentLength_; }
+    float traceRadius() { return traceRadius_; }
+    size_t cylinderResolution() { return cylinderResolution_; }
+    size_t splineResolution() { return splineResolution_; }
+    
+    void tangentLength(float value) { tangentLength_ = value; }
+    void traceRadius(float value) { traceRadius_ = value; }
+    void cylinderResolution(size_t value) { cylinderResolution_ = value; }
+    void splineResolution(size_t value) { splineResolution_ = value; }
+
+private:
+    float tangentLength_;
+    float traceRadius_;
+    size_t cylinderResolution_;
+    size_t splineResolution_;
+};
+
 /**
  * Interface for molecule handle observers.
  */
@@ -137,6 +221,14 @@ public:
      * of the volume was done.
      */
     void notifyReload();
+    
+    MoleculeRep* getRepresentation() const { return rep_; }
+    
+    void setRepresentation(MoleculeRep* rep) {
+        if (rep_) delete rep_;
+        rep_ = rep;
+        notifyReload();
+    }
      
     /**
      * Tells if the transformation matrix has changed
@@ -147,6 +239,7 @@ public:
     
 private:
     OBMol mol_;  ///< OpenBabel molecule data structure
+    MoleculeRep* rep_;
     VolumeURL origin_;
     SecStructure secStructure_;
     tgt::mat4 transformationMatrix_;

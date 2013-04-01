@@ -4,18 +4,22 @@ namespace voreen {
   
 const std::string Molecule::loggerCat_ = "voreen.Molecule";
 
-Molecule::Molecule() {
+Molecule::Molecule()
+  : rep_(new RibbonsRep()) 
+{
     transformationMatrix_ = tgt::mat4::createIdentity();
 }
 
 Molecule::Molecule(const OBMol& mol)
   : mol_(mol)
+  , rep_(new RibbonsRep())
 {
     transformationMatrix_ = tgt::mat4::createIdentity();
 }
 
 Molecule::Molecule(const OBMol& mol, const SecStructure& secStructure)
   : mol_(mol)
+  , rep_(new RibbonsRep())
   , secStructure_(secStructure)
 {}
 
@@ -53,6 +57,7 @@ void Molecule::clearResidues(int restype, bool invert) {
         std::cout << mol_.NumAtoms() << std::endl;
         std::cout << mol_.NumResidues() << std::endl;
         
+        notifyReload();
 }
 
 std::vector<std::string> Molecule::getSequence() const {

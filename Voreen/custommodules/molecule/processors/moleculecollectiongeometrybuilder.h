@@ -109,6 +109,8 @@ protected:
      */
     MoleculeGeometry* buildAtomsAndBondsGeometry(const Molecule* molecule);
     MoleculeGeometry* buildBackboneTraceGeometry(const Molecule* molecule);
+    
+    tgt::vec3 getAtomColor(int a);
 
 private:
     // ports and properties
