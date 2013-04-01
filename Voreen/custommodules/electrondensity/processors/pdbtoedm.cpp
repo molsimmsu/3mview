@@ -797,6 +797,10 @@ void PDBtoEDM::ShowGrid() {
         //--------Set volume identifier------------
         //-----------------------------------------
         volume->setOrigin(InputMoll->getOrigin());
+        
+        tgt::mat4 matrix = volume->getPhysicalToWorldMatrix();
+        volume->setPhysicalToWorldMatrix(InputMoll->getTransformationMatrix() * matrix);
+        
         getSourceProcessor()->addVolume(volume, true, true);
 
         LWARNING("Density map calculated!");
