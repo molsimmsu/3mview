@@ -2,6 +2,7 @@
 #define VRN_MOLMOLALIGN_H
 
 #include "../../molecule/ports/moleculeport.h"
+#include "../../molecule/processors/moleculecoprocessor.h"
 #include "voreen/core/properties/optionproperty.h"
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
@@ -9,7 +10,7 @@
 
 using namespace voreen;
 
-class MolMolAlign : public Processor {
+class MolMolAlign : public MoleculeCoProcessor {
 public:
     MolMolAlign();
 
@@ -20,6 +21,8 @@ public:
     virtual std::string getClassName() const { return "MolMolAlign";        }
     virtual std::string getCategory()  const { return "Form Analysis";         }
     virtual CodeState getCodeState()   const { return CODE_STATE_EXPERIMENTAL; }
+    
+    virtual void updateSelection();
 
 protected:
     virtual void setDescriptions() {
@@ -32,12 +35,9 @@ protected:
 
 private:
 
-    MoleculePort           molinport1_;
-    MoleculePort           molinport2_;
-    MoleculePort           outport_;
+    MoleculeURLListProperty moleculeURLlist_;
     StringOptionProperty   tobealigned_;
     ButtonProperty         align_;  
-
 
     tgt::mat4 GetAlignment(const Molecule* vol);
 

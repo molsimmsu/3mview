@@ -9,6 +9,7 @@
 using namespace OpenBabel;
 
 #include "tgt/vector.h"
+using tgt::vec3;
 
 #include <iostream>
 
@@ -101,20 +102,21 @@ void MoleculeGeometryBuilder::rebuildMolecule() {
     }
 }
 
-tgt::vec3 MoleculeGeometryBuilder::getAtomColor(int a){
-tgt::vec3 color(1.f, 0.1f, 0.7f);
-if(a==1) color= {0.9f, 0.9f, 0.9f};
-else if(a==6) color = {0.3f, 0.3f, 0.3f};
-else if(a==8) color = {0.8f , 0.f, 0.f};
-else if(a==7) color = {0.3f, 0.3f, 1.f}; 
-else if(a==15) color = {1.f,0.6f,0.f};
-else if(a==16) color = {1.f,0.8f,0.2f}; 
-else if(a==17) color = {0.f,0.9f,0.f}; 
-else if(a==11) color = {0.f,0.f,0.9f}; 
-else if(a==12) color = {0.1f,0.5f,0.1f}; 
-else if(a==20) color = {0.5f,0.5f,0.5f}; 
+vec3 MoleculeGeometryBuilder::getAtomColor(int a) {
+    vec3 color(1.f, 0.1f, 0.7f);
 
-return color;
+         if (a==1)  color = vec3(0.9f, 0.9f, 0.9f);
+    else if (a==6)  color = vec3(0.3f, 0.3f, 0.3f);
+    else if (a==8)  color = vec3(0.8f , 0.f, 0.f);
+    else if (a==7)  color = vec3(0.3f, 0.3f, 1.f); 
+    else if (a==15) color = vec3(1.f,0.6f,0.f);
+    else if (a==16) color = vec3(1.f,0.8f,0.2f); 
+    else if (a==17) color = vec3(0.f,0.9f,0.f); 
+    else if (a==11) color = vec3(0.f,0.f,0.9f); 
+    else if (a==12) color = vec3(0.1f,0.5f,0.1f); 
+    else if (a==20) color = vec3(0.5f,0.5f,0.5f); 
+
+    return color;
 }
 
 void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geometry, const Molecule* molecule) {

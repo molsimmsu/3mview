@@ -30,6 +30,8 @@ public:
     void runTestFasta();
     MoleculeCollection* getMoleculeCollection();
     MoleculeCollection* getSelectedMoleculeCollection();
+    
+    void addMolecule(Molecule* mol, bool owner = false, bool selected = false);
 
 protected:
     virtual void setDescriptions() {

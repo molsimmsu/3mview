@@ -132,3 +132,13 @@ MoleculeCollection* MoleculeCollectionSource::getMoleculeCollection() {
 MoleculeCollection* MoleculeCollectionSource::getSelectedMoleculeCollection() {
     return outport_.getWritableData(); //moleculeURLlist_.getMolecules(true);
 }
+
+void MoleculeCollectionSource::addMolecule(Molecule* mol, bool owner, bool selected) {
+    LINFO("Start addMolecule()");
+    
+    std::stringstream info;
+    info << "Origin: " << mol->getOrigin().getURL();
+    LINFO(info.str());
+    
+    moleculeURLlist_.addMolecule(mol, owner, selected);
+}
