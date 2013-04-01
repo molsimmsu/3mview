@@ -8,6 +8,7 @@ Molecule::Molecule()
   : rep_(new RibbonsRep()) 
 {
     transformationMatrix_ = tgt::mat4::createIdentity();
+    this->CalcCenterOfMass();
 }
 
 Molecule::Molecule(const OBMol& mol)
@@ -15,6 +16,7 @@ Molecule::Molecule(const OBMol& mol)
   , rep_(new RibbonsRep())
 {
     transformationMatrix_ = tgt::mat4::createIdentity();
+    this->CalcCenterOfMass();
 }
 
 Molecule::Molecule(const OBMol& mol, const SecStructure& secStructure)
@@ -33,6 +35,22 @@ const OBMol& Molecule::getOBMol() const {
 
 void Molecule::DeleteHydrogens() {
 mol_.DeleteHydrogens();
+}
+
+void Molecule::CalcCenterOfMass() {
+    float totalmass = 0;
+    MassCent_ = tgt::vec3(0.f, 0.f, 0.f);
+    FOR_ATOMS_OF_MOL(a,mol_){
+        float mass = a->GetAtomicMass();
+        MassCent_ = MassCent_ + tgt::vec3(mass*a->x(), mass*a->y(),mass*a->z());
+        totalmass += mass;
+    }
+    MassCent_ /= totalmass;
+
+}
+
+const tgt::vec3 Molecule::getCenterOfMass(){
+    return MassCent_;
 }
 
 void Molecule::clearResidues(int restype, bool invert) {
@@ -111,6 +129,8 @@ const tgt::mat4& Molecule::getTransformationMatrix() const {
      
 void Molecule::transform(const tgt::mat4& matrix) {
     transformationMatrix_ = matrix * transformationMatrix_;
+    MassCent_ = matrix * MassCent_;
+    std::cout << MassCent_ << std::endl;
     notifyTransformationChange(matrix);
 }
 

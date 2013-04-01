@@ -164,6 +164,10 @@ public:
     
     void DeleteHydrogens();
     
+    void CalcCenterOfMass();
+    
+    const tgt::vec3 getCenterOfMass();
+    
     /**
      *  Delete residues of restype
      *  or delete all residues exept restype if invert=true
@@ -243,6 +247,7 @@ private:
     VolumeURL origin_;
     SecStructure secStructure_;
     tgt::mat4 transformationMatrix_;
+    tgt::vec3 MassCent_;
     
     static const std::string loggerCat_;
 };

@@ -61,8 +61,26 @@ void MoleculeManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 matri
                 0, 0, 1, offset[2],
                 0, 0, 0, 1
             );
+            tgt::vec3 cm = molecule->getCenterOfMass();
+            //std::cout << cm << std::endl;
             
-            molecule->transform(matrix * offsetMatrix);
+            tgt::mat4 shiftMatrix(
+                1, 0, 0, -cm[0],
+                0, 1, 0, -cm[1],
+                0, 0, 1, -cm[2],
+                0, 0, 0, 1
+            );
+            
+            tgt::mat4 returnMatrix(
+                1, 0, 0, cm[0],
+                0, 1, 0, cm[1],
+                0, 0, 1, cm[2],
+                0, 0, 0, 1
+            );
+            tgt::mat4 resultMatrix = returnMatrix * matrix * offsetMatrix * shiftMatrix;
+            molecule->transform(resultMatrix);
+            //molecule->transform(matrix.getRotationalPart());
+            
         }
         
         Processor* processor = getSourceProcessor();
