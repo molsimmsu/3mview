@@ -1,5 +1,16 @@
 #include "primitivegeometrybuilder.h"
 
+MeshGeometry PrimitiveGeometryBuilder::createConeCylinder(tgt::vec3 v1, tgt::vec3 v2, float radius1, float radius2, size_t numSides, tgt::vec3 color, bool buildCaps) {
+    // Get the basis on which the cap vertices are built
+    Basis basis = getCylinderCapBasis(v1, v2);
+    // Cylinder vertices
+    std::vector<tgt::vec3> vertices = makeBasisVertices(v1, basis, radius1, radius1, 
+                                                        v2, basis, radius2, radius2, 
+                                                        numSides);
+    
+    return buildCylinderMesh(vertices, numSides, color);
+}
+
 MeshGeometry PrimitiveGeometryBuilder::createCylinder(tgt::vec3 v1, tgt::vec3 v2, float radius, size_t numSides, tgt::vec3 color, bool buildCaps) {
     // Get the basis on which the cap vertices are built
     Basis basis = getCylinderCapBasis(v1, v2);

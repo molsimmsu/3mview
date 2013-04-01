@@ -54,6 +54,7 @@ protected:
      */
     void buildAtomsAndBondsGeometry(MeshListGeometry* geometry, const Molecule* molecule);
     void buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule);
+    tgt::vec3 getAtomColor(int a);
 
 private:
     // ports and properties
@@ -66,6 +67,9 @@ private:
     IntProperty traceNumCylinderSides_;
     IntProperty traceNumSteps_;
     BoolProperty showCoords_;
+    IntProperty bondAndAtomRes_;
+    FloatProperty atomRadius_;
+    FloatProperty bondRadius_;
 
 };
 
