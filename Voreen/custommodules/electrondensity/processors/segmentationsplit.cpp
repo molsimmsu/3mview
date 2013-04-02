@@ -52,10 +52,10 @@ void SegmentationSplit::splitSegmentation() {
         int segID = segData->voxel(v);
         if (segID == 0) continue;
         
-		if (segID > subVolumes.size())
-		    subVolumes.push_back(SubVolume(v));
-		else
-		    subVolumes[segID-1].expand(v);
+		while (segID > subVolumes.size())
+		    subVolumes.push_back(SubVolume(svec3(10000, 10000, 10000), svec3(0,0,0)));
+		
+		subVolumes[segID-1].expand(v);
 	}
 	
 	LINFO("Got subvolumes bounding boxes");
@@ -63,6 +63,7 @@ void SegmentationSplit::splitSegmentation() {
 	std::vector<Volume*> volumes;
 	vec3 spacing = volume->getSpacing();
 	vec3 offset = volume->getOffset();
+	tgt::mat4 transform = volume->getPhysicalToWorldMatrix();
 	
 	for (size_t i = 0; i < subVolumes.size(); i++) {
 	    svec3 min = subVolumes[i].getMin();
@@ -94,7 +95,7 @@ void SegmentationSplit::splitSegmentation() {
 	        std::stringstream url;
 	        url << baseURL << "_seg" << i+1;
 	    
-	        Volume* volume = new Volume(partData, spacing, offset + partOffset);
+	        Volume* volume = new Volume(partData, spacing, offset + partOffset, transform);
 	        volume->setOrigin(VolumeURL(url.str()));
 	        
 	        getSourceProcessor()->addVolume(volume, true, false);

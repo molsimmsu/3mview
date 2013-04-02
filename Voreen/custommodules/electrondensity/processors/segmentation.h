@@ -35,6 +35,11 @@ public:
       , max_(value)
     {}
     
+    SubVolume(svec3 min, svec3 max)
+      : min_(min)
+      , max_(max)
+    {}
+    
     void expand(svec3 v) {
         for (size_t i = 0; i < 3; i++) {
             if (v[i] < min_[i]) min_[i] = v[i];
