@@ -5,6 +5,7 @@
 #include "openbabel/obconversion.h"
 #include "openbabel/mol.h"
 #include "openbabel/residue.h"
+#include "openbabel/obiter.h"
 
 using namespace OpenBabel;
 
@@ -52,8 +53,21 @@ Molecule* MoleculeIO::read(const MoleculeURL& url) {
 }
 
 
-void MoleculeIO::write(OBMol& mol, const std::string& filename)
-{   
+void MoleculeIO::write(Molecule * molecule, const std::string& filename)
+{
+    tgt::mat4 matrix = molecule->getTransformationMatrix(); 
+    OBMol mol = molecule->clone()->getOBMol();
+    //perform rotation of all atoms
+    
+     FOR_ATOMS_OF_MOL(a, mol)
+     {
+        vector3 pos = a->GetVector();
+        tgt::vec3 pos2 = tgt::vec3(pos[0],pos[1],pos[2]);
+        pos2 = matrix * pos2;
+        pos= vector3(pos2[0],pos2[1],pos2[2]);
+        a->SetVector(pos);
+     }
+    
     std::fstream stream;
     stream.open(filename.c_str(), std::ios_base::out);
 
