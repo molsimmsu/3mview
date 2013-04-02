@@ -206,21 +206,12 @@ if (calcelectronnumb_.get()==true) CalcElectronNumber(targetDataset);
 //-----------------------------------------
 
 
-tgt::Matrix4<int> transform
-        (
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1
-        );
-
-
 Volume* volumeHandle = new MoleculeVolume(
             InputMoll,
             targetDataset,                                                                                // data
             vec3(scale,scale,scale),                                                                      // scale
             vec3(-(size_x+MaxR)+cx,-(size_y+MaxR)+cy,-(size_z+MaxR)+cz), // offset
-            transform                                                                                     // transform
+            InputMoll->getTransformationMatrix()                                                                                   // transform
         );
 
 
@@ -376,21 +367,13 @@ if (calcelectronnumb_.get()==true) CalcElectronNumber(targetDataset);
 
 float ca=cos(PI);
 float sa=sin(PI);
-tgt::Matrix4<int> transform
-        (
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1
-        );
-
 
 Volume* volumeHandle = new MoleculeVolume(
             InputMoll,
             targetDataset,                                                                                // data
             vec3(scale,scale,scale),                                                                      // scale
             vec3(-(big_size/2)+cx+dr/2,-(big_size/2)+cy+dr/2,-(big_size/2)+cz+dr/2), // offset
-            transform                                                                                     // transform
+            InputMoll->getTransformationMatrix()                                                                                     // transform
         );
 
 
@@ -802,9 +785,6 @@ void PDBtoEDM::ShowGrid() {
             //--------Set volume identifier------------
             //-----------------------------------------
             volume->setOrigin(InputMoll->getOrigin());
-            
-            tgt::mat4 matrix = volume->getPhysicalToWorldMatrix();
-            volume->setPhysicalToWorldMatrix(InputMoll->getTransformationMatrix() * matrix);
             
             DensityMapCoProcessor::getSourceProcessor()->addVolume(volume, true, true);
 
