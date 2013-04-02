@@ -309,9 +309,9 @@ vec3 MoleculeCollectionGeometryBuilder::getAtomColor(int a) {
     vec3 color(1.f, 0.1f, 0.7f);
 
          if (a==1)  color = vec3(0.9f, 0.9f, 0.9f);
-    else if (a==6)  color = vec3(0.3f, 0.3f, 0.3f);
-    else if (a==8)  color = vec3(0.8f , 0.f, 0.f);
-    else if (a==7)  color = vec3(0.3f, 0.3f, 1.f); 
+    else if (a==6)  color = vec3(0.6f, 0.9f, 0.9f);
+    else if (a==8)  color = vec3(1.f , 0.1f, 0.1f);
+    else if (a==7)  color = vec3(0.2f, 0.2f, 1.f); 
     else if (a==15) color = vec3(1.f,0.6f,0.f);
     else if (a==16) color = vec3(1.f,0.8f,0.2f); 
     else if (a==17) color = vec3(0.f,0.9f,0.f); 

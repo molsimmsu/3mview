@@ -95,16 +95,39 @@ void PrimitiveGeometrySource::readGeometry() {
             MeshListGeometry* geometry = new MeshListGeometry();
             
             MeshGeometry X = PrimitiveGeometryBuilder::createCylinder(
-                tgt::vec3(0,0,0), tgt::vec3(10,0,0), 1, 8, tgt::vec3(1,0,0));
-            MeshGeometry Y = PrimitiveGeometryBuilder::createCylinder(
-                tgt::vec3(0,0,0), tgt::vec3(0,10,0), 1, 8, tgt::vec3(0,1,0));
-            MeshGeometry Z = PrimitiveGeometryBuilder::createCylinder(
-                tgt::vec3(0,0,0), tgt::vec3(0,0,10), 1, 8, tgt::vec3(0,0,1));
-                
-            geometry->addMesh(X);
-            geometry->addMesh(Y);
-            geometry->addMesh(Z);
+                tgt::vec3(0,0,0), tgt::vec3(10,0,0), 1.0, 16, tgt::vec3(1,0,0));
+            MeshGeometry Xcone = PrimitiveGeometryBuilder::createConeCylinder(
+                tgt::vec3(10,0,0), tgt::vec3(13,0,0), 1.5, 0.0, 16, tgt::vec3(1,0,0),false);
             
+            MeshGeometry Y = PrimitiveGeometryBuilder::createCylinder(
+                tgt::vec3(0,0,0), tgt::vec3(0,10,0), 1.0, 16, tgt::vec3(0,1,0));
+            MeshGeometry Ycone = PrimitiveGeometryBuilder::createConeCylinder(
+                tgt::vec3(0,10,0), tgt::vec3(0,13,0), 1.5, 0, 16, tgt::vec3(0,1,0),false);
+            
+            MeshGeometry Z = PrimitiveGeometryBuilder::createCylinder(
+                tgt::vec3(0,0,0), tgt::vec3(0,0,10), 1.0, 16, tgt::vec3(0,0,1));
+            MeshGeometry Zcone = PrimitiveGeometryBuilder::createConeCylinder(
+                tgt::vec3(0,0,10), tgt::vec3(0,0,13), 1.5, 0.0, 16, tgt::vec3(0,0,1),false);
+            
+            geometry->addMesh(X);
+            geometry->addMesh(Xcone);
+            geometry->addMesh(Y);
+            geometry->addMesh(Ycone);
+            geometry->addMesh(Z);
+            geometry->addMesh(Zcone);
+            
+            for(int i=0; i < 16; i++){
+            float x1 = 2*i/float(16) -1;
+            float x2 = 2*(i+1)/float(16) -1;
+            float R1 = 2.0 * sqrt(1 - x1*x1);
+            float R2 = 2.0 * sqrt(1 - x2*x2);
+            tgt::vec3 v1(2.0*x1, 0.f, 0.f);
+            tgt::vec3 v2(2.0*x2, 0.f, 0.f);
+            
+            MeshGeometry cone = PrimitiveGeometryBuilder::createConeCylinder(v1,v2,R1,R2,16,tgt::vec3(0,1,1),true);
+            geometry->addMesh(cone);
+            }
+                        
             tgtAssert(geometry, "null pointer returned (exception expected)");
             outport_.setData(geometry);
         }
