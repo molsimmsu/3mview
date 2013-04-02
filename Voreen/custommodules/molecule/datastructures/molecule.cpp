@@ -35,6 +35,7 @@ const OBMol& Molecule::getOBMol() const {
 
 void Molecule::DeleteHydrogens() {
 mol_.DeleteHydrogens();
+notifyReload();
 }
 
 void Molecule::CalcCenterOfMass() {

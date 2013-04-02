@@ -8,7 +8,7 @@ const std::string MoleculeCleaner::loggerCat_("3MTK.MoleculeCleaner");
 MoleculeCleaner::MoleculeCleaner()
     : resType_("restype", "select residues")
     , invertSelection_("invertSelection", "Invert Selection", false)
-    , removeHydrogens_("removeHydrogens", "Remove Hydrogens", true)
+    , removeHydrogens_("removeHydrogens", "Remove Hydrogens")
     , createNew_("createNew", "Create new molecule", true)
     , clearButton_("clearButton", "Clear selected")
     , moleculeURLlist_("moleculeURLlist_", "Molecule URL List", std::vector<std::string>())
@@ -22,11 +22,12 @@ MoleculeCleaner::MoleculeCleaner()
     addProperty(moleculeURLlist_);
     addProperty(resType_);
     addProperty(invertSelection_);
-    addProperty(removeHydrogens_);
     addProperty(createNew_);
     addProperty(clearButton_);
+    addProperty(removeHydrogens_);
     
     clearButton_.onChange(CallMemberAction<MoleculeCleaner>(this, &MoleculeCleaner::UpdateResSelection));
+    removeHydrogens_.onChange(CallMemberAction<MoleculeCleaner>(this, &MoleculeCleaner::removeHydrogens));
 }
 
 Processor* MoleculeCleaner::create() const {
@@ -45,6 +46,25 @@ void MoleculeCleaner::updateSelection() {
         moleculeURLlist_.addMolecule(collection->at(i));
 }
 
+void MoleculeCleaner::removeHydrogens() {
+    
+    MoleculeCollection* collection = moleculeURLlist_.getMolecules(true);
+    
+    for (size_t i = 0; i < collection->size(); i++) {
+        Molecule *mol = collection->at(i);
+        if (createNew_.get() == true) {
+            Molecule* newMol = mol->clone();
+            newMol->DeleteHydrogens();
+            std::string url = mol->getOrigin().getURL();
+            newMol->setOrigin(VolumeURL(url + "_no_hydrogens"));            
+            getSourceProcessor()->addMolecule(newMol, true, true);
+        }
+        else
+            mol->DeleteHydrogens();
+    }
+
+}
+
 void MoleculeCleaner::UpdateResSelection() {
     int resid=9;
     if(resType_.isSelected("water")) resid=9;
@@ -60,7 +80,6 @@ void MoleculeCleaner::UpdateResSelection() {
         if (createNew_.get() == true) {
             Molecule* newMol = mol->clone();
             newMol->clearResidues(resid, invertSelection_.get());
-            
             std::string url = mol->getOrigin().getURL();
             newMol->setOrigin(VolumeURL(url + "_no_" + resType_.get()));
             

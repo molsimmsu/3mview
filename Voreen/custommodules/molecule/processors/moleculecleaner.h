@@ -31,10 +31,11 @@ protected:
 
 private:
     void UpdateResSelection();
+    void removeHydrogens();
     
     StringOptionProperty    resType_;
     BoolProperty invertSelection_;
-    BoolProperty removeHydrogens_;
+    ButtonProperty removeHydrogens_;
     BoolProperty createNew_;
     ButtonProperty clearButton_;
     MoleculeURLListProperty moleculeURLlist_;
