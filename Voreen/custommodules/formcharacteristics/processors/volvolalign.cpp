@@ -62,17 +62,14 @@ void VolVolAlign :: align()
 		}
 
  	    Volume* combinedVolume = firstVolume->clone();	    
-		tgt::Matrix4d wrld1 = combinedVolume->getVoxelToWorldMatrix();
+		tgt::Matrix4d wrld1 = combinedVolume->getPhysicalToWorldMatrix();
   	    LINFO("Getting transformation matrix for object..");
  	     
 		tgt::Matrix4d norm1 = GetAlignment(combinedVolume);
 		combinedVolume->setPhysicalToWorldMatrix(norm1*wrld1);
 
-		combinedVolume->setOffset (tgt::vec3(0, 0, 0));
-		combinedVolume->setSpacing(tgt::vec3(1, 1, 1));
-
  	    Volume* temp = secondVolume->clone();	    
-		tgt::Matrix4d wrld2 = temp->getVoxelToWorldMatrix();	
+		tgt::Matrix4d wrld2 = temp->getPhysicalToWorldMatrix();	
 
 		tgt::Matrix4d inv2;
 		tgt::Matrix4d norm2 = GetAlignment(temp);
@@ -97,8 +94,6 @@ void VolVolAlign :: align()
 		    getSourceProcessor()->addVolume(combinedVolume, true, true);
 		}
 		else {
-		    firstVolume->setOffset (tgt::vec3(0, 0, 0));
-		    firstVolume->setSpacing(tgt::vec3(1, 1, 1));
 		    firstVolume->setPhysicalToWorldMatrix(newMatrix);
 		    getSourceProcessor()->invalidateOutport();
 		}
@@ -123,9 +118,6 @@ void VolVolAlign :: align()
 
 		tgt::Matrix4d norm = GetAlignment(combinedVolume);
 		combinedVolume->setPhysicalToWorldMatrix(norm*wrld);
-
-		combinedVolume->setOffset (tgt::vec3(0, 0, 0));
-		combinedVolume->setSpacing(tgt::vec3(1, 1, 1));
 
         std::string url = volume->getOrigin().getURL();
         combinedVolume->setOrigin(VolumeURL(url + "_align_to_origin"));
