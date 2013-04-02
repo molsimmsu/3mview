@@ -784,7 +784,8 @@ void PDBtoEDM::ShowGrid() {
             //-----------------------------------------
             //--------Set volume identifier------------
             //-----------------------------------------
-            volume->setOrigin(InputMoll->getOrigin());
+            std::string url = InputMoll->getOrigin().getURL();
+            volume->setOrigin(VolumeURL(url + "_EDM"));
             
             DensityMapCoProcessor::getSourceProcessor()->addVolume(volume, true, true);
 

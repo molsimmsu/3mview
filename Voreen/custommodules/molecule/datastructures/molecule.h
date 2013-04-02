@@ -195,9 +195,14 @@ public:
      const tgt::mat4& getTransformationMatrix() const;
      
     /**
-     * Returns transformation matrix for offset and rotation
+     * Transform molecule and notify its observers
      */
      void transform(const tgt::mat4& matrix);
+     
+    /**
+     * Transform molecule and notify its observers (uses transform() function)
+     */
+     void setTransformationMatrix(const tgt::mat4& transformationMatrix);
      
     /**
      * Returns the origin the volume has been loaded from,

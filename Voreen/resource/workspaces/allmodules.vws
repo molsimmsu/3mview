@@ -26,9 +26,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="211" y="156" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136834" y="-0.44719931" z="-0.86125159" />
                         </Property>
                         <Property name="classification" lod="1" value="transfer-function" />
                         <Property name="compositing" lod="1" value="dvr" />
@@ -56,7 +56,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="-1.44173872" y="0.50510621" z="-2.7306149" w="0" />
+                            <value x="-4.6078186" y="1.61432755" z="-8.7270813" w="0" />
                         </Property>
                         <Property name="lightSpecular">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -140,7 +140,7 @@
                 <Processor type="Canvas" name="Main View" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-1101" y="467" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="0" y="0" width="677" height="664" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="0" y="-25" width="677" height="664" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
                             <value x="0" y="0" />
@@ -232,11 +232,11 @@
                     <Properties>
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref95">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="577" y="149" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136834" y="-0.44719931" z="-0.86125159" />
                         </Property>
                         <Property name="jitterEntryPoints" lod="1" value="false" />
                         <Property name="jitterStepLength" lod="1" value="0.005" />
@@ -295,11 +295,11 @@
                     <Properties>
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref96">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136831" y="-0.44719926" z="-0.86125147" />
                         </Property>
                         <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -347,11 +347,11 @@
                     <Properties>
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref98">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136831" y="-0.44719926" z="-0.86125147" />
                         </Property>
                         <Property name="renderGeometries" lod="1" value="true" />
                     </Properties>
@@ -522,8 +522,12 @@
                     </MetaData>
                     <Properties>
                         <Property name="volumeURLList">
-                            <VolumeURLs />
-                            <Selection />
+                            <VolumeURLs>
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_EDM" />
+                            </VolumeURLs>
+                            <Selection>
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_EDM" value="false" />
+                            </Selection>
                         </Property>
                     </Properties>
                     <Inports />
@@ -558,6 +562,8 @@
                                 <url value="../../DomainDB/bin/DomainsDB/domains/4a0nA_1.pdb?score=100" />
                                 <url value="../../DomainDB/bin/DomainsDB/domains/4a0jA_1.pdb?score=100" />
                                 <url value="../../DomainDB/bin/DomainsDB/domains/4a0iA_1.pdb?score=100" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" />
                             </MoleculeURLs>
                             <Selection>
                                 <entry url="../../DomainDB/bin/DomainsDB/domains/4a0iA_1.pdb?score=100" value="true" />
@@ -569,9 +575,11 @@
                                 <entry url="/home/class3d/softw/Work/3mview/DomainDB/bin/DomainsDB/domains/4a0iA_1.pdb" value="true" />
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/1IGT.pdb" value="true" />
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" value="true" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" value="true" />
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_no_water" value="true" />
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" value="true" />
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_4INS.pdb" value="true" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" value="true" />
                                 <entry url="/home/dimax/3mview/Tests/4INS.pdb" value="true" />
                                 <entry url="/home/dimax/3mview/Tests/6ins.pdb" value="true" />
                             </Selection>
@@ -710,16 +718,16 @@
                     <Properties>
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref110">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136834" y="-0.44719931" z="-0.86125159" />
                         </Property>
                         <Property name="invertDirection" value="true" />
                         <Property name="manipulationAxis" value="x" />
-                        <Property name="manipulationSlider" value="-0.06" />
-                        <Property name="manipulationType" value="move" />
+                        <Property name="manipulationSlider" value="-0.19" />
+                        <Property name="manipulationType" value="rotate" />
                         <Property name="volumeURLList">
                             <VolumeURLs />
                             <Selection />
@@ -764,22 +772,28 @@
                     <Properties>
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref111">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136834" y="-0.44719931" z="-0.86125159" />
                         </Property>
                         <Property name="invertDirection" value="false" />
-                        <Property name="manipulationAxis" value="y" />
-                        <Property name="manipulationSlider" value="0.11" />
+                        <Property name="manipulationAxis" value="z" />
+                        <Property name="manipulationSlider" value="-0.28999999" />
                         <Property name="manipulationType" value="move" />
                         <Property name="moleculeURLlist_">
                             <MoleculeURLs>
                                 <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" />
                             </MoleculeURLs>
                             <Selection>
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" value="false" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" value="false" />
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" value="false" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" value="false" />
                             </Selection>
                         </Property>
                     </Properties>
@@ -849,9 +863,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136831" y="-0.44719926" z="-0.86125147" />
                         </Property>
                         <Property name="jitterEntryPoints" lod="1" value="false" />
                         <Property name="jitterStepLength" lod="1" value="0.005" />
@@ -912,9 +926,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136834" y="-0.44719931" z="-0.86125159" />
                         </Property>
                         <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -963,11 +977,11 @@
                         <Property name="applyLightAttenuation" lod="1" value="false" />
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref94">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="35" y="108" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136831" y="-0.44719926" z="-0.86125147" />
                         </Property>
                         <Property name="classification" lod="1" value="transfer-function" />
                         <Property name="compositing" lod="1" value="dvr" />
@@ -995,7 +1009,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="-1.44173872" y="0.50510621" z="-2.7306149" w="0" />
+                            <value x="-4.6078186" y="1.61432755" z="-8.7270813" w="0" />
                         </Property>
                         <Property name="lightSpecular" lod="1">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -1179,9 +1193,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136834" y="-0.44719931" z="-0.86125159" />
                         </Property>
                         <Property name="jitterEntryPoints" lod="1" value="false" />
                         <Property name="jitterStepLength" lod="1" value="0.005" />
@@ -1242,9 +1256,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136831" y="-0.44719926" z="-0.86125147" />
                         </Property>
                         <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -1293,11 +1307,11 @@
                         <Property name="applyLightAttenuation" lod="1" value="false" />
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref91">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="35" y="108" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136834" y="-0.44719931" z="-0.86125159" />
                         </Property>
                         <Property name="classification" lod="1" value="transfer-function" />
                         <Property name="compositing" lod="1" value="dvr" />
@@ -1325,7 +1339,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="-1.44173872" y="0.50510621" z="-2.7306149" w="0" />
+                            <value x="-4.6078186" y="1.61432755" z="-8.7270813" w="0" />
                         </Property>
                         <Property name="lightSpecular" lod="1">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -1509,9 +1523,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136834" y="-0.44719931" z="-0.86125159" />
                         </Property>
                         <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -1655,9 +1669,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136831" y="-0.44719926" z="-0.86125147" />
                         </Property>
                         <Property name="jitterEntryPoints" lod="1" value="false" />
                         <Property name="jitterStepLength" lod="1" value="0.005" />
@@ -1719,9 +1733,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-82.96439362" y="108.19241333" z="-192.54447937" />
-                            <focus x="-10.99710655" y="45.68870544" z="-10.27615261" />
-                            <upVector x="-0.13565066" y="0.82531112" z="0.54814273" />
+                            <position x="-267.65158081" y="0.2858004" z="112.77471161" />
+                            <focus x="-46.64994049" y="27.49600983" z="-19.68947983" />
+                            <upVector x="-0.24136831" y="-0.44719926" z="-0.86125147" />
                         </Property>
                         <Property name="classification" lod="1" value="transfer-function" />
                         <Property name="compositing" lod="1" value="dvr" />
@@ -1749,7 +1763,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="-1.44173872" y="0.50510621" z="-2.7306149" w="0" />
+                            <value x="-0.09314041" y="0.0326313" z="-0.17640536" w="0" />
                         </Property>
                         <Property name="lightSpecular" lod="1">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -1775,7 +1789,7 @@
                                         <colorL r="0" g="89" b="255" a="14" />
                                     </key>
                                 </Keys>
-                                <domain x="0" y="0.80000001" />
+                                <domain x="0.00002586" y="1.35611522" />
                             </TransferFunction>
                         </Property>
                     </Properties>
@@ -6064,7 +6078,7 @@
                 <Processor type="Canvas" name="Segmentation View" id="ref41">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="400" y="110" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="315" y="374" width="329" height="311" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="296" y="604" width="329" height="311" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="true" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
                             <value x="586" y="460" />
@@ -6467,15 +6481,22 @@
                     </MetaData>
                     <Properties>
                         <Property name="align" />
+                        <Property name="createNew_" value="true" />
                         <Property name="moleculeURLlist_">
                             <MoleculeURLs>
                                 <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" />
                             </MoleculeURLs>
                             <Selection>
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" value="false" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" value="false" />
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" value="false" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" value="false" />
                             </Selection>
                         </Property>
-                        <Property name="tobealigned" value="Mol1ToMol2" />
+                        <Property name="tobealigned" value="SelectedToOrigin" />
                     </Properties>
                     <Inports />
                     <Outports />
@@ -6533,9 +6554,15 @@
                         <Property name="moleculeURLlist_">
                             <MoleculeURLs>
                                 <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" />
                             </MoleculeURLs>
                             <Selection>
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" value="false" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" value="false" />
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" value="false" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" value="false" />
                             </Selection>
                         </Property>
                         <Property name="resolution" value="50" />
@@ -6555,9 +6582,15 @@
                         <Property name="moleculeURLlist_">
                             <MoleculeURLs>
                                 <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" />
                             </MoleculeURLs>
                             <Selection>
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" value="false" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" value="false" />
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" value="false" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" value="false" />
                             </Selection>
                         </Property>
                         <Property name="removeHydrogens" value="true" />
@@ -6575,9 +6608,15 @@
                         <Property name="moleculeURLlist_">
                             <MoleculeURLs>
                                 <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" />
+                                <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" />
                             </MoleculeURLs>
                             <Selection>
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" value="false" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/4INS.pdb_align_to_origin" value="false" />
                                 <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb" value="false" />
+                                <entry url="/home/class3d/softw/Work/3mview/Tests/6ins.pdb_align_to_origin" value="false" />
                             </Selection>
                         </Property>
                         <Property name="repType" value="BallsAndSticks" />

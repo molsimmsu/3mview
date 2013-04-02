@@ -133,6 +133,15 @@ void Molecule::transform(const tgt::mat4& matrix) {
     notifyTransformationChange(matrix);
 }
 
+void Molecule::setTransformationMatrix(const tgt::mat4& transformationMatrix) {
+    tgt::mat4 oldMatrix = getTransformationMatrix();
+    tgt::mat4 invertMatrix;
+    oldMatrix.invert(invertMatrix);
+    tgt::mat4 molTransform = transformationMatrix * invertMatrix;
+    
+    transform(molTransform);
+}
+
 const VolumeURL& Molecule::getOrigin() const {
     return origin_;
 }

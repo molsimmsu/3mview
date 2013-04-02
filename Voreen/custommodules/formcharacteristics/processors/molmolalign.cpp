@@ -8,16 +8,17 @@ MolMolAlign :: MolMolAlign()
   : Processor()
   , tobealigned_("tobealigned", "Volume to reorientate", Processor::INVALID_PROGRAM)
   , align_("align", "Align", Processor::INVALID_PROGRAM)
+  , createNew_("createNew_", "Create new molecule", false)
   , moleculeURLlist_("moleculeURLlist_", "Molecule list", std::vector<std::string>())
 
 {
     tobealigned_.addOption("Mol1ToMol2", "Molecule 1 to Molecule 2");
     tobealigned_.addOption("Mol2ToMol1", "Molecule 2 to Molecule 1");
-    tobealigned_.addOption("Mol1ToOrigin", "Molecule 1 to Origin");
-    tobealigned_.addOption("Mol2ToOrigin", "Molecule 2 to Origin");
+    tobealigned_.addOption("SelectedToOrigin", "Selected to Origin");
     
     addProperty(moleculeURLlist_);
     addProperty(tobealigned_);
+    addProperty(createNew_);
     addProperty(align_);
     
     align_.onClick(CallMemberAction<MolMolAlign>(this, &MolMolAlign::align));
@@ -44,8 +45,8 @@ void MolMolAlign :: align()
     
 	if (tobealigned_.isSelected("Mol1ToMol2") || tobealigned_.isSelected("Mol2ToMol1"))
 	{
-		const Molecule* firstMol;
-		const Molecule* secondMol;
+		Molecule* firstMol;
+		Molecule* secondMol;
 		
 		if (tobealigned_.isSelected("Mol1ToMol2")) {
 		    firstMol  = molecules->at(0);
@@ -76,29 +77,29 @@ void MolMolAlign :: align()
 		norm2 = GetAlignment(secondMol);
 		norm2.invert(invertednorm2);
 
-		const tgt::mat4  _temp = wrld2*invertednorm2*norm1*invertedwrld1;	
-		outMol->transform(_temp);
+		const tgt::mat4 _temp = wrld2*invertednorm2*norm1*invertedwrld1;
+		
+		if (createNew_.get() == true) {
+		    outMol->transform(_temp);
 
-        std::string url1 = firstMol->getOrigin().getURL();
-        std::string url2 = secondMol->getOrigin().getFilename();
-        std::string newOrigin = url1 + "_align_to_" + url2;
-        outMol->setOrigin(VolumeURL(newOrigin));
-        
-        std::stringstream info;
-        info << "Output origin: " << newOrigin;
-        LINFO(info);
-        
-		getSourceProcessor()->addMolecule(outMol, true, true);
+            std::string url1 = firstMol->getOrigin().getURL();
+            std::string url2 = secondMol->getOrigin().getFilename();
+            std::string newOrigin = url1 + "_align_to_" + url2;
+            outMol->setOrigin(VolumeURL(newOrigin));
+            
+		    getSourceProcessor()->addMolecule(outMol, true, true);
+		}
+		else {
+		    firstMol->setTransformationMatrix(tgt::mat4::createIdentity());
+		    firstMol->transform(_temp);
+		    delete outMol;
+		}
 	}
 
-	if (tobealigned_.isSelected("Mol1ToOrigin") || tobealigned_.isSelected("Mol2ToOrigin"))
+	if (tobealigned_.isSelected("SelectedToOrigin"))
+	for (size_t i = 0; i < molecules->size(); i++)
 	{
-		const Molecule* molecula;
-		if (tobealigned_.isSelected("Mol1ToOrigin")) 
-		    molecula = molecules->at(0);
-		if (tobealigned_.isSelected("Mol2ToOrigin")) 
-		    molecula = molecules->at(1);
-
+		Molecule* molecula = molecules->at(i);
 
 	    Molecule* outMol = molecula->clone(); 
 
@@ -106,22 +107,30 @@ void MolMolAlign :: align()
  		tgt::mat4 inv;
 		wrld.invert(inv);
 
-          LINFO("Calculating transformation matrix for object...");
+        LINFO("Calculating transformation matrix for object...");
 		tgt::mat4 fit  = GetAlignment(outMol);
 
-		const tgt::mat4  _temp = fit*inv;		
-		outMol->transform(_temp);
-		std :: cout << "Done. \n";
+		const tgt::mat4  _temp = fit*inv;
 		
-        std::string url1 = molecula->getOrigin().getURL();
-        std::string newOrigin = url1 + "_align_to_origin";
-        outMol->setOrigin(VolumeURL(newOrigin));
-        
-        std::stringstream info;
-        info << "Output origin: " << newOrigin;
-        LINFO(info);
-        
-		getSourceProcessor()->addMolecule(outMol, true, true);
+		if (createNew_.get() == true) {
+		    outMol->transform(_temp);
+		    std :: cout << "Done. \n";
+		
+            std::string url1 = molecula->getOrigin().getURL();
+            std::string newOrigin = url1 + "_align_to_origin";
+            outMol->setOrigin(VolumeURL(newOrigin));
+            
+            std::stringstream info;
+            info << "Output origin: " << newOrigin;
+            LINFO(info);
+            
+		    getSourceProcessor()->addMolecule(outMol, true, true);
+		}
+		else {
+		    molecula->setTransformationMatrix(tgt::mat4::createIdentity());
+		    molecula->transform(_temp);
+		    delete outMol;
+		}
 	}
 
 }

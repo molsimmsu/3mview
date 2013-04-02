@@ -4,6 +4,7 @@
 #include "../../molecule/ports/moleculeport.h"
 #include "../../molecule/processors/moleculecoprocessor.h"
 #include "voreen/core/properties/optionproperty.h"
+#include "voreen/core/properties/boolproperty.h"
 #include "voreen/core/processors/volumeprocessor.h"
 #include "voreen/core/processors/processor.h"
 #include "../datastructures/pointcloud.h"
@@ -37,6 +38,7 @@ private:
 
     MoleculeURLListProperty moleculeURLlist_;
     StringOptionProperty   tobealigned_;
+    BoolProperty         createNew_;  
     ButtonProperty         align_;  
 
     tgt::mat4 GetAlignment(const Molecule* vol);
