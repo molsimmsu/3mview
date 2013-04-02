@@ -91,8 +91,7 @@ void MoleculeURLListPropertyWidget::showFileOpenDialog() {
     QDir openDir(QString::fromStdString(openPath));
     
     QStringList filters;
-    QString allVolumesFilter = QString::fromStdString("*.pdb");
-    QString rawVolumeFilter = "PDB (*)";
+    filters << "PDB (*.pdb)";
     
     // sidebar URLs
     QList<QUrl> urls;
