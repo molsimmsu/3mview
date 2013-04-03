@@ -32,7 +32,7 @@ public:
      * @param guiText text that is shown in the gui
      * @param value the initial source URLs to assign
      */
-    MoleculeURLListProperty(const std::string& id, const std::string& guiText, const std::vector<std::string>& value,
+    MoleculeURLListProperty(const std::string& id, const std::string& guiText, const std::vector<std::string>& value, bool isLoadable = false,
         int invalidationLevel = Processor::INVALID_PARAMETERS);
     MoleculeURLListProperty();
 
@@ -160,6 +160,8 @@ public:
      * by the property.
      */
     void clear();
+    
+    bool isLoadable() const { return isLoadable_; }
 
     /// @see Property::serialize
     virtual void serialize(XmlSerializer& s) const;
@@ -183,6 +185,7 @@ private:
     std::map<std::string, bool> ownerMap_;     ///< maps from URL to owner state
 
     ProgressBar* progressBar_;
+    bool isLoadable_; ///< Flag that switches loading of the molecules
 
     static const std::string loggerCat_;
 };

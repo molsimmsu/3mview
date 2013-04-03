@@ -1,4 +1,4 @@
-# Install script for directory: /home/dimax/Voreen/src/qt
+# Install script for directory: /home/class3d/softw/Work/3mview/Voreen/src/qt
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

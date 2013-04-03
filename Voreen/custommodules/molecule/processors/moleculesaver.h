@@ -33,7 +33,7 @@ protected:
 private:
     void SaveMolecules();
 
-    //FileDialogProperty inputFile_;
+    FileDialogProperty folder_;
     BoolProperty mergeMolecules_;
     ButtonProperty saveButton_;
     MoleculeURLListProperty moleculeURLlist_;

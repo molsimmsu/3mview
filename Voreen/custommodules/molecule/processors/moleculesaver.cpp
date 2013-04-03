@@ -12,12 +12,12 @@ const std::string MoleculeSaver::loggerCat_("3MTK.MoleculeSaver");
 
 MoleculeSaver::MoleculeSaver()
     : mergeMolecules_("mergeMolecules", "Merge molecules ", false)
-   // , folder_("saveToFolder", "Folder", "Selectfolder", VoreenApplication::app()->getUserDataPath())
+    , folder_("saveToFolder", "Folder", "Selectfolder", VoreenApplication::app()->getUserDataPath(), "PDB (*.pdb)", FileDialogProperty::DIRECTORY)
     , saveButton_("saveButton", "Save")
     , moleculeURLlist_("moleculeURLlist_", "Molecule URL List", std::vector<std::string>())
 
 {
-    //addProperty(folder_);
+    addProperty(folder_);
     addProperty(moleculeURLlist_);
     addProperty(mergeMolecules_);
     addProperty(saveButton_);

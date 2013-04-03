@@ -64,13 +64,45 @@ void FileDialogPropertyWidget::setProperty() {
 
         QString filename;
         if (property_->getFileMode() == FileDialogProperty::OPEN_FILE) {
-            filename = QFileDialog::getOpenFileName(QWidget::parentWidget(), dialogCaption, directory, fileFilter);
+             QFileDialog fileDialog(QWidget::parentWidget(), tr("Load Molecule..."), QString::fromStdString(property_->get()), "");
+             fileDialog.setViewMode(QFileDialog::Detail);
+             fileDialog.setAcceptMode(QFileDialog::AcceptOpen);
+             fileDialog.setFileMode(QFileDialog::ExistingFile);
+   
+             // execute dialog
+             if (fileDialog.exec() != QDialog::Accepted)
+                return;
+
+            
+            filename = fileDialog.selectedFiles()[0];
+            
+            //filename = QFileDialog::getOpenFileName(QWidget::parentWidget(), dialogCaption, directory, fileFilter);
         }
         else if (property_->getFileMode() == FileDialogProperty::SAVE_FILE) {
-            filename = QFileDialog::getSaveFileName(QWidget::parentWidget(), dialogCaption, directory, fileFilter);
-        }
+             QFileDialog fileDialog(QWidget::parentWidget(), tr("Load Molecule..."), QString::fromStdString(property_->get()), "");
+             fileDialog.setViewMode(QFileDialog::Detail);
+             fileDialog.setAcceptMode(QFileDialog::AcceptSave);
+             fileDialog.setFileMode(QFileDialog::AnyFile);
+   
+             // execute dialog
+             if (fileDialog.exec() != QDialog::Accepted)
+                return;
+
+            
+            filename = fileDialog.selectedFiles()[0];
+            }
         else if (property_->getFileMode() == FileDialogProperty::DIRECTORY) {
-            filename = QFileDialog::getExistingDirectory(QWidget::parentWidget(), dialogCaption, QString::fromStdString(property_->get()));
+             QFileDialog fileDialog(QWidget::parentWidget(), tr("Load Molecule..."), QString::fromStdString(property_->get()), "");
+             fileDialog.setViewMode(QFileDialog::Detail);
+             fileDialog.setAcceptMode(QFileDialog::AcceptOpen);
+             fileDialog.setFileMode(QFileDialog::Directory);
+   
+             // execute dialog
+             if (fileDialog.exec() != QDialog::Accepted)
+                return;
+
+            
+             filename = fileDialog.directory().absolutePath();
         }
 
         if (!filename.isEmpty()) {

@@ -44,14 +44,18 @@ MoleculeURLListPropertyWidget::MoleculeURLListPropertyWidget(MoleculeURLListProp
     QVBoxLayout* mainLayout = new QVBoxLayout();
     layout_->addLayout(mainLayout);
 
-    QHBoxLayout* buttonLayout = new QHBoxLayout();
-    loadButton_ = new QPushButton(tr("Load Molecules..."));
-    loadButton_->setIcon(QPixmap(":/qt/icons/open-volume.png"));
-    loadButton_->setMinimumWidth(110);
-    clearButton_ = new QPushButton(tr("Clear Molecules"));
-    buttonLayout->addWidget(loadButton_);
-    buttonLayout->addWidget(clearButton_);
-    mainLayout->addLayout(buttonLayout);
+    if (moleculeCollectionProp->isLoadable()) {
+        QHBoxLayout* buttonLayout = new QHBoxLayout();
+        loadButton_ = new QPushButton(tr("Load"));
+        loadButton_->setIcon(QPixmap(":/qt/icons/open-volume.png"));
+        clearButton_ = new QPushButton(tr("Clear"));
+        buttonLayout->addWidget(loadButton_);
+        buttonLayout->addWidget(clearButton_);
+        mainLayout->addLayout(buttonLayout);
+        
+        connect(loadButton_, SIGNAL(clicked()), this, SLOT(showFileOpenDialog()));
+        connect(clearButton_, SIGNAL(clicked()), this, SLOT(clearMolecules()));
+    }
 
     selectAll_ = new QCheckBox("Select All", this);
     //selectAll_->move(8, 0);
@@ -66,9 +70,7 @@ MoleculeURLListPropertyWidget::MoleculeURLListPropertyWidget(MoleculeURLListProp
     moleculeTreeWidget_->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
-    connect(loadButton_, SIGNAL(clicked()), this, SLOT(showFileOpenDialog()));
-    //FIXME connect(&moleculeIOHelper_, SIGNAL(moleculeLoaded(const Molecule*)), this, SLOT(moleculeLoaded(const Molecule*)));
-    connect(clearButton_, SIGNAL(clicked()), this, SLOT(clearMolecules()));
+
 
     connect(moleculeTreeWidget_, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemSelected(QTreeWidgetItem*, int)));
     connect(moleculeTreeWidget_, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SIGNAL(widgetChanged()));
@@ -181,7 +183,7 @@ void MoleculeURLListPropertyWidget::updateFromProperty() {
         moleculeTreeWidget_->addTopLevelItem(qtwi);
     }
 
-    clearButton_->setEnabled(!collection->empty());
+    //clearButton_->setEnabled(!collection->empty());
     selectAll_->setEnabled(!collection->empty());
     if (numSelected == 0)
         selectAll_->setChecked(false);

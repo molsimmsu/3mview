@@ -49,7 +49,6 @@ private:
     MoleculeCollectionPort outport_; ///< This outport must always contain valid data
     CoProcessorPort coProcessorPort_; ///< This outport must always contain valid data
     
-    BoolProperty clearWater_;
     MoleculeURLListProperty moleculeURLlist_;
     
 };

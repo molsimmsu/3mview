@@ -19,14 +19,12 @@ MoleculeCollectionSource::MoleculeCollectionSource()
   : Processor()
   , outport_(Port::OUTPORT, "moleculecollection", "Molecule Collection Output")
   , coProcessorPort_(Port::OUTPORT, "coProcessor", "Molecule Collection Co-processor")
-  , clearWater_("clearWater", "Clear water", false)
-  , moleculeURLlist_("moleculeURLlist_", "Molecule list", std::vector<std::string>())
+  , moleculeURLlist_("moleculeURLlist_", "Molecule list", std::vector<std::string>(), true)
 {
     
     addPort(outport_);
     addPort(coProcessorPort_);
     
-    addProperty(clearWater_);
     addProperty(moleculeURLlist_);
     
 	// Create empty data to make this outport valid. Take ownership is true because
@@ -103,11 +101,6 @@ void MoleculeCollectionSource::load(const std::string& path) {
     try {
         VolumeURL url(path);
         Molecule* mol = MoleculeIO::read(url);
-        
-        if (clearWater_.get() == true) {
-            mol->clearResidues(Molecule::WATER);
-            LINFO("Water cleared");
-        }
         
         tgtAssert(mol, "null pointer to mol returned (exception expected) at MoleculeCollectionSource::readMolecule()");
 
