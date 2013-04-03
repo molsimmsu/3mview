@@ -39,9 +39,10 @@ namespace voreen {
 const std::string VolumeURLListProperty::loggerCat_("voreen.VolumeURLListProperty");
 
 VolumeURLListProperty::VolumeURLListProperty(const std::string& id, const std::string& guiText,
-                    const std::vector<std::string>& value, int invalidationLevel) :
+                    const std::vector<std::string>& value, bool isLoadable, int invalidationLevel) :
                     TemplateProperty<std::vector<std::string> >(id, guiText, value, invalidationLevel),
-                    progressBar_(0)
+                    progressBar_(0),
+                    isLoadable_(isLoadable)
 {}
 
 VolumeURLListProperty::VolumeURLListProperty()

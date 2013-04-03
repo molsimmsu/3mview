@@ -56,14 +56,19 @@ VolumeURLListPropertyWidget::VolumeURLListPropertyWidget(VolumeURLListProperty* 
     QVBoxLayout* mainLayout = new QVBoxLayout();
     layout_->addLayout(mainLayout);
 
-    QHBoxLayout* buttonLayout = new QHBoxLayout();
-    loadButton_ = new QPushButton(tr("Load Volumes..."));
-    loadButton_->setIcon(QPixmap(":/qt/icons/open-volume.png"));
-    loadButton_->setMinimumWidth(110);
-    clearButton_ = new QPushButton(tr("Clear Volumes"));
-    buttonLayout->addWidget(loadButton_);
-    buttonLayout->addWidget(clearButton_);
-    mainLayout->addLayout(buttonLayout);
+    if (volumeCollectionProp->isLoadable()) {
+        QHBoxLayout* buttonLayout = new QHBoxLayout();
+        loadButton_ = new QPushButton(tr("Load"));
+        loadButton_->setIcon(QPixmap(":/qt/icons/open-volume.png"));
+        //loadButton_->setMinimumWidth(110);
+        clearButton_ = new QPushButton(tr("Clear"));
+        buttonLayout->addWidget(loadButton_);
+        buttonLayout->addWidget(clearButton_);
+        mainLayout->addLayout(buttonLayout);
+        
+        connect(loadButton_, SIGNAL(clicked()), &volumeIOHelper_, SLOT(showFileOpenDialog()));
+        connect(clearButton_, SIGNAL(clicked()), this, SLOT(clearVolumes()));
+    }
 
     selectAll_ = new QCheckBox("Select All", this);
     //selectAll_->move(8, 0);
@@ -78,9 +83,8 @@ VolumeURLListPropertyWidget::VolumeURLListPropertyWidget(VolumeURLListProperty* 
     volumeTreeWidget_->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
-    connect(loadButton_, SIGNAL(clicked()), &volumeIOHelper_, SLOT(showFileOpenDialog()));
+
     connect(&volumeIOHelper_, SIGNAL(volumeLoaded(const VolumeBase*)), this, SLOT(volumeLoaded(const VolumeBase*)));
-    connect(clearButton_, SIGNAL(clicked()), this, SLOT(clearVolumes()));
 
     connect(volumeTreeWidget_, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemSelected(QTreeWidgetItem*, int)));
     connect(volumeTreeWidget_, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SIGNAL(widgetChanged()));
@@ -130,7 +134,7 @@ void VolumeURLListPropertyWidget::updateFromProperty() {
         volumeTreeWidget_->addTopLevelItem(qtwi);
     }
 
-    clearButton_->setEnabled(!collection->empty());
+    //clearButton_->setEnabled(!collection->empty());
     selectAll_->setEnabled(!collection->empty());
     if (numSelected == 0)
         selectAll_->setChecked(false);

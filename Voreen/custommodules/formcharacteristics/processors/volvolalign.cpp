@@ -84,6 +84,8 @@ void VolVolAlign :: align()
             
             std::string url1 = firstVolume->getOrigin().getURL();
             std::string url2 = secondVolume->getOrigin().getFilename();
+            size_t dotPos = url1.find_last_of('.');
+            url1 = url1.substr(0, dotPos);
             std::string newOrigin = url1 + "_align_to_" + url2;
             combinedVolume->setOrigin(VolumeURL(newOrigin));
             
@@ -120,7 +122,11 @@ void VolVolAlign :: align()
 		combinedVolume->setPhysicalToWorldMatrix(norm*wrld);
 
         std::string url = volume->getOrigin().getURL();
-        combinedVolume->setOrigin(VolumeURL(url + "_align_to_origin"));
+        size_t dotPos = url.find_last_of('.');
+        std::string ext = url.substr(dotPos+1, 4);
+        url = url.substr(0, dotPos);
+        
+        combinedVolume->setOrigin(VolumeURL(url + "_align_to_origin" + ext));
 		getSourceProcessor()->addVolume(combinedVolume, true, true);
 	}
 }

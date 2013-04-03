@@ -19,7 +19,7 @@ DensityMapCollectionSource::DensityMapCollectionSource()
     : Processor()
     , coProcessorOutport_(Port::OUTPORT, "coProcessor", "Co-processor", true)
     , outport_(Port::OUTPORT, "volumecollection", "VolumeCollection Output", false)
-    , volumeURLList_("volumeURLList", "Volume URL List", std::vector<std::string>())
+    , volumeURLList_("volumeURLList", "Volume URL List", std::vector<std::string>(), true)
 {
     addPort(coProcessorOutport_);
     addPort(outport_);

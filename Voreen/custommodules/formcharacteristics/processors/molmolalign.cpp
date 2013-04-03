@@ -86,7 +86,7 @@ void MolMolAlign :: align()
             std::string url2 = secondMol->getOrigin().getFilename();
             size_t dotPos = url1.find_last_of('.');
             url1 = url1.substr(0, dotPos);
-            std::string newOrigin = url1 + "_align_to_" + url2 + ".pdb";
+            std::string newOrigin = url1 + "_align_to_" + url2;
             outMol->setOrigin(VolumeURL(newOrigin));
             
 		    getSourceProcessor()->addMolecule(outMol, true, true);

@@ -57,7 +57,7 @@ public:
      * @param guiText text that is shown in the gui
      * @param value the initial source URLs to assign
      */
-    VolumeURLListProperty(const std::string& id, const std::string& guiText, const std::vector<std::string>& value,
+    VolumeURLListProperty(const std::string& id, const std::string& guiText, const std::vector<std::string>& value, bool isLoadable = false,
         int invalidationLevel = Processor::INVALID_PARAMETERS);
     VolumeURLListProperty();
 
@@ -191,6 +191,8 @@ public:
 
     /// @see Property::deserialize
     virtual void deserialize(XmlDeserializer& s);
+    
+    bool isLoadable() const { return isLoadable_; }
 
 protected:
     /// Clears the property, thereby deleting all volume that are owned by it.
@@ -208,6 +210,8 @@ private:
     std::map<std::string, bool> ownerMap_;     ///< maps from URL to owner state
 
     ProgressBar* progressBar_;
+    
+    bool isLoadable_;
 
     static const std::string loggerCat_;
 };
