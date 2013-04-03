@@ -49,7 +49,8 @@ void MoleculeSaver::SaveMolecules() {
         Molecule *mol = collection->at(i);
         if (mergeMolecules_.get() == false) {
             std::string url = mol->getOrigin().getFilename();
-            MoleculeIO::write(mol, VoreenApplication::app()->getUserDataPath() + url);        
+            std::cout << folder_.get() << std::endl;
+            MoleculeIO::write(mol, folder_.get() + "/" + url);        
         }
         //else
           //  ;

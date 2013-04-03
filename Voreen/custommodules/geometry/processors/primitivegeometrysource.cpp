@@ -117,12 +117,12 @@ void PrimitiveGeometrySource::readGeometry() {
             geometry->addMesh(Zcone);
             
             for(int i=0; i < 16; i++){
-            float x1 = 2*i/float(16) -1;
-            float x2 = 2*(i+1)/float(16) -1;
-            float R1 = 2.0 * sqrt(1 - x1*x1);
-            float R2 = 2.0 * sqrt(1 - x2*x2);
-            tgt::vec3 v1(2.0*x1, 0.f, 0.f);
-            tgt::vec3 v2(2.0*x2, 0.f, 0.f);
+            float x1 = i/float(16) -1;
+            float x2 = (i+1)/float(16) -1;
+            float R1 = sqrt(1 - x1*x1);
+            float R2 = sqrt(1 - x2*x2);
+            tgt::vec3 v1(x1, 0.f, 0.f);
+            tgt::vec3 v2(x2, 0.f, 0.f);
             
             MeshGeometry cone = PrimitiveGeometryBuilder::createConeCylinder(v1,v2,R1,R2,16,tgt::vec3(0,1,1),true);
             geometry->addMesh(cone);
