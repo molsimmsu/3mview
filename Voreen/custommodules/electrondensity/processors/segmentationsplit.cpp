@@ -70,7 +70,7 @@ void SegmentationSplit::splitSegmentation() {
 	    svec3 max = subVolumes[i].getMax();
 	    svec3 dimensions =	max - min + svec3(1,1,1);
 	    
-	    vec3 partOffset(min[0],min[1],min[2]);
+	    vec3 partOffset(min[0]*spacing[0],min[1]*spacing[1],min[2]*spacing[2]);
 	    
 	    std::stringstream info;
 	    info << "Creating subvolume " << min << " " << max << " " << dimensions << std::endl;
