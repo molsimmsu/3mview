@@ -179,6 +179,8 @@ public:
     
     void clearResidues(int restype, bool invert=false);
     
+    void addMolecule(Molecule * mol);
+    
     /**
      * Returns a sequence of the molecule in FASTA format
      */
@@ -198,6 +200,12 @@ public:
      * Transform molecule and notify its observers
      */
      void transform(const tgt::mat4& matrix);
+     
+     /**
+     * Update molecular coordinates, sets identity transformation matrix
+     * notify its observers
+     */
+     void updateCoordinates();
      
     /**
      * Transform molecule and notify its observers (uses transform() function)

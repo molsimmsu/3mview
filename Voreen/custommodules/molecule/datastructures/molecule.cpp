@@ -134,6 +134,27 @@ void Molecule::transform(const tgt::mat4& matrix) {
     notifyTransformationChange(matrix);
 }
 
+void Molecule::addMolecule(Molecule * molecule){
+    Molecule *mol = molecule->clone();
+    mol->setTransformationMatrix(molecule->getTransformationMatrix());
+    mol->updateCoordinates();
+    OBMol inmol = mol->getOBMol();
+    mol_ += inmol;
+}
+
+void Molecule::updateCoordinates(){
+     FOR_ATOMS_OF_MOL(a, mol_)
+     {
+        vector3 pos = a->GetVector();
+        tgt::vec3 pos2 = tgt::vec3(pos[0],pos[1],pos[2]);
+        pos2 = transformationMatrix_ * pos2;
+        pos= vector3(pos2[0],pos2[1],pos2[2]);
+        a->SetVector(pos);
+     }
+     setTransformationMatrix(tgt::mat4::createIdentity());
+     notifyReload();
+}
+
 void Molecule::setTransformationMatrix(const tgt::mat4& transformationMatrix) {
     tgt::mat4 oldMatrix = getTransformationMatrix();
     tgt::mat4 invertMatrix;

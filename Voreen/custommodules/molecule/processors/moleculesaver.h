@@ -6,6 +6,7 @@
 #include "../properties/moleculeurllistproperty.h"
 #include "voreen/core/properties/boolproperty.h"
 #include "voreen/core/properties/buttonproperty.h"
+#include "voreen/core/properties/stringproperty.h"
 
 using namespace voreen;
 
@@ -32,10 +33,12 @@ protected:
 
 private:
     void SaveMolecules();
-
-    FileDialogProperty folder_;
+    
+    StringProperty   mergedName_;
+    FileDialogProperty   folder_;
     BoolProperty mergeMolecules_;
-    ButtonProperty saveButton_;
+    BoolProperty   removeHeader_;
+    ButtonProperty   saveButton_;
     MoleculeURLListProperty moleculeURLlist_;
     
 

@@ -14,8 +14,8 @@ public:
     
     static Molecule* read(const MoleculeURL& url);
     static Molecule* read(const std::string& filename);
-        
-    static void write(Molecule * molecule, const std::string& filename);
+
+    static void write(Molecule * molecule, const std::string& filename, bool cleanGenericData = false);
     
     
 protected:

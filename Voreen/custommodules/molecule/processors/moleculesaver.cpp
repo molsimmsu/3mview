@@ -12,14 +12,19 @@ const std::string MoleculeSaver::loggerCat_("3MTK.MoleculeSaver");
 
 MoleculeSaver::MoleculeSaver()
     : mergeMolecules_("mergeMolecules", "Merge molecules ", false)
+    , removeHeader_("removeHeader", "Remove PDB Header", true)
     , folder_("saveToFolder", "Folder", "Selectfolder", VoreenApplication::app()->getUserDataPath(), "PDB (*.pdb)", FileDialogProperty::DIRECTORY)
     , saveButton_("saveButton", "Save")
     , moleculeURLlist_("moleculeURLlist_", "Molecule URL List", std::vector<std::string>())
+    , mergedName_("mergedName","Merged molecule name","merged.pdb")
+    
 
 {
     addProperty(folder_);
     addProperty(moleculeURLlist_);
     addProperty(mergeMolecules_);
+    addProperty(mergedName_);
+    addProperty(removeHeader_);
     addProperty(saveButton_);
 
     saveButton_.onChange(CallMemberAction<MoleculeSaver>(this, &MoleculeSaver::SaveMolecules));
@@ -44,17 +49,36 @@ void MoleculeSaver::updateSelection() {
 void MoleculeSaver::SaveMolecules() {
     
     MoleculeCollection* collection = moleculeURLlist_.getMolecules(true);
-    
-    for (size_t i = 0; i < collection->size(); i++) {
-        Molecule *mol = collection->at(i);
+    if(collection->size()>0){
         if (mergeMolecules_.get() == false) {
-            std::string url = mol->getOrigin().getFilename();
-            std::cout << folder_.get() << std::endl;
-            MoleculeIO::write(mol, folder_.get() + "/" + url);        
+            for (size_t i = 0; i < collection->size(); i++) {
+                Molecule *mol = collection->at(i)->clone();
+                tgt::mat4 matrix = collection->at(i)->getTransformationMatrix();
+                mol->setTransformationMatrix(matrix);
+                std::cout << matrix << std::endl;
+                
+                mol->updateCoordinates();
+                std::cout << mol->getTransformationMatrix() << std::endl;
+                std::string url = collection->at(i)->getOrigin().getFilename();
+                if(removeHeader_.get()==true) MoleculeIO::write(mol, folder_.get() + "/" + url, true);
+                else MoleculeIO::write(mol, folder_.get() + "/" + url);
+                delete mol;
+            }
         }
-        //else
-          //  ;
-    } 
-
+       else{
+            Molecule * merged = new Molecule;
+            for (size_t i = 0; i < collection->size(); i++) {
+                Molecule *mol = collection->at(i)->clone();
+                mol->setTransformationMatrix(collection->at(i)->getTransformationMatrix());
+                mol->updateCoordinates();
+                merged->addMolecule(mol);
+                delete mol;
+            }
+            std::string url = mergedName_.get();
+            
+            MoleculeIO::write(merged, folder_.get() + "/" + url);
+        } 
+    }
+    else LINFO("Select molecules for saving");
 }
 
