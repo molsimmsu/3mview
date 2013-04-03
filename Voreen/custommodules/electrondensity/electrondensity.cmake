@@ -3,6 +3,7 @@ SET(MOD_CORE_MODULECLASS ElectronDensityModule)
 # module's core source files, path relative to module dir
 SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/checklistvolumeselector.cpp
+    ${MOD_DIR}/processors/densitymapsaver.cpp
     ${MOD_DIR}/processors/addvolumetocollection.cpp
     ${MOD_DIR}/processors/segmentation.cpp
     ${MOD_DIR}/processors/segmentationsplit.cpp
@@ -20,6 +21,7 @@ SET(MOD_CORE_SOURCES
 # module's core header files, path relative to module dir
 SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/checklistvolumeselector.h
+    ${MOD_DIR}/processors/densitymapsaver.h
     ${MOD_DIR}/processors/addvolumetocollection.h
     ${MOD_DIR}/processors/segmentation.h
     ${MOD_DIR}/processors/segmentationsplit.h

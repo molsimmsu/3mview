@@ -1,5 +1,6 @@
 #include "electrondensitymodule.h"
 
+#include "processors/densitymapsaver.h"
 #include "processors/segmentation.h"
 #include "processors/segmentationsplit.h"
 #include "processors/densitymapmanipulation.h"
@@ -18,6 +19,7 @@ ElectronDensityModule::ElectronDensityModule(const std::string& modulePath)
 {
     setName("Electron Density Maps");
 
+    registerProcessor(new DensityMapSaver());
     registerProcessor(new ChecklistVolumeSelector());
     registerProcessor(new AddVolumeToCollection());
     registerProcessor(new SegmentationProcessor());

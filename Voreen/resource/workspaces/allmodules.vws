@@ -3,8 +3,13 @@
     <Workspace version="2" GlobalDescription="">
         <ProcessorNetwork version="13">
             <MetaData>
+                <MetaItem name="ProcessorSelection" type="SelectionMetaData::Processor">
+                    <values>
+                        <item type="DensityMapSaver" ref="ref52" />
+                    </values>
+                </MetaItem>
                 <MetaItem name="ZoomCenter" type="Vec2MetaData">
-                    <value x="158.73219299" y="-454.55130005" />
+                    <value x="-39.68305206" y="-642.1439209" />
                 </MetaItem>
                 <MetaItem name="ZoomFactor" type="FloatMetaData" value="0.55439287" />
                 <MetaItem name="autoLinkCameras" type="BoolMetaData" value="false" />
@@ -21,9 +26,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="211" y="156" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="classification" lod="1" value="transfer-function" />
                         <Property name="compositing" lod="1" value="dvr" />
@@ -51,7 +56,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="true" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="5.30421543" y="-5.56183434" z="6.39775705" w="0" />
+                            <value x="3.63388824" y="-8.1755991" z="4.46703863" w="0" />
                         </Property>
                         <Property name="lightSpecular" id="ref119">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -85,14 +90,14 @@
                         <Port name="image.entrypoints">
                             <Properties>
                                 <Property name="image.entrypoints.renderSizeOrigin" id="ref58">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.exitpoints">
                             <Properties>
                                 <Property name="image.exitpoints.renderSizeOrigin">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -109,7 +114,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.output.renderSizeReceive" id="ref81">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -135,10 +140,10 @@
                 <Processor type="Canvas" name="Main View" id="ref3">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-1101" y="467" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="0" y="-27" width="1372" height="936" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="0" y="-51" width="1318" height="916" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="false" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
-                            <value x="133" y="629" />
+                            <value x="102" y="148" />
                         </MetaItem>
                         <MetaItem name="preferedDevelopmentCanvasSize" type="IVec2MetaData">
                             <value x="1372" y="936" />
@@ -152,7 +157,7 @@
                     </MetaData>
                     <Properties>
                         <Property name="canvasSize" lod="1">
-                            <value x="1372" y="936" />
+                            <value x="1318" y="916" />
                         </Property>
                         <Property name="saveScreenshot" lod="1" />
                         <Property name="screenshotFilename" lod="1" noPathSet="false" value="../../../../??????? ????/1.jpg" />
@@ -163,14 +168,14 @@
                         <Port name="image.input">
                             <Properties>
                                 <Property name="image.input.renderSizeOrigin" lod="1" id="ref77">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.inputLeft">
                             <Properties>
                                 <Property name="image.inputLeft.renderSizeOrigin" lod="1">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -227,11 +232,11 @@
                     <Properties>
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref97">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" ref="ref57" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="801" y="149" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="jitterEntryPoints" lod="1" value="false" />
                         <Property name="jitterStepLength" lod="1" value="0.005" />
@@ -249,7 +254,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.entrypoints.renderSizeReceive" lod="1" id="ref59">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -257,7 +262,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.exitpoints.renderSizeReceive" lod="1" id="ref60">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -290,11 +295,11 @@
                     <Properties>
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref98">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -342,11 +347,11 @@
                     <Properties>
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref100">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="0" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="renderGeometries" lod="1" value="true" />
                     </Properties>
@@ -354,7 +359,7 @@
                         <Port name="image.input">
                             <Properties>
                                 <Property name="image.input.renderSizeOrigin" lod="1">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -364,7 +369,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.output.renderSizeReceive" lod="1" id="ref61">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -437,7 +442,7 @@
                             <value x="0.43529412" y="0.43529412" z="0.43529412" w="1" />
                         </Property>
                         <Property name="lightPosition" lod="1" id="ref127">
-                            <value x="5.30421543" y="-5.56183434" z="6.39775705" w="0" />
+                            <value x="3.63388824" y="-8.1755991" z="4.46703863" w="0" />
                         </Property>
                         <Property name="lightSpecular" lod="1" id="ref124">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -540,7 +545,6 @@
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-331" y="-838" />
                     </MetaData>
                     <Properties>
-                        <Property name="clearWater" value="false" />
                         <Property name="moleculeURLlist_">
                             <MoleculeURLs>
                                 <url value="/home/class3d/softw/Work/3mview/Tests/4INS.pdb" />
@@ -635,7 +639,7 @@
                             <value x="0.43529412" y="0.43529412" z="0.43529412" w="1" />
                         </Property>
                         <Property name="lightPosition" lod="1" id="ref114">
-                            <value x="5.30421543" y="-5.56183434" z="6.39775705" w="0" />
+                            <value x="3.63388824" y="-8.1755991" z="4.46703863" w="0" />
                         </Property>
                         <Property name="lightSpecular" lod="1" id="ref120">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -721,9 +725,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="invertDirection" value="true" />
                         <Property name="manipulationAxis" value="x" />
@@ -766,7 +770,7 @@
                     </Outports>
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="MoleculeManipulation" name="MoleculeManipulation" id="ref52">
+                <Processor type="MoleculeManipulation" name="MoleculeManipulation" id="ref53">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-16" y="-973" />
                     </MetaData>
@@ -775,23 +779,17 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="invertDirection" value="false" />
                         <Property name="manipulationAxis" value="z" />
                         <Property name="manipulationSlider" value="0.80000001" />
                         <Property name="manipulationType" value="rotate" />
                         <Property name="moleculeURLlist_">
-                            <MoleculeURLs>
-                                <url value="/home/satary/soft/3mview/Tests/6ins.pdb" />
-                                <url value="/home/satary/soft/3mview/Tests/4INS.pdb" />
-                            </MoleculeURLs>
-                            <Selection>
-                                <entry url="/home/satary/soft/3mview/Tests/4INS.pdb" value="false" />
-                                <entry url="/home/satary/soft/3mview/Tests/6ins.pdb" value="false" />
-                            </Selection>
+                            <MoleculeURLs />
+                            <Selection />
                         </Property>
                     </Properties>
                     <Inports />
@@ -860,9 +858,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="jitterEntryPoints" lod="1" value="false" />
                         <Property name="jitterStepLength" lod="1" value="0.005" />
@@ -880,7 +878,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.entrypoints.renderSizeReceive" lod="1" id="ref64">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -888,7 +886,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.exitpoints.renderSizeReceive" lod="1" id="ref63">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -923,9 +921,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -974,11 +972,11 @@
                         <Property name="applyLightAttenuation" lod="1" value="false" />
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref96">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="35" y="108" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="classification" lod="1" value="transfer-function" />
                         <Property name="compositing" lod="1" value="dvr" />
@@ -1006,7 +1004,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="5.30421543" y="-5.56183434" z="6.39775705" w="0" />
+                            <value x="3.63388824" y="-8.1755991" z="4.46703863" w="0" />
                         </Property>
                         <Property name="lightSpecular" lod="1">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -1040,14 +1038,14 @@
                         <Port name="image.entrypoints">
                             <Properties>
                                 <Property name="image.entrypoints.renderSizeOrigin" lod="1" id="ref62">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.exitpoints">
                             <Properties>
                                 <Property name="image.exitpoints.renderSizeOrigin" lod="1">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1064,7 +1062,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.output.renderSizeReceive" lod="1" id="ref80">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1190,9 +1188,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="jitterEntryPoints" lod="1" value="false" />
                         <Property name="jitterStepLength" lod="1" value="0.005" />
@@ -1210,7 +1208,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.entrypoints.renderSizeReceive" lod="1" id="ref67">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1218,7 +1216,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.exitpoints.renderSizeReceive" lod="1" id="ref66">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1253,9 +1251,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -1304,11 +1302,11 @@
                         <Property name="applyLightAttenuation" lod="1" value="false" />
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="668162" fovy="45" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref93">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="35" y="108" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="classification" lod="1" value="transfer-function" />
                         <Property name="compositing" lod="1" value="dvr" />
@@ -1336,7 +1334,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="5.30421543" y="-5.56183434" z="6.39775705" w="0" />
+                            <value x="3.63388824" y="-8.1755991" z="4.46703863" w="0" />
                         </Property>
                         <Property name="lightSpecular" lod="1">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -1370,14 +1368,14 @@
                         <Port name="image.entrypoints">
                             <Properties>
                                 <Property name="image.entrypoints.renderSizeOrigin" lod="1" id="ref65">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.exitpoints">
                             <Properties>
                                 <Property name="image.exitpoints.renderSizeOrigin" lod="1">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1394,7 +1392,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.output.renderSizeReceive" lod="1" id="ref79">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1520,9 +1518,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="shader.program" lod="1" fragmentModified="false" fragmentIsExternal="false" vertexModified="false" vertexIsExternal="false" geometryModified="false" geometryIsExternal="false">
                             <MetaData>
@@ -1666,9 +1664,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="jitterEntryPoints" lod="1" value="false" />
                         <Property name="jitterStepLength" lod="1" value="0.005" />
@@ -1686,7 +1684,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.entrypoints.renderSizeReceive" lod="1" id="ref86">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1694,7 +1692,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.exitpoints.renderSizeReceive" lod="1" id="ref87">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1730,9 +1728,9 @@
                             <MetaData>
                                 <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
                             </MetaData>
-                            <position x="-33.50398254" y="79.71483612" z="-25.43280602" />
-                            <focus x="-6.9980979" y="24.07441711" z="-13.15921593" />
-                            <upVector x="-0.64760089" y="-0.61843324" z="-0.4451443" />
+                            <position x="-7.94259024" y="89.64614105" z="-4.92776251" />
+                            <focus x="0.23334496" y="27.38050652" z="-7.20895052" />
+                            <upVector x="-0.83519024" y="-0.28156653" z="-0.47241676" />
                         </Property>
                         <Property name="classification" lod="1" value="transfer-function" />
                         <Property name="compositing" lod="1" value="dvr" />
@@ -1760,7 +1758,7 @@
                                 <MetaItem name="FollowCamera" type="BoolMetaData" value="false" />
                                 <MetaItem name="UseBackHemisphere" type="BoolMetaData" value="false" />
                             </MetaData>
-                            <value x="5.30421543" y="-5.56183434" z="6.39775705" w="0" />
+                            <value x="3.63388824" y="-8.1755991" z="4.46703863" w="0" />
                         </Property>
                         <Property name="lightSpecular" lod="1">
                             <value x="0.60000002" y="0.60000002" z="0.60000002" w="1" />
@@ -1795,14 +1793,14 @@
                         <Port name="image.entrypoints">
                             <Properties>
                                 <Property name="image.entrypoints.renderSizeOrigin" lod="1" id="ref85">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
                         <Port name="image.exitpoints">
                             <Properties>
                                 <Property name="image.exitpoints.renderSizeOrigin" lod="1">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -1819,7 +1817,7 @@
                             <Properties>
                                 <Property name="blockEvents" lod="1" value="false" />
                                 <Property name="image.output.renderSizeReceive" lod="1" id="ref78">
-                                    <value x="1372" y="936" />
+                                    <value x="1318" y="916" />
                                 </Property>
                             </Properties>
                         </Port>
@@ -5978,7 +5976,7 @@
                         <Property name="SegmentationRaycatser.applySegmentation" lod="1" value="true" />
                         <Property name="camera" lod="1" projectionMode="1" frustLeft="-0.04142136" frustRight="0.04142136" frustBottom="-0.04142136" frustTop="0.04142136" frustNear="0.1" frustFar="113411.921875" fovy="45.00000381" eyeMode="1" eyeSeparation="1" axisMode="0" id="ref102">
                             <MetaData>
-                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="0" y="-25" />
+                                <MetaItem name="EditorWindow" type="WindowStateMetaData" visible="false" x="20" y="-31" />
                             </MetaData>
                             <position x="-11.81555748" y="-28.74437714" z="44.56402969" />
                             <focus x="2.80695343" y="-40.94691467" z="24.43990898" />
@@ -6076,7 +6074,7 @@
                 <Processor type="Canvas" name="Segmentation View" id="ref41">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="400" y="110" />
-                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="1038" y="686" width="329" height="311" />
+                        <MetaItem name="ProcessorWidget" type="WindowStateMetaData" visible="true" x="160" y="205" width="329" height="311" />
                         <MetaItem name="preferedDevelopmentCanvasFS" type="BoolMetaData" value="true" />
                         <MetaItem name="preferedDevelopmentCanvasPosition" type="IVec2MetaData">
                             <value x="586" y="460" />
@@ -6474,7 +6472,7 @@
                     <Outports />
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="MolMolAlign" name="MolMolAlign" id="ref53">
+                <Processor type="MolMolAlign" name="MolMolAlign" id="ref54">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="9" y="-409" />
                     </MetaData>
@@ -6482,14 +6480,8 @@
                         <Property name="align" />
                         <Property name="createNew_" value="false" />
                         <Property name="moleculeURLlist_">
-                            <MoleculeURLs>
-                                <url value="/home/satary/soft/3mview/Tests/6ins.pdb" />
-                                <url value="/home/satary/soft/3mview/Tests/4INS.pdb" />
-                            </MoleculeURLs>
-                            <Selection>
-                                <entry url="/home/satary/soft/3mview/Tests/4INS.pdb" value="false" />
-                                <entry url="/home/satary/soft/3mview/Tests/6ins.pdb" value="false" />
-                            </Selection>
+                            <MoleculeURLs />
+                            <Selection />
                         </Property>
                         <Property name="tobealigned" value="SelectedToOrigin" />
                     </Properties>
@@ -6547,14 +6539,8 @@
                         <Property name="deltaatoomr" value="100" />
                         <Property name="generategrid" />
                         <Property name="moleculeURLlist_">
-                            <MoleculeURLs>
-                                <url value="/home/satary/soft/3mview/Tests/6ins.pdb" />
-                                <url value="/home/satary/soft/3mview/Tests/4INS.pdb" />
-                            </MoleculeURLs>
-                            <Selection>
-                                <entry url="/home/satary/soft/3mview/Tests/4INS.pdb" value="false" />
-                                <entry url="/home/satary/soft/3mview/Tests/6ins.pdb" value="false" />
-                            </Selection>
+                            <MoleculeURLs />
+                            <Selection />
                         </Property>
                         <Property name="resolution" value="50" />
                     </Properties>
@@ -6562,7 +6548,7 @@
                     <Outports />
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="MoleculeCleaner" name="MoleculeCleaner" id="ref54">
+                <Processor type="MoleculeCleaner" name="MoleculeCleaner" id="ref55">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-2" y="-877" />
                     </MetaData>
@@ -6571,36 +6557,24 @@
                         <Property name="createNew" value="false" />
                         <Property name="invertSelection" value="false" />
                         <Property name="moleculeURLlist_">
-                            <MoleculeURLs>
-                                <url value="/home/satary/soft/3mview/Tests/6ins.pdb" />
-                                <url value="/home/satary/soft/3mview/Tests/4INS.pdb" />
-                            </MoleculeURLs>
-                            <Selection>
-                                <entry url="/home/satary/soft/3mview/Tests/4INS.pdb" value="false" />
-                                <entry url="/home/satary/soft/3mview/Tests/6ins.pdb" value="false" />
-                            </Selection>
+                            <MoleculeURLs />
+                            <Selection />
                         </Property>
-                        <Property name="removeHydrogens" value="true" />
+                        <Property name="removeHydrogens" />
                         <Property name="restype" value="water" />
                     </Properties>
                     <Inports />
                     <Outports />
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="MoleculeRepresentation" name="MoleculeRepresentation" id="ref55">
+                <Processor type="MoleculeRepresentation" name="MoleculeRepresentation" id="ref56">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="170" y="-952" />
                     </MetaData>
                     <Properties>
                         <Property name="moleculeURLlist_">
-                            <MoleculeURLs>
-                                <url value="/home/satary/soft/3mview/Tests/6ins.pdb" />
-                                <url value="/home/satary/soft/3mview/Tests/4INS.pdb" />
-                            </MoleculeURLs>
-                            <Selection>
-                                <entry url="/home/satary/soft/3mview/Tests/4INS.pdb" value="false" />
-                                <entry url="/home/satary/soft/3mview/Tests/6ins.pdb" value="false" />
-                            </Selection>
+                            <MoleculeURLs />
+                            <Selection />
                         </Property>
                         <Property name="repType" value="BallsAndSticks" />
                         <Property name="selectButton" />
@@ -6609,23 +6583,36 @@
                     <Outports />
                     <InteractionHandlers />
                 </Processor>
-                <Processor type="MoleculeSaver" name="MoleculeSaver" id="ref56">
+                <Processor type="MoleculeSaver" name="MoleculeSaver" id="ref57">
                     <MetaData>
                         <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="247" y="-782" />
                     </MetaData>
                     <Properties>
                         <Property name="mergeMolecules" value="false" />
+                        <Property name="mergedName" value="merged.pdb" />
                         <Property name="moleculeURLlist_">
-                            <MoleculeURLs>
-                                <url value="/home/satary/soft/3mview/Tests/6ins.pdb" />
-                                <url value="/home/satary/soft/3mview/Tests/4INS.pdb" />
-                            </MoleculeURLs>
-                            <Selection>
-                                <entry url="/home/satary/soft/3mview/Tests/4INS.pdb" value="true" />
-                                <entry url="/home/satary/soft/3mview/Tests/6ins.pdb" value="false" />
-                            </Selection>
+                            <MoleculeURLs />
+                            <Selection />
                         </Property>
+                        <Property name="removeHeader" value="true" />
                         <Property name="saveButton" />
+                        <Property name="saveToFolder" noPathSet="false" value="../../data" />
+                    </Properties>
+                    <Inports />
+                    <Outports />
+                    <InteractionHandlers />
+                </Processor>
+                <Processor type="DensityMapSaver" name="DensityMapSaver" id="ref52">
+                    <MetaData>
+                        <MetaItem name="ProcessorGraphicsItem" type="PositionMetaData" x="-405" y="-930" />
+                    </MetaData>
+                    <Properties>
+                        <Property name="outputFolder" noPathSet="false" value="../../data" />
+                        <Property name="save" />
+                        <Property name="volumeURLList">
+                            <VolumeURLs />
+                            <Selection />
+                        </Property>
                     </Properties>
                     <Inports />
                     <Outports />
@@ -7097,7 +7084,7 @@
                         <Processor type="EEPGeometryIntegrator" ref="ref9" />
                     </Inport>
                 </Connection>
-                <Connection id="ref57">
+                <Connection>
                     <Outport name="image.output">
                         <Processor type="SingleVolumeRaycaster" ref="ref36" />
                     </Outport>
@@ -7261,6 +7248,14 @@
                 </CoProcessorConnection>
                 <CoProcessorConnection>
                     <Outport name="coProcessor">
+                        <Processor type="DensityMapCollectionSource" ref="ref14" />
+                    </Outport>
+                    <Inport name="DensityMapSource">
+                        <Processor type="DensityMapSaver" ref="ref52" />
+                    </Inport>
+                </CoProcessorConnection>
+                <CoProcessorConnection>
+                    <Outport name="coProcessor">
                         <Processor type="MoleculeCollectionSource" ref="ref19" />
                     </Outport>
                     <Inport name="MoleculeSource">
@@ -7272,7 +7267,7 @@
                         <Processor type="MoleculeCollectionSource" ref="ref19" />
                     </Outport>
                     <Inport name="MoleculeSource">
-                        <Processor type="MoleculeManipulation" ref="ref52" />
+                        <Processor type="MoleculeManipulation" ref="ref53" />
                     </Inport>
                 </CoProcessorConnection>
                 <CoProcessorConnection>
@@ -7288,7 +7283,7 @@
                         <Processor type="MoleculeCollectionSource" ref="ref19" />
                     </Outport>
                     <Inport name="MoleculeSource">
-                        <Processor type="MolMolAlign" ref="ref53" />
+                        <Processor type="MolMolAlign" ref="ref54" />
                     </Inport>
                 </CoProcessorConnection>
                 <CoProcessorConnection>
@@ -7296,7 +7291,7 @@
                         <Processor type="MoleculeCollectionSource" ref="ref19" />
                     </Outport>
                     <Inport name="MoleculeSource">
-                        <Processor type="MoleculeCleaner" ref="ref54" />
+                        <Processor type="MoleculeCleaner" ref="ref55" />
                     </Inport>
                 </CoProcessorConnection>
                 <CoProcessorConnection>
@@ -7304,7 +7299,7 @@
                         <Processor type="MoleculeCollectionSource" ref="ref19" />
                     </Outport>
                     <Inport name="MoleculeSource">
-                        <Processor type="MoleculeRepresentation" ref="ref55" />
+                        <Processor type="MoleculeRepresentation" ref="ref56" />
                     </Inport>
                 </CoProcessorConnection>
                 <CoProcessorConnection>
@@ -7320,7 +7315,7 @@
                         <Processor type="MoleculeCollectionSource" ref="ref19" />
                     </Outport>
                     <Inport name="MoleculeSource">
-                        <Processor type="MoleculeSaver" ref="ref56" />
+                        <Processor type="MoleculeSaver" ref="ref57" />
                     </Inport>
                 </CoProcessorConnection>
                 <CoProcessorConnection>
