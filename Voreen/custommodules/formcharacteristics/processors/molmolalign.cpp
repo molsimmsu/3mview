@@ -84,7 +84,9 @@ void MolMolAlign :: align()
 
             std::string url1 = firstMol->getOrigin().getURL();
             std::string url2 = secondMol->getOrigin().getFilename();
-            std::string newOrigin = url1 + "_align_to_" + url2;
+            size_t dotPos = url1.find_last_of('.');
+            url1 = url1.substr(0, dotPos);
+            std::string newOrigin = url1 + "_align_to_" + url2 + ".pdb";
             outMol->setOrigin(VolumeURL(newOrigin));
             
 		    getSourceProcessor()->addMolecule(outMol, true, true);
@@ -117,7 +119,9 @@ void MolMolAlign :: align()
 		    std :: cout << "Done. \n";
 		
             std::string url1 = molecula->getOrigin().getURL();
-            std::string newOrigin = url1 + "_align_to_origin";
+            size_t dotPos = url1.find_last_of('.');
+            url1 = url1.substr(0, dotPos);
+            std::string newOrigin = url1 + "_align_to_origin.pdb";
             outMol->setOrigin(VolumeURL(newOrigin));
             
             std::stringstream info;

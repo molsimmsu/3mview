@@ -56,7 +56,9 @@ void MoleculeCleaner::removeHydrogens() {
             Molecule* newMol = mol->clone();
             newMol->DeleteHydrogens();
             std::string url = mol->getOrigin().getURL();
-            newMol->setOrigin(VolumeURL(url + "_no_hydrogens"));            
+            size_t dotPos = url.find_last_of('.');
+            url = url.substr(0, dotPos);
+            newMol->setOrigin(VolumeURL(url + "_no_hydrogens.pdb"));
             getSourceProcessor()->addMolecule(newMol, true, true);
         }
         else
@@ -81,7 +83,9 @@ void MoleculeCleaner::UpdateResSelection() {
             Molecule* newMol = mol->clone();
             newMol->clearResidues(resid, invertSelection_.get());
             std::string url = mol->getOrigin().getURL();
-            newMol->setOrigin(VolumeURL(url + "_no_" + resType_.get()));
+            size_t dotPos = url.find_last_of('.');
+            url = url.substr(0, dotPos);
+            newMol->setOrigin(VolumeURL(url + "_no_" + resType_.get() + ".pdb"));
             
             getSourceProcessor()->addMolecule(newMol, true, true);
         }
