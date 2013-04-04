@@ -22,7 +22,6 @@ Processor* MoleculeManipulation::create() const {
 }
 
 void MoleculeManipulation::updateSelection() {
-    //LWARNING("MoleculeManipulation::updateSelection()");
     MoleculeCoProcessor::updateSelection();
     const MoleculeCollection* collection = getInputMoleculeCollection();
     if (collection == 0) {
@@ -30,10 +29,8 @@ void MoleculeManipulation::updateSelection() {
         return;
     }
     moleculeURLlist_.clear();
-    for (size_t i = 0; i < collection->size(); i++) {
+    for (size_t i = 0; i < collection->size(); i++)
         moleculeURLlist_.addMolecule(collection->at(i));
-        //LWARNING("MoleculeManipulation::updateSelection() added Molecule");
-    }
 }
 
 void MoleculeManipulation::applyTransformation(tgt::vec3 offset, tgt::mat4 matrix) {

@@ -11,15 +11,14 @@ HomologyFinder::HomologyFinder()
     , findDomains_("findDomains", "Find Domains")
     , alignmentList_("alignmentList", "Alignment List")
     , maxDomainsToLoad_("maxDomainsToLoad", "Max domains to load", 3, 1, 5)
-    , moleculePort_(Port::INPORT, "moleculePort", "Molecule Input")
+    , moleculeURLlist_("moleculeURLlist_", "Molecule URL List", std::vector<std::string>())
 {
     addProperty(sequenceSource_);
+    addProperty(moleculeURLlist_);
     addProperty(loadSequence_);
     addProperty(sequenceText_);
     addProperty(findDomains_);
     addProperty(maxDomainsToLoad_);
-    
-    addPort(moleculePort_);
     
     sequenceSource_.addOption("string", "String");
     sequenceSource_.addOption("molecule", "Input molecule");
@@ -83,13 +82,16 @@ void HomologyFinder::loadDomains() {
         std::stringstream pdbPath;
         pdbPath << path << a.getName() << ".pdb" << "?score=" << a.pident;
         LINFO(pdbPath.str());
-        molCollection->load(pdbPath.str());
+        molCollection->load(pdbPath.str(), true);
     }
 }
 
 std::string HomologyFinder::getSequence() {
     if (sequenceSource_.get() == "molecule") {
-        const Molecule* mol = moleculePort_.getData();
+        const MoleculeCollection* collection = moleculeURLlist_.getMolecules(true);
+        if (collection == 0 || collection->size() == 0) return std::string();
+
+        const Molecule* mol = collection->at(0);
         if (mol == 0) {
             LWARNING("Molecule is 0. Stop");
             return std::string();
@@ -119,5 +121,17 @@ std::string HomologyFinder::getSequence() {
     
     LERROR("Wrong sequence source selected");
     return std::string();
+}
+
+void HomologyFinder::updateSelection() {
+    MoleculeCoProcessor::updateSelection();
+    const MoleculeCollection* collection = getInputMoleculeCollection();
+    if (collection == 0) {
+        LERROR("Collection is NULL at DensityMapManipulation::updateSelection()");
+        return;
+    }
+    moleculeURLlist_.clear();
+    for (size_t i = 0; i < collection->size(); i++)
+        moleculeURLlist_.addMolecule(collection->at(i));
 }
 

@@ -30,6 +30,8 @@ public:
     
     virtual void process() {}
     
+    virtual void updateSelection();
+    
 protected:
     virtual void setDescriptions() {
         setDescription("Find homologous domains from BLAST database for each sequence from a given collection");
@@ -57,8 +59,7 @@ protected:
     std::string getSequence();
     
 private:
-    MoleculePort moleculePort_;
-    
+    MoleculeURLListProperty moleculeURLlist_;
     StringOptionProperty sequenceSource_;
     FileDialogProperty loadSequence_;
     StringProperty sequenceText_;

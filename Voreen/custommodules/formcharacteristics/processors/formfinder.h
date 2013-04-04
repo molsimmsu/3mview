@@ -9,6 +9,7 @@
 #define	NAMELEN			    8
 
 #include "../../molecule/processors/moleculecoprocessor.h"
+#include "../../electrondensity/processors/densitymapcoprocessor.h"
 #include "../../homology/properties/alignmentlistproperty.h"
 
 #include "voreen/core/properties/callmemberaction.h"
@@ -16,6 +17,7 @@
 #include "voreen/core/properties/filedialogproperty.h"
 #include "voreen/core/properties/intproperty.h"
 #include "voreen/core/properties/floatproperty.h"
+#include "voreen/core/properties/volumeurllistproperty.h"
 
 using namespace voreen;
 
@@ -25,7 +27,7 @@ using namespace voreen;
 #include <cmath>
 #include <string>
 
-class FormFinder : public MoleculeCoProcessor {
+class FormFinder : virtual public DensityMapCoProcessor, virtual public MoleculeCoProcessor {
 public:
     FormFinder();
     
@@ -36,6 +38,8 @@ public:
     virtual Processor* create() const { return new FormFinder(); }
     
     virtual void process() {}
+    
+    virtual void updateSelection();
     
 protected:
     virtual void setDescriptions() {
@@ -50,14 +54,13 @@ protected:
 
     
 private:
+    VolumeURLListProperty volumeURLList_;
     ButtonProperty        findDomains_;
     AlignmentListProperty alignmentList_;
     IntProperty           maxDomainsToLoad_;
     IntProperty           momentsOrder_;
     FloatProperty         accuracy_;
     FloatProperty         weightFactor_;
-	
-    VolumePort volinport_;    
 
     double *moments;
     void   GetMoments();  

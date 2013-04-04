@@ -97,14 +97,14 @@ MoleculeGeometry* MoleculeCollectionGeometryBuilder::getMoleculeGeometry(const M
 }
 
 void MoleculeCollectionGeometryBuilder::moleculeAdded(const MoleculeCollection* mc, const Molecule* mol) {
-    LINFO("MoleculeCollectionGeometryBuilder::moleculeAdded()");
+    //LINFO("MoleculeCollectionGeometryBuilder::moleculeAdded()");
     
     createMoleculeGeometry(mol);
     outport_.invalidatePort();
 }
 
 void MoleculeCollectionGeometryBuilder::moleculeChanged(const MoleculeCollection* mc, const Molecule* mol) {
-    LINFO("MoleculeCollectionGeometryBuilder::moleculeChanged()");
+    //LINFO("MoleculeCollectionGeometryBuilder::moleculeChanged()");
     
     deleteMoleculeGeometry(mol);
     createMoleculeGeometry(mol);
@@ -112,7 +112,7 @@ void MoleculeCollectionGeometryBuilder::moleculeChanged(const MoleculeCollection
 }
 
 void MoleculeCollectionGeometryBuilder::moleculeRemoved(const MoleculeCollection* mc, const Molecule* mol) {
-    LINFO("MoleculeCollectionGeometryBuilder::moleculeRemoved()");
+    //LINFO("MoleculeCollectionGeometryBuilder::moleculeRemoved()");
     
     deleteMoleculeGeometry(mol);
     outport_.invalidatePort();

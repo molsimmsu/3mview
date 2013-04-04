@@ -5,25 +5,39 @@ std::string FormFinder::loggerCat_ = "homology.FormFinder";
 
 FormFinder::FormFinder()
     : findDomains_("findDomains", "Find Domains")
-    , volinport_(Port::INPORT,   "volume", "Electon density map")
     , alignmentList_("alignmentList", "Alignment List")
     , momentsOrder_("momorder", "Order of moments in database", 6, 1, 50)
     , maxDomainsToLoad_("maxDomainsToLoad", "Max domains to load", 3, 1, 5)
     , accuracy_("accuracy", "Bottom value cutoff", 0, 0, 10)
     , weightFactor_("weightFactor", "Weight factor", 12, 1, 100, Processor::INVALID_PROGRAM)
+    , volumeURLList_("volumeURLList", "Volume URL List", std::vector<std::string>())
 {
+    addProperty(volumeURLList_);
     addProperty(findDomains_);
     addProperty(momentsOrder_);
     addProperty(maxDomainsToLoad_);
     addProperty(accuracy_);
     addProperty(weightFactor_);
-    addPort(volinport_);
     findDomains_.onChange(CallMemberAction<FormFinder>(this, &FormFinder::findDomains));
+}
+
+void FormFinder::updateSelection() {
+    DensityMapCoProcessor::updateSelection();
+    const VolumeCollection* collection = getInputVolumeCollection();
+    if (collection == 0) {
+        LERROR("Collection is NULL at DensityMapManipulation::updateSelection()");
+        return;
+    }
+    volumeURLList_.clear();
+    for (size_t i = 0; i < collection->size(); i++)
+        volumeURLList_.addVolume(collection->at(i));
 }
 
 void FormFinder::findDomains() 
 {
-	const VolumeBase* data =  volinport_.getData();
+    const VolumeCollection* collection = volumeURLList_.getVolumes(true);
+    if (collection == 0 || collection->size() == 0) return;
+	const VolumeBase* data =  collection->at(0);
 	const Volume* vol = data->clone();
 
 	PointCloud  cloud;
@@ -149,7 +163,7 @@ void FormFinder::findDomains()
      }	
 
 
-    MoleculeCollectionSource* molCollection = getSourceProcessor();
+    MoleculeCollectionSource* molCollection = MoleculeCoProcessor::getSourceProcessor();
     if (molCollection == 0) return;
     
     std::string path(DOMAIN_LOAD_PATH);
@@ -161,7 +175,7 @@ void FormFinder::findDomains()
 	   pdbPath += &name[i*NAMELEN];
 	   pdbPath += ".pdb";
         LINFO(pdbPath.c_str());
-        molCollection->load(pdbPath);
+        molCollection->load(pdbPath, true);
     }
     delete[] name;
     delete[] disp;

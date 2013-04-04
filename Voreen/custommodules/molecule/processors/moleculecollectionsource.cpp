@@ -97,7 +97,7 @@ void MoleculeCollectionSource::invalidate(int inv) {
     outport_.invalidatePort();
 }
 
-void MoleculeCollectionSource::load(const std::string& path) {
+void MoleculeCollectionSource::load(const std::string& path, bool select) {
     try {
         VolumeURL url(path);
         Molecule* mol = MoleculeIO::read(url);
@@ -106,7 +106,7 @@ void MoleculeCollectionSource::load(const std::string& path) {
 
         getMoleculeCollection()->add(mol);
         LWARNING(mol->getOrigin().getPath());
-        moleculeURLlist_.addMolecule(mol, false, true);
+        moleculeURLlist_.addMolecule(mol, select, true);
         outport_.invalidatePort();
     }
     catch (VoreenException& e) {

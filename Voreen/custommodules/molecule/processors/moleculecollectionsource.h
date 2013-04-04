@@ -26,7 +26,7 @@ public:
     
     virtual void invalidate(int inv = INVALID_RESULT);
     
-    void load(const std::string& path);
+    void load(const std::string& path, bool select = false);
     void runTestFasta();
     MoleculeCollection* getMoleculeCollection();
     MoleculeCollection* getSelectedMoleculeCollection();
