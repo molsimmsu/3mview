@@ -3,6 +3,7 @@
 
 #include "../../geometry/processors/manipulationbase.h"
 #include "../../molecule/ports/moleculeport.h"
+#include "densitymapcoprocessor.h"
 
 #include "voreen/core/ports/allports.h"
 #include "voreen/core/datastructures/volume/volume.h"
@@ -24,7 +25,7 @@ namespace voreen {
 
 class Volume;
 
-class Correlation : virtual public Processor{
+class Correlation : public DensityMapCoProcessor{
 
 public:
 
@@ -41,15 +42,13 @@ protected:
 //record of atom types in input PDB with radial electron density distribution
     virtual void setDescriptions() {setDescription("Single volume blur. TODO: correlation");}
     virtual void process();
-    void Calculate();
+    virtual void updateSelection();
+    Volume* CalculateBlur();
+    void OnClick();
 
-    VolumePort SingleVolumeInport_;
-    VolumePort SingleVolumeOutport_;
     IntProperty resol_;
     ButtonProperty calcblur_; //click this button to generate volume
-
-
-
+    VolumeURLListProperty volumeURLList_;
 };
 
 } // namespace

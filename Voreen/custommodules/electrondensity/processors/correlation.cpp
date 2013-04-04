@@ -26,7 +26,7 @@
 
 #define PI 3.141592
 
-#define REBUILD_GRID CallMemberAction<Correlation>(this, &Correlation::Calculate)
+#define REBUILD_GRID CallMemberAction<Correlation>(this, &Correlation::OnClick)
 using std::string;
 using tgt::vec3;
 using tgt::ivec3;
@@ -43,18 +43,16 @@ const std::string Correlation::loggerCat_("voreen.core.Correlation");
 
 Correlation::Correlation()
     : Processor()
-, SingleVolumeInport_(Port::INPORT, "SingleVolumeInput", "Single Volume Input")
-, SingleVolumeOutport_(Port::OUTPORT, "SingleVolumeOutport", "Single Volume Outport")
-, resol_("Resolution", "NumberOfVoxelPerVosels", 1, 0, 100)
+, resol_("Resolution", "NumberOfVoxelPerVosels", 1, 0, 20)
 , calcblur_("calcblur", "Calculate")
+, volumeURLList_("volumeURLList", "Volume URL List", std::vector<std::string>())
 
 
 {
-addPort(SingleVolumeInport_);
-addPort(SingleVolumeOutport_);
 
 addProperty(resol_);
 addProperty(calcblur_);
+addProperty(volumeURLList_);
 
 calcblur_.onClick(REBUILD_GRID);
 
@@ -66,17 +64,43 @@ Correlation::~Correlation() {
 Processor* Correlation::create() const {
         return new Correlation();
 }
-
-void Correlation::Calculate()
+void Correlation::OnClick()
 {
-const VolumeBase* SingleInput = SingleVolumeInport_.getData();
+  Volume* volume;
+  volume = CalculateBlur();
+  if (volume!=0) getSourceProcessor()->addVolume(volume, true, true);
+  else LWARNING("Please select volume!");
+}
+
+void Correlation::updateSelection() {
+    DensityMapCoProcessor::updateSelection();
+    const VolumeCollection* collection = getInputVolumeCollection();
+    if (collection == 0) {
+        LERROR("Collection is NULL at DensityMapManipulation::updateSelection()");
+        return;
+    }
+    volumeURLList_.clear();
+    for (size_t i = 0; i < collection->size(); i++)
+        volumeURLList_.addVolume(collection->at(i));
+}
+
+
+Volume*  Correlation::CalculateBlur()
+{
+
+VolumeCollection* volumes = volumeURLList_.getVolumes(true);
+
+if (volumes->size()!=0)
+{
+
+const VolumeBase* SingleInput = volumes->at(0);
 const VolumeRAM* SingleInputVolume = SingleInput->getRepresentation<VolumeAtomic<float_t> >();
 
 ivec3 NN=SingleInputVolume->getDimensions();
 int N=resol_.get();
-
 VolumeRAM* targetDataset = new VolumeAtomic<float_t>(ivec3(NN[0],NN[1],NN[2]));
 
+LINFO("Create Gauss core...");
 float gaus[2*N+1][2*N+1][2*N+1],sigm2,meanval;
 int tempi,tempj,tempk;
 sigm2=pow(N/3.0,2);
@@ -113,7 +137,7 @@ else gaus[0][0][0]=1;
 
 for (int i=0; i<NN[0]; i++)
 {
-
+std::cout << "Blur...: "<<(i+1)*100/NN[0]<< "%"<<"\r";
 for (int j=0; j<NN[1]; j++)
 for (int k=0; k<NN[2]; k++)
 {
@@ -133,11 +157,7 @@ for (int k=0; k<NN[2]; k++)
 
  ((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)=meanval;
 }
-std::cout << "Blur...: "<<i*100/NN[0]<< "%"<<"\r";
 }
-
-
-
 
 tgt::Matrix4<int> transform
         (
@@ -154,103 +174,16 @@ Volume* volumeHandle = new Volume(
             transform                                                                                     // transform
         );
 
-SingleVolumeOutport_.setData(volumeHandle);
-std::cout << "Calculation complited!"<<std::endl;
-
+volumeHandle->setOrigin(SingleInput->getOrigin());
+LINFO("Calculation complited!");
+return volumeHandle;
 }
-
-void Correlation::process() {
-
-/*
-for (int i=0; i<Nx; i++)
-for (int j=0; j<Ny; j++)
-for (int k=0; k<Nz; k++)
+else
 {
-
-
-meanval=0;
-
-
-for (int ii=0; ii<N; ii++)
-for (int jj=0; jj<N; jj++)
-for (int kk=0; kk<N; kk++)
-{
-    tempi=i*N+ii;
-    tempj=j*N+jj;
-    tempk=k*N+kk;
-//    if (tempi>=NN[0]) tempi=tempi-NN[0];
-//    if (tempj>=NN[0]) tempj=tempj-NN[1];
-//    if (tempk>=NN[0]) tempk=tempk-NN[2];
-
-if ((tempi<NN[0])&(tempj<NN[1])&(tempk<NN[2]))
-meanval=meanval+((VolumeAtomic<float_t>*)vr2)->voxel(tempi,tempj,tempk);
-
-
+   return 0;
 }
-meanval=meanval/pow(N,3);
-
-
-for (int ii=0; ii<N; ii++)
-for (int jj=0; jj<N; jj++)
-for (int kk=0; kk<N; kk++)
-{
-    tempi=i*N+ii;
-    tempj=j*N+jj;
-    tempk=k*N+kk;
-
-if ((tempi<NN[0])&(tempj<NN[1])&(tempk<NN[2]))
-((VolumeAtomic<float_t>*)targetDataset)->voxel(tempi,tempj,tempk)=meanval;
 }
 
-}
-
-*/
-
-
-/*
-//calc mean density
-vec3 space=inputVolume2->getSpacing();
-std::cout<<"calc mean density..."<<std::endl;
-for (int i=0; i<NN[0]; i++)
-for (int j=0; j<NN[1]; j++)
-for (int k=0; k<NN[2]; k++)
-{
- //   mean1=mean1+((VolumeAtomic<float_t>*)vr1)->voxel(i,j,k)*pow(space[0],3);
- //  mean2=mean2+((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)*pow(space[0],3);
-
- mean1=mean1+((VolumeAtomic<float_t>*)vr1)->voxel(i,j,k);
- mean2=mean2+((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k);
-}
-mean1=mean1/(NN[0]*NN[1]*NN[2]);
-mean2=mean2/(NN[0]*NN[1]*NN[2]);
-std::cout<<"Mean dens in volume1: "<<mean1<<std::endl;
-std::cout<<"Mean dens in volume2: "<<mean2<<std::endl;
-//----------------
-
-
-
-//calc correlation density
-std::cout<<"calc correlation..."<<std::endl;
-float cov=0,sigmv1=0,sigmv2=0;
-for (int i=0; i<NN[0]; i++)
-for (int j=0; j<NN[1]; j++)
-for (int k=0; k<NN[2]; k++)
-{
-    cov=cov+(((VolumeAtomic<float_t>*)vr1)->voxel(i,j,k)-mean1)*(((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)-mean2);
-    sigmv1=sigmv1+pow( (((VolumeAtomic<float_t>*)vr1)->voxel(i,j,k)-mean1) ,2);
-    sigmv2=sigmv2+pow( (((VolumeAtomic<float_t>*)targetDataset)->voxel(i,j,k)-mean2) ,2);
-}
-float corr=cov/sqrt(sigmv1*sigmv2);
-
-std::cout<<"correlation coefficient: "<<corr<<std::endl;
-//----------------
-
-*/
-
-
-
-}
-
-
+void Correlation::process() {}
 
 } // namespace
