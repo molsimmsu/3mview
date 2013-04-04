@@ -12,6 +12,8 @@
     git clone https://github.com/molsimmsu/3mview.git
 
 ### Установка пакетов
+Проверяем наличие компилятора gcc версии 4.6 и выше. (версия 4.4 не работает)
+
 Ubuntu:
 
     sudo apt-get install libspnav-dev libqt4-dev cmake libeigen2-dev libboost-dev libpng12-dev libfftw3-dev libtiff5-dev python-sip-dev python-qt4-dev libdevil-dev libglew-dev
