@@ -21,6 +21,7 @@ RunDock::RunDock()
     , status_("status","Status","")
     , submitButton_("submitButton", "Submit")
     , readButton_("readButton", "Load results")
+    , checkButton_("checkButton", "check status")
 
 {
     addProperty(workingDir_);
@@ -32,6 +33,7 @@ RunDock::RunDock()
     addProperty(status_);
     addProperty(submitButton_);
     addProperty(readButton_);
+    addProperty(checkButton_);
     
     selectTarget_.addOption("1", "first");
     selectTarget_.addOption("2", "second");
@@ -40,6 +42,10 @@ RunDock::RunDock()
 
     submitButton_.onChange(CallMemberAction<RunDock>(this, &RunDock::submit));
     readButton_.onChange(CallMemberAction<RunDock>(this, &RunDock::loadResult));
+    checkButton_.onChange(CallMemberAction<RunDock>(this, &RunDock::checkStatus));
+    readButton_.setVisible(false);
+    checkButton_.setVisible(false);
+   // checkButton_.setVisible(false);
 }
 
 Processor* RunDock::create() const {
@@ -68,6 +74,7 @@ void RunDock::submit() {
         
     if (collection->size() != 2) {
         LINFO("You should select 2 molecules");
+        status_.set("select 2 molecules");
         return;
     }
     
@@ -83,8 +90,8 @@ void RunDock::submit() {
         MoleculeIO::write(mol,url, true);
         delete mol;
     }
-    std::string molName1 = collection->at(0)->getOrigin().getFilename();
-    std::string molName2 = collection->at(1)->getOrigin().getFilename();
+    molName1_ = collection->at(0)->getOrigin().getFilename();
+    molName2_ = collection->at(1)->getOrigin().getFilename();
     
     
     std::string cmd("cp ../resource/scripts/runhexdock.sh ");
@@ -94,12 +101,12 @@ void RunDock::submit() {
 	cmd += "/ && ./runhexdock.sh ";
 	
 	if (selectTarget_.isSelected("1")==true)  
-	    cmd +=  molName1 + " " + molName2 + " " ;//+ //std::string(numMod_.get());
+	    cmd +=  molName1_ + " " + molName2_ + " " ;
     else 
-        cmd +=  molName2 + " " + molName1 + " " ;
+        cmd +=  molName2_ + " " + molName1_ + " " ;
     std::stringstream out;
     out << numMod_.get();
-    cmd += out.str();  //+ std::string(numMod_.get());
+    cmd += out.str(); 
 	
 	FILE* pipe = popen(cmd.c_str(), "r");
 
@@ -112,10 +119,66 @@ void RunDock::submit() {
 	
 	pclose(pipe);
     
+    submitButton_.setVisible(false);
+    readButton_.setVisible(false);
+    checkButton_.setVisible(true);
+    workingDir_.setVisible(false);
+    moleculeURLlist_.setVisible(false);
+    runInterface_.setVisible(false);
+    numMod_.setVisible(false);
+    selectTarget_.setVisible(false);
+    dockType_.setVisible(false);
     
+}
+
+void RunDock::checkStatus(){
+    std::string cmd("cd ");
+	cmd += workingDir_.get();
+	cmd += "/ && tail -n 1 log ";
+	
+	FILE* pipe = popen(cmd.c_str(), "r");
+
+	while (!feof(pipe))
+	{
+		char field[10]; float pident;
+		fscanf(pipe, "%s", field);
+		if(std::strcmp(field,"stopping:")==0){
+		    status_.set("Task complete");
+		    readButton_.setVisible(true);
+		    checkButton_.setVisible(false);
+	    }		
+	}
+	pclose(pipe);
 }
 
 
 void RunDock::loadResult(){
-
+    MoleculeCollectionSource* molCollection = getSourceProcessor();
+    std::string loadName;
+    if (molCollection == 0) return;
+        if (selectTarget_.isSelected("1")==true)  
+            loadName = molName2_;
+        else 
+            loadName = molName1_;
+    loadName.erase(loadName.end()-4,loadName.end());
+     
+    std::string path(workingDir_.get() + "/");
+    
+    LINFO("Loading results:");
+    for (size_t i = 1; i <= numMod_.get(); i++) {
+        std::stringstream pdbPath;
+        pdbPath << path << loadName << "_dock_" << i << "_.pdb" ;
+        LINFO(pdbPath.str());
+        molCollection->load(pdbPath.str(), true);
+    }
+    submitButton_.setVisible(true);
+    readButton_.setVisible(false);
+    checkButton_.setVisible(false);
+    workingDir_.setVisible(true);
+    moleculeURLlist_.setVisible(true);
+    runInterface_.setVisible(true);
+    numMod_.setVisible(true);
+    selectTarget_.setVisible(true);
+    dockType_.setVisible(true);
+    status_.set("");
 }

@@ -40,6 +40,9 @@ protected:
 private:
     void submit();
     void loadResult();
+    void checkStatus();
+    std::string molName1_;
+    std::string molName2_;
        
     FileDialogProperty       workingDir_;
     MoleculeURLListProperty moleculeURLlist_;
@@ -50,6 +53,7 @@ private:
     StringProperty               status_;
     ButtonProperty         submitButton_;
     ButtonProperty           readButton_;
+    ButtonProperty          checkButton_;
     
     
 

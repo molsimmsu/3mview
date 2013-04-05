@@ -1,6 +1,7 @@
 #!/bin/bash
 macrosname=macros.mac
 rm -f $macrosname
+rm -f log
 numresults=$3
 path=`pwd`
 receptor=$path"/"`echo $1 | sed -e 's/.pdb$//g'`
@@ -17,14 +18,14 @@ echo "activate_docking" >> $macrosname
 for((i=1;i<=$numresults;i++))
 do
     echo "view_docking_solution " $i >> $macrosname
-    echo "save_receptor "$receptor\_dock_$i\_.pdb >> $macrosname
+#    echo "save_receptor "$receptor\_dock_$i\_.pdb >> $macrosname
     echo "save_ligand "$ligand\_dock_$i\_.pdb >> $macrosname
 done
-log=`date +'%m-%d-%G_%H-%M'`\_hex_log.txt
+#log=`date +'%m-%d-%G_%H-%M'`\_hex_log.txt
 if which hex >/dev/null
 then
     echo "Running_hex"
-    hex -batch -e $macrosname >> $log
+    hex -batch -e $macrosname >> log
 else
     echo "Hex_is_not_foud"
 fi
