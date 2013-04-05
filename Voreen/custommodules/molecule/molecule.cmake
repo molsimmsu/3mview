@@ -22,6 +22,8 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/utils/stridereader.cpp
     ${MOD_DIR}/utils/moleculeio.cpp
     ${MOD_DIR}/processors/moleculesaver.cpp
+    ${MOD_DIR}/processors/rundock.cpp
+
 )
 
 # module's core header files, path relative to module dir
@@ -44,6 +46,8 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/utils/stridereader.h
     ${MOD_DIR}/utils/moleculeio.h
     ${MOD_DIR}/processors/moleculesaver.h
+    ${MOD_DIR}/processors/rundock.h
+
 )
 
 SET(MOD_QT_MODULECLASS MoleculeModuleQt)

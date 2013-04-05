@@ -77,6 +77,8 @@ MoleculeURLListPropertyWidget::MoleculeURLListPropertyWidget(MoleculeURLListProp
     mainLayout->addWidget(moleculeTreeWidget_);
 
     connect(selectAll_, SIGNAL(toggled(bool)), this, SLOT(selectAll(bool)));
+    
+    
 
     updateFromProperty();
 }
