@@ -53,7 +53,7 @@ PDBtoEDM::PDBtoEDM()
     , deltaatoomr_("deltaatoomr", "Step (*0.01 A)", 20, 1, 500)
     , resolution_("resolution", "Resolution (*0.1 A)", 30, 1, 100)
     //, gaussvoxel_("gaussvoxel_", "Gauss blur", 1, 0, 5)
-    , calcelectronnumb_("calcelectron", "Calculate Number Of Electrons", true)
+    , calcelectronnumb_("calcelectron", "Normal Electron Number", true)
     //, gaussfiltering_("gaussfiltering", "Gauss convolution", false)
     , generategrid_("generategrid", "Generate grid")
     , moleculeURLlist_("moleculeURLlist_", "Molecule URL List", std::vector<std::string>())
@@ -201,7 +201,7 @@ std::cout << "Calculate density map: "<<i*100/mol.NumAtoms()<< "%"<<"\r";
 //-----------------------------------------
 //--------Calc number of electrons----------
 //-----------------------------------------
-if (calcelectronnumb_.get()==true) CalcElectronNumber(targetDataset);
+if (calcelectronnumb_.get()==true) CalcElectronNumber(targetDataset,NumberOfElectrons);
 //-----------------------------------------
 //-----------------------------------------
 
@@ -363,7 +363,7 @@ float ed=sqrt(pow(StF[pos].Re,2)+pow(StF[pos].Im,2));
 //-----------------------------------------
 //-----------------------------------------
 
-if (calcelectronnumb_.get()==true) CalcElectronNumber(targetDataset);
+if (calcelectronnumb_.get()==true) CalcElectronNumber(targetDataset,NumberOfElectrons);
 
 float ca=cos(PI);
 float sa=sin(PI);
@@ -388,9 +388,10 @@ return volumeHandle;
 //-----------------------------------------
 //--------Calc number of electron----------
 //-----------------------------------------
-void PDBtoEDM::CalcElectronNumber(const VolumeRAM* targetDataset)
+void PDBtoEDM::CalcElectronNumber(VolumeRAM* targetDataset, float ElectronNumber)
 {
 float ENumber=0;
+float temp,delta;
 ivec3 NN=((VolumeAtomic<float>*)targetDataset)->getDimensions();
 for (int i=0; i<NN[0]; i++)
 for (int j=0; j<NN[1]; j++)
@@ -398,7 +399,18 @@ for (int k=0; k<NN[2]; k++)
 {
 ENumber=ENumber+((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)*dr*dr*dr;
 }
-std::cout << "Number of electron in volume: "<<ENumber<<std::endl;
+std::cout << "Normalisation electron number...: "<<std::endl;
+delta=ElectronNumber/ENumber;
+for (int i=0; i<NN[0]; i++)
+for (int j=0; j<NN[1]; j++)
+for (int k=0; k<NN[2]; k++)
+{
+((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)=((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)*delta;
+}
+
+std::cout << "Normalization finish:"<<std::endl;
+std::cout << "Old:"<<ENumber<<std::endl;
+std::cout << "New:"<<ElectronNumber<<std::endl;
 }
 //-----------------------------------------
 //-----------------------------------------
@@ -413,11 +425,13 @@ NumberAtom=0;
 cx=0;
 cy=0;
 cz=0;
+NumberOfElectrons=0;
 std::string src,dst;
     for (int i = 1; i <= mol.NumAtoms(); i++)
     {
         OBAtom* a = mol.GetAtom(i);
         src=a->GetType();
+        NumberOfElectrons=NumberOfElectrons+a->GetAtomicNum();
         float atomx=a->x();
         float atomy=a->y();
         float atomz=a->z();
@@ -767,15 +781,15 @@ void PDBtoEDM::process() {
 
 void PDBtoEDM::ShowGrid() {
     MoleculeCollection* collection = moleculeURLlist_.getMolecules(true);
-    
+
     for (size_t i = 0; i < collection->size(); i++) {
         Molecule* InputMoll = collection->at(i);
         const OBMol& mol = InputMoll->getOBMol();
-        
+
         if (mol.NumAtoms()!=0)
         {
             Volume* volume;
-            
+
             if (calculationmode_.isSelected("scattering"))
                 volume = GenerateEDMGrid_ScatteringFactor(InputMoll);
             if (calculationmode_.isSelected("structure"))
@@ -786,7 +800,7 @@ void PDBtoEDM::ShowGrid() {
             //-----------------------------------------
             std::string url = InputMoll->getOrigin().getURL();
             volume->setOrigin(VolumeURL(url + "_EDM"));
-            
+
             DensityMapCoProcessor::getSourceProcessor()->addVolume(volume, true, true);
 
             LWARNING("Density map calculated!");

@@ -33,7 +33,7 @@ public:
     static const std::string loggerCat_;
     static const int MaxOfTypes=60;
     int NumberAtom,MaxR,Nh;
-    float VoxelPerAngstrem;
+    float VoxelPerAngstrem,NumberOfElectrons;
     int NumberVoxels_x,NumberVoxels_y,NumberVoxels_z,NumberVoxel_Structure;
     float dr,cx,cy,cz,big_size,resol;
     int size_x,size_y,size_z;
@@ -54,9 +54,9 @@ struct AtomicED
     virtual std::string getClassName() const  { return "PDBtoEDM"; }
     virtual std::string getCategory() const   { return "Input";                  }
     virtual CodeState getCodeState() const    { return CODE_STATE_STABLE;        }
-    
+
     virtual void updateSelection();
-    
+
 protected:
 
 //record of atom types in input PDB with radial electron density distribution
@@ -65,7 +65,7 @@ protected:
     virtual void ShowGrid();
     Volume* GenerateEDMGrid_ScatteringFactor(Molecule* InputMoll);
     Volume* GenerateEDMGrid_StructureFactor(Molecule* InputMoll);
-    void CalcElectronNumber(const VolumeRAM* targetDataset);
+    void CalcElectronNumber(VolumeRAM* targetDataset, float ElectronNumber);
     void FindAtomTypesInPDB(const OBMol mol, struct AtomicED* sAtomED);
     float CalcElectronDens(struct AtomicED sAtomED, int k, float R);
     void FindBoundingGeometry(const OBMol mol);
