@@ -11,7 +11,7 @@ cat $receptor.pdb | grep ^ATOM >> $receptor\_no_hetatm.pdb
 cat $ligand.pdb | grep ^ATOM >> $ligand\_no_hetatm.pdb
 
 echo "open_receptor " $receptor\_no_hetatm.pdb >> $macrosname
-echo "open_ligand " $receptor\_no_hetatm.pdb >> $macrosname
+echo "open_ligand " $ligand\_no_hetatm.pdb >> $macrosname
 echo "activate_docking" >> $macrosname
 
 for((i=1;i<=$numresults;i++))
