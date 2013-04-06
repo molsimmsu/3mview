@@ -776,6 +776,8 @@ void PDBtoEDM::process() {
     atoomr_.setVisible(false);
 
     }
+std::cout << "Load successful"<<std::endl;
+std::cout << "PDBtoEDM: no conflict with other modules"<<std::endl;
 
 }
 
