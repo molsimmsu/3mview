@@ -1,12 +1,14 @@
 #ifndef VRN_FORMFINDER_H
 #define VRN_FORMFINDER_H
 
-#define	SOLVE_ITER		    52
-#define	PI_2	  			1.57079632679
-#define	MAX_SIZE			1.5
-#define	DB_FILENAME		    "../../DomainDB/bin/DomainsDB/moments.dat"
-#define DOMAIN_LOAD_PATH    "../../DomainDB/bin/DomainsDB/domains/"
-#define	NAMELEN			    8
+#define	SOLVE_ITER			52
+#define	PI_2					1.57079632679
+#define	MAX_SIZE				1.5
+#define	DB_FILENAME			"../../DomainDB/bin/DomainsDB/moments.dat"
+#define   DOMAIN_LOAD_PATH		"../../DomainDB/bin/DomainsDB/domains/"
+#define	NAMELEN				8
+#define   DB_ORDER				6
+
 
 #include "../../molecule/processors/moleculecoprocessor.h"
 #include "../../electrondensity/processors/densitymapcoprocessor.h"
@@ -25,6 +27,7 @@ using namespace voreen;
 #include "../datastructures/pointcloud.h"
 
 #include <cmath>
+#include <ctime>
 #include <string>
 
 class FormFinder : virtual public DensityMapCoProcessor, virtual public MoleculeCoProcessor {
@@ -50,17 +53,21 @@ protected:
      * Find domains matching a given sequence and put them
      * into the AlignmentListProperty
      */
-    void findDomains();
+    void findDomainsVol();
+    void findDomainsMol();
 
     
 private:
-    VolumeURLListProperty volumeURLList_;
-    ButtonProperty        findDomains_;
-    AlignmentListProperty alignmentList_;
-    IntProperty           maxDomainsToLoad_;
-    IntProperty           momentsOrder_;
-    FloatProperty         accuracy_;
-    FloatProperty         weightFactor_;
+
+    MoleculeURLListProperty moleculeURLlist_;
+    VolumeURLListProperty   volumeURLList_;
+    ButtonProperty          findDomains1_;
+    ButtonProperty          findDomains2_;
+    AlignmentListProperty   alignmentList_;
+    IntProperty             maxDomainsToLoad_;
+    FloatProperty           accuracy_;
+    FloatProperty           weightFactor_;
+    FloatProperty           massImportance_;
 
     double *moments;
     void   GetMoments();  

@@ -71,6 +71,14 @@ void PDB :: Read(char * arg1)
 	entries = 0;
 	int het = 0;
 	int nz  = 0;
+	flag = true;
+	int hetero = 0;
+	int h_a = 0;
+	int h_c = 0;
+	int h_n = 0;
+	int h_o = 0;
+
+
 	total_weight = 0;
 	while (!(feof(inp)))
 	{	
@@ -108,16 +116,38 @@ void PDB :: Read(char * arg1)
 			switch (atoms[entries].type[nz])	
 			{
 				case 'C':
-					atoms[entries].weight = C_WEIGHT;
+					if (atoms[entries].type[nz+1]=='A')
+					{
+						atoms[entries].weight = CA_WEIGHT;
+					}
+					else	if (atoms[entries].type[nz+1]=='L')
+					{
+						atoms[entries].weight = CL_WEIGHT;
+					}
+					else
+					{
+						atoms[entries].weight = C_WEIGHT;
+						h_c++;
+					}
 				break;
 				case 'N':
-					atoms[entries].weight = N_WEIGHT;
+					if (atoms[entries].type[nz+1]=='A')
+					{
+						atoms[entries].weight = NA_WEIGHT;
+					}
+					else
+					{
+						atoms[entries].weight = N_WEIGHT;
+						h_n++;
+					}
 				break;
 				case 'O':
 					atoms[entries].weight = O_WEIGHT;
+					h_o++;
 				break;
 				case 'H':
 					atoms[entries].weight = H_WEIGHT;
+					h_a++;
 				break;
 				case 'P':
 					atoms[entries].weight = P_WEIGHT;
@@ -146,11 +176,13 @@ void PDB :: Read(char * arg1)
 		//			printf("Warning: [%d] uncommon atom (%s) shall be ignored.\n", entries+1, atoms[entries].type);
 					atoms[entries].weight = UNCOMMON_WEIGHT;
 			}
+/*
 			if (het == 1)
 			{
-					atoms[entries].weight = UNCOMMON_WEIGHT;
+					atoms[entries].weight = HET_WEIGHT;
+					hetero++;					
 			}
-
+*/
 /////////////////////////////////////////
 			fscanf(inp, "%lf %lf %lf", &(atoms[entries].x), &(atoms[entries].y), &(atoms[entries].z));
 			total_weight += atoms[entries].weight; 
@@ -164,6 +196,7 @@ void PDB :: Read(char * arg1)
 		}
 	}
 	fclose(inp);
+//	printf("Molecule loaded: \n\t%d atoms \n\t%d hetero \n\t%d H \n\t%d C \n\t%d N \n\t%d O\n", entries, hetero, h_a, h_c, h_n, h_o);
 }
 
 void PDB :: WritePDB()
@@ -179,7 +212,7 @@ void PDB :: WritePDB()
 	}
 	for (int i=0; i<entries; ++i)
 	{
-			fprintf(out, "ATOM  %6s%4s%1s%4s%1s%4s%1s    %7.3lf %7.3lf %7.3lf\n", atoms[i].number, atoms[i].type, atoms[i].altloc, atoms[i].residue, atoms[i].chain, atoms[i].resseq, atoms[i].icode, atoms[i].x*SCALE, atoms[i].y*SCALE, atoms[i].z*SCALE);
+			fprintf(out, "ATOM  %6s%4s%1s%4s%1s%4s%1s    %7.3lf %7.3lf %7.3lf\n", atoms[i].number, atoms[i].type, atoms[i].altloc, atoms[i].residue, atoms[i].chain, atoms[i].resseq, atoms[i].icode, atoms[i].x, atoms[i].y, atoms[i].z);
 
 	}	
 	fclose(out);
@@ -194,22 +227,22 @@ double PDB :: CalculateMoment(int degX, int degY, int degZ)
 		temp = atoms[i].weight;
 		for (int j = 0; j < degX; ++j)
 		{
-			temp *= atoms[i].x;
+			temp *= atoms[i].x/STRUCT_SIZE;
 		}
 		
 		for (int j = 0; j < degY; ++j)
 		{
-			temp *= atoms[i].y;
+			temp *= atoms[i].y/STRUCT_SIZE;
 		}
 		
 		for (int j = 0; j < degZ; ++j)
 		{
-			temp *= atoms[i].z;
+			temp *= atoms[i].z/STRUCT_SIZE;
 		}
 
-		res += temp/total_weight;
+		res += temp;
 	}
-	return res;
+	return res/total_weight;
 }
 
 double PDB :: CalculateFourrier(int degX, int degY, int degZ)
@@ -219,27 +252,15 @@ double PDB :: CalculateFourrier(int degX, int degY, int degZ)
 	for (int i=0; i<entries; ++i)
 	{
 		temp = atoms[i].weight;
-		if (degX<0) temp *= cos(degX*atoms[i].x/MAX_SIZE*PI_2);
-		if (degX>0) temp *= sin(degX*atoms[i].x/MAX_SIZE*PI_2);
-		if (degY<0) temp *= cos(degY*atoms[i].y/MAX_SIZE*PI_2);
-		if (degY>0) temp *= sin(degY*atoms[i].y/MAX_SIZE*PI_2);
-		if (degZ<0) temp *= cos(degZ*atoms[i].z/MAX_SIZE*PI_2);
-		if (degZ>0) temp *= sin(degZ*atoms[i].z/MAX_SIZE*PI_2);
+		if (degX<0) temp *= cos(degX*atoms[i].x*PI_2/STRUCT_SIZE);
+		if (degX>0) temp *= sin(degX*atoms[i].x*PI_2/STRUCT_SIZE);
+		if (degY<0) temp *= cos(degY*atoms[i].y*PI_2/STRUCT_SIZE);
+		if (degY>0) temp *= sin(degY*atoms[i].y*PI_2/STRUCT_SIZE);
+		if (degZ<0) temp *= cos(degZ*atoms[i].z*PI_2/STRUCT_SIZE);
+		if (degZ>0) temp *= sin(degZ*atoms[i].z*PI_2/STRUCT_SIZE);
 		res += temp;
 	}
-	return res;
-}
-
-double PDB :: CalculateSpherical(int degX, int degY, int degZ)
-{
-	double res = 0;
-	double temp;
-	for (int i=0; i<entries; ++i)
-	{
-		temp = atoms[i].weight;
-
-	}
-	return res;
+	return res/total_weight;
 }
 
 
@@ -252,7 +273,8 @@ void PDB :: Reduce()
 
 void PDB :: WriteMoments()
 {
-	printf("\n%4s ", name);
+	printf("\n%-9s ", name);
+	printf("%13lf ", total_weight);
 	printf("%13lf %13lf %13lf ",  O[0],  O[1],  O[2]);
 	printf("%13lf %13lf %13lf ", Ox[0], Ox[1], Ox[2]);
 	printf("%13lf %13lf %13lf ", Oy[0], Oy[1], Oy[2]);
@@ -270,6 +292,7 @@ void PDB :: Center()
 	O[0] = 0;
 	O[1] = 0;
 	O[2] = 0;
+
 	for (int i=0; i<entries; ++i)
 	{
 		O[0] += atoms[i].x*atoms[i].weight;
@@ -292,12 +315,6 @@ void PDB :: Center()
 
 void PDB :: Reorientate()
 {
-	for (int i=0; i<entries; ++i)
-	{
-		atoms[i].x /= SCALE;
-		atoms[i].y /= SCALE;
-		atoms[i].z /= SCALE;
-	}
 
 	double disc;
 	double I[3][3];
@@ -326,7 +343,7 @@ void PDB :: Reorientate()
 
 	while (PolynomVal(a)<0) {a-=1;}
 	while (PolynomVal(b)>0) {b+=1;}
-	for (int i=0; i<50; ++i)
+	for (int i=0; i<52; ++i)
 	{
 		if (PolynomVal((b+a)/2) > 0)
 		{
@@ -424,9 +441,9 @@ void PDB :: Reorientate()
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 
-	int   invx = SCALE,
-	      invy = SCALE, 
-	      invz = SCALE;	
+	int   invx = 1,
+	      invy = 1, 
+	      invz = 1;	
 
 	double nx,
 	       ny, 
@@ -491,7 +508,6 @@ void PDB :: Reorientate()
           atoms[i].y *= invy;
           atoms[i].z *= invz;
 	}
-
 }
 
 double PDB :: PolynomVal(double x)
@@ -513,7 +529,7 @@ void   PDB :: GetMoments()
 	}
 
 	moments = new double[k];
-	
+
 	deg  = 2*MAX_ORDER+1;
 	for (int i = 0; i < deg*deg*deg; ++i) 
 	{

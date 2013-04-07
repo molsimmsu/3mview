@@ -9,19 +9,14 @@
 /*  MAX_ORDER defines maximum degree of moments to be calculated                           */
 /*  WEIGHT_RENORM defines wether weight renormalization of moments is to be performed      */  
 
-#define    MAX_ORDER  		13
-#define    SCALE              30
+#define    MAX_ORDER  		6
 #define	 PI_2		 	1.570796327
-#define    MAX_SIZE			1.5     // for fourrier 
-
+#define    STRUCT_SIZE		30.0
 
 struct particle {
-	int    weight;
 
-
-
+	double  weight;
 	double x, y, z;
-
 
 	char   number[7];
 	char   type[5];
@@ -39,8 +34,7 @@ public:
 
 	int 	  entries;
 	char   name[10];
-	int 	  total_weight;
-	double    scale;
+	double    total_weight;
 		
 	double    Ox[3];
 	double    Oy[3];
@@ -64,7 +58,6 @@ public:
 	
 	double CalculateMoment(int degX, int degY, int degZ);
 	double CalculateFourrier(int degX, int degY, int degZ);
-	double CalculateSpherical(int degX, int degY, int degZ);
 	double PolynomVal(double x);
 
 	void   Center();

@@ -9,10 +9,8 @@
 #include "masslist.h"
 /*  MAX_ORDER defines maximum degree of moments to be calculated                           */
 
-#define    MAX_ORDER  		13
-#define    SCALE              30
-#define	   PI_2		 	1.570796327
-#define    MAX_SIZE			1.5     // for fourrier 
+#define    MAX_ORDER  		6
+#define	 PI_2		 	1.570796327
 
 struct particle {
 	int    weight;  
@@ -40,6 +38,7 @@ public:
 	char   	name[10];
 	int 	  	total_weight;
 		
+	double    scale;
 	double    Ox[3];
 	double    Oy[3];
 	double    Oz[3];
@@ -63,7 +62,6 @@ public:
 	
 	double CalculateMoment(int degX, int degY, int degZ);
 	double CalculateFourrier(int degX, int degY, int degZ);
-	double CalculateSpherical(int degX, int degY, int degZ);
 	double PolynomVal(double x);
 
 	void   Center();

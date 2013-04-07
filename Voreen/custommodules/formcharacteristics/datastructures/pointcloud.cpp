@@ -14,12 +14,7 @@ PointCloud :: PointCloud()
 {
 	have_points  = false;
 	have_moments = false;
-	scale        = 1;
-	max_size     = 1.5;
-	weightfactor = 12;
-	stepx 	   = 1; 	
-	stepy        = 1;
-	stepz        = 1;
+	total_weight = 0;
 	max_value    = 0;
 	min_value    = 0;
 }
@@ -55,7 +50,7 @@ void PointCloud :: VolumeFill(const Volume* vol, double min)
 	double     valNorm;
 	double     valRW;
 	int        non_zero    = 0; 
-	weight 	 = 0;
+	total_weight 	 = 0;
 
 	entries_num =  dims.x*dims.y*dims.z;
 	points      = new tgt::vec3[entries_num+1];
@@ -75,12 +70,12 @@ void PointCloud :: VolumeFill(const Volume* vol, double min)
 					points[non_zero][0] = pworld.x;
 					points[non_zero][1] = pworld.y;
 					points[non_zero][2] = pworld.z;
-					values[non_zero] = valRW/weightfactor;
+					values[non_zero] = valRW;
 					if (fabs(valRW)>max_value)
 					{
 						max_value = fabs(valRW);
 					}
-					weight += valRW/weightfactor;
+					total_weight += valRW;
 					non_zero++;
 				}
 			}
@@ -91,35 +86,31 @@ void PointCloud :: VolumeFill(const Volume* vol, double min)
 
 void PointCloud :: MoleculeFill(const Molecule * mol)
 {
-	std :: cout << "Filling points set...\n";
+	std :: cout << "Loading molecule...\n";
 	entries_num = (mol->getOBMol()).NumAtoms();
-
 	int non_zero 	  = 0; 
 	int atomic_num	  = 0;
-	
+
 	points      = new tgt::vec3[entries_num+1];
      values      = new double[entries_num+1];
-	weight 	  = 0;
+	total_weight 	  = 0;
 
 	for (int i=0; i<entries_num; ++i)
 	{	
-		atomic_num = (mol->getOBMol()).GetAtomById(non_zero)->GetAtomicNum();
-		if ((mol->getOBMol()).GetAtomById(non_zero)->IsHeteroatom())
+		atomic_num = (mol->getOBMol()).GetAtomById(i)->GetAtomicNum();
+		if (atomic_num == 6)
 			{
-				values[non_zero] = 0;
-			}
-		else
-			{
+				points[non_zero].x   = (mol->getOBMol()).GetAtomById(i)->x();
+				points[non_zero].y   = (mol->getOBMol()).GetAtomById(i)->y();
+				points[non_zero].z   = (mol->getOBMol()).GetAtomById(i)->z();
 				values[non_zero] = atomic_num;
-			}
-		points[non_zero].x   = (mol->getOBMol()).GetAtomById(non_zero)->x();
-		points[non_zero].y   = (mol->getOBMol()).GetAtomById(non_zero)->y();
-		points[non_zero].z   = (mol->getOBMol()).GetAtomById(non_zero)->z();
-		weight += values[non_zero];
-		non_zero++;	
+				total_weight += values[non_zero];
+				non_zero++;
+			}	
 	}
 	entries_num = non_zero;
 	have_points = true;
+	printf("Structure total weight : %lf\n", total_weight);
 }
 
 
@@ -130,15 +121,15 @@ double PointCloud :: CalculateFourrier(int degX, int degY, int degZ)
 	for (int i=0; i<entries_num; ++i)
 	{
 		temp = values[i];
-		if (degX<0) temp *= cos(degX*points[i].x/scale/max_size*PI_2);
-		if (degX>0) temp *= sin(degX*points[i].x/scale/max_size*PI_2);
-		if (degY<0) temp *= cos(degY*points[i].y/scale/max_size*PI_2);
-		if (degY>0) temp *= sin(degY*points[i].y/scale/max_size*PI_2);
-		if (degZ<0) temp *= cos(degZ*points[i].z/scale/max_size*PI_2);
-		if (degZ>0) temp *= sin(degZ*points[i].z/scale/max_size*PI_2);
+		if (degX<0) temp *= cos(degX*points[i].x*PI_2/STRUCT_SIZE);
+		if (degX>0) temp *= sin(degX*points[i].x*PI_2/STRUCT_SIZE);
+		if (degY<0) temp *= cos(degY*points[i].y*PI_2/STRUCT_SIZE);
+		if (degY>0) temp *= sin(degY*points[i].y*PI_2/STRUCT_SIZE);
+		if (degZ<0) temp *= cos(degZ*points[i].z*PI_2/STRUCT_SIZE);
+		if (degZ>0) temp *= sin(degZ*points[i].z*PI_2/STRUCT_SIZE);
 		res += temp;
 	}
-	return res;
+	return res/total_weight;
 }
 
 double PointCloud :: CalculateMoment(int degX, int degY, int degZ)
@@ -150,21 +141,22 @@ double PointCloud :: CalculateMoment(int degX, int degY, int degZ)
 		temp = values[i];
 		for (int j = 0; j < degX; ++j)
 		{
-			temp *= points[i].x/scale;
+			temp *= points[i].x/STRUCT_SIZE;
 		}
 		
 		for (int j = 0; j < degY; ++j)
 		{
-			temp *= points[i].y/scale;
+			temp *= points[i].y/STRUCT_SIZE;
 		}
+
 		
 		for (int j = 0; j < degZ; ++j)
 		{
-			temp *= points[i].z/scale;
+			temp *= points[i].z/STRUCT_SIZE;
 		}
-		res += temp/weight;
+		res += temp;
 	}
-	return res;
+	return res/total_weight;
 }
 
 double PointCloud :: PolynomVal(double x)
@@ -175,24 +167,27 @@ double PointCloud :: PolynomVal(double x)
 tgt::Matrix4d PointCloud :: GetShift()
 {
 
-	std :: cout << "Getting shift... \n";
+	std :: cout << "Calculating mass center... \n";
      O[0] = 0;
 	O[1] = 0;
 	O[2] = 0;
-     weight = 0;
+
+     total_weight = 0;
 
 	for (int i=0; i<entries_num; ++i)
 	{	
 		O[0] += points[i].x * values[i];
 		O[1] += points[i].y * values[i];
 		O[2] += points[i].z * values[i];
-		weight += values[i];
+		total_weight += values[i];
     }
-  
-	O[0] /= weight;
-	O[1] /= weight;
-	O[2] /= weight;
+
+	O[0] /= total_weight;
+	O[1] /= total_weight;
+	O[2] /= total_weight;
 	Centrify();
+
+	printf("Mass center: %.2lf, %.2lf, %.2lf\n", O[0], O[1], O[2]);
 
 	tgt::Matrix4d out_data(1,     0,     0, -O[0],
 					   0,     1,     0, -O[1],
@@ -203,8 +198,6 @@ tgt::Matrix4d PointCloud :: GetShift()
 
 void PointCloud :: Centrify()
 {
-
-
 	std :: cout << "Centrifying... \n";
 	for (int i=0; i<entries_num; ++i)
 	{	
@@ -216,7 +209,6 @@ void PointCloud :: Centrify()
 
 tgt::Matrix4d PointCloud :: GetAxes()
 {
-
 	std :: cout << "Getting axes... \n";
 	double disc;
 	double I[3][3];
@@ -468,6 +460,7 @@ void PointCloud :: GetMoments(int order)
 		printf("Fatal error: Number of moments varies from the expected!\n");
 		exit(0);
 	}
+
 	mom_total = l;	
 	have_moments = true;
 }

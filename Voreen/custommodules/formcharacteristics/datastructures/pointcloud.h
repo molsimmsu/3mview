@@ -1,12 +1,14 @@
 #ifndef VRN_POINTCLOUD_H
 #define VRN_POINTCLOUD_H
 
-#define PI_2 1.57079632679
+#define PI_2 			1.57079632679
+#define STRUCT_SIZE		30.0 		//database parameter
 
 #include "voreen/core/datastructures/volume/volume.h"
 #include "tgt/matrix.h"
 #include "tgt/vector.h"
 #include "../../molecule/datastructures/molecule.h"
+
 namespace voreen {
 
 class PointCloud {
@@ -15,16 +17,13 @@ public:
 
 	tgt::vec3 *points;
 	double    *values;
-	double    scale;
-	double    max_size;   // maximum of
 
 	double    max_value;  // max value for volumes
 	double    min_value;  // min value (cutoff)
- 
-	double    weightfactor;
 
 	double    *moments;
 	int        mom_total;
+	double     total_weight;
 
 	tgt::Matrix4d GetShift();
 	tgt::Matrix4d GetAxes();
@@ -46,6 +45,7 @@ public:
 
 	PointCloud();
 	~PointCloud();
+
 private:
 
 
@@ -58,13 +58,9 @@ private:
 	float Oz[3];
 
 	double polynom[4];
-	double weight;
 	int    orientation;
 	int    mom_order;
 
-	int    stepx; 	
-	int    stepy;
-	int    stepz;
 	
 	double PolynomVal(double);
 	

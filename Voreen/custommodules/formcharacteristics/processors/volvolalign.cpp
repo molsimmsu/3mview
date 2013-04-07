@@ -136,9 +136,6 @@ tgt::Matrix4d VolVolAlign :: GetAlignment(const Volume* vol)
 	PointCloud cloud;
 
 	cloud.VolumeFill(vol);
-	cloud.scale    = 32;
-	cloud.max_size = 1.5;
-
 	tgt::Matrix4d result = cloud.GetShift();
 	result = cloud.GetAxes()*result;
 	return result;
