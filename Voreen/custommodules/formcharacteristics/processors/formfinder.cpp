@@ -132,12 +132,7 @@ void FormFinder::findDomainsVol()
 		disp[i] = sqrt(disp[i]);
 	}	
 	db.close(); 
- 	std :: cout << "Got distances, sorting...\n";
-
-	for (int i=0; i<N; ++i)	
-	{
-		printf("name: %s, dist: %Lf\n", &name[NAMELEN*i], disp[i]);
-	}	
+ 	std :: cout << "Got distances, sorting...\n";	
 
     for (size_t i = 0; i < maxDomainsToLoad_.get(); i++) 
 		{	
@@ -271,12 +266,7 @@ void FormFinder::findDomainsMol()
 		disp[i] = sqrt(disp[i]);
 	}	
 	db.close(); 
- 	std :: cout << "Got distances, sorting...\n";
-
-	for (int i=0; i<N; ++i)	
-	{
-		printf("name: %s, dist: %Lf\n", &name[NAMELEN*i], disp[i]);
-	}	
+ 	std :: cout << "Got distances, sorting...\n";	
 
     for (size_t i = 0; i < maxDomainsToLoad_.get(); i++) 
 		{	
