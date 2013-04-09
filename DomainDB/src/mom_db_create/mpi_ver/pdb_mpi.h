@@ -9,8 +9,9 @@
 #include "masslist.h"
 /*  MAX_ORDER defines maximum degree of moments to be calculated                           */
 
-#define    MAX_ORDER  		6
+#define    MAX_ORDER  		13
 #define	 PI_2		 	1.570796327
+#define    STRUCT_SIZE		30.0
 
 struct particle {
 	int    weight;  

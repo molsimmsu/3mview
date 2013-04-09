@@ -1,4 +1,4 @@
-#include "pdb.h"
+#include "pdb_mpi.h"
 
 #define PACKET_SIZE 1000
 
@@ -97,6 +97,14 @@ void PDB :: Read(char * arg1)
 	entries = 0;
 	int het = 0;
 	int nz  = 0;
+	flag = true;
+	int hetero = 0;
+	int h_a = 0;
+	int h_c = 0;
+	int h_n = 0;
+	int h_o = 0;
+
+
 	total_weight = 0;
 	while (!(feof(inp)))
 	{	
@@ -134,16 +142,38 @@ void PDB :: Read(char * arg1)
 			switch (atoms[entries].type[nz])	
 			{
 				case 'C':
-					atoms[entries].weight = C_WEIGHT;
+					if (atoms[entries].type[nz+1]=='A')
+					{
+						atoms[entries].weight = CA_WEIGHT;
+					}
+					else	if (atoms[entries].type[nz+1]=='L')
+					{
+						atoms[entries].weight = CL_WEIGHT;
+					}
+					else
+					{
+						atoms[entries].weight = C_WEIGHT;
+						h_c++;
+					}
 				break;
 				case 'N':
-					atoms[entries].weight = N_WEIGHT;
+					if (atoms[entries].type[nz+1]=='A')
+					{
+						atoms[entries].weight = NA_WEIGHT;
+					}
+					else
+					{
+						atoms[entries].weight = N_WEIGHT;
+						h_n++;
+					}
 				break;
 				case 'O':
 					atoms[entries].weight = O_WEIGHT;
+					h_o++;
 				break;
 				case 'H':
 					atoms[entries].weight = H_WEIGHT;
+					h_a++;
 				break;
 				case 'P':
 					atoms[entries].weight = P_WEIGHT;
@@ -172,11 +202,13 @@ void PDB :: Read(char * arg1)
 		//			printf("Warning: [%d] uncommon atom (%s) shall be ignored.\n", entries+1, atoms[entries].type);
 					atoms[entries].weight = UNCOMMON_WEIGHT;
 			}
-		//	if (het == 1)
-		//	{
-		//			atoms[entries].weight = HET_WEIGHT;
-		//	}
-/////////////////////////////////////////
+/*
+			if (het == 1)
+			{
+					atoms[entries].weight = HET_WEIGHT;
+					hetero++;					
+			}
+*/
 /////////////////////////////////////////
 			fscanf(inp, "%lf %lf %lf", &(atoms[entries].x), &(atoms[entries].y), &(atoms[entries].z));
 			total_weight += atoms[entries].weight; 
@@ -190,28 +222,27 @@ void PDB :: Read(char * arg1)
 		}
 	}
 	fclose(inp);
+//	printf("Molecule loaded: \n\t%d atoms \n\t%d hetero \n\t%d H \n\t%d C \n\t%d N \n\t%d O\n", entries, hetero, h_a, h_c, h_n, h_o);
 }
+
 
 void PDB :: WritePDB()
 {
-	if (rank == 0)
+	FILE * out;
+	char buff[50];
+	sprintf(buff, "%s_out.pdb", name);
+	out = fopen(buff, "w+");
+	if (out == NULL) 
 	{
-		FILE * out;
-		char buff[50];
-		sprintf(buff, "%s_out.pdb", name);
-		out = fopen(buff, "w+");
-		if (out == NULL) 
-		{
-			printf("Failed to open/create %s. Exit.\n", buff);
-			exit(3);
-		}
-		for (int i=0; i<entries; ++i)
-		{
-				fprintf(out, "ATOM  %6s%4s%1s%4s%1s%4s%1s    %7.3lf %7.3lf %7.3lf\n", atoms[i].number, atoms[i].type, atoms[i].altloc, atoms[i].residue, atoms[i].chain, atoms[i].resseq, atoms[i].icode, atoms[i].x, atoms[i].y, atoms[i].z);	
-
-		}	
-		fclose(out);
+		printf("Failed to open/create %s. Exit.\n", buff);
+		exit(3);
 	}
+	for (int i=0; i<entries; ++i)
+	{
+			fprintf(out, "ATOM  %6s%4s%1s%4s%1s%4s%1s    %7.3lf %7.3lf %7.3lf\n", atoms[i].number, atoms[i].type, atoms[i].altloc, atoms[i].residue, atoms[i].chain, atoms[i].resseq, atoms[i].icode, atoms[i].x, atoms[i].y, atoms[i].z);
+
+	}	
+	fclose(out);
 }
 
 double PDB :: CalculateMoment(int degX, int degY, int degZ)
@@ -223,22 +254,22 @@ double PDB :: CalculateMoment(int degX, int degY, int degZ)
 		temp = atoms[i].weight;
 		for (int j = 0; j < degX; ++j)
 		{
-			temp *= atoms[i].x;
+			temp *= atoms[i].x/STRUCT_SIZE;
 		}
 		
 		for (int j = 0; j < degY; ++j)
 		{
-			temp *= atoms[i].y;
+			temp *= atoms[i].y/STRUCT_SIZE;
 		}
 		
 		for (int j = 0; j < degZ; ++j)
 		{
-			temp *= atoms[i].z;
+			temp *= atoms[i].z/STRUCT_SIZE;
 		}
 
 		res += temp;
 	}
-	return res;
+	return res/total_weight;
 }
 
 double PDB :: CalculateFourrier(int degX, int degY, int degZ)
@@ -248,23 +279,23 @@ double PDB :: CalculateFourrier(int degX, int degY, int degZ)
 	for (int i=0; i<entries; ++i)
 	{
 		temp = atoms[i].weight;
-		if (degX<0) temp *= cos(degX*atoms[i].x*PI_2);
-		if (degX>0) temp *= sin(degX*atoms[i].x*PI_2);
-		if (degY<0) temp *= cos(degY*atoms[i].y*PI_2);
-		if (degY>0) temp *= sin(degY*atoms[i].y*PI_2);
-		if (degZ<0) temp *= cos(degZ*atoms[i].z*PI_2);
-		if (degZ>0) temp *= sin(degZ*atoms[i].z*PI_2);
+		if (degX<0) temp *= cos(degX*atoms[i].x*PI_2/STRUCT_SIZE);
+		if (degX>0) temp *= sin(degX*atoms[i].x*PI_2/STRUCT_SIZE);
+		if (degY<0) temp *= cos(degY*atoms[i].y*PI_2/STRUCT_SIZE);
+		if (degY>0) temp *= sin(degY*atoms[i].y*PI_2/STRUCT_SIZE);
+		if (degZ<0) temp *= cos(degZ*atoms[i].z*PI_2/STRUCT_SIZE);
+		if (degZ>0) temp *= sin(degZ*atoms[i].z*PI_2/STRUCT_SIZE);
 		res += temp;
 	}
-	return res;
+	return res/total_weight;
 }
 
 void PDB :: WriteMoments()
 {
 	if (rank == 0)	
 	{
-		printf("\n%4s ", name);
-		printf("%13lf %13d ", scale, total_weight);
+		printf("\n%-9s ", name);
+		printf("%13lf ", total_weight);
 		printf("%13lf %13lf %13lf ",  O[0],  O[1],  O[2]);
 		printf("%13lf %13lf %13lf ", Ox[0], Ox[1], Ox[2]);
 		printf("%13lf %13lf %13lf ", Oy[0], Oy[1], Oy[2]);
@@ -283,6 +314,7 @@ void PDB :: Center()
 	O[0] = 0;
 	O[1] = 0;
 	O[2] = 0;
+
 	for (int i=0; i<entries; ++i)
 	{
 		O[0] += atoms[i].x*atoms[i].weight;
@@ -299,26 +331,12 @@ void PDB :: Center()
 		atoms[i].x -= O[0];
 		atoms[i].y -= O[1];
 		atoms[i].z -= O[2];
-		if (atoms[i].weight != 0)
-		{
-			if (fabs(atoms[i].x) > scale) scale = atoms[i].x;
-			if (fabs(atoms[i].y) > scale) scale = atoms[i].y;
-			if (fabs(atoms[i].z) > scale) scale = atoms[i].z;
-		}
 	}
 }
 
 
 void PDB :: Reorientate()
 {
-
-	for (int i=0; i<entries; ++i)
-	{
-		atoms[i].x /= scale;
-		atoms[i].y /= scale;
-		atoms[i].z /= scale;
-		atoms[i].weight /= total_weight;
-	}
 
 	double disc;
 	double I[3][3];
@@ -347,7 +365,7 @@ void PDB :: Reorientate()
 
 	while (PolynomVal(a)<0) {a-=1;}
 	while (PolynomVal(b)>0) {b+=1;}
-	for (int i=0; i<50; ++i)
+	for (int i=0; i<52; ++i)
 	{
 		if (PolynomVal((b+a)/2) > 0)
 		{
@@ -505,17 +523,12 @@ void PDB :: Reorientate()
 	Oz[0] = invz*Oz[0];
 	Oz[1] = invz*Oz[1];
 	Oz[2] = invz*Oz[2];
-	
-	invx *= scale;
-	invy *= scale;
-	invz *= scale;
-	
+
 	for (int i=0; i<entries; ++i)
 	{
           atoms[i].x *= invx;
           atoms[i].y *= invy;
           atoms[i].z *= invz;
-		atoms[i].weight *= total_weight;
 	}
 }
 
@@ -539,14 +552,6 @@ void   PDB :: GetMoments()
 
 	moments = new double[k];
 	memset(moments, 0, k*sizeof(double));
-
-	for (int i=0; i<entries; ++i)
-	{
-		atoms[i].x /= scale;
-		atoms[i].y /= scale;
-		atoms[i].z /= scale;
-		atoms[i].weight /= total_weight;
-	}
 
 	deg  = 2*MAX_ORDER+1;
 	for (int i = 0; i < deg*deg*deg; ++i) 
@@ -589,13 +594,6 @@ void   PDB :: GetMoments()
 	{
 		MPI_Reduce(moments, temp, l, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);	
 		delete[] moments;
-	}
-	for (int i=0; i<entries; ++i)
-	{
-		atoms[i].x *= scale;
-		atoms[i].y *= scale;
-		atoms[i].z *= scale;
-		atoms[i].weight *= total_weight;
 	}
 }	
 
