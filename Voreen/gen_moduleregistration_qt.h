@@ -2,10 +2,12 @@
 #include "voreen/qt/voreenapplicationqt.h"
 
 // include qt module class headers
-#include "/home/class3d/softw/Work/Voreen/modules/base/basemoduleqt.h"
-#include "/home/class3d/softw/Work/Voreen/modules/core/coremoduleqt.h"
-#include "/home/class3d/softw/Work/Voreen/modules/dynamicglsl/dynamicglslmoduleqt.h"
-#include "/home/class3d/softw/Work/Voreen/modules/plotting/plottingmoduleqt.h"
+#include "/home/class3d/softw/Work/3mview/Voreen/modules/base/basemoduleqt.h"
+#include "/home/class3d/softw/Work/3mview/Voreen/modules/core/coremoduleqt.h"
+#include "/home/class3d/softw/Work/3mview/Voreen/modules/dynamicglsl/dynamicglslmoduleqt.h"
+#include "/home/class3d/softw/Work/3mview/Voreen/modules/plotting/plottingmoduleqt.h"
+#include "/home/class3d/softw/Work/3mview/Voreen/custommodules/geometry/geometrymoduleqt.h"
+#include "/home/class3d/softw/Work/3mview/Voreen/custommodules/molecule/moleculemoduleqt.h"
 
 namespace voreen {
 
@@ -23,6 +25,12 @@ void registerAllQtModules(VoreenApplicationQt* vappQt) {
     vappQt->registerQtModule(module);
 
     module = new PlottingModuleQt("modules/plotting");
+    vappQt->registerQtModule(module);
+
+    module = new GeometryModuleQt("custommodules/geometry");
+    vappQt->registerQtModule(module);
+
+    module = new MoleculeModuleQt("custommodules/molecule");
     vappQt->registerQtModule(module);
 
 }

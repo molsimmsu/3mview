@@ -1,4 +1,4 @@
-# Install script for directory: /home/class3d/softw/Work/Voreen/ext/tgt
+# Install script for directory: /home/class3d/softw/Work/3mview/Voreen/ext/tgt
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

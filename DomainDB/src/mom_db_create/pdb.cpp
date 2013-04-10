@@ -2,7 +2,7 @@
 
 void NormVect(double Arg[3])
 {
-     double len = sqrt(Arg[0]*Arg[0]+Arg[1]*Arg[1]+Arg[2]*Arg[2]);
+    double len = sqrt(Arg[0]*Arg[0]+Arg[1]*Arg[1]+Arg[2]*Arg[2]);
 	Arg[0] /= len;
 	Arg[1] /= len;
 	Arg[2] /= len;

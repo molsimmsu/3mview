@@ -840,13 +840,16 @@ apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_alpha.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_arch.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_arm.h
+apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_armv5.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_armv6.h
+apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_armv7.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_avr32.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_bfin.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_bootstrap.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_generic.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_i386.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_ia64.h
+apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_integrity.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_macosx.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_mips.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qatomic_parisc.h
@@ -871,6 +874,7 @@ apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qdatastrea
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qdatetime.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qeventloop.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qfeatures.h
+apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qfile.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qglobal.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qhash.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtCore/qiodevice.h
@@ -908,6 +912,8 @@ apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/QKeyEvent
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/QMainWindow
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/QMessageBox
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/QMouseEvent
+apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/QPlatformWindow
+apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/QPlatformWindowFormat
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/QProgressDialog
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/QVBoxLayout
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/QWidget
@@ -942,6 +948,8 @@ apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/qpainterpat
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/qpalette.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/qpen.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/qpixmap.h
+apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/qplatformwindow_qpa.h
+apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/qplatformwindowformat_qpa.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/qpolygon.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/qprogressdialog.h
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: /usr/include/qt4/QtGui/qregion.h

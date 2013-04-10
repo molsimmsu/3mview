@@ -4,7 +4,7 @@
 #=============================================================================
 # Special targets provided by cmake.
 
-# Disable implicit rules so canoncical targets will work.
+# Disable implicit rules so canonical targets will work.
 .SUFFIXES:
 
 # Remove some rules from gmake that .SUFFIXES does not remove.
@@ -31,11 +31,14 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dimax/3mview/Voreen
+CMAKE_SOURCE_DIR = /home/class3d/softw/Work/3mview/Voreen
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dimax/3mview/Voreen
+CMAKE_BINARY_DIR = /home/class3d/softw/Work/3mview/Voreen
 
 # Include any dependencies generated for this target.
 include apps/voreenve/CMakeFiles/voreenve.dir/depend.make
@@ -48,17 +51,17 @@ include apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 
 apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.o: apps/voreenve/main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/main.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/main.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/main.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/main.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/main.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/main.cpp > CMakeFiles/voreenve.dir/main.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/main.cpp > CMakeFiles/voreenve.dir/main.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/main.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/main.cpp -o CMakeFiles/voreenve.dir/main.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/main.cpp -o CMakeFiles/voreenve.dir/main.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.o.requires
@@ -68,21 +71,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.o.provides: apps/voreenve/CMakeFi
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/main.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o: apps/voreenve/voreenmainwindow.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/voreenmainwindow.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenmainwindow.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/voreenmainwindow.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/voreenmainwindow.cpp > CMakeFiles/voreenve.dir/voreenmainwindow.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenmainwindow.cpp > CMakeFiles/voreenve.dir/voreenmainwindow.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/voreenmainwindow.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/voreenmainwindow.cpp -o CMakeFiles/voreenve.dir/voreenmainwindow.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenmainwindow.cpp -o CMakeFiles/voreenve.dir/voreenmainwindow.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o.requires
@@ -92,21 +94,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o.provides: apps/vore
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenmainwindow.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o: apps/voreenve/voreenmoduleve.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/voreenmoduleve.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenmoduleve.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/voreenmoduleve.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/voreenmoduleve.cpp > CMakeFiles/voreenve.dir/voreenmoduleve.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenmoduleve.cpp > CMakeFiles/voreenve.dir/voreenmoduleve.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/voreenmoduleve.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/voreenmoduleve.cpp -o CMakeFiles/voreenve.dir/voreenmoduleve.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenmoduleve.cpp -o CMakeFiles/voreenve.dir/voreenmoduleve.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o.requires
@@ -116,21 +117,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o.provides: apps/voreen
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenmoduleve.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.o: apps/voreenve/voreenveapplication.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenveapplication.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/voreenveapplication.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenveapplication.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenveapplication.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/voreenveapplication.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/voreenveapplication.cpp > CMakeFiles/voreenve.dir/voreenveapplication.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenveapplication.cpp > CMakeFiles/voreenve.dir/voreenveapplication.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/voreenveapplication.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/voreenveapplication.cpp -o CMakeFiles/voreenve.dir/voreenveapplication.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenveapplication.cpp -o CMakeFiles/voreenve.dir/voreenveapplication.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.o.requires
@@ -140,21 +140,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.o.provides: apps/v
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenveapplication.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o: apps/voreenve/voreenvemetadatafactory.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/voreenvemetadatafactory.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenvemetadatafactory.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/voreenvemetadatafactory.cpp > CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenvemetadatafactory.cpp > CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/voreenvemetadatafactory.cpp -o CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenvemetadatafactory.cpp -o CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o.requires
@@ -164,21 +163,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o.provides: ap
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenvemetadatafactory.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.o: apps/voreenve/voreenveplugin.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenveplugin.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/voreenveplugin.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenveplugin.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenveplugin.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/voreenveplugin.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/voreenveplugin.cpp > CMakeFiles/voreenve.dir/voreenveplugin.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenveplugin.cpp > CMakeFiles/voreenve.dir/voreenveplugin.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/voreenveplugin.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/voreenveplugin.cpp -o CMakeFiles/voreenve.dir/voreenveplugin.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenveplugin.cpp -o CMakeFiles/voreenve.dir/voreenveplugin.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.o.requires
@@ -188,21 +186,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.o.provides: apps/voreen
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenveplugin.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.o: apps/voreenve/voreenvisualization.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenvisualization.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/voreenvisualization.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/voreenvisualization.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenvisualization.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/voreenvisualization.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/voreenvisualization.cpp > CMakeFiles/voreenve.dir/voreenvisualization.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenvisualization.cpp > CMakeFiles/voreenve.dir/voreenvisualization.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/voreenvisualization.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/voreenvisualization.cpp -o CMakeFiles/voreenve.dir/voreenvisualization.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenvisualization.cpp -o CMakeFiles/voreenve.dir/voreenvisualization.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.o.requires
@@ -212,21 +209,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.o.provides: apps/v
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/voreenvisualization.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o: apps/voreenve/networkeditor/networkeditor.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/networkeditor.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/networkeditor.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/networkeditor.cpp > CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/networkeditor.cpp > CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/networkeditor.cpp -o CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/networkeditor.cpp -o CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o.requires
@@ -236,21 +232,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o.provides
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/networkeditor.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.o: apps/voreenve/networkeditor/dialogs/propertylinkdialog.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/propertylinkdialog.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/propertylinkdialog.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/propertylinkdialog.cpp > CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/propertylinkdialog.cpp > CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/propertylinkdialog.cpp -o CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/propertylinkdialog.cpp -o CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.o.requires
@@ -260,21 +255,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.c
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/propertylinkdialog.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.o: apps/voreenve/networkeditor/dialogs/utils/splitgraphicsview.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/splitgraphicsview.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/splitgraphicsview.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/splitgraphicsview.cpp > CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/splitgraphicsview.cpp > CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/splitgraphicsview.cpp -o CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/splitgraphicsview.cpp -o CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.o.requires
@@ -284,21 +278,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsv
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/splitgraphicsview.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.o: apps/voreenve/networkeditor/styles/nwestyle_classic.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/styles/nwestyle_classic.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/styles/nwestyle_classic.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/styles/nwestyle_classic.cpp > CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/styles/nwestyle_classic.cpp > CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/styles/nwestyle_classic.cpp -o CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/styles/nwestyle_classic.cpp -o CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.o.requires
@@ -308,21 +301,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/styles/nwestyle_classic.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/nwebasegraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/nwebasegraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/nwebasegraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/nwebasegraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/nwebasegraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/nwebasegraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/nwebasegraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.o.requires
@@ -332,21 +324,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphics
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/nwebasegraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_13)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.o.requires
@@ -356,21 +347,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregatio
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/aggregationgraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/core/portgraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_14)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portgraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portgraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.o.requires
@@ -380,21 +370,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphi
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portgraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/core/portownergraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_15)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portownergraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portownergraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portownergraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portownergraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portownergraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portownergraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.o.requires
@@ -404,21 +393,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownerg
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/portownergraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/core/processorgraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_16)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_16)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/processorgraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/processorgraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/processorgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/processorgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/processorgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/processorgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.o.requires
@@ -428,21 +416,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorg
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/processorgraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/core/propertygraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_17)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_17)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertygraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertygraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertygraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertygraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertygraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertygraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.o.requires
@@ -452,21 +439,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygr
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertygraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_18)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_18)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.o.requires
@@ -476,21 +462,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyli
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertylistgraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_19)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_19)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.o.requires
@@ -500,21 +485,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyow
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/propertyownergraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_20)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_20)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.o.requires
@@ -524,21 +508,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/con
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/connectionbasegraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_21)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_21)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.o.requires
@@ -548,21 +531,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/por
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portownerlinkarrowgraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_22)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_22)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.o.requires
@@ -572,21 +554,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/pro
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/propertylinkarrowgraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_23)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_23)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.o.requires
@@ -596,21 +577,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/por
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portarrowgraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_24)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_24)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.o.requires
@@ -620,21 +600,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/por
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/connections/portsizelinkarrowgraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_25)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_25)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.o.requires
@@ -644,21 +623,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/toolti
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_26)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_26)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.o.requires
@@ -668,21 +646,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/toolti
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/tooltipportgraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_27)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_27)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.o.requires
@@ -692,21 +669,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamable
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/renamabletextgraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_28)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_28)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.o.requires
@@ -716,21 +692,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressb
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/progressbargraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_29)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_29)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.o.requires
@@ -740,21 +715,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettog
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.o: apps/voreenve/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_30)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_30)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.o.requires
@@ -764,21 +738,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertyl
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.cpp.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o: apps/voreenve/moc_voreenmainwindow.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_31)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_31)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenmainwindow.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenmainwindow.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenmainwindow.cxx > CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenmainwindow.cxx > CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenmainwindow.cxx -o CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenmainwindow.cxx -o CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o.requires
@@ -788,21 +761,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o.provides: apps/
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenmainwindow.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o: apps/voreenve/moc_voreenveapplication.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_32)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_32)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenveapplication.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenveapplication.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenveapplication.cxx > CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenveapplication.cxx > CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenveapplication.cxx -o CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenveapplication.cxx -o CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o.requires
@@ -812,21 +784,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o.provides: ap
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenveapplication.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o: apps/voreenve/moc_voreenvisualization.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_33)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_33)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenvisualization.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenvisualization.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenvisualization.cxx > CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenvisualization.cxx > CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenvisualization.cxx -o CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenvisualization.cxx -o CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o.requires
@@ -836,21 +807,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o.provides: ap
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/moc_voreenvisualization.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o: apps/voreenve/networkeditor/moc_networkeditor.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_34)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_34)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/moc_networkeditor.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/moc_networkeditor.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/moc_networkeditor.cxx > CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/moc_networkeditor.cxx > CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/moc_networkeditor.cxx -o CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/moc_networkeditor.cxx -o CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o.requires
@@ -860,21 +830,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o.prov
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/moc_networkeditor.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.o: apps/voreenve/networkeditor/dialogs/moc_propertylinkdialog.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_35)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_35)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/moc_propertylinkdialog.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/moc_propertylinkdialog.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/moc_propertylinkdialog.cxx > CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/moc_propertylinkdialog.cxx > CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/moc_propertylinkdialog.cxx -o CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/moc_propertylinkdialog.cxx -o CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.o.requires
@@ -884,21 +853,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdial
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/moc_propertylinkdialog.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.o: apps/voreenve/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_36)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_36)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx > CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx > CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx -o CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx -o CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.o.requires
@@ -908,21 +876,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraph
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_37)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_37)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.o.requires
@@ -932,21 +899,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegrap
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_38)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_38)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.o.requires
@@ -956,21 +922,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggreg
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_39)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_39)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.o.requires
@@ -980,21 +945,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgr
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_40)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_40)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.o.requires
@@ -1004,21 +968,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portow
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_41)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_41)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.o.requires
@@ -1028,21 +991,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_proces
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_42)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_42)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.o.requires
@@ -1052,21 +1014,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_proper
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_43)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_43)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.o.requires
@@ -1076,21 +1037,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_proper
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_44)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_44)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.o.requires
@@ -1100,21 +1060,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_proper
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_45)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_45)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.o.requires
@@ -1124,21 +1083,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_to
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_46)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_46)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.o.requires
@@ -1148,21 +1106,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renam
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_47)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_47)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.o.requires
@@ -1172,21 +1129,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_prope
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.o: apps/voreenve/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_48)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_48)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx > CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx -o CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.o.requires
@@ -1196,21 +1152,20 @@ apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widge
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx.o.provides.build
 
 apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o: apps/voreenve/CMakeFiles/voreenve.dir/flags.make
 apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o: apps/voreenve/qrc_voreenve.cxx
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_49)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_49)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o -c /home/dimax/3mview/Voreen/apps/voreenve/qrc_voreenve.cxx
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -o CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o -c /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/qrc_voreenve.cxx
 
 apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/voreenve.dir/qrc_voreenve.cxx.i"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/dimax/3mview/Voreen/apps/voreenve/qrc_voreenve.cxx > CMakeFiles/voreenve.dir/qrc_voreenve.cxx.i
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -E /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/qrc_voreenve.cxx > CMakeFiles/voreenve.dir/qrc_voreenve.cxx.i
 
 apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/voreenve.dir/qrc_voreenve.cxx.s"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/dimax/3mview/Voreen/apps/voreenve/qrc_voreenve.cxx -o CMakeFiles/voreenve.dir/qrc_voreenve.cxx.s
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -include pch_ve.h -Winvalid-pch -S /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/qrc_voreenve.cxx -o CMakeFiles/voreenve.dir/qrc_voreenve.cxx.s
 
 apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o.requires:
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o.requires
@@ -1220,97 +1175,96 @@ apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o.provides: apps/voreenve
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o.provides
 
 apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o.provides.build: apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o
-.PHONY : apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o.provides.build
 
 apps/voreenve/moc_voreenmainwindow.cxx: apps/voreenve/voreenmainwindow.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_50)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_50)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating moc_voreenmainwindow.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenmainwindow.cxx /home/dimax/3mview/Voreen/apps/voreenve/voreenmainwindow.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenmainwindow.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenmainwindow.h
 
 apps/voreenve/moc_voreenveapplication.cxx: apps/voreenve/voreenveapplication.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_51)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_51)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating moc_voreenveapplication.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenveapplication.cxx /home/dimax/3mview/Voreen/apps/voreenve/voreenveapplication.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenveapplication.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenveapplication.h
 
 apps/voreenve/moc_voreenvisualization.cxx: apps/voreenve/voreenvisualization.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_52)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_52)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating moc_voreenvisualization.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/moc_voreenvisualization.cxx /home/dimax/3mview/Voreen/apps/voreenve/voreenvisualization.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/moc_voreenvisualization.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/voreenvisualization.h
 
 apps/voreenve/networkeditor/moc_networkeditor.cxx: apps/voreenve/networkeditor/networkeditor.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_53)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_53)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/moc_networkeditor.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/moc_networkeditor.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/networkeditor.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/moc_networkeditor.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/networkeditor.h
 
 apps/voreenve/networkeditor/dialogs/moc_propertylinkdialog.cxx: apps/voreenve/networkeditor/dialogs/propertylinkdialog.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_54)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_54)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/dialogs/moc_propertylinkdialog.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/moc_propertylinkdialog.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/propertylinkdialog.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/moc_propertylinkdialog.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/propertylinkdialog.h
 
 apps/voreenve/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx: apps/voreenve/networkeditor/dialogs/utils/splitgraphicsview.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_55)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_55)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/dialogs/utils/moc_splitgraphicsview.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/splitgraphicsview.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/moc_splitgraphicsview.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/dialogs/utils/splitgraphicsview.h
 
 apps/voreenve/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/nwebasegraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_56)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_56)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/nwebasegraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/moc_nwebasegraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/nwebasegraphicsitem.h
 
 apps/voreenve/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/core/aggregationgraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_57)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_57)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/aggregationgraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_aggregationgraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/aggregationgraphicsitem.h
 
 apps/voreenve/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/core/portgraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_58)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_58)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/core/moc_portgraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portgraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portgraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portgraphicsitem.h
 
 apps/voreenve/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/core/portownergraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_59)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_59)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portownergraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_portownergraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/portownergraphicsitem.h
 
 apps/voreenve/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/core/processorgraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_60)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_60)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/processorgraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_processorgraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/processorgraphicsitem.h
 
 apps/voreenve/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/core/propertygraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_61)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_61)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertygraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertygraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertygraphicsitem.h
 
 apps/voreenve/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/core/propertylistgraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_62)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_62)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertylistgraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertylistgraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertylistgraphicsitem.h
 
 apps/voreenve/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/core/propertyownergraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_63)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_63)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertyownergraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/moc_propertyownergraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/core/propertyownergraphicsitem.h
 
 apps/voreenve/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_64)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_64)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/moc_tooltipbasegraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/tooltips/tooltipbasegraphicsitem.h
 
 apps/voreenve/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/utils/renamabletextgraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_65)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_65)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/renamabletextgraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_renamabletextgraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/renamabletextgraphicsitem.h
 
 apps/voreenve/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_66)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_66)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/propertylistbuttongraphicsitem.h
 
 apps/voreenve/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx: apps/voreenve/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_67)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_67)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx /home/dimax/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.h
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/moc-qt4 -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/networkeditor/graphicitems/utils/widgettogglebuttongraphicsitem.h
 
 apps/voreenve/qrc_voreenve.cxx: apps/voreenve/resource/icons/aggregate.png
 apps/voreenve/qrc_voreenve.cxx: apps/voreenve/resource/icons/deaggregate.png
@@ -1347,10 +1301,11 @@ apps/voreenve/qrc_voreenve.cxx: apps/voreenve/resource/widgetstyle/scrollbar.png
 apps/voreenve/qrc_voreenve.cxx: apps/voreenve/resource/widgetstyle/toolbarhandle.png
 apps/voreenve/qrc_voreenve.cxx: apps/voreenve/resource/widgetstyle/undockbutton.png
 apps/voreenve/qrc_voreenve.cxx: apps/voreenve/resource/widgetstyle/voreen.qss
+apps/voreenve/qrc_voreenve.cxx: apps/voreenve/resource/voreenve.qrc.depends
 apps/voreenve/qrc_voreenve.cxx: apps/voreenve/resource/voreenve.qrc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/dimax/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_68)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_68)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating qrc_voreenve.cxx"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && /usr/bin/rcc -name voreenve -o /home/dimax/3mview/Voreen/apps/voreenve/qrc_voreenve.cxx /home/dimax/3mview/Voreen/apps/voreenve/resource/voreenve.qrc
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/rcc -name voreenve -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/qrc_voreenve.cxx /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/resource/voreenve.qrc
 
 # Object files for target voreenve
 voreenve_OBJECTS = \
@@ -1459,46 +1414,35 @@ bin/voreenve: apps/voreenve/CMakeFiles/voreenve.dir/qrc_voreenve.cxx.o
 bin/voreenve: bin/libtgt.so
 bin/voreenve: bin/libvoreen_core.so
 bin/voreenve: bin/libvoreen_qt.so
-bin/voreenve: /usr/lib/libGLU.so
-bin/voreenve: /usr/lib/libGL.so
-bin/voreenve: /usr/lib/libSM.so
-bin/voreenve: /usr/lib/libICE.so
-bin/voreenve: /usr/lib/libX11.so
-bin/voreenve: /usr/lib/libXext.so
-bin/voreenve: /usr/lib/libGLEW.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libGLU.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libGL.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libSM.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libICE.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libX11.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libXext.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libGLEW.so
 bin/voreenve: /usr/lib/libIL.so
 bin/voreenve: /usr/lib/libILU.so
-bin/voreenve: /usr/lib/libz.so
-bin/voreenve: /usr/lib/libQtOpenGL.so
-bin/voreenve: /usr/lib/libQtGui.so
-bin/voreenve: /usr/lib/libpng.so
-bin/voreenve: /usr/lib/libSM.so
-bin/voreenve: /usr/lib/libICE.so
-bin/voreenve: /usr/lib/libXrender.so
-bin/voreenve: /usr/lib/libfreetype.so
-bin/voreenve: /usr/lib/libfontconfig.so
-bin/voreenve: /usr/lib/libXext.so
-bin/voreenve: /usr/lib/libX11.so
-bin/voreenve: /usr/lib/libm.so
-bin/voreenve: /usr/lib/libQtCore.so
-bin/voreenve: /usr/lib/libz.so
-bin/voreenve: /usr/lib/librt.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libz.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libQtOpenGL.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libQtGui.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libQtCore.so
 bin/voreenve: bin/libvoreen_core.so
 bin/voreenve: bin/libtgt.so
-bin/voreenve: /usr/lib/libGLU.so
-bin/voreenve: /usr/lib/libGL.so
-bin/voreenve: /usr/lib/libSM.so
-bin/voreenve: /usr/lib/libICE.so
-bin/voreenve: /usr/lib/libX11.so
-bin/voreenve: /usr/lib/libXext.so
-bin/voreenve: /usr/lib/libGLEW.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libGLU.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libGL.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libSM.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libICE.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libX11.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libXext.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libGLEW.so
 bin/voreenve: /usr/lib/libIL.so
 bin/voreenve: /usr/lib/libILU.so
-bin/voreenve: /usr/lib/libz.so
+bin/voreenve: /usr/lib/x86_64-linux-gnu/libz.so
 bin/voreenve: apps/voreenve/CMakeFiles/voreenve.dir/build.make
 bin/voreenve: apps/voreenve/CMakeFiles/voreenve.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable ../../bin/voreenve"
-	cd /home/dimax/3mview/Voreen/apps/voreenve && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/voreenve.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/voreenve.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 apps/voreenve/CMakeFiles/voreenve.dir/build: bin/voreenve
@@ -1556,7 +1500,7 @@ apps/voreenve/CMakeFiles/voreenve.dir/requires: apps/voreenve/CMakeFiles/voreenv
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/requires
 
 apps/voreenve/CMakeFiles/voreenve.dir/clean:
-	cd /home/dimax/3mview/Voreen/apps/voreenve && $(CMAKE_COMMAND) -P CMakeFiles/voreenve.dir/cmake_clean.cmake
+	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && $(CMAKE_COMMAND) -P CMakeFiles/voreenve.dir/cmake_clean.cmake
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/clean
 
 apps/voreenve/CMakeFiles/voreenve.dir/depend: apps/voreenve/moc_voreenmainwindow.cxx
@@ -1578,6 +1522,6 @@ apps/voreenve/CMakeFiles/voreenve.dir/depend: apps/voreenve/networkeditor/graphi
 apps/voreenve/CMakeFiles/voreenve.dir/depend: apps/voreenve/networkeditor/graphicitems/utils/moc_propertylistbuttongraphicsitem.cxx
 apps/voreenve/CMakeFiles/voreenve.dir/depend: apps/voreenve/networkeditor/graphicitems/utils/moc_widgettogglebuttongraphicsitem.cxx
 apps/voreenve/CMakeFiles/voreenve.dir/depend: apps/voreenve/qrc_voreenve.cxx
-	cd /home/dimax/3mview/Voreen && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/dimax/3mview/Voreen /home/dimax/3mview/Voreen/apps/voreenve /home/dimax/3mview/Voreen /home/dimax/3mview/Voreen/apps/voreenve /home/dimax/3mview/Voreen/apps/voreenve/CMakeFiles/voreenve.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/class3d/softw/Work/3mview/Voreen && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/class3d/softw/Work/3mview/Voreen /home/class3d/softw/Work/3mview/Voreen/apps/voreenve /home/class3d/softw/Work/3mview/Voreen /home/class3d/softw/Work/3mview/Voreen/apps/voreenve /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/CMakeFiles/voreenve.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : apps/voreenve/CMakeFiles/voreenve.dir/depend
 

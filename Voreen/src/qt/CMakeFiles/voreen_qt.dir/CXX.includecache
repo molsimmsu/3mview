@@ -9480,16 +9480,62 @@ cstddef
 boost/config.hpp
 -
 
-/home/class3d/softw/Work/3mview/Voreen/src/qt/widgets/property/filedialogpropertywidget.cpp
-voreen/qt/widgets/property/filedialogpropertywidget.h
-/home/class3d/softw/Work/3mview/Voreen/src/qt/widgets/property/voreen/qt/widgets/property/filedialogpropertywidget.h
-voreen/core/properties/filedialogproperty.h
-/home/class3d/softw/Work/3mview/Voreen/src/qt/widgets/property/voreen/core/properties/filedialogproperty.h
+/home/class3d/softw/Work/3mview/Voreen/custommodules/geometry/geometrymoduleqt.h
+voreen/qt/voreenmoduleqt.h
+/home/class3d/softw/Work/3mview/Voreen/custommodules/geometry/voreen/qt/voreenmoduleqt.h
+
+/home/class3d/softw/Work/3mview/Voreen/custommodules/molecule/moleculemoduleqt.h
+voreen/qt/voreenmoduleqt.h
+/home/class3d/softw/Work/3mview/Voreen/custommodules/molecule/voreen/qt/voreenmoduleqt.h
+
+/home/class3d/softw/Work/3mview/Voreen/modules/base/basemoduleqt.h
+voreen/qt/voreenmoduleqt.h
+/home/class3d/softw/Work/3mview/Voreen/modules/base/voreen/qt/voreenmoduleqt.h
+
+/home/class3d/softw/Work/3mview/Voreen/modules/core/coremoduleqt.h
+voreen/qt/voreenmoduleqt.h
+/home/class3d/softw/Work/3mview/Voreen/modules/core/voreen/qt/voreenmoduleqt.h
+
+/home/class3d/softw/Work/3mview/Voreen/modules/dynamicglsl/dynamicglslmoduleqt.h
+voreen/qt/voreenmoduleqt.h
+/home/class3d/softw/Work/3mview/Voreen/modules/dynamicglsl/voreen/qt/voreenmoduleqt.h
+
+/home/class3d/softw/Work/3mview/Voreen/modules/plotting/plottingmoduleqt.h
+voreen/qt/voreenmoduleqt.h
+/home/class3d/softw/Work/3mview/Voreen/modules/plotting/voreen/qt/voreenmoduleqt.h
+
+/home/class3d/softw/Work/3mview/Voreen/src/qt/voreenapplicationqt.cpp
+voreen/qt/voreenapplicationqt.h
+/home/class3d/softw/Work/3mview/Voreen/src/qt/voreen/qt/voreenapplicationqt.h
+voreen/qt/voreenmoduleqt.h
+/home/class3d/softw/Work/3mview/Voreen/src/qt/voreen/qt/voreenmoduleqt.h
+modules/core/coremoduleqt.h
+/home/class3d/softw/Work/3mview/Voreen/src/qt/modules/core/coremoduleqt.h
+voreen/qt/versionqt.h
+/home/class3d/softw/Work/3mview/Voreen/src/qt/voreen/qt/versionqt.h
+voreen/qt/progressdialog.h
+/home/class3d/softw/Work/3mview/Voreen/src/qt/voreen/qt/progressdialog.h
+voreen/core/utils/stringutils.h
+/home/class3d/softw/Work/3mview/Voreen/src/qt/voreen/core/utils/stringutils.h
+voreen/core/properties/callmemberaction.h
+/home/class3d/softw/Work/3mview/Voreen/src/qt/voreen/core/properties/callmemberaction.h
+tgt/init.h
+/home/class3d/softw/Work/3mview/Voreen/src/qt/tgt/init.h
+tgt/qt/qttimer.h
+/home/class3d/softw/Work/3mview/Voreen/src/qt/tgt/qt/qttimer.h
+tgt/filesystem.h
+/home/class3d/softw/Work/3mview/Voreen/src/qt/tgt/filesystem.h
+gen_moduleregistration_qt.h
+/home/class3d/softw/Work/3mview/Voreen/src/qt/gen_moduleregistration_qt.h
+QApplication
+-
+QMainWindow
+-
+QMessageBox
+-
 QDir
 -
-QFileDialog
--
-QPushButton
+QSettings
 -
 
 /usr/include/qt4/Qt3Support/q3cstring.h
@@ -9514,6 +9560,10 @@ list
 qdir.h
 /usr/include/qt4/QtCore/qdir.h
 
+/usr/include/qt4/QtCore/QObject
+qobject.h
+/usr/include/qt4/QtCore/qobject.h
+
 /usr/include/qt4/QtCore/QPoint
 qpoint.h
 /usr/include/qt4/QtCore/qpoint.h
@@ -9521,6 +9571,18 @@ qpoint.h
 /usr/include/qt4/QtCore/QPointF
 qpoint.h
 /usr/include/qt4/QtCore/qpoint.h
+
+/usr/include/qt4/QtCore/QSettings
+qsettings.h
+/usr/include/qt4/QtCore/qsettings.h
+
+/usr/include/qt4/QtCore/QString
+qstring.h
+/usr/include/qt4/QtCore/qstring.h
+
+/usr/include/qt4/QtCore/QTime
+qdatetime.h
+/usr/include/qt4/QtCore/qdatetime.h
 
 /usr/include/qt4/QtCore/qalgorithms.h
 QtCore/qglobal.h
@@ -9682,6 +9744,12 @@ QtCore/qatomic_bootstrap.h
 QtCore/qatomic_arch.h
 -
 
+/usr/include/qt4/QtCore/qbuffer.h
+QtCore/qiodevice.h
+-
+QtCore/qbytearray.h
+-
+
 /usr/include/qt4/QtCore/qbytearray.h
 QtCore/qatomic.h
 -
@@ -9700,6 +9768,16 @@ QtCore/qglobal.h
 
 /usr/include/qt4/QtCore/qconfig.h
 
+/usr/include/qt4/QtCore/qcoreapplication.h
+QtCore/qobject.h
+-
+QtCore/qcoreevent.h
+-
+QtCore/qeventloop.h
+-
+QtCore/qstringlist.h
+-
+
 /usr/include/qt4/QtCore/qcoreevent.h
 QtCore/qnamespace.h
 -
@@ -9716,6 +9794,14 @@ QtCore/qiodevice.h
 QtCore/qglobal.h
 -
 
+/usr/include/qt4/QtCore/qdatetime.h
+QtCore/qstring.h
+-
+QtCore/qnamespace.h
+-
+QtCore/qsharedpointer.h
+-
+
 /usr/include/qt4/QtCore/qdir.h
 QtCore/qstring.h
 -
@@ -9724,6 +9810,10 @@ QtCore/qfileinfo.h
 QtCore/qstringlist.h
 -
 QtCore/qshareddata.h
+-
+
+/usr/include/qt4/QtCore/qeventloop.h
+QtCore/qobject.h
 -
 
 /usr/include/qt4/QtCore/qfeatures.h
@@ -9884,6 +9974,10 @@ QtCore/qdatastream.h
 QtCore/qnamespace.h
 -
 
+/usr/include/qt4/QtCore/qpointer.h
+QtCore/qobject.h
+-
+
 /usr/include/qt4/QtCore/qrect.h
 QtCore/qsize.h
 -
@@ -9902,6 +9996,18 @@ QtCore/qglobal.h
 
 /usr/include/qt4/QtCore/qset.h
 QtCore/qhash.h
+-
+
+/usr/include/qt4/QtCore/qsettings.h
+QtCore/qobject.h
+-
+QtCore/qvariant.h
+-
+QtCore/qstring.h
+-
+QtCore/qstringlist.h
+-
+ctype.h
 -
 
 /usr/include/qt4/QtCore/qshareddata.h
@@ -10020,44 +10126,46 @@ QtCore/QPointF
 QtCore/QPoint
 -
 
-/usr/include/qt4/QtGui/QBoxLayout
-qboxlayout.h
-/usr/include/qt4/QtGui/qboxlayout.h
+/usr/include/qt4/QtGui/QApplication
+qapplication.h
+/usr/include/qt4/QtGui/qapplication.h
 
-/usr/include/qt4/QtGui/QFileDialog
-qfiledialog.h
-/usr/include/qt4/QtGui/qfiledialog.h
+/usr/include/qt4/QtGui/QMainWindow
+qmainwindow.h
+/usr/include/qt4/QtGui/qmainwindow.h
+
+/usr/include/qt4/QtGui/QMessageBox
+qmessagebox.h
+/usr/include/qt4/QtGui/qmessagebox.h
 
 /usr/include/qt4/QtGui/QPlatformWindow
 qplatformwindow_qpa.h
 /usr/include/qt4/QtGui/qplatformwindow_qpa.h
 
-/usr/include/qt4/QtGui/QPushButton
-qpushbutton.h
-/usr/include/qt4/QtGui/qpushbutton.h
+/usr/include/qt4/QtGui/QProgressDialog
+qprogressdialog.h
+/usr/include/qt4/QtGui/qprogressdialog.h
 
-/usr/include/qt4/QtGui/QToolButton
-qtoolbutton.h
-/usr/include/qt4/QtGui/qtoolbutton.h
-
-/usr/include/qt4/QtGui/QWidget
-qwidget.h
-/usr/include/qt4/QtGui/qwidget.h
-
-/usr/include/qt4/QtGui/qabstractbutton.h
-QtGui/qicon.h
+/usr/include/qt4/QtGui/qapplication.h
+QtCore/qcoreapplication.h
 -
-QtGui/qkeysequence.h
+QtGui/qwindowdefs.h
+-
+QtCore/qpoint.h
+-
+QtCore/qsize.h
+-
+QtGui/qcursor.h
+-
+QtGui/qdesktopwidget.h
 -
 QtGui/qwidget.h
 -
-
-/usr/include/qt4/QtGui/qboxlayout.h
-QtGui/qlayout.h
+QtGui/qpalette.h
 -
-QtGui/qwidget.h
+QtGui/qrgb.h
 -
-limits.h
+QtGui/qtransportauth_qws.h
 -
 
 /usr/include/qt4/QtGui/qbrush.h
@@ -10092,6 +10200,10 @@ QtCore/qstringlist.h
 QtCore/qpoint.h
 -
 QtGui/qwindowdefs.h
+-
+
+/usr/include/qt4/QtGui/qdesktopwidget.h
+QtGui/qwidget.h
 -
 
 /usr/include/qt4/QtGui/qdialog.h
@@ -10130,14 +10242,6 @@ QtCore/qset.h
 QtCore/qfile.h
 -
 
-/usr/include/qt4/QtGui/qfiledialog.h
-QtCore/qdir.h
--
-QtCore/qstring.h
--
-QtGui/qdialog.h
--
-
 /usr/include/qt4/QtGui/qfont.h
 QtGui/qwindowdefs.h
 -
@@ -10158,14 +10262,6 @@ QtGui/qfont.h
 QtCore/qsharedpointer.h
 -
 QtCore/qrect.h
--
-
-/usr/include/qt4/QtGui/qgridlayout.h
-QtGui/qlayout.h
--
-QtGui/qwidget.h
--
-limits.h
 -
 
 /usr/include/qt4/QtGui/qicon.h
@@ -10198,36 +10294,16 @@ QtCore/qnamespace.h
 QtCore/qstring.h
 -
 
-/usr/include/qt4/QtGui/qlayout.h
-QtCore/qobject.h
--
-QtGui/qlayoutitem.h
--
-QtGui/qsizepolicy.h
--
-QtCore/qrect.h
--
-QtCore/qmargins.h
--
-limits.h
--
-QtGui/qboxlayout.h
--
-QtGui/qgridlayout.h
--
-
-/usr/include/qt4/QtGui/qlayoutitem.h
-QtGui/qsizepolicy.h
--
-QtCore/qrect.h
--
-limits.h
--
-
 /usr/include/qt4/QtGui/qmacdefines_mac.h
 QtCore/qglobal.h
 -
 Cocoa/Cocoa.h
+-
+
+/usr/include/qt4/QtGui/qmainwindow.h
+QtGui/qwidget.h
+-
+QtGui/qtabwidget.h
 -
 
 /usr/include/qt4/QtGui/qmatrix.h
@@ -10244,6 +10320,10 @@ QtCore/qpoint.h
 QtCore/qrect.h
 -
 QtGui/qwmatrix.h
+-
+
+/usr/include/qt4/QtGui/qmessagebox.h
+QtGui/qdialog.h
 -
 
 /usr/include/qt4/QtGui/qmime.h
@@ -10318,8 +10398,8 @@ QtCore/qpoint.h
 QtCore/qrect.h
 -
 
-/usr/include/qt4/QtGui/qpushbutton.h
-QtGui/qabstractbutton.h
+/usr/include/qt4/QtGui/qprogressdialog.h
+QtGui/qdialog.h
 -
 
 /usr/include/qt4/QtGui/qregion.h
@@ -10340,8 +10420,10 @@ QtCore/qglobal.h
 QtCore/qobject.h
 -
 
-/usr/include/qt4/QtGui/qtoolbutton.h
-QtGui/qabstractbutton.h
+/usr/include/qt4/QtGui/qtabwidget.h
+QtGui/qwidget.h
+-
+QtGui/qicon.h
 -
 
 /usr/include/qt4/QtGui/qtransform.h
@@ -10360,6 +10442,22 @@ QtCore/qline.h
 QtCore/qpoint.h
 -
 QtCore/qrect.h
+-
+
+/usr/include/qt4/QtGui/qtransportauth_qws.h
+QtCore/qglobal.h
+-
+QtCore/qobject.h
+-
+QtCore/qhash.h
+-
+QtCore/qstring.h
+-
+QtCore/qbuffer.h
+-
+QtCore/qpointer.h
+-
+sys/types.h
 -
 
 /usr/include/qt4/QtGui/qwidget.h
@@ -10416,6 +10514,18 @@ ext/tgt/assert.h
 tgt/types.h
 ext/tgt/tgt/types.h
 
+ext/tgt/event/event.h
+tgt/types.h
+ext/tgt/event/tgt/types.h
+
+ext/tgt/event/eventhandler.h
+deque
+-
+tgt/event/eventlistener.h
+ext/tgt/event/tgt/event/eventlistener.h
+tgt/event/event.h
+ext/tgt/event/tgt/event/event.h
+
 ext/tgt/event/eventlistener.h
 tgt/types.h
 ext/tgt/event/tgt/types.h
@@ -10427,6 +10537,32 @@ exception
 -
 string
 -
+
+ext/tgt/filesystem.h
+tgt/logmanager.h
+ext/tgt/tgt/logmanager.h
+tgt/singleton.h
+ext/tgt/tgt/singleton.h
+tgt/types.h
+ext/tgt/tgt/types.h
+tgt/exception.h
+ext/tgt/tgt/exception.h
+map
+-
+string
+-
+vector
+-
+fstream
+-
+stdio.h
+-
+
+ext/tgt/init.h
+tgt/types.h
+ext/tgt/tgt/types.h
+tgt/logmanager.h
+ext/tgt/tgt/logmanager.h
 
 ext/tgt/logmanager.h
 string
@@ -10452,6 +10588,14 @@ ext/tgt/tgt/vector.h
 tgt/assert.h
 ext/tgt/tgt/assert.h
 
+ext/tgt/qt/qttimer.h
+tgt/event/eventhandler.h
+ext/tgt/qt/tgt/event/eventhandler.h
+tgt/timer.h
+ext/tgt/qt/tgt/timer.h
+QObject
+-
+
 ext/tgt/singleton.h
 iostream
 -
@@ -10471,6 +10615,10 @@ cfloat
 -
 algorithm
 -
+
+ext/tgt/timer.h
+tgt/types.h
+ext/tgt/tgt/types.h
 
 ext/tgt/types.h
 cstddef
@@ -10524,6 +10672,22 @@ sstream
 tinystr.h
 ext/tinyxml/tinystr.h
 
+gen_moduleregistration_qt.h
+voreen/qt/voreenapplicationqt.h
+/voreen/qt/voreenapplicationqt.h
+/home/class3d/softw/Work/3mview/Voreen/modules/base/basemoduleqt.h
+-
+/home/class3d/softw/Work/3mview/Voreen/modules/core/coremoduleqt.h
+-
+/home/class3d/softw/Work/3mview/Voreen/modules/dynamicglsl/dynamicglslmoduleqt.h
+-
+/home/class3d/softw/Work/3mview/Voreen/modules/plotting/plottingmoduleqt.h
+-
+/home/class3d/softw/Work/3mview/Voreen/custommodules/geometry/geometrymoduleqt.h
+-
+/home/class3d/softw/Work/3mview/Voreen/custommodules/molecule/moleculemoduleqt.h
+-
+
 include/voreen/core/datastructures/meta/metadatabase.h
 voreen/core/io/serialization/abstractserializable.h
 include/voreen/core/datastructures/meta/voreen/core/io/serialization/abstractserializable.h
@@ -10545,6 +10709,12 @@ include/voreen/core/datastructures/meta/voreen/core/io/serialization/serializati
 include/voreen/core/datastructures/meta/windowstatemetadata.h
 voreen/core/io/serialization/serialization.h
 include/voreen/core/datastructures/meta/voreen/core/io/serialization/serialization.h
+
+include/voreen/core/io/progressbar.h
+voreen/core/voreencoreapi.h
+include/voreen/core/io/voreen/core/voreencoreapi.h
+string
+-
 
 include/voreen/core/io/serialization/abstractserializable.h
 voreen/core/io/serialization/serializable.h
@@ -10736,27 +10906,15 @@ include/voreen/core/properties/action.h
 voreen/core/properties/property.h
 include/voreen/core/properties/voreen/core/properties/property.h
 
-include/voreen/core/properties/allactions.h
+include/voreen/core/properties/buttonproperty.h
+voreen/core/properties/property.h
+include/voreen/core/properties/voreen/core/properties/property.h
 voreen/core/properties/action.h
 include/voreen/core/properties/voreen/core/properties/action.h
-voreen/core/properties/targetaction.h
-include/voreen/core/properties/voreen/core/properties/targetaction.h
-voreen/core/properties/callmemberaction.h
-include/voreen/core/properties/voreen/core/properties/callmemberaction.h
 
 include/voreen/core/properties/callmemberaction.h
 voreen/core/properties/targetaction.h
 include/voreen/core/properties/voreen/core/properties/targetaction.h
-
-include/voreen/core/properties/condition.h
-voreen/core/voreencoreapi.h
-include/voreen/core/properties/voreen/core/voreencoreapi.h
-voreen/core/properties/allactions.h
-include/voreen/core/properties/voreen/core/properties/allactions.h
-
-include/voreen/core/properties/filedialogproperty.h
-voreen/core/properties/stringproperty.h
-include/voreen/core/properties/voreen/core/properties/stringproperty.h
 
 include/voreen/core/properties/link/propertylink.h
 voreen/core/io/serialization/serialization.h
@@ -10796,27 +10954,9 @@ include/voreen/core/properties/voreen/core/utils/observer.h
 voreen/core/io/serialization/serialization.h
 include/voreen/core/properties/voreen/core/io/serialization/serialization.h
 
-include/voreen/core/properties/propertywidget.h
-voreen/core/properties/property.h
-include/voreen/core/properties/voreen/core/properties/property.h
-voreen/core/voreencoreapi.h
-include/voreen/core/properties/voreen/core/voreencoreapi.h
-
-include/voreen/core/properties/stringproperty.h
-voreen/core/properties/templateproperty.h
-include/voreen/core/properties/voreen/core/properties/templateproperty.h
-
 include/voreen/core/properties/targetaction.h
 voreen/core/properties/action.h
 include/voreen/core/properties/voreen/core/properties/action.h
-
-include/voreen/core/properties/templateproperty.h
-voreen/core/properties/templatepropertycondition.h
-include/voreen/core/properties/voreen/core/properties/templatepropertycondition.h
-
-include/voreen/core/properties/templatepropertycondition.h
-voreen/core/properties/condition.h
-include/voreen/core/properties/voreen/core/properties/condition.h
 
 include/voreen/core/utils/exception.h
 tgt/exception.h
@@ -10834,21 +10974,99 @@ set
 vector
 -
 
+include/voreen/core/utils/stringutils.h
+voreen/core/voreencoreapi.h
+include/voreen/core/utils/voreen/core/voreencoreapi.h
+voreen/core/utils/exception.h
+include/voreen/core/utils/voreen/core/utils/exception.h
+string
+-
+vector
+-
+iostream
+-
+sstream
+-
+
+include/voreen/core/version.h
+voreen/core/voreencoreapi.h
+include/voreen/core/voreen/core/voreencoreapi.h
+string
+-
+
+include/voreen/core/voreenapplication.h
+voreen/core/voreencoreapi.h
+include/voreen/core/voreen/core/voreencoreapi.h
+voreen/core/properties/property.h
+include/voreen/core/voreen/core/properties/property.h
+voreen/core/properties/propertyowner.h
+include/voreen/core/voreen/core/properties/propertyowner.h
+string
+-
+tgt/logmanager.h
+include/voreen/core/tgt/logmanager.h
+tgt/event/eventlistener.h
+include/voreen/core/tgt/event/eventlistener.h
+tgt/event/eventhandler.h
+include/voreen/core/tgt/event/eventhandler.h
+tgt/timer.h
+include/voreen/core/tgt/timer.h
+
 include/voreen/core/voreencoreapi.h
 
-include/voreen/qt/widgets/property/filedialogpropertywidget.h
-voreen/qt/widgets/property/qpropertywidget.h
-include/voreen/qt/widgets/property/voreen/qt/widgets/property/qpropertywidget.h
+include/voreen/core/voreenmodule.h
+voreen/core/voreencoreapi.h
+include/voreen/core/voreen/core/voreencoreapi.h
+voreen/core/properties/propertyowner.h
+include/voreen/core/voreen/core/properties/propertyowner.h
+voreen/core/utils/exception.h
+include/voreen/core/voreen/core/utils/exception.h
+string
+-
+vector
+-
 
-include/voreen/qt/widgets/property/qpropertywidget.h
-voreen/core/properties/property.h
-include/voreen/qt/widgets/property/voreen/core/properties/property.h
-voreen/core/properties/propertywidget.h
-include/voreen/qt/widgets/property/voreen/core/properties/propertywidget.h
-QWidget
+include/voreen/qt/progressdialog.h
+QProgressDialog
 -
-QBoxLayout
+QTime
 -
-QToolButton
+voreen/core/io/progressbar.h
+include/voreen/qt/voreen/core/io/progressbar.h
+
+include/voreen/qt/versionqt.h
+voreen/core/version.h
+include/voreen/qt/voreen/core/version.h
+voreen/qt/voreenqtapi.h
+include/voreen/qt/voreen/qt/voreenqtapi.h
+
+include/voreen/qt/voreenapplicationqt.h
+voreen/core/voreenapplication.h
+include/voreen/qt/voreen/core/voreenapplication.h
+voreen/core/properties/buttonproperty.h
+include/voreen/qt/voreen/core/properties/buttonproperty.h
+voreen/qt/progressdialog.h
+include/voreen/qt/voreen/qt/progressdialog.h
+voreen/qt/voreenqtapi.h
+include/voreen/qt/voreen/qt/voreenqtapi.h
+QString
 -
+
+include/voreen/qt/voreenmoduleqt.h
+voreen/core/voreenmodule.h
+include/voreen/qt/voreen/core/voreenmodule.h
+string
+-
+vector
+-
+voreen/core/utils/exception.h
+include/voreen/qt/voreen/core/utils/exception.h
+voreen/qt/voreenqtapi.h
+include/voreen/qt/voreen/qt/voreenqtapi.h
+
+include/voreen/qt/voreenqtapi.h
+
+modules/core/coremoduleqt.h
+voreen/qt/voreenmoduleqt.h
+modules/core/voreen/qt/voreenmoduleqt.h
 

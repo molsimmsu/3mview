@@ -1,4 +1,4 @@
-# Install script for directory: /home/dimax/3mview/Voreen/apps/3mview
+# Install script for directory: /home/class3d/softw/Work/3mview/Voreen/apps/3mview
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

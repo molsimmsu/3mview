@@ -159,6 +159,8 @@ void FormFinder::findDomainsVol()
 
     LINFO("Loading domains:\n");
     for (size_t i = 0; i < maxDomainsToLoad_.get(); i++) {
+ 	   sprintf(buff, "loading domain: %s [score: %.4Lf]\n", &name[i*NAMELEN], disp[i]);
+	   LINFO(buff);
         pdbPath = path;
 	   pdbPath += &name[i*NAMELEN];
 	   pdbPath += ".pdb";
