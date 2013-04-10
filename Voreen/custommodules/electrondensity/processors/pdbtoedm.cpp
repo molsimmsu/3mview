@@ -75,6 +75,9 @@ PDBtoEDM::PDBtoEDM()
     addProperty(generategrid_);
 
     generategrid_.onClick(REBUILD_EDM_GRID);
+
+    LINFO("Loaded successfully");
+    LINFO("No conflicts with modules");
 }
 
 PDBtoEDM::~PDBtoEDM() {
@@ -776,9 +779,6 @@ void PDBtoEDM::process() {
     atoomr_.setVisible(false);
 
     }
-std::cout << "Load successful"<<std::endl;
-std::cout << "PDBtoEDM: no conflict with other modules"<<std::endl;
-
 }
 
 void PDBtoEDM::ShowGrid() {
