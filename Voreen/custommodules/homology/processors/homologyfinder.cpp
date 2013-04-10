@@ -25,9 +25,12 @@ HomologyFinder::HomologyFinder()
     // TODO sequenceSource_.addOption("fasta", "FASTA file");
     
     findDomains_.onChange(CallMemberAction<HomologyFinder>(this, &HomologyFinder::findDomains));
+    LINFO("Loaded successfully");
+    LINFO("No conflicts with modules");
 }
 
 void HomologyFinder::findDomains() {
+    float start_time =  clock(); 
     LINFO("Start findDomains()");
     
     std::string seq = getSequence();
@@ -62,7 +65,12 @@ void HomologyFinder::findDomains() {
     
     loadDomains();
     
-    LINFO("Finish findDomains()");
+    
+   float end_time = clock();
+   LINFO("Finish findDomains()");
+   float t=(end_time-start_time)/CLOCKS_PER_SEC;
+   std::cout<<"time (s): "<<t<<std::endl;
+
 }
 
 void HomologyFinder::loadDomains() {
