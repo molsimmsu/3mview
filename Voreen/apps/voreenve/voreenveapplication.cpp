@@ -48,9 +48,9 @@ const std::string VoreenVEApplication::loggerCat_("voreenve.VoreenVEApplication"
 VoreenVEApplication::VoreenVEApplication(int& argc, char** argv)
     : QApplication(argc, argv)
 #ifdef VRN_ADD_FILE_LOGGER
-    , VoreenApplicationQt("voreenve", "VoreenVE", "Voreen Visualization Environment", argc, argv, VoreenApplication::APP_ALL)
+    , VoreenApplicationQt("voreenve", "3MTK", "Voreen Visualization Environment", argc, argv, VoreenApplication::APP_ALL)
 #else
-    , VoreenApplicationQt("voreenve", "VoreenVE", "Voreen Visualization Environment", argc, argv, VoreenApplication::APP_DEFAULT)
+    , VoreenApplicationQt("voreenve", "3MTK", "Voreen Visualization Environment", argc, argv, VoreenApplication::APP_DEFAULT)
 #endif
     , spnavPresent_(false)
 {
@@ -133,7 +133,7 @@ void VoreenVEApplication::loadModules() throw (VoreenException) {
 
     // load VE modules
     if (isModuleLoadingEnabled()) {
-        LDEBUG("Loading VoreenVE modules from module registration header");
+        LDEBUG("Loading 3MTK modules from module registration header");
         registerAllVEModules(this);
     }
     else {
@@ -179,7 +179,7 @@ bool VoreenVEApplication::notify(QObject* receiver, QEvent* event) {
     catch (const VoreenException& e) {
         LERRORC("voreenve.main", "Caught unhandled VoreenException: " << e.what());
 #ifndef TGT_NON_INTERACTIVE_ASSERT
-        int choice = QMessageBox::critical(0, tr("VoreenVE"), tr("Caught unhandled VoreenException:\n\"")
+        int choice = QMessageBox::critical(0, tr("3MTK"), tr("Caught unhandled VoreenException:\n\"")
                                            + e.what() + +"\"\n" + tr("Continue?"),
                                            QMessageBox::Ok | QMessageBox::Cancel);
         if (choice == QMessageBox::Cancel) {
@@ -196,7 +196,7 @@ bool VoreenVEApplication::notify(QObject* receiver, QEvent* event) {
     catch (const std::exception& e) {
         LERRORC("voreenve.main", "Caught unhandled std::exception: " << e.what());
 #ifndef TGT_NON_INTERACTIVE_ASSERT
-        int choice = QMessageBox::critical(0, tr("VoreenVE"), tr("Caught unhandled std::exception:\n\"")
+        int choice = QMessageBox::critical(0, tr("3MTK"), tr("Caught unhandled std::exception:\n\"")
                                            + e.what() + "\"\n" + tr("Continue?"),
                                            QMessageBox::Ok | QMessageBox::Cancel);
         if (choice == QMessageBox::Cancel) {
@@ -213,7 +213,7 @@ bool VoreenVEApplication::notify(QObject* receiver, QEvent* event) {
     catch (...) {
         LERRORC("voreenve.main", "Caught unhandled unknown exception!");
 #ifndef TGT_NON_INTERACTIVE_ASSERT
-        int choice = QMessageBox::critical(0, tr("VoreenVE"), tr("Caught unhandled unknown exception!\nContinue?"),
+        int choice = QMessageBox::critical(0, tr("3MTK"), tr("Caught unhandled unknown exception!\nContinue?"),
                                            QMessageBox::Ok | QMessageBox::Cancel);
         if (choice == QMessageBox::Cancel) {
 #ifdef VRN_DEBUG
@@ -240,7 +240,7 @@ void VoreenVEApplication::registerVEModule(VoreenModuleVE* module) {
     if (std::find(veModules_.begin(), veModules_.end(), module) == veModules_.end())
         veModules_.push_back(module);
     else
-        LWARNING("VoreenVE module '" << module->getName() << "' has already been registered. Skipping.");
+        LWARNING("3MTK module '" << module->getName() << "' has already been registered. Skipping.");
 }
 
 const std::vector<VoreenModuleVE*>& VoreenVEApplication::getVEModules() const {

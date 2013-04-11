@@ -421,12 +421,12 @@ void VoreenMainWindow::deinitialize() {
         VoreenVEPlugin* plugin = plugins_.at(i);
         if (plugin->isInitialized()) {
             try {
-                LINFO("Deinitializing VoreenVE plugin '" << plugin->getName() << "'");
+                LINFO("Deinitializing 3MTK plugin '" << plugin->getName() << "'");
                 plugin->deinitialize();
                 plugin->initialized_ = false;
             }
             catch (tgt::Exception& e) {
-                LERROR("Failed to deinitialize VoreenVE plugin '" << plugin->getName() << "': " << e.what());
+                LERROR("Failed to deinitialize 3MTK plugin '" << plugin->getName() << "': " << e.what());
             }
         }
     }
@@ -618,7 +618,7 @@ void VoreenMainWindow::createMenus() {
 
     helpMenu_->addSeparator();
 
-    aboutAction_ = new QAction(QIcon(":/qt/icons/about.png"), tr("&About VoreenVE..."), this);
+    aboutAction_ = new QAction(QIcon(":/qt/icons/about.png"), tr("&About 3MTK..."), this);
     connect(aboutAction_, SIGNAL(triggered()), this, SLOT(helpAbout()));
     helpMenu_->addAction(aboutAction_);
 }
@@ -785,7 +785,7 @@ void VoreenMainWindow::createToolWindows() {
 }
 
 void VoreenMainWindow::addVEPlugins() {
-    // retrieve VoreenVE plugins from application/modules
+    // retrieve 3MTK plugins from application/modules
     VoreenVEApplication* veApp = VoreenVEApplication::veApp();
     if (!veApp) {
         LERROR("VoreenVEApplication not instantiated");
@@ -800,7 +800,7 @@ void VoreenMainWindow::addVEPlugins() {
                 pluginNames.push_back(modPlugins.at(j)->getName());
             }
         }
-        LINFO("VoreenVE plugins: " << strJoin(pluginNames, ", "));
+        LINFO("3MTK plugins: " << strJoin(pluginNames, ", "));
     }
 
     /// Initialize all VoreenVEPlugins and add them to the main window
@@ -817,12 +817,12 @@ void VoreenMainWindow::addVEPlugins() {
         plugin->createWidgets();
 
         try {
-            LINFO("Initializing VoreenVE plugin '" << plugin->getName() << "'");
+            LINFO("Initializing 3MTK plugin '" << plugin->getName() << "'");
             plugin->initialize();
             plugin->initialized_ = true;
         }
         catch (tgt::Exception& e) {
-            LERROR("Failed to initialize VoreenVE plugin '" << plugin->getName() << "': " << e.what());
+            LERROR("Failed to initialize 3MTK plugin '" << plugin->getName() << "': " << e.what());
             toolWindows_.removeOne(pluginWindow);
             delete pluginWindow;
         }
@@ -1500,7 +1500,7 @@ void VoreenMainWindow::helpTutorialSlides() {
 
 void VoreenMainWindow::helpAnimation() {
     QString path(VoreenApplication::app()->getBasePath("doc/animation/animation.html").c_str());
-    HelpBrowser* help = new HelpBrowser(QUrl::fromLocalFile(path), tr("VoreenVE Animation Manual"));
+    HelpBrowser* help = new HelpBrowser(QUrl::fromLocalFile(path), tr("3MTK Animation Manual"));
     help->resize(1050, 700);
     help->show();
     connect(this, SIGNAL(closeMainWindow()), help, SLOT(close()));
@@ -1513,7 +1513,7 @@ void VoreenMainWindow::helpWebsite() {
 }
 
 void VoreenMainWindow::helpAbout() {
-    AboutBox about("VoreenVE", tr("VoreenVE Visualization Environment"), this);
+    AboutBox about("3MTK", tr("3MTK Visualization Environment"), this);
     about.exec();
 }
 
@@ -1534,7 +1534,7 @@ void VoreenMainWindow::setWindowTitle(const QString& title) {
 }
 
 void VoreenMainWindow::updateWindowTitle() {
-    QString title = tr("VoreenVE");
+    QString title = tr("3MTK");
 
     if (!ignoreWindowTitleModified_ && vis_ && vis_->isModified())
         title += " *";

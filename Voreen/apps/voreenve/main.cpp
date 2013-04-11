@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
 
     bool useStylesheet;
     vapp.getCommandLineParser()->addOption("useStylesheet", useStylesheet, CommandLineParser::AdditionalOption,
-        "Use VoreenVE style sheet", true, "true");
+        "Use 3MTK style sheet", true, "true");
 
     // initialize application (also loads modules and initializes them)
     try {
