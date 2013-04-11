@@ -40,7 +40,8 @@ void VolVolAlign :: updateSelection() {
 void VolVolAlign :: align()
 {
     VolumeCollection* volumes = volumeURLList_.getVolumes(true);
-    
+    LINFO("Module load successful");
+    LINFO("No conflicts with other modules detected");
 	if (tobealigned_.isSelected("Vol1ToVol2") || tobealigned_.isSelected("Vol2ToVol1"))
 	{
 		Volume* firstVolume;
@@ -129,6 +130,7 @@ void VolVolAlign :: align()
         combinedVolume->setOrigin(VolumeURL(url + "_align_to_origin" + ext));
 		getSourceProcessor()->addVolume(combinedVolume, true, true);
 	}
+	LINFO("Module processing successfully complete");
 }
 
 tgt::Matrix4d VolVolAlign :: GetAlignment(const Volume* vol)
