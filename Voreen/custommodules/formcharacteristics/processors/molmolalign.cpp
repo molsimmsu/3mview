@@ -42,8 +42,9 @@ void MolMolAlign::updateSelection() {
 void MolMolAlign :: align()
 {
     MoleculeCollection* molecules = moleculeURLlist_.getMolecules(true);
-    
-	if (tobealigned_.isSelected("Mol1ToMol2") || tobealigned_.isSelected("Mol2ToMol1"))
+    LINFO("Module load successful");
+    LINFO("No conflicts with other modules detected");
+    if (tobealigned_.isSelected("Mol1ToMol2") || tobealigned_.isSelected("Mol2ToMol1"))
 	{
 		Molecule* firstMol;
 		Molecule* secondMol;
@@ -136,7 +137,7 @@ void MolMolAlign :: align()
 		    delete outMol;
 		}
 	}
-
+    LINFO("Module processing successfully complete");
 }
 
 tgt::mat4 MolMolAlign :: GetAlignment(const Molecule* mol)
