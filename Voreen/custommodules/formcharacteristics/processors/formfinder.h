@@ -12,7 +12,9 @@
 
 #include "../../molecule/processors/moleculecoprocessor.h"
 #include "../../electrondensity/processors/densitymapcoprocessor.h"
+#include "../../systemmodules/processors/qualitymodule.h"
 #include "../../homology/properties/alignmentlistproperty.h"
+
 
 #include "voreen/core/properties/callmemberaction.h"
 #include "voreen/core/properties/buttonproperty.h"

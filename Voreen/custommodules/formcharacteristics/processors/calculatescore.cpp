@@ -20,7 +20,7 @@ CalculateScore::CalculateScore()
     , calcButton_("calcButton", "Calculate score")
 {
     addProperty(volumeURLList_);
-    
+
     distanceType_.addOption("l2", "SQRT(X^2+Y^2)");
     distanceType_.addOption("l1", "|X|+|Y|");
     addProperty(distanceType_);
@@ -30,10 +30,10 @@ CalculateScore::CalculateScore()
     filteringMode_.addOption("cubic",   "Cubic");
     filteringMode_.set("linear");
     addProperty(filteringMode_);
-    
+
     addProperty(calcButton_);
     addProperty(output_);
-    
+
     calcButton_.onChange(CallMemberAction<CalculateScore>(this, &CalculateScore::calculate));
 }
 
@@ -59,23 +59,23 @@ void CalculateScore::calculate() {
 
     clock_t time = clock();
     LINFO("Running module CalculateScore");
-    
+
     VolumeCollection* volumes = volumeURLList_.getVolumes(true);
 
     const VolumeBase* firstVolume = volumes->at(0);
     const VolumeBase* secondVolume = volumes->at(1);
-    
+
 	if (firstVolume == 0 || secondVolume == 0) {
 	    LWARNING("Some of the input volumes is 0");
 	    return;
 	}
-    
+
     Volume* combinedVolume = 0;
 
     if (firstVolume->getNumChannels() == secondVolume->getNumChannels()) {
         LINFO("Performing channel-wise combination.");
     }
-    else 
+    else
     {
         LINFO("Number of channels of input volumes do not match. Combining each channel of first volume with channel 0 of second volume");
     }
@@ -112,45 +112,113 @@ void CalculateScore::calculate() {
     }
 
 // CALCULATING SCORE
+float meanres,temp,temp1;
+int notnull=0;
+tgt::svec3 dims   = combinedVolume->getDimensions();
+		tgt::vec3  space  = combinedVolume->getSpacing();
   if (combinedVolume)
 	{
 		double result_d=0;
-		tgt::svec3 dims   = combinedVolume->getDimensions();
-		tgt::vec3  space  = combinedVolume->getSpacing();
 		clock_t time = clock();
 		const VolumeRAM* vr = combinedVolume->getRepresentation<VolumeRAM>();
 
 		if (distanceType_.isSelected("l2"))
-		{ 
+		{
 			for (int i=0; i<dims.x; ++i)
 					for (int j=0; j<dims.y; ++j)
 						for (int k=0; k<dims.z; ++k)
 						{
-							result_d += (vr->getVoxelNormalized(i, j, k))*(vr->getVoxelNormalized(i, j, k));
+							temp=abs(vr->getVoxelNormalized(i, j, k));
+
+							result_d += (temp*temp);
+
+
 						}
+            temp1=sqrt(result_d);
 			result_d *= space[0]*space[1]*space[2];
-			result_d = sqrt(result_d);    
+			result_d = sqrt(result_d);
 		}
 
 		if (distanceType_.isSelected("l1"))
-		{ 
+		{
 			for (int i=0; i<dims.x; ++i)
 					for (int j=0; j<dims.y; ++j)
 						for (int k=0; k<dims.z; ++k)
 						{
+						    temp=abs(vr->getVoxelNormalized(i, j, k));
 							result_d += fabs(vr->getVoxelNormalized(i, j, k));
+
 						}
-			result_d *= space[0]*space[1]*space[2];   
+
+						 temp1=result_d;
+			result_d *= space[0]*space[1]*space[2];
 		}
+
+		meanres=temp1;
+
 
 	     std::ostringstream result;
 		result << result_d;
 		const std::string out = result.str();
 		output_.set(out);
 		std::ostringstream message;
-		message << "Module CalculateScore successfully finished in " <<  ((double)clock() - time)/CLOCKS_PER_SEC << " seconds";
+		message << "Module CalculateScore successfully finished in " <<  ((double)clock() - time)/CLOCKS_PER_SEC << " seconds"<<meanres<<"    ";
 		LINFO(message.str().c_str());
 	}
+
+//CALC RESOLUTION
+float resol=1/meanres;
+if (resol>1) resol=1/resol;
+float sp=(space[0]+space[1]+space[2])/3;
+int n=0;
+int flag=0;
+int N=0;
+
+float PI=3.14159;
+while (flag==0)
+{
+    N=N+1;
+    float gaus[2*N+1][2*N+1][2*N+1],sigm2,meanval;
+int tempi,tempj,tempk;
+sigm2=pow(N*sp/3.0,2);
+if (N!=0)
+{
+
+float summ=0;
+for (int i=-N; i<=N; i++)
+    for (int j=-N; j<=N; j++)
+    for (int k=-N; k<=N; k++)
+    {
+        tempi=i+N;
+        tempj=j+N;
+        tempk=k+N;
+    gaus[tempi][tempj][tempk]=1/pow((2*PI*sigm2),1.5)*exp(-(i*i+j*j+k*k)/(2*sigm2));
+    summ=summ+gaus[tempi][tempj][tempk];
+
+    }
+
+for (int i=-N; i<=N; i++)
+    for (int j=-N; j<=N; j++)
+    for (int k=-N; k<=N; k++)
+    {
+        tempi=i+N;
+        tempj=j+N;
+        tempk=k+N;
+    gaus[tempi][tempj][tempk]=gaus[tempi][tempj][tempk]/summ;
+
+    }
+} else gaus[0][0][0]=1;
+
+if (gaus[N][N][N]<resol) flag=1;
+LINFO(gaus[N][N][N]);
+}
+
+
+std::ostringstream message;
+message<<"Resolution: (nm)"<<N*(space[0]+space[1]+space[2])/30;
+LINFO(message.str().c_str());
+Resolution=resol;
+
 }
 
 inline bool withinRange(const tgt::vec3& pos, const tgt::vec3& llf, const tgt::vec3& urb) {

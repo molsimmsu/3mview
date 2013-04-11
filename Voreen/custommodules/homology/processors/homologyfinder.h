@@ -2,6 +2,7 @@
 #define VRN_HOMOLOGYFINDER_H
 
 #include "../../molecule/processors/moleculecoprocessor.h"
+#include "../../systemmodules/processors/qualitymodule.h"
 #include "../../molecule/ports/moleculeport.h"
 #include "../../molecule/utils/moleculeio.h"
 #include "../properties/alignmentlistproperty.h"

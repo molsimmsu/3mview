@@ -66,7 +66,7 @@ void FormFinder::findDomainsVol()
 	int	mom_total = cloud.GetMomentsNumber(DB_ORDER);
 	
 	std::cout << "Total number of moments: " << mom_total << std::endl;
-
+        MomentsNumb=mom_total;
 	moments = new double[mom_total];
 	cloud.VolumeFill(vol, accuracy_.get());	
 	std :: cout << "Calculating " << DB_ORDER << " order moments (" << mom_total << " pieces) \n";
@@ -201,7 +201,7 @@ void FormFinder::findDomainsMol()
 	int	           mom_total = cloud.GetMomentsNumber(DB_ORDER);
 
 	std::cout << "Total number of moments: " << mom_total << std::endl;
-	
+	MomentsNumb=mom_total;
 	moments = new double[mom_total];
 	cloud.MoleculeFill(mol);	
 

@@ -2,6 +2,7 @@
 #define VRN_CALCULATESCORE_H
 
 #include "../../electrondensity/processors/densitymapcoprocessor.h"
+#include "../../systemmodules/processors/qualitymodule.h"
 #include "voreen/core/properties/optionproperty.h"
 #include "voreen/core/properties/buttonproperty.h"
 #include "voreen/core/properties/stringproperty.h"
@@ -18,7 +19,7 @@ public:
     virtual std::string getCategory() const       { return "Form Analysis"; }
     virtual CodeState getCodeState() const        { return CODE_STATE_EXPERIMENTAL;   }
     virtual bool usesExpensiveComputation() const { return true; }
-    
+
     virtual void updateSelection();
 
 protected:
@@ -27,9 +28,9 @@ protected:
     }
 
     virtual void process() {}
-    
+
     void calculate();
-    
+
     tgt::mat4 computeConversionMatrix(const VolumeBase* originVolume, const VolumeBase* destinationVolume) const;
 
 private:
@@ -54,9 +55,9 @@ private:
 
     StringOptionProperty    distanceType_;
     StringOptionProperty 	filteringMode_;
-    StringProperty         	output_; 
-    ButtonProperty         	calcButton_; 
-    
+    StringProperty         	output_;
+    ButtonProperty         	calcButton_;
+
     VolumeURLListProperty volumeURLList_;
 
     static const std::string loggerCat_; ///< category used in logging

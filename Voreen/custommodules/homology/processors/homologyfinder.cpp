@@ -70,6 +70,7 @@ void HomologyFinder::findDomains() {
    LINFO("Finish findDomains()");
    float t=(end_time-start_time)/CLOCKS_PER_SEC;
    std::cout<<"time (s): "<<t<<std::endl;
+   FindTime=t;
 
 }
 
