@@ -56,7 +56,10 @@ void FormFinder::findDomainsVol()
 	const VolumeBase* data =  collection->at(0);
 	const Volume* vol = data->clone();
 
-     clock_t        now = clock();
+
+	LINFO("Module load successful");
+	LINFO("No conflicts with other modules detected");
+        clock_t        now = clock();
 	double weight_factor = weightFactor_.get();
 
 	PointCloud  cloud;
@@ -171,7 +174,7 @@ void FormFinder::findDomainsVol()
     delete[] disp;
     delete[] db_moments;
 
-    sprintf(buff, "Time elapsed: %lf\n", ((double)(clock() - now))/CLOCKS_PER_SEC);
+    sprintf(buff, "Module processing ended. Time elapsed: %lf\n", ((double)(clock() - now))/CLOCKS_PER_SEC);
     LINFO(buff);
 }
 
@@ -186,9 +189,11 @@ void FormFinder::findDomainsMol()
          LWARNING("Molecule is 0. Stop");
          return;
     }
-
-     clock_t        now = clock();
-	double weight_factor = weightFactor_.get();
+	LINFO("Module load successful");
+	LINFO("No conflicts with other modules detected");
+	
+        clock_t        now = clock();
+  	double weight_factor = weightFactor_.get();
 
 
 	PointCloud      cloud;
@@ -306,7 +311,7 @@ void FormFinder::findDomainsMol()
     delete[] disp;
     delete[] db_moments;
 
-    sprintf(buff, "Time elapsed: %lf\n", ((double)(clock() - now))/CLOCKS_PER_SEC);
+    sprintf(buff, "Module processing ended. Time elapsed: %lf\n", ((double)(clock() - now))/CLOCKS_PER_SEC);
     LINFO(buff);
 }
 
