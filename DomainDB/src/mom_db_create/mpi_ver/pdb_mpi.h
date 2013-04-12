@@ -37,7 +37,7 @@ public:
 
 	int 	  	entries;
 	char   	name[10];
-	int 	  	total_weight;
+	double 	  	total_weight;
 		
 	double    scale;
 	double    Ox[3];
