@@ -53,14 +53,14 @@ Processor* QualityModule::create() const {
 void QualityModule::process() {}
 
 void QualityModule::ShowStatistics() {
-std::cout<<"Seraching time (s): "<<FindTime<<std::endl;
+std::cout<<"Searching time (s): "<<FindTime<<std::endl;
 std::cout<<"Moments number : "<<MomentsNumb<<std::endl;
 std::cout<<"Resolution (nm): "<<Resolution<<std::endl;
 }
 void QualityModule::Analyze() {
 
-    if (FindTime<30*60) std::cout<<"Seraching time (s): OK (< 30 minutes)"<<std::endl;
-    else std::cout<<"Seraching time (s): INCORRECT (> 30 minutes)"<<std::endl;
+    if (FindTime<30*60) std::cout<<"Searching time (s): OK (< 30 minutes)"<<std::endl;
+    else std::cout<<"Searching time (s): INCORRECT (> 30 minutes)"<<std::endl;
     if (MomentsNumb>5) std::cout<<"Moments number: OK (>= 5)"<<std::endl;
     else std::cout<<"Moments number: INCORRECT (< 5)"<<std::endl;
     if (MomentsNumb<=2) std::cout<<"Resolution (nm): OK (<= 2 nm)"<<std::endl;
