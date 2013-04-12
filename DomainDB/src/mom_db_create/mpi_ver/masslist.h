@@ -18,7 +18,7 @@
 */
 #define    C_WEIGHT           6
 #define    CL_WEIGHT          0
-#define    CA_WEIGHT          0
+#define    CA_WEIGHT          6
 #define    N_WEIGHT   	     0
 #define    NA_WEIGHT 		0
 #define    O_WEIGHT 		0
