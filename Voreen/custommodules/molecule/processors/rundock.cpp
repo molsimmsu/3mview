@@ -132,6 +132,8 @@ void RunDock::submit() {
 }
 
 void RunDock::checkStatus(){
+    bool complete = false;
+    bool status = false;
     std::string cmd("cd ");
 	cmd += workingDir_.get();
 	cmd += "/ && tail -n 1 log ";
@@ -142,13 +144,45 @@ void RunDock::checkStatus(){
 	{
 		char field[10]; float pident;
 		fscanf(pipe, "%s", field);
-		if(std::strcmp(field,"stopping:")==0){
-		    status_.set("Task complete");
-		    readButton_.setVisible(true);
-		    checkButton_.setVisible(false);
-	    }		
+		if(std::strcmp(field,"stopping:")==0) complete = true;
 	}
 	pclose(pipe);
+	
+	std::string cmd1("ps cax | grep 'hex6' > /dev/null; if [ $? -eq 0 ]; then echo yes; else  echo no; fi");
+	
+	FILE* pipe1 = popen(cmd1.c_str(), "r");
+
+	while (!feof(pipe1))
+	{
+		char field[10]; float pident;
+		fscanf(pipe, "%s", field);
+		if(std::strcmp(field,"yes")==0) status = true;
+	}
+	pclose(pipe1);
+	
+	if(status){
+	    status_.set(std::string("Hex is working"));
+	}
+	else {
+	    if(complete){
+	        status_.set("Task complete");
+	        readButton_.setVisible(true);
+	        checkButton_.setVisible(false);
+	    }
+	    else{
+	    status_.set("Failure");
+	    submitButton_.setVisible(true);
+        readButton_.setVisible(false);
+        workingDir_.setVisible(true);
+        moleculeURLlist_.setVisible(true);
+        runInterface_.setVisible(true);
+        numMod_.setVisible(true);
+        selectTarget_.setVisible(true);
+        dockType_.setVisible(true);
+	    checkButton_.setVisible(false);
+	    }
+	}
+	
 }
 
 
