@@ -3,7 +3,7 @@
     <Properties>
         <name value="availableGraphicsMemory" />
         <Property>
-            <value value="934.33203125" />
+            <value value="933.359375" />
         </Property>
         <name value="cacheLimit" />
         <Property>
