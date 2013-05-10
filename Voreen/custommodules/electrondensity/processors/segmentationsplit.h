@@ -3,6 +3,7 @@
 
 #include "densitymapcoprocessor.h"
 #include "segmentation.h"
+#include "../datastructures/moleculevolume.h"
 
 #include "voreen/core/ports/volumeport.h"
 #include "voreen/core/properties/buttonproperty.h"

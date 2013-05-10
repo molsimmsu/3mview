@@ -95,7 +95,7 @@ void SegmentationSplit::splitSegmentation() {
 	        std::stringstream url;
 	        url << baseURL << "_seg" << i+1;
 	    
-	        Volume* volume = new Volume(partData, spacing, offset + partOffset, transform);
+	        Volume* volume = new MoleculeVolume(partData, spacing, offset + partOffset, transform);
 	        volume->setOrigin(VolumeURL(url.str()));
 	        
 	        getSourceProcessor()->addVolume(volume, true, false);

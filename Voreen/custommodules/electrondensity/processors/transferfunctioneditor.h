@@ -1,22 +1,27 @@
 #ifndef VRN_TRANSFERFUNCTIONEDITOR_H
 #define VRN_TRANSFERFUNCTIONEDITOR_H
 
-#include "voreen/core/processors/processor.h"
+#include "densitymapcoprocessor.h"
+#include "../datastructures/moleculevolume.h"
 #include "voreen/core/properties/transfuncproperty.h"
-#include "voreen/core/properties/intproperty.h"
 using namespace voreen;
 
-class TransferFunctionEditor : public Processor {
+#include <vector>
+#include <sstream>
+
+class TransferFunctionEditor : public DensityMapCoProcessor {
 public:
 	TransferFunctionEditor();
 	virtual ~TransferFunctionEditor() {}
     virtual Processor* create() const { return new TransferFunctionEditor(); }
 
     virtual std::string getClassName() const { return "TransferFunctionEditor";   }
-    virtual std::string getCategory() const  { return "Input";            }
-    virtual CodeState getCodeState() const   { return CODE_STATE_STABLE;  }
+    virtual std::string getCategory() const  { return "Visualize";            }
+    virtual CodeState getCodeState() const   { return CODE_STATE_EXPERIMENTAL;  }
     
     virtual void process() {}
+    
+    virtual void updateSelection();
 
 protected:
     virtual void setDescriptions() {
@@ -24,11 +29,7 @@ protected:
     }
     
 private:
-	TransFuncProperty func1_;
-	TransFuncProperty func2_;
-	TransFuncProperty func3_;
-	TransFuncProperty func4_;
-	IntProperty interactionCoarseness_; 
+	std::vector<TransFuncProperty> tf_;
 
 };
 

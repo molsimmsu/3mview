@@ -209,14 +209,14 @@ if (calcelectronnumb_.get()==true) CalcElectronNumber(targetDataset,NumberOfElec
 //-----------------------------------------
 
 
-Volume* volumeHandle = new MoleculeVolume(
-            InputMoll,
+MoleculeVolume* volumeHandle = new MoleculeVolume(
             targetDataset,                                                                                // data
             vec3(scale,scale,scale),                                                                      // scale
             vec3(-(size_x+MaxR)+cx,-(size_y+MaxR)+cy,-(size_z+MaxR)+cz), // offset
             InputMoll->getTransformationMatrix()                                                                                   // transform
         );
-
+        
+volumeHandle->setMolecule(InputMoll);
 
 return volumeHandle;
 
@@ -371,13 +371,14 @@ if (calcelectronnumb_.get()==true) CalcElectronNumber(targetDataset,NumberOfElec
 float ca=cos(PI);
 float sa=sin(PI);
 
-Volume* volumeHandle = new MoleculeVolume(
-            InputMoll,
+MoleculeVolume* volumeHandle = new MoleculeVolume(
             targetDataset,                                                                                // data
             vec3(scale,scale,scale),                                                                      // scale
             vec3(-(big_size/2)+cx+dr/2,-(big_size/2)+cy+dr/2,-(big_size/2)+cz+dr/2), // offset
             InputMoll->getTransformationMatrix()                                                                                     // transform
         );
+        
+volumeHandle->setMolecule(InputMoll);
 
 
 return volumeHandle;

@@ -24,6 +24,7 @@
  ***********************************************************************************/
 
 #include "mrcvolumereader.h"
+#include "../datastructures/moleculevolume.h"
 
 #include "voreen/core/datastructures/volume/volumedecorator.h"
 #include "voreen/core/io/textfilereader.h"
@@ -200,7 +201,7 @@ VolumeCollection* MRCVolumeReader::read(const std::string &url)
             0.0f, 0.0f, 0.0f, 1.0f
         );
         
-        Volume* volumeHandle = new Volume(
+        Volume* volumeHandle = new MoleculeVolume(
             targetDataset,                                                 // data
             vec3(scale[a], scale[b], scale[c]),                            // scale
             vec3(start[a]*scale[a], start[b]*scale[b], start[c]*scale[c]), // offset
