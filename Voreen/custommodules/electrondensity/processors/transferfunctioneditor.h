@@ -4,6 +4,7 @@
 #include "densitymapcoprocessor.h"
 #include "../datastructures/moleculevolume.h"
 #include "voreen/core/properties/transfuncproperty.h"
+#include "voreen/core/processors/processorwidget.h"
 using namespace voreen;
 
 #include <vector>
@@ -22,14 +23,18 @@ public:
     virtual void process() {}
     
     virtual void updateSelection();
+    
+    virtual void invalidate(int inv = INVALID_RESULT);
 
 protected:
     virtual void setDescriptions() {
         setDescription("Transfer function editor");
     }
     
+    static const std::string loggerCat_;
+    
 private:
-	std::vector<TransFuncProperty> tf_;
+
 
 };
 
