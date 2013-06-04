@@ -5,6 +5,7 @@
 #include "../datastructures/moleculevolume.h"
 #include "voreen/core/properties/transfuncproperty.h"
 #include "voreen/core/processors/processorwidget.h"
+#include "../properties/transfunclistproperty.h"
 using namespace voreen;
 
 #include <vector>
@@ -34,7 +35,7 @@ protected:
     static const std::string loggerCat_;
     
 private:
-
+    TransFuncListProperty TFList_;
 
 };
 

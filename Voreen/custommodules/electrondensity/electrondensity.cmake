@@ -16,9 +16,11 @@ SET(MOD_CORE_SOURCES
     ${MOD_DIR}/processors/segmentationsplit.cpp
     ${MOD_DIR}/processors/transferfunctioneditor.cpp
     
+    #${MOD_DIR}/processors/score.cpp
+    
     ${MOD_DIR}/io/mrcvolumereader.cpp
     
-    ${MOD_DIR}/properties/volumeselectionproperty.cpp
+    ${MOD_DIR}/properties/transfunclistproperty.cpp
 )
 
 # module's core header files, path relative to module dir
@@ -37,7 +39,24 @@ SET(MOD_CORE_HEADERS
     ${MOD_DIR}/processors/segmentationsplit.h
     ${MOD_DIR}/processors/transferfunctioneditor.h
     
+    #${MOD_DIR}/processors/score.h
+    
     ${MOD_DIR}/io/mrcvolumereader.h
     
-    ${MOD_DIR}/properties/volumeselectionproperty.h
+    ${MOD_DIR}/properties/transfunclistproperty.h
+)
+
+SET(MOD_QT_MODULECLASS ElectronDensityModuleQt)
+
+SET(MOD_QT_SOURCES
+    ${MOD_DIR}/qt/electrondensitypropertywidgetfactory.cpp
+    ${MOD_DIR}/qt/transfunclistpropertywidget.cpp
+)
+    
+SET(MOD_QT_HEADERS
+    ${MOD_DIR}/qt/transfunclistpropertywidget.h
+)
+
+SET(MOD_QT_HEADERS_NONMOC
+    ${MOD_DIR}/qt/electrondensitypropertywidgetfactory.h
 )

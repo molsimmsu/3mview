@@ -12,6 +12,7 @@
 #include "processors/segmentation.h"
 #include "processors/segmentationsplit.h"
 #include "processors/transferfunctioneditor.h"
+#include "processors/score.h"
 
 #include "io/mrcvolumereader.h"
 using namespace voreen;
@@ -33,6 +34,7 @@ ElectronDensityModule::ElectronDensityModule(const std::string& modulePath)
     registerProcessor(new SegmentationProcessor());
     registerProcessor(new SegmentationSplit());
     registerProcessor(new TransferFunctionEditor());
+    //registerProcessor(new Score());
     
     registerVolumeReader(new MRCVolumeReader());
 }
