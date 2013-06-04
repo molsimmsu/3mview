@@ -178,7 +178,11 @@ void TransFuncListPropertyWidget::itemSelected(QTreeWidgetItem*, int) {
     
     VolumeCollection* collection = TFListProperty_->getVolumes(false);
     
+    if (!volumeTreeWidget_->currentIndex().isValid()) return;
+    
     int row = volumeTreeWidget_->currentIndex().row();
+    
+    volumeTreeWidget_->setCurrentIndex(QModelIndex()); // reset current index
     
     std::cout << "Row " << row << std::endl;
     
