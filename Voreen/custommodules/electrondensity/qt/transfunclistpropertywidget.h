@@ -29,9 +29,14 @@
 
 #include "voreen/core/datastructures/volume/volumecollection.h"
 #include "../properties/transfunclistproperty.h"
+#include "../datastructures/moleculevolume.h"
 #include "voreen/core/datastructures/volume/volumeram.h"
+#include "voreen/core/properties/transfuncproperty.h"
 
-#include "voreen/qt/widgets/property/qpropertywidget.h"
+#include "voreen/qt/widgets/voreentoolwindow.h"
+#include "voreen/qt/widgets/transfunc/transfuncplugin.h"
+
+#include "voreen/qt/widgets/property/qpropertywidgetwitheditorwindow.h"
 #include "voreen/qt/widgets/volumeiohelper.h"
 
 #include <QDialog>
@@ -41,7 +46,7 @@
 namespace voreen {
 
 
-class TransFuncListPropertyWidget : public QPropertyWidget {
+class TransFuncListPropertyWidget : public QPropertyWidgetWithEditorWindow {
     Q_OBJECT
 
 public:
@@ -51,21 +56,29 @@ public:
     virtual CustomLabel* getNameLabel() const;
 
     virtual void updateFromProperty();
+    
+    virtual QWidget* createEditorWindowWidget();
+    virtual void customizeEditorWindow();
+    virtual Property* getProperty();
 
 private:
     void updateSelection();
 
-    TransFuncListProperty* urlListProperty_;
+    TransFuncListProperty* TFListProperty_;
     VolumeIOHelper volumeIOHelper_;
 
     QTreeWidget* volumeTreeWidget_;
     QPushButton* loadButton_;
     QPushButton* clearButton_;
     QCheckBox* selectAll_;
+    
+    TransFuncPlugin* plugin_;
+    TransFuncProperty* property_;
 
     static const std::string loggerCat_;
 
 private slots:
+    void TFChanged();
     void volumeLoaded(const VolumeBase* handle);
     void clearVolumes();
 

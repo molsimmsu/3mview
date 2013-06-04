@@ -43,20 +43,20 @@ namespace {
 
 namespace voreen {
 
-const std::string TransFuncListPropertyWidget::loggerCat_("voreenqt.VolumeCollectionPropertyWidget");
+const std::string TransFuncListPropertyWidget::loggerCat_("voreenqt.TFListPropertyertyWidget");
 
-TransFuncListPropertyWidget::TransFuncListPropertyWidget(TransFuncListProperty* volumeCollectionProp, QWidget* parent) :
-        QPropertyWidget(volumeCollectionProp, parent, false),
+TransFuncListPropertyWidget::TransFuncListPropertyWidget(TransFuncListProperty* TFListProperty, QWidget* parent) :
+        QPropertyWidgetWithEditorWindow(TFListProperty, parent, false),
         volumeIOHelper_(parent, VolumeIOHelper::MULTI_FILE)
 {
-    urlListProperty_ = volumeCollectionProp;
-    tgtAssert(urlListProperty_, "No volume collection property");
+    TFListProperty_ = TFListProperty;
+    tgtAssert(TFListProperty_, "No volume collection property");
 
     setFocusPolicy(Qt::StrongFocus);
     QVBoxLayout* mainLayout = new QVBoxLayout();
     layout_->addLayout(mainLayout);
 
-    if (volumeCollectionProp->isLoadable()) {
+    if (TFListProperty->isLoadable()) {
         QHBoxLayout* buttonLayout = new QHBoxLayout();
         loadButton_ = new QPushButton(tr("Load"));
         loadButton_->setIcon(QPixmap(":/qt/icons/open-volume.png"));
@@ -100,12 +100,12 @@ CustomLabel* TransFuncListPropertyWidget::getNameLabel() const {
 }
 
 void TransFuncListPropertyWidget::updateFromProperty() {
-    if (!urlListProperty_)
+    if (!TFListProperty_)
         return;
     if (!volumeTreeWidget_->updatesEnabled())
         return;
 
-    VolumeCollection* collection = urlListProperty_->getVolumes(false);
+    VolumeCollection* collection = TFListProperty_->getVolumes(false);
     tgtAssert(collection, "null pointer returned");
 
     volumeTreeWidget_->clear();
@@ -126,7 +126,7 @@ void TransFuncListPropertyWidget::updateFromProperty() {
         qtwi->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
         // set tree widget to checked, if the corresponding volume handle is contained by the property's collection
-        bool selected = urlListProperty_->isSelected(url) ? Qt::Checked : Qt::Unchecked;
+        bool selected = TFListProperty_->isSelected(url) ? Qt::Checked : Qt::Unchecked;
         qtwi->setCheckState(0, selected ? Qt::Checked : Qt::Unchecked);
         if (selected)
             numSelected++;
@@ -148,7 +148,7 @@ void TransFuncListPropertyWidget::updateSelection() {
     if (!prop_)
         return;
 
-    VolumeCollection* collection = urlListProperty_->getVolumes(false);
+    VolumeCollection* collection = TFListProperty_->getVolumes(false);
     tgtAssert(collection, "null pointer returned");
 
     volumeTreeWidget_->setUpdatesEnabled(false);
@@ -156,7 +156,7 @@ void TransFuncListPropertyWidget::updateSelection() {
     QList<QTreeWidgetItem*> items = volumeTreeWidget_->findItems("", Qt::MatchContains);
     for(size_t i = 0; i < collection->size(); i++) {
         bool selected = items.at(static_cast<int>(i))->checkState(0) == Qt::Checked;
-        urlListProperty_->setSelected(collection->at(i)->getOrigin().getURL(), selected);
+        TFListProperty_->setSelected(collection->at(i)->getOrigin().getURL(), selected);
     }
     volumeTreeWidget_->setUpdatesEnabled(true);
 
@@ -164,19 +164,77 @@ void TransFuncListPropertyWidget::updateSelection() {
 }
 
 void TransFuncListPropertyWidget::volumeLoaded(const VolumeBase* handle) {
-    urlListProperty_->addVolume(const_cast<VolumeBase*>(handle), true, true);
+    TFListProperty_->addVolume(const_cast<VolumeBase*>(handle), true, true);
 }
 
 void TransFuncListPropertyWidget::clearVolumes() {
-    urlListProperty_->clear();
+    TFListProperty_->clear();
 }
 
 void TransFuncListPropertyWidget::itemSelected(QTreeWidgetItem*, int) {
     updateSelection();
+    
+    property_ = new TransFuncProperty("tf1", "GuiText");
+    
+    VolumeCollection* collection = TFListProperty_->getVolumes(false);
+    
+    int row = volumeTreeWidget_->currentIndex().row();
+    
+    std::cout << "Row " << row << std::endl;
+    
+    VolumeBase* v = collection->at(row);
+    
+    if (typeid(*v) == typeid(MoleculeVolume)) {
+        TransFunc* tf = dynamic_cast<MoleculeVolume*>(v)->getTransFunc();
+        //TransFunc* tf = new TransFunc1DKeys();
+        
+        property_->set(tf);
+
+        if (editorWindow_) {
+            if (editorWindow_->isVisible())
+                editorWindow_->close();
+                
+            delete editorWindow_;
+            editorWindow_ = 0;
+        }
+        
+        createEditorWindow(Qt::RightDockWidgetArea);
+            
+        tgtAssert(editorWindow_, "Transfunc editor not instantiated");
+
+        editorWindow_->showNormal();
+        plugin_->updateFromProperty();
+        
+    }
+    else {
+        LWARNING("Volume does not have transfer function");
+    }
 }
 
 void TransFuncListPropertyWidget::selectAll(bool toggle) {
-    urlListProperty_->setAllSelected(toggle);
+    TFListProperty_->setAllSelected(toggle);
+}
+
+QWidget* TransFuncListPropertyWidget::createEditorWindowWidget() {
+    plugin_ = new TransFuncPlugin(property_, parentWidget(), Qt::Horizontal);
+    plugin_->createWidgets();
+    plugin_->createConnections();
+    connect(plugin_, SIGNAL(transferFunctionChanged()), this, SLOT(TFChanged()));
+
+    return plugin_;
+}
+
+void TransFuncListPropertyWidget::customizeEditorWindow() {
+    editorWindow_->setAllowedAreas(Qt::RightDockWidgetArea);
+    editorWindow_->setFloating(true);
+}
+
+Property* TransFuncListPropertyWidget::getProperty() {
+    return property_;
+}
+
+void TransFuncListPropertyWidget::TFChanged() {
+    TFListProperty_->invalidate();
 }
 
 } //namespace
