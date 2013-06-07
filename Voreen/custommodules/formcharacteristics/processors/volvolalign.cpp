@@ -105,9 +105,11 @@ void VolVolAlign :: align()
 		    return;
 		}
  	    
-		tgt::Matrix4d wrld = volume->getPhysicalToWorldMatrix();
-		tgt::Matrix4d norm = GetAlignment(volume);
-		tgt::Matrix4d newMatrix = norm*wrld;
+		tgt::Matrix4d norm1 = GetAlignment(volume);
+
+		tgt::Matrix4d wrld1 = volume->getPhysicalToWorldMatrix();
+		
+		tgt::Matrix4d newMatrix = norm1*wrld1;
         
         if (createNew_.get() == true) {
             Volume* combinedVolume = volume->clone();
