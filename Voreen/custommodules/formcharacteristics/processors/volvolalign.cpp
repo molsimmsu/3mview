@@ -123,6 +123,7 @@ void VolVolAlign :: align()
 		}
 		else {
 		    volume->setPhysicalToWorldMatrix(newMatrix);
+		    getSourceProcessor()->invalidateOutport();
 		}
 	}
 	LINFO("Module processing successfully complete");

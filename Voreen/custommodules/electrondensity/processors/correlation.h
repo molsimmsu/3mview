@@ -43,10 +43,12 @@ protected:
     virtual void setDescriptions() {setDescription("Single volume blur. TODO: correlation");}
     virtual void process();
     virtual void updateSelection();
-    Volume* CalculateBlur();
+    
+    VolumeRAM* CalculateBlur(const VolumeBase* SingleInputVolume);
     void OnClick();
 
     IntProperty resol_;
+    BoolProperty createNew_;
     ButtonProperty calcblur_; //click this button to generate volume
     VolumeURLListProperty volumeURLList_;
 };
