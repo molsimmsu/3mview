@@ -8,6 +8,7 @@
 #include "voreen/core/datastructures/volume/volumecollection.h"
 #include "voreen/core/properties/filedialogproperty.h"
 #include "voreen/core/properties/volumeurllistproperty.h"
+//#include "../properties/transfunclistproperty.h"
 using namespace voreen;
 
 class VRN_CORE_API DensityMapCollectionSource : public Processor {
@@ -46,6 +47,7 @@ protected:
     CoProcessorPort coProcessorOutport_;
 
     VolumeURLListProperty volumeURLList_;
+    //TransFuncListProperty volumeURLList_;
 
     static const std::string loggerCat_;
 };

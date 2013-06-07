@@ -6,6 +6,7 @@
 #include <string>
 #include "voreen/core/processors/volumeprocessor.h"
 
+#include "voreen/core/properties/volumeurllistproperty.h"
 #include "voreen/core/properties/filedialogproperty.h"
 #include "voreen/core/properties/boolproperty.h"
 #include "voreen/core/properties/buttonproperty.h"

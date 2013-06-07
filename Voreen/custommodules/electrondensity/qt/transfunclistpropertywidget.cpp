@@ -174,7 +174,7 @@ void TransFuncListPropertyWidget::clearVolumes() {
 void TransFuncListPropertyWidget::itemSelected(QTreeWidgetItem*, int) {
     updateSelection();
     
-    property_ = new TransFuncProperty("tf1", "GuiText");
+    property_ = new TransFuncProperty("MolVolTransFunc", "Edit transfer function");
     
     VolumeCollection* collection = TFListProperty_->getVolumes(false);
     
@@ -183,8 +183,6 @@ void TransFuncListPropertyWidget::itemSelected(QTreeWidgetItem*, int) {
     int row = volumeTreeWidget_->currentIndex().row();
     
     volumeTreeWidget_->setCurrentIndex(QModelIndex()); // reset current index
-    
-    std::cout << "Row " << row << std::endl;
     
     VolumeBase* v = collection->at(row);
     

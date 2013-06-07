@@ -3,9 +3,11 @@
 
 #include "../../electrondensity/processors/densitymapcoprocessor.h"
 #include "../../systemmodules/processors/qualitymodule.h"
+
 #include "voreen/core/properties/optionproperty.h"
 #include "voreen/core/properties/buttonproperty.h"
 #include "voreen/core/properties/stringproperty.h"
+#include "voreen/core/properties/volumeurllistproperty.h"
 
 namespace voreen {
 

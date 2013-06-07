@@ -181,10 +181,19 @@ bool DensityMapRaycaster::isReady() const {
 void DensityMapRaycaster::beforeProcess() {
     VolumeRaycaster::beforeProcess();
     
+    //XXX
     const VolumeBase* vol = volumeInport_.getData();
-    
-    if (typeid(*vol) == typeid(const MoleculeVolume))
-        transferFunc_.set(dynamic_cast<const MoleculeVolume*>(vol)->getTransFunc());
+
+    if (typeid(*vol) == typeid(const MoleculeVolume)) {
+        const MoleculeVolume* v = dynamic_cast<const MoleculeVolume*>(vol);
+        TransFunc* tf = v->getTransFunc()->clone();
+        transferFunc_.set(tf);
+
+    }
+    else {
+        LWARNING("Given volume is not a MoleculeVolume");
+    }
+    //XXX
 
     // compile program if needed
     if (getInvalidationLevel() >= Processor::INVALID_PROGRAM) {
@@ -197,7 +206,6 @@ void DensityMapRaycaster::beforeProcess() {
 }
 
 void DensityMapRaycaster::process() {
-
     // bind transfer function
     tgt::TextureUnit transferUnit;
     transferUnit.activate();
