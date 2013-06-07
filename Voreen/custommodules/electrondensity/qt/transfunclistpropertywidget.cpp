@@ -29,6 +29,8 @@
 #include "voreen/qt/widgets/volumeviewhelper.h"
 #include "transfunclistpropertywidget.h"
 
+#include "../../systemmodules/utils/message.h"
+
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -209,6 +211,7 @@ void TransFuncListPropertyWidget::itemSelected(QTreeWidgetItem*, int) {
         
     }
     else {
+        QWARNING("Volume does not have transfer function");
         LWARNING("Volume does not have transfer function");
     }
 }

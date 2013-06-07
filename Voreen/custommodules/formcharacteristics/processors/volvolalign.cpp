@@ -14,8 +14,7 @@ VolVolAlign :: VolVolAlign()
 {
     tobealigned_.addOption("Vol1ToVol2", "Volume 1 to Volume 2");
     tobealigned_.addOption("Vol2ToVol1", "Volume 2 to Volume 1");
-    tobealigned_.addOption("Vol1ToOrigin", "Volume 1 to Origin");
-    tobealigned_.addOption("Vol2ToOrigin", "Volume 2 to Origin");
+    tobealigned_.addOption("SelectedToOrigin", "Selected to Origin");
     
     addProperty(volumeURLList_);
     addProperty(tobealigned_);
@@ -42,6 +41,7 @@ void VolVolAlign :: align()
     VolumeCollection* volumes = volumeURLList_.getVolumes(true);
     LINFO("Module load successful");
     LINFO("No conflicts with other modules detected");
+    
 	if (tobealigned_.isSelected("Vol1ToVol2") || tobealigned_.isSelected("Vol2ToVol1"))
 	{
 		Volume* firstVolume;
@@ -61,26 +61,19 @@ void VolVolAlign :: align()
 		    LWARNING("Some of the input volumes is 0");
 		    return;
 		}
+		
+		tgt::Matrix4d norm1 = GetAlignment(firstVolume);
+		tgt::Matrix4d norm2 = GetAlignment(secondVolume);
 
- 	    Volume* combinedVolume = firstVolume->clone();	    
-		tgt::Matrix4d wrld1 = combinedVolume->getPhysicalToWorldMatrix();
-  	    LINFO("Getting transformation matrix for object..");
- 	     
-		tgt::Matrix4d norm1 = GetAlignment(combinedVolume);
-		combinedVolume->setPhysicalToWorldMatrix(norm1*wrld1);
-
- 	    Volume* temp = secondVolume->clone();	    
-		tgt::Matrix4d wrld2 = temp->getPhysicalToWorldMatrix();	
-
-		tgt::Matrix4d inv2;
-		tgt::Matrix4d norm2 = GetAlignment(temp);
-		temp->setPhysicalToWorldMatrix(norm2*wrld2);
-
+        tgt::Matrix4d inv2;
 		norm2.invert(inv2);
+		
+		tgt::Matrix4d wrld1 = firstVolume->getPhysicalToWorldMatrix();
 		
 		tgt::Matrix4d newMatrix = inv2*norm1*wrld1;
         
         if (createNew_.get() == true) {
+		    Volume* combinedVolume = firstVolume->clone();
 		    combinedVolume->setPhysicalToWorldMatrix(newMatrix);
             
             std::string url1 = firstVolume->getOrigin().getURL();
@@ -102,33 +95,35 @@ void VolVolAlign :: align()
 		}
 	}
 
-	if (tobealigned_.isSelected("Vol1ToOrigin") || tobealigned_.isSelected("Vol2ToOrigin"))
+	if (tobealigned_.isSelected("SelectedToOrigin"))
+	for (size_t i = 0; i < volumes->size(); i++)
 	{
-		const VolumeBase* volume;
-		if (tobealigned_.isSelected("Vol1ToOrigin")) 
-		    volume = volumes->at(0);
-		if (tobealigned_.isSelected("Vol2ToOrigin")) 
-		    volume = volumes->at(1);
+		Volume* volume = dynamic_cast<Volume*>(volumes->at(i));
 		    
 		if (volume == 0) {
 		    LWARNING("Input volume is 0");
 		    return;
 		}
-
- 	    Volume* combinedVolume = volume->clone();	    
-		tgt::Matrix4d wrld = combinedVolume->getVoxelToWorldMatrix();
-  	    LINFO("Getting transformation matrix for object..");
-
-		tgt::Matrix4d norm = GetAlignment(combinedVolume);
-		combinedVolume->setPhysicalToWorldMatrix(norm*wrld);
-
-        std::string url = volume->getOrigin().getURL();
-        size_t dotPos = url.find_last_of('.');
-        std::string ext = url.substr(dotPos+1, 4);
-        url = url.substr(0, dotPos);
+ 	    
+		tgt::Matrix4d wrld = volume->getPhysicalToWorldMatrix();
+		tgt::Matrix4d norm = GetAlignment(volume);
+		tgt::Matrix4d newMatrix = norm*wrld;
         
-        combinedVolume->setOrigin(VolumeURL(url + "_align_to_origin" + ext));
-		getSourceProcessor()->addVolume(combinedVolume, true, true);
+        if (createNew_.get() == true) {
+            Volume* combinedVolume = volume->clone();
+		    combinedVolume->setPhysicalToWorldMatrix(newMatrix);
+
+            std::string url = volume->getOrigin().getURL();
+            size_t dotPos = url.find_last_of('.');
+            std::string ext = url.substr(dotPos+1, 4);
+            url = url.substr(0, dotPos);
+
+            combinedVolume->setOrigin(VolumeURL(url + "_align_to_origin" + ext));
+		    getSourceProcessor()->addVolume(combinedVolume, true, true);
+		}
+		else {
+		    volume->setPhysicalToWorldMatrix(newMatrix);
+		}
 	}
 	LINFO("Module processing successfully complete");
 }

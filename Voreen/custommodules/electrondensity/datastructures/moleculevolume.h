@@ -15,10 +15,28 @@ public:
         transFunc_ = new TransFunc1DKeys();
     }
     
+    MoleculeVolume(VolumeRepresentation* const volume, const VolumeBase* vh)
+      : Volume(volume, vh)
+      , molecule_(0)
+    {
+        transFunc_ = new TransFunc1DKeys();
+    }
+    
     Molecule* getMolecule() { return molecule_; }
     
+    // XXX This function does not clone the molecule pointer
+    // because we don't want two different volumes to transform
+    // the same molecule
+    Volume* clone() const throw (std::bad_alloc) {
+        VolumeRAM* v = getRepresentation<VolumeRAM>()->clone();
+        MoleculeVolume* mv = new MoleculeVolume(v, this);
+        mv->setTransFunc(getTransFunc()->clone());
+        return mv;
+    }
+    
     virtual void setPhysicalToWorldMatrix(const tgt::mat4& transformationMatrix) {
-        molecule_->setTransformationMatrix(transformationMatrix);
+        if (molecule_)
+            molecule_->setTransformationMatrix(transformationMatrix);
         
         Volume::setPhysicalToWorldMatrix(transformationMatrix);
     }
@@ -27,13 +45,17 @@ public:
         molecule_ = mol;
     }
     
-    TransFunc1DKeys* getTransFunc() const {
+    TransFunc* getTransFunc() const {
         return transFunc_;
+    }
+    
+    void setTransFunc(TransFunc* tf) {
+        transFunc_ = tf;
     }
     
 private:
     Molecule* molecule_;
-    TransFunc1DKeys* transFunc_;
+    TransFunc* transFunc_;
 };
 
 #endif
