@@ -9,8 +9,6 @@
 #include "voreen/core/io/volumeserializer.h"
 #include "voreen/core/io/progressbar.h"
 #include "voreen/core/voreenapplication.h"
-#include "openbabel/typer.h"
-#include "openbabel/data.h"
 
 #include <fstream>
 #include <iostream>
@@ -33,7 +31,6 @@ using std::string;
 using tgt::vec3;
 using tgt::ivec3;
 using tgt::Texture;
-using namespace OpenBabel;
 
 namespace voreen {
 

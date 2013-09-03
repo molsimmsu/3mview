@@ -66,9 +66,9 @@ protected:
     Volume* GenerateEDMGrid_ScatteringFactor(Molecule* InputMoll);
     Volume* GenerateEDMGrid_StructureFactor(Molecule* InputMoll);
     void CalcElectronNumber(VolumeRAM* targetDataset, float ElectronNumber);
-    void FindAtomTypesInPDB(const OBMol mol, struct AtomicED* sAtomED);
+    void FindAtomTypesInPDB(const Molecule* mol, struct AtomicED* sAtomED);
     float CalcElectronDens(struct AtomicED sAtomED, int k, float R);
-    void FindBoundingGeometry(const OBMol mol);
+    void FindBoundingGeometry(const Molecule* mol);
     void adjustPropertyVisibility();
 
     IntProperty atoomr_; //calculated distance (A)

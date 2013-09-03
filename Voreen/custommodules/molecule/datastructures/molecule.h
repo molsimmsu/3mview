@@ -4,6 +4,7 @@
 #include "voreen/core/utils/observer.h"
 #include "voreen/core/datastructures/volume/volume.h"
 
+#include "atom.h"
 
 #include "tgt/vector.h"
 
@@ -167,6 +168,12 @@ public:
     void CalcCenterOfMass();
     
     const tgt::vec3 getCenterOfMass();
+    
+    size_t numAtoms() const;
+    
+    const Atom* atom(size_t i) const;
+    
+    OBAtom* getOBAtom(size_t i) const;
     
     /**
      *  Delete residues of restype

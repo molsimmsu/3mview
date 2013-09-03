@@ -33,6 +33,26 @@ const OBMol& Molecule::getOBMol() const {
     return mol_;
 }
 
+size_t Molecule::numAtoms() const {
+    return mol_.NumAtoms();
+}
+    
+const Atom* Molecule::atom(size_t i) const {
+    OBAtom* a = mol_.GetAtom(i + 1);
+    std::string srcType, dstType;
+    srcType = a->GetType();
+    
+    ttab.SetFromType("INT");
+    ttab.SetToType("XYZ");
+    ttab.Translate(dstType,srcType);
+    
+    return new Atom(std::string(dstType), a->x(), a->y(), a->z(), a->GetAtomicNum());
+}
+
+OBAtom* Molecule::getOBAtom(size_t i) const {
+    return mol_.GetAtom(i);
+}
+
 void Molecule::DeleteHydrogens() {
 mol_.DeleteHydrogens();
 notifyReload();

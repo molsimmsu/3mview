@@ -13,10 +13,6 @@
 
 #include "voreen/core/fft/fftw.h"
 
-
-#include "openbabel/typer.h"
-#include "openbabel/data.h"
-
 #include <fstream>
 #include <iostream>
 #include <assert.h>
@@ -36,13 +32,8 @@ using std::string;
 using tgt::vec3;
 using tgt::ivec3;
 using tgt::Texture;
-using namespace OpenBabel;
-
 
 namespace voreen {
-
-
-
 
 const std::string PDBtoEDM::loggerCat_("voreen.core.PDBtoEDM");
 
@@ -94,13 +85,12 @@ VoxelPerAngstrem=1.0/dr; //number of voxels per angstrem
 int Nsmall=atoomr_.get()/dr; //
 float scale=1.0/VoxelPerAngstrem;
 struct AtomicED sAtomED;
-const OBMol& mol = InputMoll->getOBMol();
 
 std::cout << "Delta_r: "<< dr<<std::endl;
 std::cout << "Voxel per angstrem: "<< VoxelPerAngstrem<<std::endl;
 
 //--------find atom types in pdb-----------
-FindAtomTypesInPDB(mol, &sAtomED);
+FindAtomTypesInPDB(InputMoll, &sAtomED);
 //-----------------------------------------
 
 
@@ -126,7 +116,7 @@ for (int k=0; k<NumberAtom; k++)
 //-----------------------------------------
 //----------find bounding box--------------
 //-----------------------------------------
-FindBoundingGeometry(mol);
+FindBoundingGeometry(InputMoll);
 std::cout << "NumberVoxels_x:"<<NumberVoxels_x<<std::endl;
 std::cout << "NumberVoxels_y: "<<NumberVoxels_y<<std::endl;
 std::cout << "NumberVoxels_z: "<<NumberVoxels_z<<std::endl;
@@ -146,16 +136,14 @@ for (int k=0; k<NumberVoxels_z; k++)
 {
      ((VolumeAtomic<float>*)targetDataset)->voxel(i,j,k)=0;
 }
-std::string src,dst;
-for (int i = 1; i <= mol.NumAtoms(); i++)
+std::string type;
+for (int i = 0; i < InputMoll->numAtoms(); i++)
     {
-        OBAtom* a = mol.GetAtom(i);
-        src=a->GetType();
-        ttab.SetFromType("INT");
-        ttab.SetToType("XYZ");
-        ttab.Translate(dst,src);
+        const Atom* a = InputMoll->atom(i);
+        type=a->type();
+
         int p=0;
-        while (dst!=sAtomED.AtomName[p]) p=p+1;
+        while (type!=sAtomED.AtomName[p]) p=p+1;
 
         float atomx=a->x()+size_x+MaxR-cx;
         float atomy=a->y()+size_y+MaxR-cy;
@@ -195,7 +183,7 @@ for (int i = 1; i <= mol.NumAtoms(); i++)
             }
         }
 
-std::cout << "Calculate density map: "<<i*100/mol.NumAtoms()<< "%"<<"\r";
+std::cout << "Calculate density map: "<<i*100/InputMoll->numAtoms()<< "%"<<"\r";
     }
 //-----------------------------------------
 //-----------------------------------------
@@ -231,14 +219,13 @@ MaxR=2;
 VoxelPerAngstrem=1.0/dr; //number of voxels per angstrem
 resol=resolution_.get()/10.0;
 struct AtomicED sAtomED;
-const OBMol& mol = InputMoll->getOBMol();
 
 //--------find atom types in pdb-----------
-FindAtomTypesInPDB(mol, &sAtomED);
+FindAtomTypesInPDB(InputMoll, &sAtomED);
 //-----------------------------------------
 
 //----------find bounding box--------------
-FindBoundingGeometry(mol);
+FindBoundingGeometry(InputMoll);
 //-----------------------------------------
 int NN=2*Nh;
 static complex StF[100000000];
@@ -290,7 +277,7 @@ for (int ll=0; ll<NewL; ll++)
 //-----------------------------------------
 //---------calc structure factors----------
 //-----------------------------------------
-std::string src,dst;
+std::string type;
 int pos;
 float atomx,atomy,atomz;
 for (int hh=0; hh<NN; hh++)
@@ -299,15 +286,12 @@ for (int ll=0; ll<NN; ll++)
 {
 
 float tempreal=0,tempcomplex=0;
-for (int i = 1; i <= mol.NumAtoms(); i++)
+for (int i = 0; i < InputMoll->numAtoms(); i++)
     {
-        OBAtom* a = mol.GetAtom(i);
-        src=a->GetType();
-        ttab.SetFromType("INT");
-        ttab.SetToType("XYZ");
-        ttab.Translate(dst,src);
+        const Atom* a = InputMoll->atom(i);
+        type = a->type();
         int p=0;
-        while (dst!=sAtomED.AtomName[p]) p=p+1;
+        while (type != sAtomED.AtomName[p]) p=p+1;
         atomx=(a->x()-cx+big_size/2)/big_size;
         atomy=(a->y()-cy+big_size/2)/big_size;
         atomz=(a->z()-cz+big_size/2)/big_size;
@@ -423,19 +407,22 @@ std::cout << "New:"<<ElectronNumber<<std::endl;
 //-----------------------------------------
 //--------find atom types in pdb-----------
 //-----------------------------------------
-void PDBtoEDM::FindAtomTypesInPDB(const OBMol mol, struct AtomicED* sAtomED)
+void PDBtoEDM::FindAtomTypesInPDB(const Molecule* mol, struct AtomicED* sAtomED)
 {
 NumberAtom=0;
 cx=0;
 cy=0;
 cz=0;
 NumberOfElectrons=0;
-std::string src,dst;
-    for (int i = 1; i <= mol.NumAtoms(); i++)
+std::string type;
+
+size_t numAtoms = mol->numAtoms();
+
+    for (int i = 0; i < numAtoms; i++)
     {
-        OBAtom* a = mol.GetAtom(i);
-        src=a->GetType();
-        NumberOfElectrons=NumberOfElectrons+a->GetAtomicNum();
+        const Atom* a = mol->atom(i);
+        type = a->type();
+        NumberOfElectrons=NumberOfElectrons+a->atomicNumber();
         float atomx=a->x();
         float atomy=a->y();
         float atomz=a->z();
@@ -443,25 +430,27 @@ std::string src,dst;
         cy=cy+atomy;
         cz=cz+atomz;
 
-        ttab.SetFromType("INT");
-        ttab.SetToType("XYZ");
-        ttab.Translate(dst,src);
+
         int Flag=1;
 
          for (int k = 0; k<NumberAtom;  k++)
-           if (dst==sAtomED->AtomName[k]) Flag=0;
+           if (type == sAtomED->AtomName[k]) Flag=0;
            if (Flag!=0)
            {
-               sAtomED->AtomName[NumberAtom]=dst;
+               sAtomED->AtomName[NumberAtom]=type;
                NumberAtom=NumberAtom+1;
            }
 
     }
-cx=cx/mol.NumAtoms();
-cy=cy/mol.NumAtoms();
-cz=cz/mol.NumAtoms();
+    
+    
+    
+cx=cx/numAtoms;
+cy=cy/numAtoms;
+cz=cz/numAtoms;
 sAtomED->NumberTypes=NumberAtom;
-std::cout << "Number of atoms in input PDB: "<< mol.NumAtoms() << std::endl;
+std::cout << "Number of electrons: "<< NumberOfElectrons << std::endl;
+std::cout << "Number of atoms in input PDB: "<< numAtoms << std::endl;
 std::cout << "Number of atom types in input PDB: "<< NumberAtom << std::endl;
 std::cout << "Center: ["<< cx << ";"<< cy << ";"<<cz<<"]"<< std::endl;
 
@@ -728,15 +717,15 @@ float PDBtoEDM::CalcElectronDens(struct AtomicED sAtomED, int k, float R)
 //-----------------------------------------
 //----------find bounding box--------------
 //-----------------------------------------
-void PDBtoEDM::FindBoundingGeometry(const OBMol mol)
+void PDBtoEDM::FindBoundingGeometry(const Molecule* mol)
 {
 std::cout << "Searching size of bounding geometry..."<< std::endl;
 size_x=0;
 size_y=0;
 size_z=0;
-for (int i = 1; i <= mol.NumAtoms(); i++)
+for (int i = 0; i < mol->numAtoms(); i++)
     {
-        OBAtom* a = mol.GetAtom(i);
+        const Atom* a = mol->atom(i);
 
         float atomx=a->x();
         float atomy=a->y();
@@ -787,9 +776,9 @@ void PDBtoEDM::ShowGrid() {
 
     for (size_t i = 0; i < collection->size(); i++) {
         Molecule* InputMoll = collection->at(i);
-        const OBMol& mol = InputMoll->getOBMol();
+        
 
-        if (mol.NumAtoms()!=0)
+        if (InputMoll->numAtoms() != 0)
         {
             Volume* volume;
 

@@ -22,6 +22,5 @@ void TransferFunctionEditor::updateSelection() {
 }
 
 void TransferFunctionEditor::invalidate(int inv) {
-    LINFO("Invalidate");
     getSourceProcessor()->invalidateOutport();
 }
