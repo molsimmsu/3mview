@@ -39,7 +39,7 @@ public:
     /**
     * This method is called by the observed collection after
     * a molecule handle has been changed. This usually happens when
-    * a molecule handle reloads the wrapped molecule (i.e. OpenBabel structure has changed).
+    * a molecule handle reloads the wrapped molecule (i.e. underlying structure has changed).
     *
     * @param source the calling collection
     * @param handle the molecule handle that has been changed

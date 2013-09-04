@@ -5,6 +5,8 @@
 #include "voreen/core/datastructures/volume/volume.h"
 
 #include "atom.h"
+#include "bond.h"
+#include "residue.h"
 
 #include "tgt/vector.h"
 
@@ -161,7 +163,7 @@ public:
     /**
      * Returns underlying OpenBabel molecule data structure
      */
-    const OBMol& getOBMol() const;
+    
     
     void DeleteHydrogens();
     
@@ -170,10 +172,15 @@ public:
     const tgt::vec3 getCenterOfMass();
     
     size_t numAtoms() const;
+    Atom* atom(size_t i) const;
     
-    const Atom* atom(size_t i) const;
+    size_t numBonds() const;
+    Bond* bond(size_t i) const;
     
-    OBAtom* getOBAtom(size_t i) const;
+    size_t numResidues() const;
+    MoleculeResidue* residue(size_t i) const;
+    
+    const OBMol& getOBMol() const;
     
     /**
      *  Delete residues of restype
@@ -268,6 +275,8 @@ private:
     SecStructure secStructure_;
     tgt::mat4 transformationMatrix_;
     tgt::vec3 MassCent_;
+    
+    Atom* createAtomFromOBAtom(OBAtom* a) const;
     
     static const std::string loggerCat_;
 };

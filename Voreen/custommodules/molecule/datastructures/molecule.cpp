@@ -37,8 +37,12 @@ size_t Molecule::numAtoms() const {
     return mol_.NumAtoms();
 }
     
-const Atom* Molecule::atom(size_t i) const {
+Atom* Molecule::atom(size_t i) const {
     OBAtom* a = mol_.GetAtom(i + 1);
+    return createAtomFromOBAtom(a);
+}
+
+Atom* Molecule::createAtomFromOBAtom(OBAtom* a) const {
     std::string srcType, dstType;
     srcType = a->GetType();
     
@@ -49,8 +53,30 @@ const Atom* Molecule::atom(size_t i) const {
     return new Atom(std::string(dstType), a->x(), a->y(), a->z(), a->GetAtomicNum());
 }
 
-OBAtom* Molecule::getOBAtom(size_t i) const {
-    return mol_.GetAtom(i);
+size_t Molecule::numBonds() const {
+    return mol_.NumBonds();
+}
+    
+Bond* Molecule::bond(size_t i) const {
+    OBBond* bond = mol_.GetBond(i);
+    OBAtom* a1 = bond->GetBeginAtom();
+    OBAtom* a2 = bond->GetEndAtom();
+    return new Bond(atom(a1->GetIdx()-1), atom(a2->GetIdx()-1));
+}
+
+size_t Molecule::numResidues() const {
+    return mol_.NumResidues();
+}
+
+MoleculeResidue* Molecule::residue(size_t i) const {
+    OBResidue* obres = mol_.GetResidue(i);
+    std::vector<OBAtom*> atoms = obres->GetAtoms();
+    MoleculeResidue* res = new MoleculeResidue(obres->GetChainNum());
+    
+    for (size_t i = 0; i < atoms.size(); i++)
+        res->addAtom(createAtomFromOBAtom(atoms[i]), obres->GetAtomID(atoms[i]));
+    
+    return res;
 }
 
 void Molecule::DeleteHydrogens() {

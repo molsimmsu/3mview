@@ -178,7 +178,7 @@ void MoleculeCollectionGeometryBuilder::rebuildMolecule() {
 
 MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(const Molecule* molecule) {
     tgtAssert(molecule, "molecule parameter is NULL at MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry()");
-    const OBMol& mol = molecule->getOBMol();
+    //const OBMol& mol = molecule->getOBMol();
     
     MoleculeGeometry* moleculeGeometry = new MoleculeGeometry(molecule);
     
@@ -189,10 +189,10 @@ MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(
     size_t steps = rep->atomsResolution();
     size_t bondSteps = rep->bondsResolution();
     
-    for (size_t i = 1; i <= mol.NumAtoms(); i++) {
-        OBAtom* a = mol.GetAtom(i);
+    for (size_t i = 0; i < molecule->numAtoms(); i++) {
+        Atom* a = molecule->atom(i);
         tgt::vec3 atomCoords(a->x(), a->y(), a->z());
-        tgt::vec3 acolor = getAtomColor(a->GetAtomicNum());
+        tgt::vec3 acolor = getAtomColor(a->atomicNumber());
         
         for(int i=0; i < steps; i++){
             float x1 = 2*i/float(steps) -1;
@@ -213,16 +213,16 @@ MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(
     
     // Draw bonds with cylinders 2 cylinders for 1 bond
     // XXX Bonds indices in OpenBabel start with 0
-    for (size_t i = 0; i < mol.NumBonds(); i++) {
-        OBBond* bond = mol.GetBond(i);
-        OBAtom* a1 = bond->GetBeginAtom();
-        OBAtom* a2 = bond->GetEndAtom();
+    for (size_t i = 0; i < molecule->numBonds(); i++) {
+        Bond* bond = molecule->bond(i);
+        Atom* a1 = bond->atom1();
+        Atom* a2 = bond->atom2();
         tgt::vec3 atom1Coords(a1->x(), a1->y(), a1->z());
         tgt::vec3 atomMidCoords(a1->x() + (a2->x() - a1->x())/2, a1->y() + (a2->y() - a1->y())/2, a1->z() + (a2->z() - a1->z())/2);
         tgt::vec3 atom2Coords(a2->x(), a2->y(), a2->z());
         
-        MeshGeometry cyl1 = PrimitiveGeometryBuilder::createCylinder(atom1Coords, atomMidCoords, bondRadius, bondSteps, getAtomColor(a1->GetAtomicNum()));
-        MeshGeometry cyl2 = PrimitiveGeometryBuilder::createCylinder(atom2Coords, atomMidCoords, bondRadius, bondSteps, getAtomColor(a2->GetAtomicNum()));
+        MeshGeometry cyl1 = PrimitiveGeometryBuilder::createCylinder(atom1Coords, atomMidCoords, bondRadius, bondSteps, getAtomColor(a1->atomicNumber()));
+        MeshGeometry cyl2 = PrimitiveGeometryBuilder::createCylinder(atom2Coords, atomMidCoords, bondRadius, bondSteps, getAtomColor(a2->atomicNumber()));
         moleculeGeometry->addMesh(cyl1);
         moleculeGeometry->addMesh(cyl2);
     }
@@ -243,25 +243,21 @@ MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry(
     chainColors.push_back(tgt::vec3(0, 1, 1));
     chainColors.push_back(tgt::vec3(1, 0, 1));
     chainColors.push_back(tgt::vec3(1, 1, 0));
-
-    const OBMol& mol = molecule->getOBMol();
- 
-    if (mol.NumResidues() < 2) return moleculeGeometry;
     
-    
-    //OBResidueIterator res = mol.BeginResidues();
-    //OBResidueIterator resEnd = mol.EndResidues();
+    size_t numResidues = molecule->numResidues();
+    if (molecule->numResidues() < 2) return moleculeGeometry;
     
     size_t currentChainNum = 0;
-    size_t numResidues = mol.NumResidues();
     
 	// Read backbone of each chain to a separate PolyLine
     for (size_t i = 0; i < numResidues; i++) {
         
-        OBResidue* res = mol.GetResidue(i);
+        //OBResidue* res = mol.GetResidue(i);
+        MoleculeResidue* res = molecule->residue(i);
         
-        std::vector<OBAtom*> atoms = res->GetAtoms();
-        size_t residueChainNum = res->GetChainNum();
+        const std::vector<Atom*> atoms = res->atoms();
+        const std::vector<std::string> atomIDs = res->atomIDs();
+        size_t residueChainNum = res->chainNum();
         
         if (residueChainNum > currentChainNum) {
             backbone.push_back(PolyLine());
@@ -271,9 +267,9 @@ MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry(
         size_t numAtoms = atoms.size();
         
         for (size_t i = 0; i < numAtoms; i++) {
-            OBAtom* a = atoms[i];
+            Atom* a = atoms[i];
+            std::string atomID = atomIDs[i];
             
-            std::string atomID = res->GetAtomID(a);
             atomID.erase(remove(atomID.begin(), atomID.end(), ' '), atomID.end());
             
             if (atomID.compare("CA") == 0)
@@ -321,3 +317,4 @@ vec3 MoleculeCollectionGeometryBuilder::getAtomColor(int a) {
 
     return color;
 }
+
