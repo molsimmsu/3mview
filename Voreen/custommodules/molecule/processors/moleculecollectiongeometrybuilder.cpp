@@ -4,15 +4,12 @@
 
 #include "../../geometry/utils/primitivegeometrybuilder.h"
 
-#include "openbabel/mol.h"
-using namespace OpenBabel;
-
 #include "tgt/vector.h"
 using tgt::vec3;
 
 #include <iostream>
 
-#define REBUILD_MOLECULE_ACTION CallMemberAction<MoleculeCollectionGeometryBuilder>(this, &MoleculeCollectionGeometryBuilder::rebuildMolecule)
+
 
 MoleculeCollectionGeometryBuilder::MoleculeCollectionGeometryBuilder()
   : Processor()
@@ -37,13 +34,6 @@ MoleculeCollectionGeometryBuilder::MoleculeCollectionGeometryBuilder()
     
     repType_.addOption("atomsAndBonds", "Atoms and bonds");
     repType_.addOption("backboneTrace", "Backbone trace");
-    
-    repType_.onChange(REBUILD_MOLECULE_ACTION);
-    traceTangentLength_.onChange(REBUILD_MOLECULE_ACTION);
-    traceCylinderRadius_.onChange(REBUILD_MOLECULE_ACTION);
-    traceNumCylinderSides_.onChange(REBUILD_MOLECULE_ACTION);
-    traceNumSteps_.onChange(REBUILD_MOLECULE_ACTION);
-    showCoords_.onChange(REBUILD_MOLECULE_ACTION);
 	
 	// Create empty data to make this outport valid. Take ownership is true because
 	// we want the data to be automatically deleted when replaced at the next setData() call
@@ -72,9 +62,7 @@ void MoleculeCollectionGeometryBuilder::process() {
         mc->addObserver(this);
         LWARNING("MoleculeCollection Observeer added");
 	}
-	
-	// Port is ready and input data has changed
-    rebuildMolecule();
+
 }
 
 GeometryCollection* MoleculeCollectionGeometryBuilder::getOutputGeometry() {
@@ -155,30 +143,8 @@ void MoleculeCollectionGeometryBuilder::deleteMoleculeGeometry(const Molecule* m
     }
 }
 
-void MoleculeCollectionGeometryBuilder::rebuildMolecule() {
-	/*try {
-	    const Molecule* mol = inport_.getData();
-	    if (!mol) return;
-	    
-        MeshListGeometry* geom = new MeshListGeometry();
-
-        // TODO Add @repType as a parameter to the Molecule class
-             if (repType_.get() == "atomsAndBonds")
-            buildAtomsAndBondsGeometry(geom, mol);
-        else if (repType_.get() == "backboneTrace")
-            buildBackboneTraceGeometry(geom, mol);
-        
-        // Delete old data and set new
-        outport_.setData(geom);
-    }
-    catch (...) {
-        LERROR("Error at MoleculeCollectionGeometryBuilder::process()");
-    }*/
-}
-
 MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(const Molecule* molecule) {
     tgtAssert(molecule, "molecule parameter is NULL at MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry()");
-    //const OBMol& mol = molecule->getOBMol();
     
     MoleculeGeometry* moleculeGeometry = new MoleculeGeometry(molecule);
     
