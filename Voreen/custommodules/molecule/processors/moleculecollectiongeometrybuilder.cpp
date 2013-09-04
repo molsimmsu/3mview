@@ -178,7 +178,6 @@ MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(
     }
     
     // Draw bonds with cylinders 2 cylinders for 1 bond
-    // XXX Bonds indices in OpenBabel start with 0
     for (size_t i = 0; i < molecule->numBonds(); i++) {
         Bond* bond = molecule->bond(i);
         Atom* a1 = bond->atom1();

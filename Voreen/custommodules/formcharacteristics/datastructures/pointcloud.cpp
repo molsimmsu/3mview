@@ -87,7 +87,7 @@ void PointCloud :: VolumeFill(const Volume* vol, double min)
 void PointCloud :: MoleculeFill(const Molecule * mol)
 {
 	std :: cout << "Loading molecule...\n";
-	entries_num = (mol->getOBMol()).NumAtoms();
+	entries_num = mol->numAtoms();
 	int non_zero 	  = 0; 
 	int atomic_num	  = 0;
 
@@ -97,12 +97,13 @@ void PointCloud :: MoleculeFill(const Molecule * mol)
 
 	for (int i=0; i<entries_num; ++i)
 	{	
-		atomic_num = (mol->getOBMol()).GetAtomById(i)->GetAtomicNum();
+	    Atom* a = mol->atom(i);
+		atomic_num = a->atomicNumber();
 		if (atomic_num == 6)
 			{
-				points[non_zero].x   = (mol->getOBMol()).GetAtomById(i)->x();
-				points[non_zero].y   = (mol->getOBMol()).GetAtomById(i)->y();
-				points[non_zero].z   = (mol->getOBMol()).GetAtomById(i)->z();
+				points[non_zero].x   = a->x();
+				points[non_zero].y   = a->y();
+				points[non_zero].z   = a->z();
 				values[non_zero] = atomic_num;
 				total_weight += values[non_zero];
 				non_zero++;

@@ -2,6 +2,7 @@
 #define VRN_MOLECULEGEOMETRYBUILDER_H
 
 #include "../ports/moleculeport.h"
+#include "../datastructures/moleculegeometry.h"
 
 #include "voreen/core/processors/processor.h"
 #include "voreen/core/ports/geometryport.h"
@@ -52,8 +53,8 @@ protected:
      * @param geometry Geometry to which the crated geometry is appended
      * @param molecule Molecule which should be constructed
      */
-    void buildAtomsAndBondsGeometry(MeshListGeometry* geometry, const Molecule* molecule);
-    void buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule);
+    MoleculeGeometry* buildAtomsAndBondsGeometry(const Molecule* molecule);
+    MoleculeGeometry* buildBackboneTraceGeometry(const Molecule* molecule);
     tgt::vec3 getAtomColor(int a);
 
 private:

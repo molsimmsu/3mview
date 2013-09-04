@@ -1,12 +1,6 @@
 #include "moleculegeometrybuilder.h"
 
-#include "voreen/core/datastructures/geometry/meshlistgeometry.h"
-
 #include "../../geometry/utils/primitivegeometrybuilder.h"
-#include "../../geometry/utils/primitivegeometrybuilder.h"
-
-#include "openbabel/mol.h"
-using namespace OpenBabel;
 
 #include "tgt/vector.h"
 using tgt::vec3;
@@ -79,13 +73,13 @@ void MoleculeGeometryBuilder::rebuildMolecule() {
 	    const Molecule* mol = inport_.getData();
 	    if (!mol) return;
 	    
-        MeshListGeometry* geom = new MeshListGeometry();
+        MeshGeometry* geom;
 
         // TODO Add @repType as a parameter to the Molecule class
         /**/ if (repType_.get() == "atomsAndBonds")
-            buildAtomsAndBondsGeometry(geom, mol);
+            geom = buildAtomsAndBondsGeometry(mol);
         else if (repType_.get() == "backboneTrace")
-            buildBackboneTraceGeometry(geom, mol);
+            geom = buildBackboneTraceGeometry(mol);
         
         tgt::mat4 transform = tgt::mat4::createIdentity();
         transform = mol->getTransformationMatrix();
@@ -117,26 +111,24 @@ vec3 MoleculeGeometryBuilder::getAtomColor(int a) {
     return color;
 }
 
-void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
-    tgtAssert(molecule, "molecule parameter is NULL at MoleculeGeometryBuilder::buildAtomsAndBondsGeometry()");
-    const OBMol& mol = molecule->getOBMol();
+MoleculeGeometry* MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(const Molecule* molecule) {
+    tgtAssert(molecule, "molecule parameter is NULL at MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry()");
     
-    // Cubes parameters
-    tgt::vec3 diag(0.3f, 0.3f, 0.3f);
-    tgt::vec3 tex1(0.f, 0.f, 0.f);
-    tgt::vec3 tex2(1.f, 1.f, 1.f);
-    tgt::vec3 color(0.6f, 0.6f, 0.6f);
+    MoleculeGeometry* moleculeGeometry = new MoleculeGeometry(molecule);
     
-    // Draw atoms with cubes.
-    // XXX Atoms indices in OpenBabel start with 1
-    float radius = atomRadius_.get();
-    size_t steps = bondAndAtomRes_.get();
-    for (size_t i = 1; i <= mol.NumAtoms(); i++) {
-        OBAtom* a = mol.GetAtom(i);
+    BallsAndSticksRep* rep = dynamic_cast<BallsAndSticksRep*>(molecule->getRepresentation());
+    
+    float radius = rep->atomsRadius();
+    float bondRadius = rep->bondsRadius();
+    size_t steps = rep->atomsResolution();
+    size_t bondSteps = rep->bondsResolution();
+    
+    for (size_t i = 0; i < molecule->numAtoms(); i++) {
+        Atom* a = molecule->atom(i);
         tgt::vec3 atomCoords(a->x(), a->y(), a->z());
-        tgt::vec3 acolor = getAtomColor(a->GetAtomicNum());
+        tgt::vec3 acolor = getAtomColor(a->atomicNumber());
         
-        for(int i=0; i < steps; i++){
+        for(int i=0; i < steps; i++) {
             float x1 = 2*i/float(steps) -1;
             float x2 = 2*(i+1)/float(steps) -1;
             float R1 = radius * sqrt(1 - x1*x1);
@@ -145,7 +137,7 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
             tgt::vec3 v2( a->x() + radius*x2, a->y(), a->z());
             
             MeshGeometry cone = PrimitiveGeometryBuilder::createConeCylinder(v1,v2,R1,R2,steps,acolor,true);
-            geometry->addMesh(cone);
+            moleculeGeometry->addMesh(cone);
         }
         //MeshGeometry cube = MeshGeometry::createCube(atomCoords - diag, atomCoords + diag,
         //                                                   tex1, tex2, getAtomColor(a->GetAtomicNum()), getAtomColor(a->GetAtomicNum()));
@@ -154,24 +146,27 @@ void MoleculeGeometryBuilder::buildAtomsAndBondsGeometry(MeshListGeometry* geome
     }
     
     // Draw bonds with cylinders 2 cylinders for 1 bond
-    // XXX Bonds indices in OpenBabel start with 0
-    for (size_t i = 0; i < mol.NumBonds(); i++) {
-        OBBond* bond = mol.GetBond(i);
-        OBAtom* a1 = bond->GetBeginAtom();
-        OBAtom* a2 = bond->GetEndAtom();
+    for (size_t i = 0; i < molecule->numBonds(); i++) {
+        Bond* bond = molecule->bond(i);
+        Atom* a1 = bond->atom1();
+        Atom* a2 = bond->atom2();
         tgt::vec3 atom1Coords(a1->x(), a1->y(), a1->z());
         tgt::vec3 atomMidCoords(a1->x() + (a2->x() - a1->x())/2, a1->y() + (a2->y() - a1->y())/2, a1->z() + (a2->z() - a1->z())/2);
         tgt::vec3 atom2Coords(a2->x(), a2->y(), a2->z());
         
-        MeshGeometry cyl1 = PrimitiveGeometryBuilder::createCylinder(atom1Coords, atomMidCoords, bondRadius_.get(), steps, getAtomColor(a1->GetAtomicNum()));
-        MeshGeometry cyl2 = PrimitiveGeometryBuilder::createCylinder(atom2Coords, atomMidCoords, bondRadius_.get(), steps, getAtomColor(a2->GetAtomicNum()));
-        geometry->addMesh(cyl1);
-        geometry->addMesh(cyl2);
+        MeshGeometry cyl1 = PrimitiveGeometryBuilder::createCylinder(atom1Coords, atomMidCoords, bondRadius, bondSteps, getAtomColor(a1->atomicNumber()));
+        MeshGeometry cyl2 = PrimitiveGeometryBuilder::createCylinder(atom2Coords, atomMidCoords, bondRadius, bondSteps, getAtomColor(a2->atomicNumber()));
+        moleculeGeometry->addMesh(cyl1);
+        moleculeGeometry->addMesh(cyl2);
     }
+    
+    return moleculeGeometry;
 }
 
-void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geometry, const Molecule* molecule) {
-    tgtAssert(molecule, "molecule parameter is NULL at MoleculeGeometryBuilder::buildBackboneTraceGeometry()");
+MoleculeGeometry* MoleculeGeometryBuilder::buildBackboneTraceGeometry(const Molecule* molecule) {
+    MoleculeGeometry* moleculeGeometry = new MoleculeGeometry(molecule);
+  
+    tgtAssert(molecule, "molecule parameter is NULL at MoleculeCollectionGeometryBuilder::buildBackboneTraceGeometry()");
     std::vector<PolyLine> backbone;
     
     std::vector<tgt::vec3> chainColors;
@@ -181,25 +176,21 @@ void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geome
     chainColors.push_back(tgt::vec3(0, 1, 1));
     chainColors.push_back(tgt::vec3(1, 0, 1));
     chainColors.push_back(tgt::vec3(1, 1, 0));
-
-    const OBMol& mol = molecule->getOBMol();
- 
-    if (mol.NumResidues() < 2) return;
     
-    
-    //OBResidueIterator res = mol.BeginResidues();
-    //OBResidueIterator resEnd = mol.EndResidues();
+    size_t numResidues = molecule->numResidues();
+    if (molecule->numResidues() < 2) return moleculeGeometry;
     
     size_t currentChainNum = 0;
-    size_t numResidues = mol.NumResidues();
     
 	// Read backbone of each chain to a separate PolyLine
     for (size_t i = 0; i < numResidues; i++) {
         
-        OBResidue* res = mol.GetResidue(i);
+        //OBResidue* res = mol.GetResidue(i);
+        MoleculeResidue* res = molecule->residue(i);
         
-        std::vector<OBAtom*> atoms = res->GetAtoms();
-        size_t residueChainNum = res->GetChainNum();
+        const std::vector<Atom*> atoms = res->atoms();
+        const std::vector<std::string> atomIDs = res->atomIDs();
+        size_t residueChainNum = res->chainNum();
         
         if (residueChainNum > currentChainNum) {
             backbone.push_back(PolyLine());
@@ -209,9 +200,9 @@ void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geome
         size_t numAtoms = atoms.size();
         
         for (size_t i = 0; i < numAtoms; i++) {
-            OBAtom* a = atoms[i];
+            Atom* a = atoms[i];
+            std::string atomID = atomIDs[i];
             
-            std::string atomID = res->GetAtomID(a);
             atomID.erase(remove(atomID.begin(), atomID.end(), ' '), atomID.end());
             
             if (atomID.compare("CA") == 0)
@@ -227,14 +218,16 @@ void MoleculeGeometryBuilder::buildBackboneTraceGeometry(MeshListGeometry* geome
         PolyLine* smoothBackbone = backbone[i].interpolateBezier(traceNumSteps_.get(), traceTangentLength_.get());
         MeshListGeometry* lineGeometry = PrimitiveGeometryBuilder::createPolyLine(smoothBackbone, traceCylinderRadius_.get(), traceNumCylinderSides_.get(), chainColors[i]);
         
-        geometry->addMeshList(*lineGeometry);
+        moleculeGeometry->addMeshList(*lineGeometry);
 		delete lineGeometry;
         
         // Build moving frame coords (just for testing)  
         if (showCoords_.get()) {  
             MeshListGeometry* coordsGeometry = PrimitiveGeometryBuilder::createPolyLineCoords(smoothBackbone, traceCylinderRadius_.get() * 0.5);
-            geometry->addMeshList(*coordsGeometry);
+            moleculeGeometry->addMeshList(*coordsGeometry);
 			delete coordsGeometry;
         }
     }
+    
+    return moleculeGeometry;
 }

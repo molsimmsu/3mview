@@ -3,10 +3,6 @@
 #include "../utils/stridereader.h"
 #include "../utils/moleculeio.h"
 
-#include "openbabel/obconversion.h"
-#include "openbabel/mol.h"
-using namespace OpenBabel;
-
 #include <fstream>
 #include <string>
 
