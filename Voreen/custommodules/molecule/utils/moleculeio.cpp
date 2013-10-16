@@ -26,7 +26,7 @@ Molecule* MoleculeIO::read(const MoleculeURL& url) {
     if (stream.fail())
         throw FileException("Failed to open file for reading ", filename);
 
-    std::string molFormat("PDB");
+    std::string molFormat = getExtension(filename);
 
     LWARNING("Start loading");
 
@@ -69,7 +69,7 @@ void MoleculeIO::write(Molecule * molecule, const std::string& filename, bool cl
     if (stream.fail())
         throw VoreenException("Failed to open file for witing: " + filename);
 
-    std::string molFormat("PDB");
+    std::string molFormat = getExtension(filename);
 
     LWARNING("Start writing");
 
@@ -91,3 +91,7 @@ void MoleculeIO::write(Molecule * molecule, const std::string& filename, bool cl
  
 }
 
+std::string MoleculeIO::getExtension(const std::string& filename) {
+    size_t dotPos = filename.find_last_of('.');
+    return filename.substr(dotPos+1, 5);
+}

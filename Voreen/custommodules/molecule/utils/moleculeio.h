@@ -20,6 +20,8 @@ public:
     
 protected:
     static const std::string loggerCat_;
+    
+    static std::string getExtension(const std::string& filename);
 
 };
 

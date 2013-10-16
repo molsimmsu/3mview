@@ -96,6 +96,7 @@ void MoleculeURLListPropertyWidget::showFileOpenDialog() {
     
     QStringList filters;
     filters << "PDB (*.pdb)";
+    filters << "CIF (*.cif)";
     
     // sidebar URLs
     QList<QUrl> urls;

@@ -5,7 +5,7 @@ namespace voreen {
 const std::string Molecule::loggerCat_ = "voreen.Molecule";
 
 Molecule::Molecule()
-  : rep_(new RibbonsRep()) 
+  : rep_(new BallsAndSticksRep()) 
 {
     transformationMatrix_ = tgt::mat4::createIdentity();
     this->CalcCenterOfMass();
@@ -13,7 +13,7 @@ Molecule::Molecule()
 
 Molecule::Molecule(const OBMol& mol)
   : mol_(mol)
-  , rep_(new RibbonsRep())
+  , rep_(new BallsAndSticksRep())
 {
     transformationMatrix_ = tgt::mat4::createIdentity();
     this->CalcCenterOfMass();
@@ -21,7 +21,7 @@ Molecule::Molecule(const OBMol& mol)
 
 Molecule::Molecule(const OBMol& mol, const SecStructure& secStructure)
   : mol_(mol)
-  , rep_(new RibbonsRep())
+  , rep_(new BallsAndSticksRep())
   , secStructure_(secStructure)
 {}
 
