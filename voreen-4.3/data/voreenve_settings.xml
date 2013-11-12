@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<VoreenData version="1">
+    <Properties>
+        <mapKey value="availableGraphicsMemory" />
+        <Property>
+            <name value="availableGraphicsMemory" />
+            <value value="774.16796875" />
+        </Property>
+        <mapKey value="cacheLimit" />
+        <Property>
+            <name value="cacheLimit" />
+            <value value="1024" />
+        </Property>
+        <mapKey value="deleteCache" />
+        <Property>
+            <name value="deleteCache" />
+        </Property>
+        <mapKey value="networkEditorStyleProperty" />
+        <Property>
+            <name value="networkEditorStyleProperty" />
+            <value value="first" />
+        </Property>
+        <mapKey value="refreshAvailableGraphicsMemory" />
+        <Property>
+            <name value="refreshAvailableGraphicsMemory" />
+        </Property>
+        <mapKey value="resetApplicationSettings" />
+        <Property>
+            <name value="resetApplicationSettings" />
+        </Property>
+        <mapKey value="scaleProcessorFontSize" />
+        <Property>
+            <name value="scaleProcessorFontSize" />
+            <value value="100" />
+        </Property>
+        <mapKey value="showSplashScreen" />
+        <Property>
+            <name value="showSplashScreen" />
+            <value value="true" />
+        </Property>
+        <mapKey value="testDataPath" />
+        <Property>
+            <name value="testDataPath" />
+            <noPathSet value="true" />
+            <value value="" />
+        </Property>
+        <mapKey value="useCaching" />
+        <Property>
+            <name value="useCaching" />
+            <value value="true" />
+        </Property>
+    </Properties>
+</VoreenData>
