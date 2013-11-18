@@ -28,6 +28,49 @@ public:
     virtual std::string getName() = 0;
 };
 
+class SurfaceRep : public MoleculeRep {
+public:
+    SurfaceRep(
+        float atomsRadius = 1.f,
+        float bondsRadius = 0.25f,
+        size_t atomsResolution = 8,
+        size_t bondsResolution = 5,
+        bool atomsVisible = true,
+        bool bondsVisible = true
+    )
+    : atomsRadius_(atomsRadius)
+    , bondsRadius_(bondsRadius)
+    , atomsResolution_(atomsResolution)
+    , bondsResolution_(bondsResolution)
+    , atomsVisible_(atomsVisible)
+    , bondsVisible_(bondsVisible)
+    {  }
+    
+    std::string getName() { return std::string("Surface"); }
+
+    float atomsRadius() { return atomsRadius_; }
+    float bondsRadius() { return bondsRadius_; }
+    size_t atomsResolution() { return atomsResolution_; }
+    size_t bondsResolution() { return bondsResolution_; }
+    bool atomsVisible() { return atomsVisible_; }
+    bool bondsVisible() { return bondsVisible_; }
+    
+    void atomsRadius(float value) { atomsRadius_ = value; }
+    void bondsRadius(float value) { bondsRadius_ = value; }
+    void atomsResolution(size_t value) { atomsResolution_ = value; }
+    void bondsResolution(size_t value) { bondsResolution_ = value; }
+    void atomsVisible(bool value) { atomsVisible_ = value; }
+    void bondsVisible(bool value) { bondsVisible_ = value; }
+
+private:
+    float atomsRadius_;
+    float bondsRadius_;
+    size_t atomsResolution_;
+    size_t bondsResolution_;
+    bool atomsVisible_;
+    bool bondsVisible_;
+};
+
 class BallsAndSticksRep : public MoleculeRep {
 public:
     BallsAndSticksRep(

@@ -23,6 +23,8 @@ public:
     static MeshGeometry createCylinder(tgt::vec3 v1, tgt::vec3 v2, float radius, 
                                 size_t numSides, tgt::vec3 color, bool buildCaps = false);
                                 
+    //static MeshGeometry createSphere(float radius, size_t steps);
+                                
     static MeshListGeometry* createPolyLine(const PolyLine* line, float radius, 
                                 size_t numSides, tgt::vec3 color, bool buildCaps = false);
                                 

@@ -31,14 +31,14 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+# Escaping for special characters.
+EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/class3d/softw/Work/3mview/Voreen
+CMAKE_SOURCE_DIR = /home/shurov/3mview/Voreen
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/class3d/softw/Work/3mview/Voreen
+CMAKE_BINARY_DIR = /home/shurov/3mview/Voreen
 
 # Utility rule file for voreenve_gch.
 
@@ -48,9 +48,9 @@ include apps/voreenve/CMakeFiles/voreenve_gch.dir/progress.make
 apps/voreenve/CMakeFiles/voreenve_gch: apps/voreenve/pch_ve.h.gch/.c++
 
 apps/voreenve/pch_ve.h.gch/.c++: apps/voreenve/pch_ve.h
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/shurov/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating pch_ve.h.gch/.c++"
-	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && /usr/bin/c++ -I/home/class3d/softw/Work/3mview/Voreen -I/home/class3d/softw/Work/3mview/Voreen/include -I/home/class3d/softw/Work/3mview/Voreen/ext -I/usr/include -I/home/class3d/softw/Work/3mview/Voreen/../boost-1.52.0/include -I/home/class3d/softw/Work/3mview/Voreen/ext/eigen -I/home/class3d/softw/Work/3mview/Voreen/../openbabel-2.3.2/include -I/home/class3d/softw/Work/3mview/Voreen/modules/connexe/ext/connexe -I/usr/include/IL -I/home/class3d/softw/Work/3mview/Voreen/modules/plotting/ext/triangle -I/home/class3d/softw/Work/3mview/Voreen/modules/volumelabeling/ext/jama/include -I/usr/include/qt4 -I/usr/include/qt4/QtOpenGL -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtCore -I/home/class3d/softw/Work/3mview/Voreen/apps/voreenve -DVRN_SHARED_LIBS -DUNIX -D__STDC_CONSTANT_MACROS -DTIXML_USE_STL -DTGT_WITHOUT_DEFINES -DTGT_DEBUG -DVRN_DEBUG -DEIGEN_PERMANENTLY_DISABLE_STUPID_WARNINGS -DVRN_MODULE_ADVANCEDLIGHTING -DVRN_MODULE_BASE -DVRN_MODULE_CONNEXE -DVRN_MODULE_CORE -DVRN_MODULE_DEVIL -DTGT_HAS_DEVIL -DVRN_MODULE_DYNAMICGLSL -DVRN_MODULE_FLOWREEN -DVRN_MODULE_PLOTTING -DVRN_MODULE_PVM -DVRN_MODULE_SEGY -DVRN_MODULE_STAGING -DVRN_MODULE_VOLUMELABELING -DVRN_MODULE_ZIP -DVRN_MODULE_ELECTRONDENSITY -DVRN_MODULE_FORMCHARACTERISTICS -DVRN_MODULE_GEOMETRY -DVRN_MODULE_HOMOLOGY -DVRN_MODULE_MOLECULE -DVRN_MODULE_STEREO -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -x c++-header -o /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/pch_ve.h.gch/.c++ /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/pch_ve.h
+	cd /home/shurov/3mview/Voreen/apps/voreenve && /usr/bin/c++ -I/home/shurov/3mview/Voreen -I/home/shurov/3mview/Voreen/include -I/home/shurov/3mview/Voreen/ext -I/home/shurov/3mview/Voreen -I/home/shurov/3mview/Voreen -I/usr/include -I/usr/include -I/usr/include -I/home/shurov/3mview/Voreen/ext/eigen -I/home/shurov/3mview/Voreen/../openbabel-2.3.2/include -I/home/shurov/3mview/Voreen/modules/connexe/ext/connexe -I/usr/include/IL -I/home/shurov/3mview/Voreen/modules/plotting/ext/triangle -I/home/shurov/3mview/Voreen/modules/volumelabeling/ext/jama/include -I/usr/include -I/usr/include/qt4 -I/usr/include/qt4/QtOpenGL -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtCore -I/home/shurov/3mview/Voreen/apps/voreenve -DVRN_SHARED_LIBS -DUNIX -D__STDC_CONSTANT_MACROS -DTIXML_USE_STL -DTGT_WITHOUT_DEFINES -DTGT_DEBUG -DVRN_DEBUG -DEIGEN_PERMANENTLY_DISABLE_STUPID_WARNINGS -DVRN_MODULE_ADVANCEDLIGHTING -DVRN_MODULE_BASE -DVRN_MODULE_CONNEXE -DVRN_MODULE_CORE -DVRN_MODULE_DEVIL -DTGT_HAS_DEVIL -DVRN_MODULE_DYNAMICGLSL -DVRN_MODULE_FLOWREEN -DVRN_MODULE_PLOTTING -DVRN_MODULE_PVM -DVRN_MODULE_SEGY -DVRN_MODULE_STAGING -DVRN_MODULE_VOLUMELABELING -DVRN_MODULE_ZIP -DVRN_MODULE_ELECTRONDENSITY -DVRN_MODULE_FORMCHARACTERISTICS -DVRN_MODULE_GEOMETRY -DVRN_MODULE_HOMOLOGY -DVRN_MODULE_MOLECULE -DVRN_MODULE_STEREO -DVRN_MODULE_SYSTEMMODULES -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -x c++-header -o /home/shurov/3mview/Voreen/apps/voreenve/pch_ve.h.gch/.c++ /home/shurov/3mview/Voreen/apps/voreenve/pch_ve.h
 
 voreenve_gch: apps/voreenve/CMakeFiles/voreenve_gch
 voreenve_gch: apps/voreenve/pch_ve.h.gch/.c++
@@ -62,10 +62,10 @@ apps/voreenve/CMakeFiles/voreenve_gch.dir/build: voreenve_gch
 .PHONY : apps/voreenve/CMakeFiles/voreenve_gch.dir/build
 
 apps/voreenve/CMakeFiles/voreenve_gch.dir/clean:
-	cd /home/class3d/softw/Work/3mview/Voreen/apps/voreenve && $(CMAKE_COMMAND) -P CMakeFiles/voreenve_gch.dir/cmake_clean.cmake
+	cd /home/shurov/3mview/Voreen/apps/voreenve && $(CMAKE_COMMAND) -P CMakeFiles/voreenve_gch.dir/cmake_clean.cmake
 .PHONY : apps/voreenve/CMakeFiles/voreenve_gch.dir/clean
 
 apps/voreenve/CMakeFiles/voreenve_gch.dir/depend:
-	cd /home/class3d/softw/Work/3mview/Voreen && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/class3d/softw/Work/3mview/Voreen /home/class3d/softw/Work/3mview/Voreen/apps/voreenve /home/class3d/softw/Work/3mview/Voreen /home/class3d/softw/Work/3mview/Voreen/apps/voreenve /home/class3d/softw/Work/3mview/Voreen/apps/voreenve/CMakeFiles/voreenve_gch.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/shurov/3mview/Voreen && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/shurov/3mview/Voreen /home/shurov/3mview/Voreen/apps/voreenve /home/shurov/3mview/Voreen /home/shurov/3mview/Voreen/apps/voreenve /home/shurov/3mview/Voreen/apps/voreenve/CMakeFiles/voreenve_gch.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : apps/voreenve/CMakeFiles/voreenve_gch.dir/depend
 

@@ -223,6 +223,8 @@ TARGET_LINK_LIBRARIES(voreenve ${QT_LIBRARIES} )
 # add OpenBabel dependency
 TARGET_LINK_LIBRARIES(voreenve openbabel)
 
+TARGET_LINK_LIBRARIES(voreenve CGAL gmp mpfr)
+
 # add Boost dependency
 TARGET_LINK_LIBRARIES(voreenve ${BOOST_LIBRARIES})
 

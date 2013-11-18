@@ -12,6 +12,7 @@ MoleculeRepresentation::MoleculeRepresentation()
 {
     repType_.addOption("BallsAndSticks", "Balls and sticks");
     repType_.addOption("Ribbons", "Ribbons");
+    repType_.addOption("Surface", "Surface");
     
     addProperty(moleculeURLlist_);
     addProperty(repType_);
@@ -44,6 +45,7 @@ void MoleculeRepresentation::updateRepresentation() {
 
         if (repType_.get() == "BallsAndSticks") mol->setRepresentation(new BallsAndSticksRep());
         else if (repType_.get() == "Ribbons") mol->setRepresentation(new RibbonsRep());
+        else if (repType_.get() == "Surface") mol->setRepresentation(new SurfaceRep());
     }
 
 }

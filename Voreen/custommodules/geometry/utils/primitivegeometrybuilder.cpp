@@ -22,6 +22,23 @@ MeshGeometry PrimitiveGeometryBuilder::createCylinder(tgt::vec3 v1, tgt::vec3 v2
     return buildCylinderMesh(vertices, numSides, color);
 }
 
+/*
+static MeshGeometry PrimitiveGeometryBuilder::createSphere(float radius, size_t steps) {
+    MeshGeometry geom;
+        for(int i=0; i < steps; i++) {
+            float x1 = 2*i/float(steps) -1;
+            float x2 = 2*(i+1)/float(steps) -1;
+            float R1 = radius * sqrt(1 - x1*x1);
+            float R2 = radius * sqrt(1 - x2*x2);
+            tgt::vec3 v1( a->x() + radius*x1, a->y(), a->z());
+            tgt::vec3 v2( a->x() + radius*x2, a->y(), a->z());
+            
+            MeshGeometry cone = PrimitiveGeometryBuilder::createConeCylinder(v1,v2,R1,R2,steps,acolor,true);
+            moleculeGeometry->addMesh(cone);
+        }  
+}
+*/
+
 MeshListGeometry* PrimitiveGeometryBuilder::createPolyLine(const PolyLine* line, float radius, 
                                 size_t numSides, tgt::vec3 color, bool buildCaps) {
     MeshListGeometry* geometry = new MeshListGeometry();

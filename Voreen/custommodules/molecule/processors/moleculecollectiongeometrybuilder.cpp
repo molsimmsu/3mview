@@ -3,13 +3,23 @@
 #include "voreen/core/datastructures/geometry/meshlistgeometry.h"
 
 #include "../../geometry/utils/primitivegeometrybuilder.h"
+#include "../../formcharacteristics/datastructures/pointcloud.h"
 
 #include "tgt/vector.h"
 using tgt::vec3;
 
 #include <iostream>
 
-
+#define CGAL_DISABLE_ROUNDING_MATH_CHECK
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/make_skin_surface_mesh_3.h>
+#include <list>
+typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
+typedef K::Point_3 Bare_point;
+typedef CGAL::Weighted_point<Bare_point,K::RT> Weighted_point;
+typedef CGAL::Polyhedron_3<K> Polyhedron;
+typedef Polyhedron::Facet_iterator Facet_iterator;
+typedef Polyhedron::Halfedge_around_facet_circulator Halfedge_facet_circulator;
 
 MoleculeCollectionGeometryBuilder::MoleculeCollectionGeometryBuilder()
   : Processor()
@@ -121,6 +131,7 @@ void MoleculeCollectionGeometryBuilder::createMoleculeGeometry(const Molecule* m
     
           if (rep->getName() == "BallsAndSticks") molGeom = buildAtomsAndBondsGeometry(mol);
     else if (rep->getName() == "Ribbons") molGeom = buildBackboneTraceGeometry(mol);
+    else if (rep->getName() == "Surface") molGeom = buildSurfaceGeometry(mol);
     else {
         LERROR("Unknown representation name");
         return;
@@ -160,7 +171,7 @@ MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(
         tgt::vec3 atomCoords(a->x(), a->y(), a->z());
         tgt::vec3 acolor = getAtomColor(a->atomicNumber());
         
-        for(int i=0; i < steps; i++){
+        for(int i=0; i < steps; i++) {
             float x1 = 2*i/float(steps) -1;
             float x2 = 2*(i+1)/float(steps) -1;
             float R1 = radius * sqrt(1 - x1*x1);
@@ -192,6 +203,65 @@ MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry(
         moleculeGeometry->addMesh(cyl2);
     }
     
+    return moleculeGeometry;
+}
+
+MoleculeGeometry* MoleculeCollectionGeometryBuilder::buildSurfaceGeometry(const Molecule* molecule) {
+    tgtAssert(molecule, "molecule parameter is NULL at MoleculeCollectionGeometryBuilder::buildAtomsAndBondsGeometry()");
+    
+    MoleculeGeometry* moleculeGeometry = new MoleculeGeometry(molecule);
+    
+    SurfaceRep* rep = dynamic_cast<SurfaceRep*>(molecule->getRepresentation());
+    
+    float radius = rep->atomsRadius();
+    float bondRadius = rep->bondsRadius();
+    size_t steps = rep->atomsResolution();
+    size_t bondSteps = rep->bondsResolution();
+    
+	PointCloud cloud;
+	cloud.MoleculeFill(molecule);
+    
+    std::list<Weighted_point> l;
+    double shrinkfactor = 0.5;
+    
+    for (size_t i = 0; i < cloud.entries_num; i++) {
+        tgt::vec3 point = cloud.points[i];
+        l.push_front(Weighted_point(Bare_point(point[0],point[1], point[2]), radius));
+    }
+    
+    Polyhedron P;
+    CGAL::make_skin_surface_mesh_3(P, l.begin(), l.end(), shrinkfactor);
+
+    for ( Facet_iterator i = P.facets_begin(); i != P.facets_end(); ++i) {
+        Halfedge_facet_circulator j = i->facet_begin();
+        // Facets in polyhedral surfaces are at least triangles.
+        CGAL_assertion( CGAL::circulator_size(j) >= 3);
+        
+        std::cout << CGAL::circulator_size(j) << ' ';
+                
+        std::vector<tgt::vec3> vertices;
+        
+        do {
+            Polyhedron::Point_3 p = j->vertex()->point();
+            vertices.push_back(tgt::vec3(p[0],p[1],p[2]));
+        } while ( ++j != i->facet_begin());
+        std::cout << std::endl;
+        
+        
+        FaceGeometry face;
+        tgt::vec4 color4(0.7, 0.7, 0.7, 1.0);
+        tgt::vec3 faceNormal = tgt::cross(vertices[1] - vertices[0], vertices[2] - vertices[0]);
+        VertexGeometry fv1(vertices[0], tgt::vec3(0.f), color4, faceNormal);
+        VertexGeometry fv2(vertices[1], tgt::vec3(0.f), color4, faceNormal);
+        VertexGeometry fv3(vertices[2], tgt::vec3(0.f), color4, faceNormal);
+        face.addVertex(fv1);
+        face.addVertex(fv2);
+        face.addVertex(fv3);
+        
+        moleculeGeometry->addFace(face);
+
+    }
+
     return moleculeGeometry;
 }
 

@@ -66,6 +66,7 @@ protected:
      */
     MoleculeGeometry* buildAtomsAndBondsGeometry(const Molecule* molecule);
     MoleculeGeometry* buildBackboneTraceGeometry(const Molecule* molecule);
+    MoleculeGeometry* buildSurfaceGeometry(const Molecule* molecule);
     
     tgt::vec3 getAtomColor(int a);
 

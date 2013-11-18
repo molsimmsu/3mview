@@ -31,14 +31,14 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+# Escaping for special characters.
+EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/class3d/softw/Work/3mview/Voreen
+CMAKE_SOURCE_DIR = /home/shurov/3mview/Voreen
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/class3d/softw/Work/3mview/Voreen
+CMAKE_BINARY_DIR = /home/shurov/3mview/Voreen
 
 # Include any dependencies generated for this target.
 include apps/3mview/CMakeFiles/3mview.dir/depend.make
@@ -51,17 +51,17 @@ include apps/3mview/CMakeFiles/3mview.dir/flags.make
 
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: apps/3mview/CMakeFiles/3mview.dir/flags.make
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o: apps/3mview/main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/class3d/softw/Work/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/shurov/3mview/Voreen/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object apps/3mview/CMakeFiles/3mview.dir/main.cpp.o"
-	cd /home/class3d/softw/Work/3mview/Voreen/apps/3mview && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/3mview.dir/main.cpp.o -c /home/class3d/softw/Work/3mview/Voreen/apps/3mview/main.cpp
+	cd /home/shurov/3mview/Voreen/apps/3mview && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/3mview.dir/main.cpp.o -c /home/shurov/3mview/Voreen/apps/3mview/main.cpp
 
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/3mview.dir/main.cpp.i"
-	cd /home/class3d/softw/Work/3mview/Voreen/apps/3mview && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/class3d/softw/Work/3mview/Voreen/apps/3mview/main.cpp > CMakeFiles/3mview.dir/main.cpp.i
+	cd /home/shurov/3mview/Voreen/apps/3mview && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/shurov/3mview/Voreen/apps/3mview/main.cpp > CMakeFiles/3mview.dir/main.cpp.i
 
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/3mview.dir/main.cpp.s"
-	cd /home/class3d/softw/Work/3mview/Voreen/apps/3mview && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/class3d/softw/Work/3mview/Voreen/apps/3mview/main.cpp -o CMakeFiles/3mview.dir/main.cpp.s
+	cd /home/shurov/3mview/Voreen/apps/3mview && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/shurov/3mview/Voreen/apps/3mview/main.cpp -o CMakeFiles/3mview.dir/main.cpp.s
 
 apps/3mview/CMakeFiles/3mview.dir/main.cpp.o.requires:
 .PHONY : apps/3mview/CMakeFiles/3mview.dir/main.cpp.o.requires
@@ -80,6 +80,7 @@ apps/3mview/CMakeFiles/3mview.dir/main.cpp.o.provides.build: apps/3mview/CMakeFi
 3mview_EXTERNAL_OBJECTS =
 
 bin/3mview: apps/3mview/CMakeFiles/3mview.dir/main.cpp.o
+bin/3mview: apps/3mview/CMakeFiles/3mview.dir/build.make
 bin/3mview: bin/libtgt.so
 bin/3mview: bin/libvoreen_core.so
 bin/3mview: bin/libvoreen_qt.so
@@ -90,6 +91,12 @@ bin/3mview: /usr/lib/x86_64-linux-gnu/libICE.so
 bin/3mview: /usr/lib/x86_64-linux-gnu/libX11.so
 bin/3mview: /usr/lib/x86_64-linux-gnu/libXext.so
 bin/3mview: /usr/lib/x86_64-linux-gnu/libGLEW.so
+bin/3mview: /usr/lib/libboost_date_time-mt.so
+bin/3mview: /usr/lib/libboost_prg_exec_monitor-mt.so
+bin/3mview: /usr/lib/libboost_program_options-mt.so
+bin/3mview: /usr/lib/libboost_regex-mt.so
+bin/3mview: /usr/lib/libboost_thread-mt.so
+bin/3mview: /usr/lib/libboost_unit_test_framework-mt.so
 bin/3mview: /usr/lib/libIL.so
 bin/3mview: /usr/lib/libILU.so
 bin/3mview: /usr/lib/x86_64-linux-gnu/libz.so
@@ -105,13 +112,18 @@ bin/3mview: /usr/lib/x86_64-linux-gnu/libICE.so
 bin/3mview: /usr/lib/x86_64-linux-gnu/libX11.so
 bin/3mview: /usr/lib/x86_64-linux-gnu/libXext.so
 bin/3mview: /usr/lib/x86_64-linux-gnu/libGLEW.so
+bin/3mview: /usr/lib/libboost_date_time-mt.so
+bin/3mview: /usr/lib/libboost_prg_exec_monitor-mt.so
+bin/3mview: /usr/lib/libboost_program_options-mt.so
+bin/3mview: /usr/lib/libboost_regex-mt.so
+bin/3mview: /usr/lib/libboost_thread-mt.so
+bin/3mview: /usr/lib/libboost_unit_test_framework-mt.so
 bin/3mview: /usr/lib/libIL.so
 bin/3mview: /usr/lib/libILU.so
 bin/3mview: /usr/lib/x86_64-linux-gnu/libz.so
-bin/3mview: apps/3mview/CMakeFiles/3mview.dir/build.make
 bin/3mview: apps/3mview/CMakeFiles/3mview.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable ../../bin/3mview"
-	cd /home/class3d/softw/Work/3mview/Voreen/apps/3mview && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/3mview.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/shurov/3mview/Voreen/apps/3mview && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/3mview.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 apps/3mview/CMakeFiles/3mview.dir/build: bin/3mview
@@ -121,10 +133,10 @@ apps/3mview/CMakeFiles/3mview.dir/requires: apps/3mview/CMakeFiles/3mview.dir/ma
 .PHONY : apps/3mview/CMakeFiles/3mview.dir/requires
 
 apps/3mview/CMakeFiles/3mview.dir/clean:
-	cd /home/class3d/softw/Work/3mview/Voreen/apps/3mview && $(CMAKE_COMMAND) -P CMakeFiles/3mview.dir/cmake_clean.cmake
+	cd /home/shurov/3mview/Voreen/apps/3mview && $(CMAKE_COMMAND) -P CMakeFiles/3mview.dir/cmake_clean.cmake
 .PHONY : apps/3mview/CMakeFiles/3mview.dir/clean
 
 apps/3mview/CMakeFiles/3mview.dir/depend:
-	cd /home/class3d/softw/Work/3mview/Voreen && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/class3d/softw/Work/3mview/Voreen /home/class3d/softw/Work/3mview/Voreen/apps/3mview /home/class3d/softw/Work/3mview/Voreen /home/class3d/softw/Work/3mview/Voreen/apps/3mview /home/class3d/softw/Work/3mview/Voreen/apps/3mview/CMakeFiles/3mview.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/shurov/3mview/Voreen && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/shurov/3mview/Voreen /home/shurov/3mview/Voreen/apps/3mview /home/shurov/3mview/Voreen /home/shurov/3mview/Voreen/apps/3mview /home/shurov/3mview/Voreen/apps/3mview/CMakeFiles/3mview.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : apps/3mview/CMakeFiles/3mview.dir/depend
 
