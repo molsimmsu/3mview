@@ -19,6 +19,7 @@ SET(MOD_CORE_SOURCES
     #${MOD_DIR}/processors/score.cpp
     
     ${MOD_DIR}/io/mrcvolumereader.cpp
+    ${MOD_DIR}/io/dxvolumereader.cpp
     
     ${MOD_DIR}/properties/transfunclistproperty.cpp
 )
@@ -42,6 +43,7 @@ SET(MOD_CORE_HEADERS
     #${MOD_DIR}/processors/score.h
     
     ${MOD_DIR}/io/mrcvolumereader.h
+    ${MOD_DIR}/io/dxvolumereader.h
     
     ${MOD_DIR}/properties/transfunclistproperty.h
 )

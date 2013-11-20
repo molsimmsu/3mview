@@ -15,6 +15,7 @@
 #include "processors/score.h"
 
 #include "io/mrcvolumereader.h"
+#include "io/dxvolumereader.h"
 using namespace voreen;
 
 ElectronDensityModule::ElectronDensityModule(const std::string& modulePath) 
@@ -37,4 +38,5 @@ ElectronDensityModule::ElectronDensityModule(const std::string& modulePath)
     //registerProcessor(new Score());
     
     registerVolumeReader(new MRCVolumeReader());
+    registerVolumeReader(new DXVolumeReader());
 }
