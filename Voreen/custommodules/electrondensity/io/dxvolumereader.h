@@ -49,6 +49,8 @@ public:
         throw (tgt::FileException, tgt::IOException, std::bad_alloc);
 
 private:
+
+
     template<typename T>
     T* ptr(T* ptr, int x, int y, int z, int sizeX, int sizeY) {
         return ptr + x + y*sizeX + z*sizeX*sizeY;

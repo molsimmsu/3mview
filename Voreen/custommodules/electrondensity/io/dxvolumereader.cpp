@@ -162,7 +162,7 @@ VolumeCollection* DXVolumeReader::read(const std::string &url)
         int c = axes[2]-1;
         
         targetDataset = new VolumeAtomic<float>(ivec3(dim[a], dim[b], dim[c]));
-
+        
         float rawVoxel;
 
         int i, j, k, line, count, sout;
@@ -191,8 +191,7 @@ VolumeCollection* DXVolumeReader::read(const std::string &url)
                 // success! add to dataset.
                 if (sout == 1) {
                     ++count;
-                    targetDataset->setVoxelNormalized(rawVoxel, ivec3(i, j, k));
-                    //targetDataset =VolumeAtomic<float>::voxel(ivec3(i, j, k))=rawVoxel;
+                    ((VolumeAtomic<float>*)targetDataset)->voxel(ivec3(i, j, k))=rawVoxel;
                     k++;
                     if (k >= dim[c]) {
                         k = 0; j++;
@@ -207,17 +206,8 @@ VolumeCollection* DXVolumeReader::read(const std::string &url)
             }
         }
 
-
-
         
-        
-        //targetDataset->VolumeAtomic<float>::voxel(ivec3(i, j, k))=value
 
-        //fillVolume<float>(targetDataset, data, dim, axes);
-          
-        //free(data);
-     
-        
         tgt::Matrix4<float> transform
         (
             1.0f, 0.0f, 0.0f, 0,
