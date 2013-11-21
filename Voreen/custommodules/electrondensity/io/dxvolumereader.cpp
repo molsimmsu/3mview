@@ -67,6 +67,9 @@ VolumeCollection* DXVolumeReader::read(const std::string &url)
     LINFO(fileName);
     
     std::ifstream dx;
+    // FIXME! Locale settings force ifstream to use russian decimical sign!
+    dx.imbue(std::locale("en_US.UTF-8")); // does not work =(
+    //---------------------------------------------------------------------
     dx.open(fileName.c_str());
     if (!dx.is_open()) {
         LWARNING("Can't open stream");
@@ -75,7 +78,7 @@ VolumeCollection* DXVolumeReader::read(const std::string &url)
     
         char inbuffer[LINELENGTH];
         int dim[3]; // grid dimensions i.e. numbers of voxels for each dimension
-        float origin[3]; float xscale[3]; float yscale[3]; float zscale[3]; float tempscale[3];
+        float origin[3]; float scale[3];
         bool isBinary=false;
         //skip comments
         do{dx.getline(inbuffer,LINELENGTH);
@@ -97,40 +100,34 @@ VolumeCollection* DXVolumeReader::read(const std::string &url)
         std::cout << inbuffer << std::endl; 
         if (std::sscanf(inbuffer, "origin %e %e %e", origin, origin+1, origin+2) != 3) {
             LWARNING("Error reading grid origin.");
-            std::cout << "originX: " << origin[0] << std::endl; 
-            std::cout << "originY: " << origin[1] << std::endl; 
-            std::cout << "originZ: " << origin[2] << std::endl; 
             return NULL;
         }
-        std::cout << "originX: " << origin[0] << std::endl; 
-        std::cout << "originY: " << origin[1] << std::endl; 
-        std::cout << "originZ: " << origin[2] << std::endl;        
-        
+
         /* get the cell dimensions, axis may be any vector from i element ro i+1
         no messing with angles*/
         dx.getline(inbuffer,LINELENGTH);
-        if (std::sscanf(inbuffer, "delta %e %e %e", xscale, xscale+1, xscale+2) != 3) {
+        if (std::sscanf(inbuffer, "delta %e %*e %*e", scale) != 1) {
             LWARNING("Error reading cell x-scaling.");
             return NULL;
         }
+        //std::cout << "scaleX: " << scale[0] << std::endl;
         dx.getline(inbuffer,LINELENGTH);
-        if (std::sscanf(inbuffer, "delta %e %e %e", yscale, yscale+1, yscale+2) != 3) {
+        if (std::sscanf(inbuffer, "delta %*e %e %*e", scale+1) != 1) {
             LWARNING("Error reading cell y-scaling.");
             return NULL;
         }
+        //std::cout << "scaleY: " << scale[1] << std::endl;
         dx.getline(inbuffer,LINELENGTH);
-        if (std::sscanf(inbuffer, "delta %e %e %e", zscale, zscale+1, zscale+2) != 3) {
+        if (std::sscanf(inbuffer, "delta %*e %*e %e", scale+2) != 1) {
             LWARNING("Error reading cell z-scaling.");
             return NULL;
         }
-        tempscale[0]=xscale[0];
-        tempscale[1]=yscale[1];
-        tempscale[2]=zscale[2];
-        
-        /*Skip one line because it doe not contain usable info*/
+        //std::cout << "scaleZ: " << scale[2] << std::endl;
+        /*Skip one line because it does not contain usable info*/
         dx.getline(inbuffer,LINELENGTH);
         
         /* Lets find out if the info is binary or not  */
+        /*----------------FIXME add binary data support*/
         dx.getline(inbuffer,LINELENGTH);
         if (std::strstr(inbuffer, "binary")) {
             isBinary = true;
@@ -139,29 +136,10 @@ VolumeCollection* DXVolumeReader::read(const std::string &url)
         int dataSize = 4; // 32-bit reals
         int totalDataSize = dataSize * numVoxels;
                 
-        int axes[3]={1, 2, 3};
-
-/*
-
-
-        void* data = malloc(totalDataSize);
-
-
-
-        mrc.seekg(1024, std::ios::beg);
-        mrc.read((char*)data, totalDataSize);
-        mrc.close();
-*/
-
         
         VolumeRAM* targetDataset;
-        
-        
-        int a = axes[0]-1;
-        int b = axes[1]-1;
-        int c = axes[2]-1;
-        
-        targetDataset = new VolumeAtomic<float>(ivec3(dim[a], dim[b], dim[c]));
+
+        targetDataset = new VolumeAtomic<float>(ivec3(dim[0], dim[1], dim[2]));
         
         float rawVoxel;
 
@@ -182,44 +160,39 @@ VolumeCollection* DXVolumeReader::read(const std::string &url)
                 sout = sscanf(p, "%e", &rawVoxel);
                 if (sout < 0) break; // end of line/string. get a new one.
            
-                // a 0 return value means non-parsable as number.
+                // non-parsable as number.
                 if (*p == 0) 
                 {   LWARNING("unparsable input");
-                    //return NULL;
+                    return NULL;
                 }
              
-                // success! add to dataset.
+                // add info to targetDataset.
                 if (sout == 1) {
                     ++count;
+                    
                     ((VolumeAtomic<float>*)targetDataset)->voxel(ivec3(i, j, k))=rawVoxel;
+                    
                     k++;
-                    if (k >= dim[c]) {
+                    if (k >= dim[2]) {
                         k = 0; j++;
-                            if (j >= dim[b]) {
+                            if (j >= dim[1]) {
                              j = 0; i++;
                         }
                     }
                 }
-             
-                   // skip over the parsed text and search for next blank.
+                // skip over the parsed text and search for next blank.
                    while (*p != '\0' && *p != ' ' && *p != '\t' && *p != '\n') ++p;
             }
         }
 
         
 
-        tgt::Matrix4<float> transform
-        (
-            1.0f, 0.0f, 0.0f, 0,
-            0.0f, 1.0f, 0.0f, 0,
-            0.0f, 0.0f, 1.0f, 0,
-            0.0f, 0.0f, 0.0f, 1.0f
-        );
+        tgt::Matrix4<float> transform = tgt::Matrix4<float>::createIdentity();
         
         Volume* volumeHandle = new MoleculeVolume(
             targetDataset,                                      // data
-            vec3(tempscale[a], tempscale[b], tempscale[c]),     // scale
-            vec3(origin[a], origin[b], origin[c]),              // offset
+            vec3(scale[0], scale[1], scale[2]),                 // scale
+            vec3(origin[0], origin[1], origin[2]),              // offset
             transform                                           // transform
         );
         

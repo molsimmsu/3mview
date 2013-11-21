@@ -56,21 +56,6 @@ private:
         return ptr + x + y*sizeX + z*sizeX*sizeY;
     }
     
-    template<typename T>
-    void fillVolume(VolumeRAM* targetDataset, void* data, int dim[3], int axes[3]) {
-        int a = axes[0]-1;
-        int b = axes[1]-1;
-        int c = axes[2]-1;
-        
-        size_t i[3];
-        for (i[2] = 0; i[2] < dim[c]; i[2]++)
-        for (i[1] = 0; i[1] < dim[b]; i[1]++)
-        for (i[0] = 0; i[0] < dim[a]; i[0]++)
-        {
-            ((VolumeAtomic<T>*)targetDataset)->voxel(i[0],i[1],i[2]) = *ptr<T>((T*)data, i[a], i[b], i[c], dim[b], dim[a]);
-        }
-    }
-
     static const std::string loggerCat_;
 };
 
