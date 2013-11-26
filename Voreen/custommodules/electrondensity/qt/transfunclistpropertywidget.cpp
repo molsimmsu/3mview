@@ -191,7 +191,7 @@ void TransFuncListPropertyWidget::itemSelected(QTreeWidgetItem*, int) {
     if (typeid(*v) == typeid(MoleculeVolume)) {
         TransFunc* tf = dynamic_cast<MoleculeVolume*>(v)->getTransFunc();
         //TransFunc* tf = new TransFunc1DKeys();
-        
+        property_->setVolumeHandle(v);
         property_->set(tf);
 
         if (editorWindow_) {
