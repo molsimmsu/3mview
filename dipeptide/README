@@ -1,0 +1,18 @@
+== Конвейер для массового производства, динамики и исследования пептидов ==
+
+1) Создание пептида по аминокислотной последовательности
+    $ buildseq.sh [имя выходного каталога] [список аминокислот через пробел]
+        
+    Пример:
+    $ buildseq.sh seq ALA GLY
+    
+    На выходе файл seq/ALA-GLY.seq
+    
+2) Создание
+
+
+$ buildseq.sh seq ALA GLY
+$ seq2pdb.pl seq/ALA-GLY.seq pdb/ALA-GLY.pdb
+$ makepsf.sh pdb/ALA-GLY.pdb psf/ALA-GLY.psf top_all36_prot.rtf
+
+export PATH=$PATH:/home/shurov/NAMD && cd dipeptide && ./runinterval.sh 5 8
