@@ -1,23 +1,52 @@
 #include <vector>
 #include <string>
 
-template <typename T>
-class Column {
+class ColumnBase {
 public:
-    Column(std::string title);
-    Column(std::string title, T defaultValue);
+	ColumnBase(std::string title) :
+	    title_(title)
+	{}
+
+    std::string getTitle() const {
+        return title_;
+    }
     
-    size_t numRows() const;
+    void setTitle(std::string title) {
+        title_ = title;
+    }
+
+private:
+    std::string title_;
+};
+
+template <typename T>
+class Column : public ColumnBase {
+public:
+    Column(std::string title) :
+        ColumnBase(title)
+    {}
     
-    T getValue(size_t row) const;
+    Column(std::string title, T defaultValue) :
+        ColumnBase(title),
+        defaultValue_(defaultValue)
+    {}
     
-    void setValue(T value, size_t row);
+    size_t numRows() const {
+        return values_.size();
+    }
+    
+    T getValue(size_t row) const {
+        if (row >= numRows())
+            return defaultValue_;
+            
+        return values_[row];
+    }
+    
+    void setValue(T value, size_t row) {
+        
+    }
     
 private:
     std::vector<T> values_;
-    std::string title_;
     T defaultValue_;
 };
-
-typedef std::vector<size_t> TableIndexList;
-typedef Column<float> ColumnFloat;
